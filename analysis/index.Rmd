@@ -1,5 +1,5 @@
 ---
-title: "Home"
+title: "Manuscript H2O2 dynamic signaling"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -8,4 +8,16 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+
+## Description
+
+This is the analysis folder for the flow cytometry data of the H2O2 dynamic signaling manuscript.
+
+
+## In this repository
+
+[Gating](a_gating.html) contains the gating strategy for all analyses.
+
+[Annotation](b_annotation.html) contains the annotation of the gated data with experimental metadata.
+
+[Gradients](c_gradients.html) contains the analysis of the gradient data.

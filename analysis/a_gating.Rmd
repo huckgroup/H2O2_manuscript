@@ -1,0 +1,520 @@
+---
+title: "Gating strategy"
+author: "mwitmond"
+date: "2023-03-08"
+output:
+  workflowr::wflow_html:
+    toc: TRUE
+    code_folding: hide
+editor_options:
+  chunk_output_type: console
+---
+
+
+## Set-up
+
+```{r setup, message=F, warning=F}
+knitr::opts_chunk$set(
+  message = F, warning = F, echo = T, eval = T
+)
+
+# Load required packages
+source("code/packages_FACS.R", local = knitr::knit_global())
+```
+
+```{r fig_settings}
+row_order = c("A", "B", "C", "D", "E", "F", "G", "H")
+col_order = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
+panel_labels <- c("A", "B", "C","D", "E", "F", "G", "H", "I", "J", "K", "L", "M")
+
+textsize <- theme(axis.text.x = element_text(colour = "grey", size = 12, face = "bold"),
+                  axis.text.y = element_text(colour = "grey", size = 12, face = "bold"),
+                  axis.title = element_text(colour = "black", size = 12, face = "bold"), 
+                  # legend.title = element_text(colour = "black", size = 12, face = "bold"), 
+                  legend.title = element_blank(), 
+                  legend.text = element_text(colour = "grey", size = 12, face = "bold"), 
+                  strip.text.x = element_text(colour = "black", size = 12, face = "bold")
+)
+
+textsize_small <- theme(text = element_text(size = 7, family = "sans", colour = "black"),
+                        plot.title = element_text(size = 8)
+)
+
+colors_dark9 <- c("#4daf4a", "#984ea3", "#ffff33", "#ff7f00", "#e41a1c", "#f781bf", "#a65628", "#999999", "#377eb8")
+colors_light12 <- c("#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#ffed6f")
+```
+
+
+
+## DS.085: Linear gradients with conc-based sampling
+
+### Data
+
+Read the .fcs files and create a FlowSet object with metadata
+```{r data_DS085}
+# Read files with the FlowSet function
+fs_A_DS085 <- read.flowSet(path = "data/DS085_LinGradient_Conc/fcs_plateA", pattern = ".fcs", alter.names = T)
+fs_B_DS085 <- read.flowSet(path = "data/DS085_LinGradient_Conc/fcs_plateB", pattern = ".fcs", alter.names = T)
+```
+
+```{r metadata_DS085}
+# Extract information on wellID, row and column from the file name
+# Format of file name: wellID_number_date_time.fcs
+# Plate A
+pData(fs_A_DS085)$wellID <- gsub("(.*)_.*_.*_.*.fcs", "\\1", sampleNames(fs_A_DS085))
+pData(fs_A_DS085)$rowID <- gsub("(.).*", "\\1", pData(fs_A_DS085)$wellID)
+pData(fs_A_DS085)$colID <- as.numeric(gsub(".(.*)", "\\1", pData(fs_A_DS085)$wellID))
+pData(fs_A_DS085)$expID <- "DS085"
+pData(fs_A_DS085)$plateID <- "A"
+
+kable(pData(fs_A_DS085) %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+
+# Plate B
+pData(fs_B_DS085)$wellID <- gsub("(.*)_.*_.*_.*.fcs", "\\1", sampleNames(fs_B_DS085))
+pData(fs_B_DS085)$rowID <- gsub("(.).*", "\\1", pData(fs_B_DS085)$wellID)
+pData(fs_B_DS085)$colID <- as.numeric(gsub(".(.*)", "\\1", pData(fs_B_DS085)$wellID))
+pData(fs_B_DS085)$expID <- "DS085"
+pData(fs_B_DS085)$plateID <- "B"
+
+kable(pData(fs_B_DS085) %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+
+fs_DS085 <- rbind2(fs_A_DS085, fs_B_DS085)
+```
+
+
+### Debris
+
+Define the gate on debris (SSC-A vs FSC-A): Exclude the lower left data points and those data point that fall at/off the upper and right edges of the plot
+```{r debris_DS085, fig.width=5, fig.height=4}
+# Create a GatingSet object from the FlowSet object
+gs_DS085 <- GatingSet(fs_DS085)
+
+# Manually adjust the numbers and check in the graph to set the right gate
+g_debris_DS085 <- polygonGate(filterId = "Debris", "FSC.A" = c(4e4, 26e4, 26e4, 1e5), "SSC.A" = c(1e4, 1e4, 26e4, 26e4)) # define gate
+
+ggcyto(gs_DS085[[1]], aes(x = FSC.A, y = SSC.A), subset = "root") +
+  geom_hex(bins = 200) +
+  geom_gate(g_debris_DS085) +
+  ggcyto_par_set(limits = "instrument") +
+  labs(x = "Cell size (FSC-A)", y = "Cell complexity (SSC-A)") +
+  theme_bw() +
+  textsize
+```
+***Figure:** Cell size vs cell complexity and debris gate. One exemplary sample.*  
+
+```{r fig_debris_DS085, fig.width=9, fig.height=6}
+# Apply the gate to all data
+gs_pop_add(gs_DS085, g_debris_DS085)
+recompute(gs_DS085)
+
+# Plate A
+ggcyto(subset(gs_DS085, plateID == "A"), aes(x = FSC.A, y = SSC.A), subset = "root") +
+  geom_hex(bins = 100) +
+  geom_gate("Debris") +
+  geom_stats(adjust = 0.8) +
+  ggcyto_par_set(limits = "instrument" ) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = "Cell size (FSC-A)", y = "Cell complexity (SSC-A)", title = "Non-debris from root (plate A)") +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  textsize
+
+# Plate B
+ggcyto(subset(gs_DS085, plateID == "B"), aes(x = FSC.A, y = SSC.A), subset = "root") +
+  geom_hex(bins = 100) +
+  geom_gate("Debris") +
+  geom_stats(adjust = 0.8) +
+  ggcyto_par_set(limits = "instrument" ) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = "Cell size (FSC-A)", y = "Cell complexity (SSC-A)", title = "Non-debris from root (plate B)") +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  textsize
+```
+
+
+### Singlets
+
+Define the gate on singlets (FSC-W vs FSC-H): Exclude all data points that do not fall in the mass of data points
+```{r singlets_DS085, fig.width=5, fig.height=4}
+# Manually adjust the numbers and check in the graph to set right gate
+g_singlets_DS085 <- polygonGate(filterId = "Singlets", "FSC.H" = c(3e4, 6.5e4, 7.5e4, 2.5e4), "FSC.W" = c(8e4, 9e4, 1.4e5, 1.4e5)) # define gate
+
+ggcyto(gs_DS085[[1]], aes(x = FSC.H, y = FSC.W), subset = "Debris") +
+  geom_hex(bins = 200) +
+  geom_gate(g_singlets_DS085) +
+  ggcyto_par_set(limits = "instrument") +
+  labs(x = "Cell size height (FSC-H)", y = "Cell size width (FSC-W)") +
+  theme_bw() +
+  textsize
+```
+***Figure:** Cell size height vs cell size width and singlet cell gate. One exemplary sample.* 
+
+```{r fig_singlets_DS085, fig.width=9, fig.height=6}
+# Apply the gate to all data
+gs_pop_add(gs_DS085, g_singlets_DS085, parent = "Debris")
+recompute(gs_DS085) 
+
+# Plate A
+ggcyto(subset(gs_DS085, plateID == "A"), aes(x = FSC.H, y = FSC.W), subset = "Debris") +
+  geom_hex(bins = 100) +
+  geom_gate("Singlets") +
+  geom_stats(adjust = c(1.5, 0)) +
+  ggcyto_par_set(limits = "instrument") +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = "Cell size height (FSC-H)", y = "Cell size width (FSC-W)", title = "Singlets from non-debris (plate A)") +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  textsize
+
+# Plate B
+ggcyto(subset(gs_DS085, plateID == "B"), aes(x = FSC.H, y = FSC.W), subset = "Debris") +
+  geom_hex(bins = 100) +
+  geom_gate("Singlets") +
+  geom_stats(adjust = c(1.5, 0)) +
+  ggcyto_par_set(limits = "instrument") +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = "Cell size height (FSC-H)", y = "Cell size width (FSC-W)", title = "Singlets from non-debris (plate B)") +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  textsize
+```
+
+
+### Live cells (fixed)
+
+Define the gate on live/dead (fixed) cells (BV421 vs FSC-A): Exclude the upper data points and those data point that fall at/off the right edges of the plot
+```{r live_DS085, fig.width=5, fig.height=4}
+# Manually adjust the numbers and check in the graph to set right gate
+g_live_DS085 <- polygonGate(filterId = "Live", "FSC.A" = c(4.4e4, 1.6e5, 1.6e5, 4.4e4), "BV421.A" = c(1e2, 1e2, 5e3, 2e3)) # define gate
+
+ggcyto(gs_DS085[[1]], aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
+  geom_hex(bins = 200) +
+  geom_gate(g_live_DS085) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e0, 5e4)) +
+  labs(x = "Cell size (FSC-A)", y = "Live/death stain (BV421-A)") +
+  theme_bw() +
+  textsize
+```
+***Figure:** Cell size vs live/death stain and live cell gate. One exemplary sample.* 
+
+```{r fig_live_DS085, fig.width=9, fig.height=6}
+# Apply the gate to all data
+gs_pop_add(gs_DS085, g_live_DS085, parent = "Singlets")
+recompute(gs_DS085) 
+
+# Plate A
+ggcyto(subset(gs_DS085, plateID == "A"), aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
+  geom_hex(bins = 100) +
+  geom_gate("Live") +
+  geom_stats(adjust = 0.8) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e1, 5e4)) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = "Cell size (FSC-A)", y = "Live/death stain (BV421-A)", title = "Live cells from singlets (plate A)") +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  textsize
+
+# Plate B
+ggcyto(subset(gs_DS085, plateID == "B"), aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
+  geom_hex(bins = 100) +
+  geom_gate("Live") +
+  geom_stats(adjust = 0.8) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e1, 5e4)) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = "Cell size (FSC-A)", y = "Live/death stain (BV421-A)", title = "Live cells from singlets (plate B)") +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  textsize
+```
+
+
+### Summary
+
+```{r gating_DS085}
+# Remove previous file if it exist
+if(file.exists(paste0("output/", "gated_data_DS085"))) {
+  unlink(paste0("output/", "gated_data_DS085"), recursive = TRUE)
+}
+
+# Save dataset
+save_gs(gs_DS085, path = paste0("output/", "gated_data_DS085"))
+
+# Gating strategy
+plot(gs_DS085, bool = TRUE)
+```
+***Figure:** Gating strategy.* 
+
+
+### Population statistics
+
+```{r cell_counts_DS085}
+# Get cell counts
+counts_DS085 <- gs_pop_get_count_fast(gs_DS085)
+counts_DS085 <- merge(counts_DS085, pData(fs_DS085), by = "name")
+counts_DS085$PercentParent <- (counts_DS085$Count / counts_DS085$ParentCount) * 100
+
+# Calculate percentage from root
+counts_root_DS085 <- counts_DS085 %>% filter(Parent == "root") %>% select(name, RootCount = ParentCount)
+counts_DS085 <- left_join(counts_DS085, counts_root_DS085)
+counts_DS085$PercentRoot <- (counts_DS085$Count / counts_DS085$RootCount) * 100
+
+# Save the number of cells per well per gate as .csv file
+counts_save_DS085 <- counts_DS085[ , c("plateID", "wellID", "name", "Population", "Count", "ParentCount", "PercentParent", "RootCount", "PercentRoot")]
+write_csv(counts_save_DS085, file = "output/gated_counts_DS085.csv")
+```
+
+```{r fig_cells_DS085, fig.width=6, fig.height=4}
+# Plate A
+counts_final_A_DS085 <- subset(counts_DS085, Population == "/Debris/Singlets/Live" & plateID == "A")
+raw_map(data = counts_final_A_DS085$Count, well = counts_final_A_DS085$wellID, plate = 96, size = 10) +
+  scale_fill_viridis() +
+  labs(title = "Single cell counts (plate A)") +
+  theme_bw() +
+  textsize
+
+# Plate B
+counts_final_B_DS085 <- subset(counts_DS085, Population == "/Debris/Singlets/Live" & plateID == "B")
+raw_map(data = counts_final_B_DS085$Count, well = counts_final_B_DS085$wellID, plate = 96, size = 10) +
+  scale_fill_viridis() +
+  labs(title = "Single cell counts (plate B)") +
+  theme_bw() +
+  textsize
+```
+***Figure:** Number of live single cells after gating (counts per sample/well).* 
+
+```{r live_cells_DS085}
+percent_live_DS085 <- subset(counts_DS085, Population == "/Debris/Singlets/Live")[, c("name", "plateID", "wellID", "PercentRoot")]
+
+# Add metadata per well from custom .csv file
+metadata_DS085 <- read_csv("data/DS085_LinGradient_Conc/metadata_plate_DS085.csv")
+percent_live_DS085 <- left_join(percent_live_DS085, metadata_DS085)
+```
+
+```{r fig_live_percent_DS085, fig.width=6, fig.height=3}
+ggplot(subset(percent_live_DS085, staining == "yes"), aes(x = time_min, y = PercentRoot)) +
+  geom_point(aes(color = factor(stim_description)), size = 2) +
+  facet_wrap(~plateID, ncol = 2) +
+  ylim(0, 100) +
+  scale_x_continuous() +
+  scale_color_manual(
+    values = colors_dark9[1:4],
+    breaks = unique(percent_live_DS085$stim_description),
+    name = "",
+  ) +
+  labs(y = "Percentage live single \ncells from root (%)", x = "Stimulation time (min)") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right") +
+  guides(color = guide_legend(nrow = 2, bycol = TRUE)) +
+  textsize
+```
+***Figure:** Percentage of live single cells from root.*
+
+
+
+## Bas.013: Linear gradients with cum exp-based sampling
+
+### Data
+
+Read the .fcs files and create a FlowSet object with metadata
+```{r data_Bas013}
+# Read files with the FlowSet function
+fs_Bas013 <- read.flowSet(path = "data/Bas013_LinGradient_CumExp/fcs", pattern = ".fcs", alter.names = T)
+```
+
+```{r metadata_Bas013}
+# Extract information on wellID, row and column from the file name
+# Format of file name: wellID_number_date_time.fcs
+pData(fs_Bas013)$wellID <- gsub("(.*)_.*_.*_.*.fcs", "\\1", sampleNames(fs_Bas013))
+pData(fs_Bas013)$rowID <- gsub("(.).*", "\\1", pData(fs_Bas013)$wellID)
+pData(fs_Bas013)$colID <- as.numeric(gsub(".(.*)", "\\1", pData(fs_Bas013)$wellID))
+pData(fs_Bas013)$expID <- "Bas013"
+pData(fs_Bas013)$plateID <- "A"
+
+kable(pData(fs_Bas013) %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Debris
+
+Define the gate on debris (SSC-A vs FSC-A): Exclude the lower left data points and those data point that fall at/off the upper and right edges of the plot
+```{r debris_Bas013, fig.width=5, fig.height=4}
+# Create a GatingSet object from the FlowSet object
+gs_Bas013 <- GatingSet(fs_Bas013)
+
+# Manually adjust the numbers and check in the graph to set the right gate
+g_debris_Bas013 <- polygonGate(filterId = "Debris", "FSC.A" = c(4e4, 26e4, 26e4, 1e5), "SSC.A" = c(1e4, 1e4, 26e4, 26e4)) # define gate
+
+ggcyto(gs_Bas013[[1]], aes(x = FSC.A, y = SSC.A), subset = "root") +
+  geom_hex(bins = 200) +
+  geom_gate(g_debris_Bas013) +
+  ggcyto_par_set(limits = "instrument") +
+  labs(x = "Cell size (FSC-A)", y = "Cell complexity (SSC-A)") +
+  theme_bw() +
+  textsize
+```
+***Figure:** Cell size vs cell complexity and debris gate. One exemplary sample.*  
+
+```{r fig_debris_Bas013, fig.width=9, fig.height=5}
+# Apply the gate to all data
+gs_pop_add(gs_Bas013, g_debris_Bas013)
+recompute(gs_Bas013)
+
+ggcyto(gs_Bas013, aes(x = FSC.A, y = SSC.A), subset = "root") +
+  geom_hex(bins = 100) +
+  geom_gate("Debris") +
+  geom_stats(adjust = 0.8) +
+  ggcyto_par_set(limits = "instrument" ) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = "Cell size (FSC-A)", y = "Cell complexity (SSC-A)", title = "Non-debris from root") +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  textsize
+```
+
+
+### Singlets
+
+Define the gate on singlets (FSC-W vs FSC-H): Exclude all data points that do not fall in the mass of data points
+```{r singlets_Bas013, fig.width=5, fig.height=4}
+# Manually adjust the numbers and check in the graph to set right gate
+g_singlets_Bas013 <- polygonGate(filterId = "Singlets", "FSC.H" = c(3e4, 6e4, 7.5e4, 2.5e4), "FSC.W" = c(8e4, 9e4, 1.4e5, 1.4e5)) # define gate
+
+ggcyto(gs_Bas013[[1]], aes(x = FSC.H, y = FSC.W), subset = "Debris") +
+  geom_hex(bins = 200) +
+  geom_gate(g_singlets_Bas013) +
+  ggcyto_par_set(limits = "instrument") +
+  labs(x = "Cell size height (FSC-H)", y = "Cell size width (FSC-W)") +
+  theme_bw() +
+  textsize
+```
+***Figure:** Cell size height vs cell size width and singlet cell gate. One exemplary sample.* 
+
+```{r fig_singlets_Bas013, fig.width=9, fig.height=5}
+# Apply the gate to all data
+gs_pop_add(gs_Bas013, g_singlets_Bas013, parent = "Debris")
+recompute(gs_Bas013) 
+
+ggcyto(gs_Bas013, aes(x = FSC.H, y = FSC.W), subset = "Debris") +
+  geom_hex(bins = 100) +
+  geom_gate("Singlets") +
+  geom_stats(adjust = c(1.5, 0)) +
+  ggcyto_par_set(limits = "instrument") +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = "Cell size height (FSC-H)", y = "Cell size width (FSC-W)", title = "Singlets from non-debris") +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  textsize
+```
+
+
+### Live cells (fixed)
+
+Define the gate on live/dead (fixed) cells (BV421 vs FSC-A): Exclude the upper data points and those data point that fall at/off the right edges of the plot
+```{r live_Bas013, fig.width=5, fig.height=4}
+# Manually adjust the numbers and check in the graph to set right gate
+g_live_Bas013 <- polygonGate(filterId = "Live", "FSC.A" = c(4.5e4, 1.6e5, 1.6e5, 4.5e4), "BV421.A" = c(5e2, 5e2, 1e4, 5e3)) # define gate
+
+ggcyto(gs_Bas013[[1]], aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
+  geom_hex(bins = 200) +
+  geom_gate(g_live_Bas013) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e0, 5e4)) +
+  labs(x = "Cell size (FSC-A)", y = "Live/death stain (BV421-A)") +
+  theme_bw() +
+  textsize
+```
+***Figure:** Cell size vs live/death stain and live cell gate. One exemplary sample.* 
+
+```{r fig_live_Bas013, fig.width=9, fig.height=6}
+# Apply the gate to all data
+gs_pop_add(gs_Bas013, g_live_Bas013, parent = "Singlets")
+recompute(gs_Bas013) 
+
+ggcyto(gs_Bas013, aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
+  geom_hex(bins = 100) +
+  geom_gate("Live") +
+  geom_stats(adjust = 0.8) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e2, 5e4)) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = "Cell size (FSC-A)", y = "Live/death stain (BV421-A)", title = "Live cells from singlets") +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  textsize
+```
+
+
+### Summary
+
+```{r gating_Bas013}
+# Remove previous file if it exist
+if(file.exists(paste0("output/", "gated_data_Bas013"))) {
+  unlink(paste0("output/", "gated_data_Bas013"), recursive = TRUE)
+}
+
+# Save dataset
+save_gs(gs_Bas013, path = paste0("output/", "gated_data_Bas013"))
+
+# Gating strategy
+plot(gs_Bas013, bool = TRUE)
+```
+***Figure:** Gating strategy.* 
+
+
+### Population statistics
+
+```{r cell_counts_Bas013}
+# Get cell counts
+counts_Bas013 <- gs_pop_get_count_fast(gs_Bas013)
+counts_Bas013 <- merge(counts_Bas013, pData(fs_Bas013), by = "name")
+counts_Bas013$PercentParent <- (counts_Bas013$Count / counts_Bas013$ParentCount) * 100
+
+# Calculate percentage from root
+counts_root_Bas013 <- counts_Bas013 %>% filter(Parent == "root") %>% select(name, RootCount = ParentCount)
+counts_Bas013 <- left_join(counts_Bas013, counts_root_Bas013)
+counts_Bas013$PercentRoot <- (counts_Bas013$Count / counts_Bas013$RootCount) * 100
+
+# Save the number of cells per well per gate as .csv file
+counts_save_Bas013 <- counts_Bas013[ , c("plateID", "wellID", "name", "Population", "Count", "ParentCount", "PercentParent", "RootCount", "PercentRoot")]
+write_csv(counts_save_Bas013, file = "output/gated_counts_Bas013.csv")
+```
+
+```{r fig_cells_Bas013, fig.width=6, fig.height=4}
+counts_final_Bas013 <- subset(counts_Bas013, Population == "/Debris/Singlets/Live")
+raw_map(data = counts_final_Bas013$Count, well = counts_final_Bas013$wellID, plate = 96, size = 10) +
+  scale_fill_viridis() +
+  labs(title = "Single cell counts") +
+  theme_bw() +
+  textsize
+```
+***Figure:** Number of live single cells after gating (counts per sample/well).* 
+
+```{r live_cells_Bas013}
+percent_live_Bas013 <- subset(counts_Bas013, Population == "/Debris/Singlets/Live")[, c("name", "plateID", "wellID", "PercentRoot")]
+
+# Add metadata per well from custom .csv file
+metadata_Bas013 <- read_csv("data/Bas013_LinGradient_CumExp/metadata_plate_Bas013.csv")
+percent_live_Bas013 <- left_join(percent_live_Bas013, metadata_Bas013)
+```
+
+```{r fig_live_percent_Bas013, fig.width=4, fig.height=3}
+ggplot(subset(percent_live_Bas013, staining == "yes"), aes(x = time_min, y = PercentRoot)) +
+  geom_point(aes(color = factor(stim_description)), size = 2) +
+  ylim(0, 100) +
+  scale_x_continuous() +
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = unique(percent_live_Bas013$stim_description),
+    name = "",
+  ) +
+  labs(y = "Percentage live single \ncells from root (%)", x = "Stimulation time (min)") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right") +
+  guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
+  textsize
+```
+***Figure:** Percentage of live single cells from root.*

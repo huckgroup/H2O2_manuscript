@@ -5,8 +5,12 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: About
-    href: about.html
+  - text: Gating
+    href: a_gating.html
+  - text: Annotation
+    href: b_annotation.html
+  - text: Gradients
+    href: c_gradients.html
   - text: License
     href: license.html
 output:
