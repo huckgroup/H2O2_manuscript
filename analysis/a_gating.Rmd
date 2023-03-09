@@ -102,7 +102,7 @@ ggcyto(gs_DS085[[1]], aes(x = FSC.A, y = SSC.A), subset = "root") +
 ```
 ***Figure:** Cell size vs cell complexity and debris gate. One exemplary sample.*  
 
-```{r fig_debris_DS085, fig.width=9, fig.height=6}
+```{r fig_debris_DS085, fig.width=9, fig.height=7}
 # Apply the gate to all data
 gs_pop_add(gs_DS085, g_debris_DS085)
 recompute(gs_DS085)
@@ -150,7 +150,7 @@ ggcyto(gs_DS085[[1]], aes(x = FSC.H, y = FSC.W), subset = "Debris") +
 ```
 ***Figure:** Cell size height vs cell size width and singlet cell gate. One exemplary sample.* 
 
-```{r fig_singlets_DS085, fig.width=9, fig.height=6}
+```{r fig_singlets_DS085, fig.width=9, fig.height=7}
 # Apply the gate to all data
 gs_pop_add(gs_DS085, g_singlets_DS085, parent = "Debris")
 recompute(gs_DS085) 
@@ -199,7 +199,7 @@ ggcyto(gs_DS085[[1]], aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
 ```
 ***Figure:** Cell size vs live/death stain and live cell gate. One exemplary sample.* 
 
-```{r fig_live_DS085, fig.width=9, fig.height=6}
+```{r fig_live_DS085, fig.width=9, fig.height=7}
 # Apply the gate to all data
 gs_pop_add(gs_DS085, g_live_DS085, parent = "Singlets")
 recompute(gs_DS085) 
@@ -294,7 +294,7 @@ metadata_DS085 <- read_csv("data/DS085_LinGradient_Conc/metadata_plate_DS085.csv
 percent_live_DS085 <- left_join(percent_live_DS085, metadata_DS085)
 ```
 
-```{r fig_live_percent_DS085, fig.width=6, fig.height=3}
+```{r fig_live_percent_DS085, fig.width=6, fig.height=4}
 ggplot(subset(percent_live_DS085, staining == "yes"), aes(x = time_min, y = PercentRoot)) +
   geom_point(aes(color = factor(stim_description)), size = 2) +
   facet_wrap(~plateID, ncol = 2) +
@@ -416,9 +416,9 @@ ggcyto(gs_Bas013, aes(x = FSC.H, y = FSC.W), subset = "Debris") +
 Define the gate on live/dead (fixed) cells (BV421 vs FSC-A): Exclude the upper data points and those data point that fall at/off the right edges of the plot
 ```{r live_Bas013, fig.width=5, fig.height=4}
 # Manually adjust the numbers and check in the graph to set right gate
-g_live_Bas013 <- polygonGate(filterId = "Live", "FSC.A" = c(4.5e4, 1.6e5, 1.6e5, 4.5e4), "BV421.A" = c(5e2, 5e2, 1e4, 5e3)) # define gate
+g_live_Bas013 <- polygonGate(filterId = "Live", "FSC.A" = c(4.5e4, 1.6e5, 1.6e5, 4.5e4), "BV421.A" = c(5e2, 5e2, 5e4, 1.5e4)) # define gate
 
-ggcyto(gs_Bas013[[1]], aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
+ggcyto(gs_Bas013[[34]], aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
   geom_hex(bins = 200) +
   geom_gate(g_live_Bas013) +
   scale_x_log10() +
@@ -501,20 +501,20 @@ metadata_Bas013 <- read_csv("data/Bas013_LinGradient_CumExp/metadata_plate_Bas01
 percent_live_Bas013 <- left_join(percent_live_Bas013, metadata_Bas013)
 ```
 
-```{r fig_live_percent_Bas013, fig.width=4, fig.height=3}
+```{r fig_live_percent_Bas013, fig.width=4, fig.height=4}
 ggplot(subset(percent_live_Bas013, staining == "yes"), aes(x = time_min, y = PercentRoot)) +
   geom_point(aes(color = factor(stim_description)), size = 2) +
   ylim(0, 100) +
   scale_x_continuous() +
   scale_color_manual(
     values = colors_dark9[1:5],
-    breaks = unique(percent_live_Bas013$stim_description),
+    breaks = rev(unique(percent_live_Bas013$stim_description)),
     name = "",
   ) +
   labs(y = "Percentage live single \ncells from root (%)", x = "Stimulation time (min)") +
   theme_bw() +
   theme(legend.position = "bottom", legend.justification = "right") +
-  guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
+  guides(color = guide_legend(nrow = 3, byrow = TRUE)) +
   textsize
 ```
 ***Figure:** Percentage of live single cells from root.*

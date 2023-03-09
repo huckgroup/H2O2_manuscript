@@ -72,7 +72,7 @@ kable(df_DS085 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "
 ```
 
 
-## Transform data
+### Transform data
 
 Pivot the full dataset into a tidy dataset
 ```{r tidy_DS085}
@@ -237,7 +237,7 @@ kable(df_Bas013 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", 
 ```
 
 
-## Transform data
+### Transform data
 
 Pivot the full dataset into a tidy dataset
 ```{r tidy_Bas013}

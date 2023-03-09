@@ -15,7 +15,7 @@ editor_options:
 
 ```{r setup, message=F, warning=F}
 knitr::opts_chunk$set(
-  message = F, warning = F, echo = T, eval = F
+  message = F, warning = F, echo = T, eval = T
 )
 
 # Load required packages
@@ -45,46 +45,63 @@ colors_light12 <- c("#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462",
 ```
 
 
-## Load and transform data
 
-Load  annotated datasets as .csv file
-```{r load_data}
-read.csv(df_tidy, file = "output/annotated_data_tidy.csv", row.names = F)
+## DS.085: Linear gradients with conc-based sampling
 
-read.csv(medians_tidy, file = "output/annotated_medians_tidy.csv", row.names = F)
+```{r data_DS085}
+df_tidy_DS085 <- read_csv("output/annotated_data_tidy_DS085.csv")
 
-read.csv(medians_avg, file = "output/annotated_medians_avg.csv", row.names = F)
+medians_tidy_DS085 <- read_csv("output/annotated_medians_tidy_DS085.csv")
 ```
 
 
-## Ridge plots 
+### Ridge plots 
 
-```{r fig_orders}
-proteins <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pBTK (Y223)", "pPLCy2 (Y759)", "pAKT (S473)", "pp38 (T180/Y182)", "cCaspase 3 + cPARP")
-stimulations <- c()
-replicates <- c("Replicate 1", "Replicate 2", "Replicate 3")
-concentrations <- c()
+```{r fig_orders_DS085}
+proteins_DS085 <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pBTK (Y223)", "pPLCy2 (Y759)", "pAKT (S473)", "pp38 (T180/Y182)", "cCaspase 3 + cPARP")
+stimulations_DS085 <- c("PBS step", "H2O2 step", "20 min gradient", "60 min gradient")
 ```
 
-```{r plot_ridge, fig.width=14, fig.height=8}
-for (this_protein in proteins) {
-  plot <- ggplot(na.omit(subset(df_tidy, protein == this_protein & staining == "yes")), aes(x = fluorescence)) +
+```{r fig_ridge_time_DS085, fig.width=10, fig.height=6}
+for (this_protein_DS085 in proteins_DS085) {
+  plot <- ggplot(subset(df_tidy_DS085, protein == this_protein_DS085), aes(x = fluorescence)) +
     geom_density_ridges(
-      aes(y = as.factor(time_min)),
+      aes(y = as.factor(time_min), 
+          fill = conc_at_time_mM),
       scale = 2, 
-      color = "#006699", 
-      fill = "#006699", 
       alpha = 0.5
     ) +
-    facet_grid(
-      vars(factor(replicate, labels = replicates)), 
-      vars(factor(stim_description, levels = stimulations))
-      ) +
-    scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
-    # scale_x_log10() + 
-    labs(x = paste("Fluorescent intensity", this_protein), y = "Time (min)") +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste("Fluorescent intensity", this_protein_DS085), y = "Time (min)") +
     theme_bw() +
-    theme(legend.position = "top", legend.direction = "horizontal", legend.justification = 1) +
+    textsize
+  
+  print(plot)
+}
+```
+
+```{r fig_ridge_conc_DS085, fig.width=6, fig.height=4}
+for (this_protein_DS085 in proteins_DS085) {
+  plot <- ggplot(subset(df_tidy_DS085, 
+                        protein == this_protein_DS085 & 
+                          staining == "yes" & 
+                          stim_profile == "gradient"
+                        ), aes(x = fluorescence)) + 
+    geom_density_ridges(
+      aes(y = as.factor(conc_at_time_mM), 
+          fill = conc_at_time_mM),
+      scale = 2, 
+      alpha = 0.5
+    ) +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste("Fluorescent intensity", this_protein_DS085), y = "H2O2 concentration (mM)") +
+    theme_bw() +
     textsize
   
   print(plot)
@@ -92,173 +109,227 @@ for (this_protein in proteins) {
 ```
 
 
-## Violin plots
+### Line plots
 
-```{r plot_violin_PE, fig.width=16, fig.height=8}
-# Replace <description> with the correct variable (eg column with metadata from cs_df)
-# Plot for all samples/wells in one plot
-ggplot(na.omit(cs_df), aes(x = factor(<xaxis_condition>, # eg wellID
-                                      levels = <xaxis_order>, # Make sure that the names of <xaxis_condition> and <xaxis_order> match
-                                      labels = <xaxis_metadata>
-                           ), 
-                           group = factor(<xaxis_condition>, # eg wellID
-                                          levels = <xaxis_order>, # Make sure that the names of <xaxis_condition> and <xaxis_order> match
-                                          labels = <xaxis_metadata>
-                           ),
-                           y = PE.A, 
-                           fill = <metadata> # eg stimulus
-                           )) +
-  geom_violin(trim = FALSE, alpha = 0.6) + 
-  # geom_jitter(size = 0.1, alpha = 0.25) +
-  geom_boxplot(width = 0.25, outlier.size = 0) +
-  # scale_fill_manual(values = c("#006699", "#666666")) +
-  scale_y_log10(breaks = 10^(0:10), labels = math_format()(0:10)) +
-  labs(x = "Sample", y = paste(unique(cs_df$protein_PE), " gMFI (PE-A)")) +
-  theme(legend.position = "none") +
+```{r fig_line_time_DS085, fig.width=10, fig.height=8}
+ggplot(subset(medians_tidy_DS085, staining == "yes" & protein != "cCaspase 3 + cPARP"),
+       aes(
+         x = time_min,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS085)), ncol = 2) +
+  scale_x_continuous(
+    limits = c(0, 90),
+    breaks = c(0, 20, 60, 90)
+  ) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_DS085,
+    name = "",
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = "Time (min)", y = paste("Percentage of cells ON")) +
   theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
+  textsize
+```
+
+```{r fig_line_conc_DS085, fig.width=10, fig.height=8}
+ggplot(subset(medians_tidy_DS085, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_profile == "gradient"),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS085)), ncol = 2) +
+  scale_x_log10(limits = c(1e-1, 1e1)) + 
+  # scale_x_continuous(
+  #   limits = c(0, 5),
+  #   breaks = c(0, 1.25, 2.5, 3.75, 5)  
+  # ) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_DS085,
+    name = "",
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = "H2O2 concentration (mM)", y = paste("Percentage of cells ON")) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
+  textsize
+```
+
+```{r fig_line_cumexp_DS085, fig.width=10, fig.height=8}
+ggplot(subset(medians_tidy_DS085, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_description != "PBS step"), 
+       aes(
+         x = cumulative_exposure,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS085)), ncol = 2) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_DS085,
+    name = "",
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = "Cumulative exposure (AUC of conc vs time)", y = paste("Percentage of cells ON")) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
   textsize
 ```
 
 
-## Line plots
 
-```{r plot_line_protein, fig.width=6, fig.height=6}
-for (this_protein in proteins) {
-  plot <- ggplot(
-  subset(medians_tidy, protein == this_protein & staining == "yes"),
-  aes(
-    x = time_min,
-    y = FC, 
-    group = replicate,
-    color = replicate, 
-  )) +
-  geom_line(size = 0.75) +
-  geom_point(size = 1) +
-  facet_wrap(vars(factor(stim_description, levels = stimulations)), ncol = 1) + 
-  # scale_x_continuous(
-  #   limits = c(-5, 150), 
-  #   breaks = c(0, 5, 15, 30, 60, 120, 150)
-  #   # breaks = sort(unique(medians_DS063$time_min))
-  # ) +
-  # scale_color_manual(
-  #   values = colors_dark9[1:7],
-  #   breaks = stimulations_DS063,
-  #   labels = stimulations,
-  #   name = "",
-  # ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
-  labs(x = "Time (min)", y = paste0(this_protein, ": FC to t=0 min")) +
-  theme_bw() +
-  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
-  textsize
+## Bas.013: Linear gradients with cum exp-based sampling
+
+```{r data_Bas013}
+df_tidy_Bas013 <- read_csv("output/annotated_data_tidy_Bas013.csv")
+
+medians_tidy_Bas013 <- read_csv("output/annotated_medians_tidy_Bas013.csv")
+```
+
+
+### Ridge plots 
+
+```{r fig_orders_Bas013}
+proteins_Bas013 <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pPLCy2 (Y759)", "cCaspase 3 + cPARP")
+stimulations_Bas013 <- c("PBS step", "H2O2 step", "20 min gradient", "60 min gradient", "90 min gradient")
+```
+
+```{r fig_ridge_time_Bas013, fig.width=12, fig.height=6}
+for (this_protein_Bas013 in proteins_Bas013) {
+  plot <- ggplot(subset(df_tidy_Bas013, protein == this_protein_Bas013), aes(x = fluorescence)) +
+    geom_density_ridges(
+      aes(y = as.factor(cumulative_exposure), 
+          fill = conc_at_time_mM),
+      scale = 2, 
+      alpha = 0.5
+    ) +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 5) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste("Fluorescent intensity", this_protein_Bas013), y = "Cumulative exposure\n(AUC of conc vs time)") +
+    theme_bw() +
+    textsize
+  
+  print(plot)
+}
+```
+
+```{r fig_ridge_conc_Bas013, fig.width=8, fig.height=4}
+for (this_protein_Bas013 in proteins_Bas013) {
+  plot <- ggplot(subset(df_tidy_Bas013, 
+                        protein == this_protein_Bas013 & 
+                          staining == "yes" & 
+                          stim_profile == "gradient"
+                        ), aes(x = fluorescence)) + 
+    geom_density_ridges(
+      aes(y = as.factor(conc_at_time_mM), 
+          fill = conc_at_time_mM),
+      scale = 2, 
+      alpha = 0.5
+    ) +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 4) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste("Fluorescent intensity", this_protein_Bas013), y = "H2O2 concentration (mM)") +
+    theme_bw() +
+    textsize
   
   print(plot)
 }
 ```
 
 
-## Bar plots
+### Line plots
 
-For gradient data
-```{r bar_reorder_dataset, eval=F}
-# Split dataset into smaller datasets for each condition and add metadata columns for plotting
-# sample_moment: start, end, end + 30 min
-# sample_comparisons: step PBS, step aIg, gradient (step samples that match the time points of the gradient)
-medians_avg$sample_moment <- NA
-
-# 15 min gradient
-medians15 <- medians_avg %>%
-  subset(stim_description %in% c("PBS step", "aIg step", "15 min gradient") &
-           time_point %in% c("0 min", "15 min", "45 min")) %>%
-  group_by(time_point) %>%
-  mutate(sample_moment = 
-           case_when(time_point == "0 min" ~ "Start", 
-                     time_point == "15 min" ~ "End", 
-                     time_point == "45 min" ~ "End \n+30 min"), 
-         sample_comparison = "15 min gradient")
-
-# 30 min gradient
-medians30 <- medians_avg %>%
-  subset(stim_description %in% c("PBS step", "aIg step", "30 min gradient") &
-           time_point %in% c("0 min", "30 min", "60 min")) %>%
-  group_by(time_point) %>%
-  mutate(sample_moment = 
-           case_when(time_point == "0 min" ~ "Start", 
-                     time_point == "30 min" ~ "End", 
-                     time_point == "60 min" ~ "End \n+30 min"), 
-         sample_comparison = "30 min gradient")
-
-# 60 min gradient
-medians60 <- medians_avg %>%
-  subset(stim_description %in% c("PBS step", "aIg step", "60 min gradient") &
-           time_point %in% c("0 min", "60 min", "90 min")) %>%
-  group_by(time_point) %>%
-  mutate(sample_moment = 
-           case_when(time_point == "0 min" ~ "Start", 
-                     time_point == "60 min" ~ "End", 
-                     time_point == "90 min" ~ "End \n+30 min"), 
-         sample_comparison = "60 min gradient")
-
-# 120 min gradient
-medians120 <- medians_avg %>%
-  subset(stim_description %in% c("PBS step", "aIg step", "120 min gradient") &
-           time_point %in% c("0 min", "120 min", "150 min")) %>%
-  group_by(time_point) %>%
-  mutate(sample_moment = 
-           case_when(time_point == "0 min" ~ "Start", 
-                     time_point == "120 min" ~ "End", 
-                     time_point == "150 min" ~ "End \n+30 min"), 
-         sample_comparison = "120 min gradient")
-
-bar_datasets <- list(medians15, medians30, medians60, medians120)
-bar_data <- bar_datasets %>% reduce(full_join)
-```
-
-```{r plot_bar_all, fig.width=10, fig.height=7, eval=F}
-ggplot(bar_data) +
-  geom_col(aes(
-    x = factor(sample_moment, levels = c("Start", "End", "End \n+30 min")),
-    y = FC, 
-    group = factor(stim_description, levels = stimulations),
-    fill = stim_description), 
-    position = "dodge2") + 
-  geom_errorbar(aes(
-    x = factor(sample_moment, levels = c("Start", "End", "End \n+30 min")),
-    ymin = FC - FC_sd, 
-    ymax = FC + FC_sd, 
-    group = factor(stim_description, levels = stimulations)), 
-    position = position_dodge2(width = 0.9), 
-    width = 0.9, 
+```{r fig_line_time_Bas013, fig.width=5, fig.height=8}
+ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + cPARP"),
+       aes(
+         x = time_min,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_Bas013)), ncol = 1) +
+  scale_x_continuous(
+    limits = c(0, 90),
+    breaks = c(0, 20, 60, 90)
   ) +
-  facet_grid(vars(factor(sample_comparison, levels = c("15 min gradient", "30 min gradient", "60 min gradient", "120 min gradient"))), vars(factor(protein, levels = proteins))) + 
-  labs(x = "Sample moment", y = "FC to t=0 min") +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_Bas013,
+    name = "",
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = "Time (min)", y = paste("Percentage of cells ON")) +
   theme_bw() +
-  theme(legend.position = "none", legend.justification = "right", panel.grid.minor = element_blank()) +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
   textsize
 ```
 
-```{r plot_bar_protein, fig.width=5, fig.height=5, eval=F}
-for (this_protein in proteins) {
-  plot <- ggplot(subset(bar_data, protein == this_protein)) +
-  geom_col(aes(
-    x = factor(sample_moment, levels = c("Start", "End", "End \n+30 min")),
-    y = FC, 
-    group = factor(stim_description, levels = stimulations), 
-    fill = stim_description), 
-    position = "dodge2") + 
-  geom_errorbar(aes(
-    x = factor(sample_moment, levels = c("Start", "End", "End \n+30 min")),
-    ymin = FC - FC_sd, 
-    ymax = FC + FC_sd, 
-    group = factor(stim_description, levels = stimulations)), 
-    position = position_dodge2(width = 0.9), 
-    width = 0.9, 
+```{r fig_line_conc_Bas013, fig.width=5, fig.height=8}
+ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_profile == "gradient"),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_Bas013)), ncol = 1) +
+  scale_x_log10(limits = c(1e-1, 1e1)) + 
+  # scale_x_continuous(
+  #   limits = c(0, 5),
+  #   breaks = c(0, 1.25, 2.5, 3.75, 5)  
+  # ) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_Bas013,
+    name = "",
   ) +
-  facet_wrap(vars(factor(sample_comparison, levels = c("15 min gradient", "30 min gradient", "60 min gradient", "120 min gradient"))), ncol = 1) + 
-  labs(x = "Sample moment", y = paste0(this_protein, ": FC to t=0 min")) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = "H2O2 concentration (mM)", y = paste("Percentage of cells ON")) +
   theme_bw() +
-  theme(legend.position = "none", legend.justification = "right", panel.grid.minor = element_blank()) +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
   textsize
-  print(plot)
-}
+```
+
+```{r fig_line_cumexp_Bas013, fig.width=5, fig.height=8}
+ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_description != "PBS step"), 
+       aes(
+         x = cumulative_exposure,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_Bas013)), ncol = 1) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_Bas013,
+    name = "",
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = "Cumulative exposure (AUC of conc vs time)", y = paste("Percentage of cells ON")) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
+  textsize
 ```
