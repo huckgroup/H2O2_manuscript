@@ -534,13 +534,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongd41e097">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong75ea8ac">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> d41e097
+aria-hidden="true"></span> <strong>Repository version:</strong> 75ea8ac
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongd41e097"
+<div id="strongRepositoryversionstrong75ea8ac"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -549,7 +549,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version d41e097.
+The results in this page were generated with repository version 75ea8ac.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,7 +571,9 @@ Untracked files:
     Untracked:  code/packages_FACS.R
     Untracked:  data/Bas013_LinGradient_CumExp/
     Untracked:  data/DS085_LinGradient_Conc/
+    Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
+    Untracked:  output/annotated_medians_tidy_Bas013.csv
     Untracked:  output/annotated_medians_tidy_DS085.csv
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
@@ -626,6 +628,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+75ea8ac
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-09
+</td>
+<td>
+Publish first version of gradient figures
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+0a73f1e
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1226,9 +1262,8 @@ pCD79a (Y182)
 </tbody>
 </table>
 </div>
-</div>
-<div id="transform-data" class="section level2">
-<h2>Transform data</h2>
+<div id="transform-data" class="section level3">
+<h3>Transform data</h3>
 <p>Pivot the full dataset into a tidy dataset</p>
 <pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
 cols_meta_DS085 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
@@ -1668,6 +1703,7 @@ data_counts_DS085 &lt;- left_join(data_total_DS085, data_on_DS085) %&gt;%
   mutate(percent_on = (count_on / count_total) * 100)
 
 df_tidy_DS085 &lt;- left_join(df_tidy_DS085, data_counts_DS085)</code></pre>
+</div>
 <div id="median-data" class="section level3">
 <h3>Median data</h3>
 <p>Calculate median fluorescent values for each sample/replicate</p>
@@ -2320,7 +2356,7 @@ pPLCy2 (Y759)
 pCD79a (Y182)
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 </tr>
 <tr>
@@ -2406,7 +2442,7 @@ pPLCy2 (Y759)
 pCD79a (Y182)
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 </tr>
 <tr>
@@ -2492,7 +2528,7 @@ pPLCy2 (Y759)
 pCD79a (Y182)
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 </tr>
 <tr>
@@ -2578,7 +2614,7 @@ pPLCy2 (Y759)
 pCD79a (Y182)
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 </tr>
 <tr>
@@ -2664,15 +2700,14 @@ pPLCy2 (Y759)
 pCD79a (Y182)
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-<div id="transform-data-1" class="section level2">
-<h2>Transform data</h2>
+<div id="transform-data-1" class="section level3">
+<h3>Transform data</h3>
 <p>Pivot the full dataset into a tidy dataset</p>
 <pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
 cols_meta_Bas013 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
@@ -2823,7 +2858,7 @@ yes
 A
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:left;">
 pSYK (Y525/Y526)
@@ -2885,7 +2920,7 @@ yes
 A
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:left;">
 pSYK (Y525/Y526)
@@ -2947,7 +2982,7 @@ yes
 A
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:left;">
 pSYK (Y525/Y526)
@@ -3009,7 +3044,7 @@ yes
 A
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:left;">
 pSYK (Y525/Y526)
@@ -3071,7 +3106,7 @@ yes
 A
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:left;">
 pSYK (Y525/Y526)
@@ -3112,6 +3147,7 @@ data_counts_Bas013 &lt;- left_join(data_total_Bas013, data_on_Bas013) %&gt;%
   mutate(percent_on = (count_on / count_total) * 100)
 
 df_tidy_Bas013 &lt;- left_join(df_tidy_Bas013, data_counts_Bas013)</code></pre>
+</div>
 <div id="median-data-1" class="section level3">
 <h3>Median data</h3>
 <p>Calculate median fluorescent values for each sample/replicate</p>
@@ -3224,7 +3260,7 @@ cCaspase 3 + cPARP
 BV421
 </td>
 <td style="text-align:right;">
-1830.08118
+1836.29089
 </td>
 <td style="text-align:left;">
 Bas013
@@ -3263,16 +3299,16 @@ yes
 A
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:right;">
-1903
+1920
 </td>
 <td style="text-align:right;">
-4.994620
+4.993368
 </td>
 </tr>
 <tr>
@@ -3289,7 +3325,7 @@ pCD79a (Y182)
 AF488
 </td>
 <td style="text-align:right;">
-397.35965
+398.18405
 </td>
 <td style="text-align:left;">
 Bas013
@@ -3328,16 +3364,16 @@ yes
 A
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:right;">
-1905
+1923
 </td>
 <td style="text-align:right;">
-4.999869
+5.001170
 </td>
 </tr>
 <tr>
@@ -3393,16 +3429,16 @@ yes
 A
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:right;">
-1810
+1811
 </td>
 <td style="text-align:right;">
-4.750532
+4.709891
 </td>
 </tr>
 <tr>
@@ -3419,7 +3455,7 @@ pSYK (Y525/Y526)
 PE
 </td>
 <td style="text-align:right;">
-315.74429
+316.56870
 </td>
 <td style="text-align:left;">
 Bas013
@@ -3458,16 +3494,16 @@ yes
 A
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:right;">
-38101
+38451
 </td>
 <td style="text-align:right;">
-1902
+1922
 </td>
 <td style="text-align:right;">
-4.991995
+4.998570
 </td>
 </tr>
 <tr>
@@ -3484,7 +3520,7 @@ cCaspase 3 + cPARP
 BV421
 </td>
 <td style="text-align:right;">
-2039.43616
+2045.64587
 </td>
 <td style="text-align:left;">
 Bas013
@@ -3523,16 +3559,16 @@ yes
 A
 </td>
 <td style="text-align:right;">
-39415
+39708
 </td>
 <td style="text-align:right;">
-39415
+39708
 </td>
 <td style="text-align:right;">
-3461
+3147
 </td>
 <td style="text-align:right;">
-8.780921
+7.925355
 </td>
 </tr>
 </tbody>

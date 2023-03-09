@@ -534,13 +534,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongd41e097">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong75ea8ac">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> d41e097
+aria-hidden="true"></span> <strong>Repository version:</strong> 75ea8ac
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongd41e097"
+<div id="strongRepositoryversionstrong75ea8ac"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -549,7 +549,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version d41e097.
+The results in this page were generated with repository version 75ea8ac.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -566,15 +566,18 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
 
 Untracked files:
     Untracked:  code/packages_FACS.R
     Untracked:  data/Bas013_LinGradient_CumExp/
     Untracked:  data/DS085_LinGradient_Conc/
+    Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
+    Untracked:  output/annotated_medians_tidy_Bas013.csv
     Untracked:  output/annotated_medians_tidy_DS085.csv
     Untracked:  output/gated_counts.csv
+    Untracked:  output/gated_counts_Bas013.csv
+    Untracked:  output/gated_counts_DS085.csv
     Untracked:  output/gated_data_Bas013/
     Untracked:  output/gated_data_DS085/
 
@@ -625,6 +628,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+75ea8ac
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-09
+</td>
+<td>
+Publish first version of gradient figures
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+0a73f1e
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1453,9 +1490,9 @@ ggcyto(gs_Bas013, aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
 the upper data points and those data point that fall at/off the right
 edges of the plot</p>
 <pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
-g_live_Bas013 &lt;- polygonGate(filterId = &quot;Live&quot;, &quot;FSC.A&quot; = c(4.5e4, 1.6e5, 1.6e5, 4.5e4), &quot;BV421.A&quot; = c(5e2, 5e2, 1e4, 5e3)) # define gate
+g_live_Bas013 &lt;- polygonGate(filterId = &quot;Live&quot;, &quot;FSC.A&quot; = c(4.5e4, 1.6e5, 1.6e5, 4.5e4), &quot;BV421.A&quot; = c(5e2, 5e2, 5e4, 1.5e4)) # define gate
 
-ggcyto(gs_Bas013[[1]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+ggcyto(gs_Bas013[[34]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
   geom_hex(bins = 200) +
   geom_gate(g_live_Bas013) +
   scale_x_log10() +
@@ -1534,13 +1571,13 @@ percent_live_Bas013 &lt;- left_join(percent_live_Bas013, metadata_Bas013)</code>
   scale_x_continuous() +
   scale_color_manual(
     values = colors_dark9[1:5],
-    breaks = unique(percent_live_Bas013$stim_description),
+    breaks = rev(unique(percent_live_Bas013$stim_description)),
     name = &quot;&quot;,
   ) +
   labs(y = &quot;Percentage live single \ncells from root (%)&quot;, x = &quot;Stimulation time (min)&quot;) +
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
-  guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
+  guides(color = guide_legend(nrow = 3, byrow = TRUE)) +
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_live_percent_Bas013-1.png" width="384" style="display: block; margin: auto;" />
 <em><strong>Figure:</strong> Percentage of live single cells from
