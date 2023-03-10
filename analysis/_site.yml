@@ -11,6 +11,8 @@ navbar:
     href: b_annotation.html
   - text: Gradients
     href: c_gradients.html
+  - text: Step
+    href: d_step.html
   - text: License
     href: license.html
 output:

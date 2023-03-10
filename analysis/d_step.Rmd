@@ -1,0 +1,194 @@
+---
+title: "Analysis of step data"
+author: "mwitmond"
+date: "2023-03-10"
+output:
+  workflowr::wflow_html:
+    toc: TRUE
+    toc_float: 
+      collapsed: FALSE
+    toc_depth: 3
+    code_folding: hide
+editor_options:
+  chunk_output_type: console
+---
+
+
+## Set-up
+
+```{r setup, message=F, warning=F}
+knitr::opts_chunk$set(
+  message = F, warning = F, echo = T, eval = F
+)
+
+# Load required packages
+source("code/packages_FACS.R", local = knitr::knit_global())
+```
+
+```{r fig_settings}
+row_order = c("A", "B", "C", "D", "E", "F", "G", "H")
+col_order = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
+panel_labels <- c("A", "B", "C","D", "E", "F", "G", "H", "I", "J", "K", "L", "M")
+
+textsize <- theme(axis.text.x = element_text(colour = "grey", size = 12, face = "bold"),
+                  axis.text.y = element_text(colour = "grey", size = 12, face = "bold"),
+                  axis.title = element_text(colour = "black", size = 12, face = "bold"), 
+                  # legend.title = element_text(colour = "black", size = 12, face = "bold"), 
+                  legend.title = element_blank(), 
+                  legend.text = element_text(colour = "grey", size = 12, face = "bold"), 
+                  strip.text.x = element_text(colour = "black", size = 12, face = "bold")
+)
+
+textsize_small <- theme(text = element_text(size = 7, family = "sans", colour = "black"),
+                        plot.title = element_text(size = 8)
+)
+
+colors_dark9 <- c("#4daf4a", "#984ea3", "#ffff33", "#ff7f00", "#e41a1c", "#f781bf", "#a65628", "#999999", "#377eb8")
+colors_light12 <- c("#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#ffed6f")
+colors_paired10 <- c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#fb9a99", "#e31a1c")
+```
+
+
+
+## DS095: Detailed step dose
+
+```{r data_DS095}
+df_tidy_DS095 <- read_csv("output/annotated_data_tidy_DS095.csv")
+
+medians_tidy_DS095 <- read_csv("output/annotated_medians_tidy_DS095.csv")
+```
+
+```{r fig_orders_DS095}
+proteins_DS095 <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pBTK (Y223)", "pPLCy2 (Y759)", "pAKT (S473)", "pp38 (T180/Y182)", "cCaspase 3 + cPARP")
+stimulations_DS095 <- c("PBS step", "H2O2 step", "20 min gradient", "60 min gradient")
+```
+
+
+### Ridge plots 
+
+```{r fig_ridge_time_DS095, fig.width=10, fig.height=6}
+for (this_protein_DS095 in proteins_DS095) {
+  plot <- ggplot(subset(df_tidy_DS095, protein == this_protein_DS095), aes(x = fluorescence)) +
+    geom_density_ridges(
+      aes(y = as.factor(time_min), 
+          fill = conc_at_time_mM),
+      scale = 2, 
+      alpha = 0.5
+    ) +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_DS095)), ncol = 4) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste("Fluorescent intensity", this_protein_DS095), y = "Time (min)") +
+    theme_bw() +
+    textsize
+  
+  print(plot)
+}
+```
+
+```{r fig_ridge_conc_DS095, fig.width=6, fig.height=4}
+for (this_protein_DS095 in proteins_DS095) {
+  plot <- ggplot(subset(df_tidy_DS095, 
+                        protein == this_protein_DS095 & 
+                          staining == "yes" & 
+                          stim_profile == "gradient"
+                        ), aes(x = fluorescence)) + 
+    geom_density_ridges(
+      aes(y = as.factor(conc_at_time_mM), 
+          fill = conc_at_time_mM),
+      scale = 2, 
+      alpha = 0.5
+    ) +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_DS095)), ncol = 4) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste("Fluorescent intensity", this_protein_DS095), y = "H2O2 concentration (mM)") +
+    theme_bw() +
+    textsize
+  
+  print(plot)
+}
+```
+
+
+### Line plots
+
+```{r fig_line_time_DS095, fig.width=10, fig.height=8}
+ggplot(subset(medians_tidy_DS095, staining == "yes" & protein != "cCaspase 3 + cPARP"),
+       aes(
+         x = time_min,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS095)), ncol = 2) +
+  scale_x_continuous(
+    limits = c(0, 90),
+    breaks = c(0, 20, 60, 90)
+  ) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_DS095,
+    name = "",
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = "Time (min)", y = paste("Percentage of cells ON")) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
+  textsize
+```
+
+```{r fig_line_conc_DS095, fig.width=10, fig.height=8}
+ggplot(subset(medians_tidy_DS095, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_profile == "gradient"),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS095)), ncol = 2) +
+  scale_x_log10(limits = c(1e-1, 1e1)) + 
+  # scale_x_continuous(
+  #   limits = c(0, 5),
+  #   breaks = c(0, 1.25, 2.5, 3.75, 5)  
+  # ) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_DS095,
+    name = "",
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = "H2O2 concentration (mM)", y = paste("Percentage of cells ON")) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
+  textsize
+```
+
+```{r fig_line_cumexp_DS095, fig.width=10, fig.height=8}
+ggplot(subset(medians_tidy_DS095, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_description != "PBS step"), 
+       aes(
+         x = cumulative_exposure,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS095)), ncol = 2) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_DS095,
+    name = "",
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = "Cumulative exposure (AUC of conc vs time)", y = paste("Percentage of cells ON")) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
+  textsize
+```

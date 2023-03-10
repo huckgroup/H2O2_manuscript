@@ -5,6 +5,9 @@ date: "2023-03-08"
 output:
   workflowr::wflow_html:
     toc: TRUE
+    toc_float: 
+      collapsed: FALSE
+    toc_depth: 3
     code_folding: hide
 editor_options:
   chunk_output_type: console
@@ -72,7 +75,7 @@ for (this_protein_DS085 in proteins_DS085) {
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -97,7 +100,7 @@ for (this_protein_DS085 in proteins_DS085) {
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -217,7 +220,7 @@ for (this_protein_Bas013 in proteins_Bas013) {
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 5) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -242,7 +245,7 @@ for (this_protein_Bas013 in proteins_Bas013) {
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 4) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -334,7 +337,7 @@ ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + 
   labs(x = "Cumulative exposure (AUC of conc vs time)", y = paste("Percentage of cells ON")) +
   theme_bw() +
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
-  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
+  guides(color = guide_legend(ncol = 2, byrow = TRUE)) +
   textsize
 ```
 
@@ -347,14 +350,11 @@ ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + 
 |                   | **DS085 (conc-based)** | **Bas013 (cum exp-based)** |
 |-------------------|------------------------|----------------------------|
 | *Cell density*    | 2M cells/mL            | 1M cells/mL                |
-|-------------------|------------------------|----------------------------|
 | *H2O2 final conc* | 5 mM                   | 5 mM                       |
-|-------------------|------------------------|----------------------------|
 | *Gradients*       | 20 + 60 min            | 20 + 60 + 90 min           |
-|-------------------|------------------------|----------------------------|
 | *Proteins*        | CD79a + SYK + PLCy2    | CD79a + SYK + PLCy2        |
 |                   | AKT + BTK + p38        |                            |
-
+|-------------------|------------------------|----------------------------|
 
 ```{r combi_data}
 df_tidy_Bas013$sample <- as.character(df_tidy_Bas013$sample)
@@ -376,7 +376,7 @@ stimulations_exp <- c("DS085 H2O2 step", "Bas013 H2O2 step", "DS085 20 min gradi
 
 ### Ridge plots
 
-```{r fig_ridge_time_combi, fig.width=10, fig.height=6}
+```{r fig_ridge_time_combi, fig.width=10, fig.height=6, eval=F}
 for (this_protein_combi in proteins_combi) {
   plot <- ggplot(subset(df_combi, protein == this_protein_combi), aes(x = fluorescence)) +
     geom_density_ridges(
@@ -385,7 +385,7 @@ for (this_protein_combi in proteins_combi) {
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_combi)), ncol = 5) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -398,23 +398,25 @@ for (this_protein_combi in proteins_combi) {
 ```
 
 ```{r fig_ridge_conc_combi, fig.width=6, fig.height=4}
+df_filter_combi <- df_combi %>%
+  filter(protein %in% c(proteins_overlap, "cCaspase 3 + cPARP") & stim_description %in% stimulations_overlap)
+
 # this_protein_combi <-  "pPLCy2 (Y759)"
-for (this_protein_combi in proteins_combi) {
-  plot <- ggplot(subset(df_combi, 
+for (this_protein_combi in c(proteins_overlap, "cCaspase 3 + cPARP")) {
+  plot <- ggplot(subset(df_filter_combi, 
                         protein == this_protein_combi & 
                           staining == "yes" & 
                           stim_profile == "gradient" & 
                           gradient_duration != 90
                         ), aes(x = fluorescence)) + 
     geom_density_ridges(
-      aes(y = as.factor(cumulative_exposure), # cumulative_exposure # conc_at_time_mM
+      aes(y = as.factor(conc_at_time_mM), # cumulative_exposure # conc_at_time_mM
           fill = expID),
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_combi)), ncol = 4) +
-    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
     labs(x = paste("Fluorescent intensity", this_protein_combi), y = "H2O2 concentration (mM)") +
     theme_bw() +
@@ -455,10 +457,37 @@ ggplot(subset(medians_filter_combi, staining == "yes"),
   theme_bw() +
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
-  textsize
+  textsize +
+  theme(legend.text = element_text(size = 9))
+  
 ```
 
 ```{r fig_line_conc_combi, fig.width=5, fig.height=7}
+ggplot(subset(medians_filter_combi, staining == "yes" & stim_profile == "gradient"),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = paste(expID, stim_description),
+         color = paste(expID, stim_description),
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_combi)), ncol = 1) +
+  # scale_x_log10(limits = c(1e-1, 1e1)) + 
+  scale_color_manual(
+    values = colors_paired10,
+    breaks = stimulations_exp,
+    name = "",
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = "H2O2 concentration (mM)", y = paste("Percentage of cells ON")) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
+  textsize +
+  theme(legend.text = element_text(size = 9))
+
+# Log10 x-axis
 ggplot(subset(medians_filter_combi, staining == "yes" & stim_profile == "gradient"),
        aes(
          x = conc_at_time_mM,
@@ -476,11 +505,12 @@ ggplot(subset(medians_filter_combi, staining == "yes" & stim_profile == "gradien
     name = "",
   ) +
   coord_cartesian(ylim = c(0, 100)) +
-  labs(x = "H2O2 concentration (mM)", y = paste("Percentage of cells ON")) +
+  labs(x = "H2O2 concentration (mM) (log10)", y = paste("Percentage of cells ON")) +
   theme_bw() +
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
-  textsize
+  textsize +
+  theme(legend.text = element_text(size = 9))
 ```
 
 ```{r fig_line_cumexp_combi, fig.width=5, fig.height=7}
@@ -494,6 +524,7 @@ ggplot(subset(medians_filter_combi, staining == "yes"),
   geom_line(linewidth = 1.25) +
   geom_point(size = 2) +
   facet_wrap(vars(factor(protein, levels = proteins_combi)), ncol = 1) +
+  scale_x_log10() +
   scale_color_manual(
     values = colors_paired10,
     breaks = stimulations_exp,
@@ -504,5 +535,6 @@ ggplot(subset(medians_filter_combi, staining == "yes"),
   theme_bw() +
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
-  textsize
+  textsize +
+  theme(legend.text = element_text(size = 9))
 ```
