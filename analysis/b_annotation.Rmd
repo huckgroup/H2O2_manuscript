@@ -118,6 +118,10 @@ kable(df_tidy_DS085 %>% head(5)) %>% kable_styling(bootstrap_options = c("stripe
 ```
 
 ```{r percent_on_DS085}
+# Remove pBTK values >1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
+df_tidy_DS085 <- df_tidy_DS085 %>%
+  filter(!(protein == "pBTK (Y223)" & stim_profile == "gradient" & time_point == "0 min" & fluorescence > 1.4e4))
+
 data_info_DS085 <- df_tidy_DS085 %>%
   filter(time_point == "0 min") %>% 
   group_by(plateID, stim_description, protein) %>%
