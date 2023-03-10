@@ -297,6 +297,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -345,6 +351,9 @@ div.tocify {
 </li>
 <li>
   <a href="c_gradients.html">Gradients</a>
+</li>
+<li>
+  <a href="d_step.html">Step</a>
 </li>
 <li>
   <a href="license.html">License</a>
@@ -532,13 +541,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongf7496c3">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong4a1526a">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> f7496c3
+aria-hidden="true"></span> <strong>Repository version:</strong> 4a1526a
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongf7496c3"
+<div id="strongRepositoryversionstrong4a1526a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +556,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version f7496c3.
+The results in this page were generated with repository version 4a1526a.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -569,6 +578,7 @@ Untracked files:
     Untracked:  code/packages_FACS.R
     Untracked:  data/Bas013_LinGradient_CumExp/
     Untracked:  data/DS085_LinGradient_Conc/
+    Untracked:  data/DS095_DetailedStep_Conc/
     Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
     Untracked:  output/annotated_medians_tidy_Bas013.csv
@@ -626,6 +636,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+4a1526a
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Publish updated gradient figures
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+dc09f40
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -799,7 +843,7 @@ stimulations_DS085 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -822,7 +866,7 @@ stimulations_DS085 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -928,7 +972,7 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 5) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -951,7 +995,7 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 4) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -1037,7 +1081,7 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
   labs(x = &quot;Cumulative exposure (AUC of conc vs time)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
-  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
+  guides(color = guide_legend(ncol = 2, byrow = TRUE)) +
   textsize</code></pre>
 <p><img src="figure/c_gradients.Rmd/fig_line_cumexp_Bas013-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
@@ -1066,19 +1110,9 @@ Bas013 experiments</em></p>
 <td>1M cells/mL</td>
 </tr>
 <tr class="even">
-<td>——————-</td>
-<td>————————</td>
-<td>—————————-</td>
-</tr>
-<tr class="odd">
 <td><em>H2O2 final conc</em></td>
 <td>5 mM</td>
 <td>5 mM</td>
-</tr>
-<tr class="even">
-<td>——————-</td>
-<td>————————</td>
-<td>—————————-</td>
 </tr>
 <tr class="odd">
 <td><em>Gradients</em></td>
@@ -1086,19 +1120,19 @@ Bas013 experiments</em></p>
 <td>20 + 60 + 90 min</td>
 </tr>
 <tr class="even">
-<td>——————-</td>
-<td>————————</td>
-<td>—————————-</td>
-</tr>
-<tr class="odd">
 <td><em>Proteins</em></td>
 <td>CD79a + SYK + PLCy2</td>
 <td>CD79a + SYK + PLCy2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td></td>
 <td>AKT + BTK + p38</td>
 <td></td>
+</tr>
+<tr class="even">
+<td>——————-</td>
+<td>————————</td>
+<td>—————————-</td>
 </tr>
 </tbody>
 </table>
@@ -1123,7 +1157,7 @@ stimulations_exp &lt;- c(&quot;DS085 H2O2 step&quot;, &quot;Bas013 H2O2 step&quo
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_combi)), ncol = 5) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
@@ -1133,24 +1167,25 @@ stimulations_exp &lt;- c(&quot;DS085 H2O2 step&quot;, &quot;Bas013 H2O2 step&quo
   
   print(plot)
 }</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_ridge_time_combi-1.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_combi-2.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_combi-3.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_combi-4.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_combi-5.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_combi-6.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_combi-7.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code># this_protein_combi &lt;-  &quot;pPLCy2 (Y759)&quot;
-for (this_protein_combi in proteins_combi) {
-  plot &lt;- ggplot(subset(df_combi, 
+<pre class="r"><code>df_filter_combi &lt;- df_combi %&gt;%
+  filter(protein %in% c(proteins_overlap, &quot;cCaspase 3 + cPARP&quot;) &amp; stim_description %in% stimulations_overlap)
+
+# this_protein_combi &lt;-  &quot;pPLCy2 (Y759)&quot;
+for (this_protein_combi in c(proteins_overlap, &quot;cCaspase 3 + cPARP&quot;)) {
+  plot &lt;- ggplot(subset(df_filter_combi, 
                         protein == this_protein_combi &amp; 
                           staining == &quot;yes&quot; &amp; 
                           stim_profile == &quot;gradient&quot; &amp; 
                           gradient_duration != 90
                         ), aes(x = fluorescence)) + 
     geom_density_ridges(
-      aes(y = as.factor(cumulative_exposure), # cumulative_exposure # conc_at_time_mM
+      aes(y = as.factor(conc_at_time_mM), # cumulative_exposure # conc_at_time_mM
           fill = expID),
       scale = 2, 
       alpha = 0.5
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
     facet_wrap(vars(factor(stim_description, levels = stimulations_combi)), ncol = 4) +
-    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
     labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_combi), y = &quot;H2O2 concentration (mM)&quot;) +
     theme_bw() +
@@ -1158,7 +1193,7 @@ for (this_protein_combi in proteins_combi) {
   
   print(plot)
 }</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-1.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-2.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-3.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-4.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-5.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-6.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-7.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-1.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-2.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-3.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-4.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="line-plots-2" class="section level3">
 <h3>Line plots</h3>
@@ -1189,9 +1224,35 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot;),
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
-  textsize</code></pre>
+  textsize +
+  theme(legend.text = element_text(size = 9))</code></pre>
 <p><img src="figure/c_gradients.Rmd/fig_line_time_combi-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_filter_combi, staining == &quot;yes&quot; &amp; stim_profile == &quot;gradient&quot;),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = paste(expID, stim_description),
+         color = paste(expID, stim_description),
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_combi)), ncol = 1) +
+  # scale_x_log10(limits = c(1e-1, 1e1)) + 
+  scale_color_manual(
+    values = colors_paired10,
+    breaks = stimulations_exp,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
+  textsize +
+  theme(legend.text = element_text(size = 9))</code></pre>
+<p><img src="figure/c_gradients.Rmd/fig_line_conc_combi-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Log10 x-axis
+ggplot(subset(medians_filter_combi, staining == &quot;yes&quot; &amp; stim_profile == &quot;gradient&quot;),
        aes(
          x = conc_at_time_mM,
          y = percent_on, 
@@ -1208,12 +1269,13 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot;),
     name = &quot;&quot;,
   ) +
   coord_cartesian(ylim = c(0, 100)) +
-  labs(x = &quot;H2O2 concentration (mM)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  labs(x = &quot;H2O2 concentration (mM) (log10)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
-  textsize</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_conc_combi-1.png" width="480" style="display: block; margin: auto;" /></p>
+  textsize +
+  theme(legend.text = element_text(size = 9))</code></pre>
+<p><img src="figure/c_gradients.Rmd/fig_line_conc_combi-2.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_filter_combi, staining == &quot;yes&quot;),
        aes(
          x = cumulative_exposure,
@@ -1224,6 +1286,7 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot;),
   geom_line(linewidth = 1.25) +
   geom_point(size = 2) +
   facet_wrap(vars(factor(protein, levels = proteins_combi)), ncol = 1) +
+  scale_x_log10() +
   scale_color_manual(
     values = colors_paired10,
     breaks = stimulations_exp,
@@ -1234,7 +1297,8 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot;),
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
-  textsize</code></pre>
+  textsize +
+  theme(legend.text = element_text(size = 9))</code></pre>
 <p><img src="figure/c_gradients.Rmd/fig_line_cumexp_combi-1.png" width="480" style="display: block; margin: auto;" /></p>
 <br>
 <p>
@@ -1383,7 +1447,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

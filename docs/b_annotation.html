@@ -299,6 +299,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -347,6 +353,9 @@ div.tocify {
 </li>
 <li>
   <a href="c_gradients.html">Gradients</a>
+</li>
+<li>
+  <a href="d_step.html">Step</a>
 </li>
 <li>
   <a href="license.html">License</a>
@@ -534,13 +543,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongf7496c3">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong4a1526a">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> f7496c3
+aria-hidden="true"></span> <strong>Repository version:</strong> 4a1526a
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongf7496c3"
+<div id="strongRepositoryversionstrong4a1526a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -549,7 +558,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version f7496c3.
+The results in this page were generated with repository version 4a1526a.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,6 +580,7 @@ Untracked files:
     Untracked:  code/packages_FACS.R
     Untracked:  data/Bas013_LinGradient_CumExp/
     Untracked:  data/DS085_LinGradient_Conc/
+    Untracked:  data/DS095_DetailedStep_Conc/
     Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
     Untracked:  output/annotated_medians_tidy_Bas013.csv
@@ -628,6 +638,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+4a1526a
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Publish updated gradient figures
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+dc09f40
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -746,9 +790,8 @@ Publish correct gating + annotation
 # Load required packages
 source(&quot;code/packages_FACS.R&quot;, local = knitr::knit_global())</code></pre>
 </div>
-<div id="ds.085-linear-gradients-with-conc-based-sampling"
-class="section level2">
-<h2>DS.085: Linear gradients with conc-based sampling</h2>
+<div id="ds085-lin-gradients-with-conc-sampling" class="section level2">
+<h2>DS085: Lin gradients with conc sampling</h2>
 <div id="load-data" class="section level3">
 <h3>Load data</h3>
 <p>Load the gated dataset and create a dataset with live single
@@ -1740,7 +1783,7 @@ df_tidy_DS085 &lt;- df_tidy_DS085 %&gt;%
 data_info_DS085 &lt;- df_tidy_DS085 %&gt;%
   filter(time_point == &quot;0 min&quot;) %&gt;% 
   group_by(plateID, stim_description, protein) %&gt;%
-  summarise(zero_quant95 = quantile(fluorescence, c(0.95), na.rm = T))
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
 
 df_tidy_DS085 &lt;- left_join(df_tidy_DS085, data_info_DS085)
 
@@ -1750,7 +1793,7 @@ data_total_DS085 &lt;- df_tidy_DS085 %&gt;%
   count(name = &quot;count_total&quot;)
 
 data_on_DS085 &lt;- df_tidy_DS085 %&gt;%
-  filter((fluorescence - zero_quant95) &gt; 0) %&gt;%
+  filter((fluorescence - zero_quant97.5) &gt; 0) %&gt;%
   group_by(plateID, wellID, protein) %&gt;%
   count(name = &quot;count_on&quot;)
 
@@ -1917,10 +1960,10 @@ A
 22906
 </td>
 <td style="text-align:right;">
-1144
+572
 </td>
 <td style="text-align:right;">
-4.994325
+2.497162
 </td>
 </tr>
 <tr>
@@ -1982,10 +2025,10 @@ A
 22906
 </td>
 <td style="text-align:right;">
-1144
+572
 </td>
 <td style="text-align:right;">
-4.994325
+2.497162
 </td>
 </tr>
 <tr>
@@ -2047,10 +2090,10 @@ A
 22906
 </td>
 <td style="text-align:right;">
-1113
+558
 </td>
 <td style="text-align:right;">
-4.858989
+2.436043
 </td>
 </tr>
 <tr>
@@ -2112,10 +2155,10 @@ A
 22906
 </td>
 <td style="text-align:right;">
-1146
+573
 </td>
 <td style="text-align:right;">
-5.003056
+2.501528
 </td>
 </tr>
 <tr>
@@ -2177,10 +2220,10 @@ A
 35961
 </td>
 <td style="text-align:right;">
-2061
+1044
 </td>
 <td style="text-align:right;">
-5.731209
+2.903145
 </td>
 </tr>
 </tbody>
@@ -2194,9 +2237,9 @@ A
 write.csv(medians_tidy_DS085, file = &quot;output/annotated_medians_tidy_DS085.csv&quot;, row.names = F)</code></pre>
 </div>
 </div>
-<div id="bas.013-linear-gradients-with-cum-exp-based-sampling"
+<div id="bas013-lin-gradients-with-exposure-sampling"
 class="section level2">
-<h2>Bas.013: Linear gradients with cum exp-based sampling</h2>
+<h2>Bas013: Lin gradients with exposure sampling</h2>
 <div id="load-data-1" class="section level3">
 <h3>Load data</h3>
 <p>Load the gated dataset and create a dataset with live single
@@ -3184,7 +3227,7 @@ PE
 <pre class="r"><code>data_info_Bas013 &lt;- df_tidy_Bas013 %&gt;%
   filter(time_point == &quot;0 min&quot;) %&gt;% 
   group_by(plateID, stim_description, protein) %&gt;%
-  summarise(zero_quant95 = quantile(fluorescence, c(0.95), na.rm = T))
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
 
 df_tidy_Bas013 &lt;- left_join(df_tidy_Bas013, data_info_Bas013)
 
@@ -3194,7 +3237,7 @@ data_total_Bas013 &lt;- df_tidy_Bas013 %&gt;%
   count(name = &quot;count_total&quot;)
 
 data_on_Bas013 &lt;- df_tidy_Bas013 %&gt;%
-  filter((fluorescence - zero_quant95) &gt; 0) %&gt;%
+  filter((fluorescence - zero_quant97.5) &gt; 0) %&gt;%
   group_by(wellID, protein) %&gt;%
   count(name = &quot;count_on&quot;)
 
@@ -3360,10 +3403,10 @@ A
 38451
 </td>
 <td style="text-align:right;">
-1920
+962
 </td>
 <td style="text-align:right;">
-4.993368
+2.501886
 </td>
 </tr>
 <tr>
@@ -3425,10 +3468,10 @@ A
 38451
 </td>
 <td style="text-align:right;">
-1923
+961
 </td>
 <td style="text-align:right;">
-5.001170
+2.499285
 </td>
 </tr>
 <tr>
@@ -3490,10 +3533,10 @@ A
 38451
 </td>
 <td style="text-align:right;">
-1811
+911
 </td>
 <td style="text-align:right;">
-4.709891
+2.369249
 </td>
 </tr>
 <tr>
@@ -3555,10 +3598,10 @@ A
 38451
 </td>
 <td style="text-align:right;">
-1922
+961
 </td>
 <td style="text-align:right;">
-4.998570
+2.499285
 </td>
 </tr>
 <tr>
@@ -3620,10 +3663,10 @@ A
 39708
 </td>
 <td style="text-align:right;">
-3147
+1362
 </td>
 <td style="text-align:right;">
-7.925355
+3.430039
 </td>
 </tr>
 </tbody>
@@ -3635,6 +3678,157 @@ A
 <pre class="r"><code>write.csv(df_tidy_Bas013, file = &quot;output/annotated_data_tidy_Bas013.csv&quot;, row.names = F)
 
 write.csv(medians_tidy_Bas013, file = &quot;output/annotated_medians_tidy_Bas013.csv&quot;, row.names = F)</code></pre>
+</div>
+</div>
+<div id="ds095-detailed-step-dose" class="section level2">
+<h2>DS095: Detailed step dose</h2>
+<div id="load-data-2" class="section level3">
+<h3>Load data</h3>
+<p>Load the gated dataset and create a dataset with live single
+cells</p>
+<pre class="r"><code>gs_DS095 &lt;- load_gs(paste0(&quot;output/&quot;, &quot;gated_data_DS095&quot;))
+
+gated_pops_DS095 &lt;- gs_get_pop_paths(gs_DS095, path = &quot;auto&quot;)
+cs_DS095 &lt;- gs_pop_get_data(gs_DS095, tail(gated_pops_DS095, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS095 &lt;- fortify(cs_DS095)
+df_DS095[df_DS095 &lt;= 0] &lt;- NA
+
+# Select only columns that are needed
+df_DS095 &lt;- df_DS095[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]</code></pre>
+<pre class="r"><code># Add metadata per well from custom .csv file
+metadata_DS095 &lt;- read_csv(&quot;data/DS095_DetailedStep_Conc/metadata_plate_DS095.csv&quot;)
+
+# Change columns into character if necessary
+metadata_DS095$colID &lt;- as.character(metadata_DS095$colID)
+
+df_DS095 &lt;- left_join(df_DS095, metadata_DS095)
+
+# Remove samples with &lt;5000 cells (except if the sample is t = 0 min)
+counts_DS095 &lt;- df_DS095 %&gt;% count(plateID, wellID, name = &quot;sample_cell_count&quot;)
+df_DS095 &lt;- left_join(df_DS095, counts_DS095)
+# df_DS095 &lt;- df_DS095[df_DS095$sample_cell_count &gt; 5000, ]
+remove_wells_DS095 &lt;- df_DS095 %&gt;%
+  filter(sample_cell_count &lt; 5000) %&gt;%
+  select(plateID, wellID, time_min) %&gt;% 
+  distinct() %&gt;%
+  filter(time_min &gt; 0) %&gt;%
+  select(plateID, wellID) %&gt;%
+  mutate(wellID_rem = wellID)
+df_DS095 &lt;- df_DS095 %&gt;%
+  left_join(remove_wells_DS095) %&gt;%
+  replace_na(list(wellID_rem = &quot;x&quot;)) %&gt;%
+  filter(wellID_rem == &quot;x&quot;) %&gt;%
+  select(-c(wellID_rem))
+  
+kable(df_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="transform-data-2" class="section level3">
+<h3>Transform data</h3>
+<p>Pivot the full dataset into a tidy dataset</p>
+<pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS095 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+
+df_PE_DS095 &lt;- df_DS095 %&gt;% 
+  select(all_of(cols_meta_DS095), protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;PE&quot;) %&gt;%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS095 &lt;- df_DS095 %&gt;% 
+  select(all_of(cols_meta_DS095), protein_AF647, Alexa.647.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF647&quot;) %&gt;%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS095 &lt;- df_DS095 %&gt;% 
+  select(all_of(cols_meta_DS095), protein_AF488, Alexa.488.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF488&quot;) %&gt;%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS095 &lt;- df_DS095 %&gt;% 
+  select(all_of(cols_meta_DS095), protein_BV421, BV421.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;BV421&quot;) %&gt;%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS095 &lt;- list(df_PE_DS095, df_AF647_DS095, df_AF488_DS095, df_BV421_DS095) %&gt;% reduce(full_join)
+
+kable(df_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<pre class="r"><code># Remove pBTK values &gt;1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
+df_tidy_DS095 &lt;- df_tidy_DS095 %&gt;%
+  filter(!(protein == &quot;pBTK (Y223)&quot; &amp; stim_profile == &quot;gradient&quot; &amp; time_point == &quot;0 min&quot; &amp; fluorescence &gt; 1.4e4))
+
+data_info_DS095 &lt;- df_tidy_DS095 %&gt;%
+  filter(time_point == &quot;0 min&quot;) %&gt;% 
+  group_by(plateID, stim_description, protein) %&gt;%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS095 &lt;- left_join(df_tidy_DS095, data_info_DS095)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS095 &lt;- df_tidy_DS095 %&gt;%
+  group_by(plateID, wellID, protein) %&gt;%
+  count(name = &quot;count_total&quot;)
+
+data_on_DS095 &lt;- df_tidy_DS095 %&gt;%
+  filter((fluorescence - zero_quant97.5) &gt; 0) %&gt;%
+  group_by(plateID, wellID, protein) %&gt;%
+  count(name = &quot;count_on&quot;)
+
+data_counts_DS095 &lt;- left_join(data_total_DS095, data_on_DS095) %&gt;%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS095 &lt;- left_join(df_tidy_DS095, data_counts_DS095)</code></pre>
+</div>
+<div id="median-data-2" class="section level3">
+<h3>Median data</h3>
+<p>Calculate median fluorescent values for each sample/replicate</p>
+<pre class="r"><code># Calculate median values for each sample
+medians_DS095 &lt;- df_tidy_DS095 %&gt;% 
+  group_by(plateID, wellID, protein, fluor) %&gt;% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+
+medians_tidy_DS095 &lt;- left_join(medians_DS095, distinct(select(df_tidy_DS095, cols_meta_DS095))) %&gt;%
+  left_join(data_counts_DS095)
+
+# # Transform data into fold change (FC) to t = 0 min and log2(FC)
+# medians_zero_DS095 &lt;- medians_tidy_DS095 %&gt;% 
+#   filter(time_point == &quot;0 min&quot;) %&gt;% 
+#   select(
+#     plateID, 
+#     stim_description_rep, 
+#     protein,
+#     fluorescence_zero = fluorescence_median
+#     )
+# medians_tidy_DS095 &lt;- left_join(medians_tidy_DS095, medians_zero_DS095[, c(&quot;plateID&quot;, &quot;stim_description_rep&quot;, &quot;protein&quot;, &quot;fluorescence_zero&quot;)])
+# 
+# medians_tidy_DS095 &lt;- medians_tidy_DS095 %&gt;%
+#   mutate(fluorescence = fluorescence_median, 
+#          FC = (fluorescence / fluorescence_zero), 
+#          log2FC = (log2(FC)), 
+#          ) %&gt;%
+#   select(-c(fluorescence_median)) 
+
+kable(medians_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="save-data-2" class="section level3">
+<h3>Save data</h3>
+<p>Save annotated datasets as .csv file</p>
+<pre class="r"><code>write.csv(df_tidy_DS095, file = &quot;output/annotated_data_tidy_DS095.csv&quot;, row.names = F)
+
+write.csv(medians_tidy_DS095, file = &quot;output/annotated_medians_tidy_DS095.csv&quot;, row.names = F)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -3782,7 +3976,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify
