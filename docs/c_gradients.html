@@ -400,7 +400,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-09
+<strong>Last updated:</strong> 2023-03-10
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -532,13 +532,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong75ea8ac">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong53bd694">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 75ea8ac
+aria-hidden="true"></span> <strong>Repository version:</strong> 53bd694
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong75ea8ac"
+<div id="strongRepositoryversionstrong53bd694"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +547,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 75ea8ac.
+The results in this page were generated with repository version 53bd694.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -626,6 +626,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+53bd694
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Publish updated annotation
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+95572ef
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -718,10 +752,10 @@ class="section level2">
 <pre class="r"><code>df_tidy_DS085 &lt;- read_csv(&quot;output/annotated_data_tidy_DS085.csv&quot;)
 
 medians_tidy_DS085 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS085.csv&quot;)</code></pre>
-<div id="ridge-plots" class="section level3">
-<h3>Ridge plots</h3>
 <pre class="r"><code>proteins_DS085 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pBTK (Y223)&quot;, &quot;pPLCy2 (Y759)&quot;, &quot;pAKT (S473)&quot;, &quot;pp38 (T180/Y182)&quot;, &quot;cCaspase 3 + cPARP&quot;)
 stimulations_DS085 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20 min gradient&quot;, &quot;60 min gradient&quot;)</code></pre>
+<div id="ridge-plots" class="section level3">
+<h3>Ridge plots</h3>
 <pre class="r"><code>for (this_protein_DS085 in proteins_DS085) {
   plot &lt;- ggplot(subset(df_tidy_DS085, protein == this_protein_DS085), aes(x = fluorescence)) +
     geom_density_ridges(
@@ -847,10 +881,10 @@ class="section level2">
 <pre class="r"><code>df_tidy_Bas013 &lt;- read_csv(&quot;output/annotated_data_tidy_Bas013.csv&quot;)
 
 medians_tidy_Bas013 &lt;- read_csv(&quot;output/annotated_medians_tidy_Bas013.csv&quot;)</code></pre>
-<div id="ridge-plots-1" class="section level3">
-<h3>Ridge plots</h3>
 <pre class="r"><code>proteins_Bas013 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;, &quot;cCaspase 3 + cPARP&quot;)
 stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20 min gradient&quot;, &quot;60 min gradient&quot;, &quot;90 min gradient&quot;)</code></pre>
+<div id="ridge-plots-1" class="section level3">
+<h3>Ridge plots</h3>
 <pre class="r"><code>for (this_protein_Bas013 in proteins_Bas013) {
   plot &lt;- ggplot(subset(df_tidy_Bas013, protein == this_protein_Bas013), aes(x = fluorescence)) +
     geom_density_ridges(
@@ -919,6 +953,7 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
   labs(x = &quot;Time (min)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
   textsize</code></pre>
 <p><img src="figure/c_gradients.Rmd/fig_line_time_Bas013-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_tidy_Bas013, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_profile == &quot;gradient&quot;),
@@ -945,6 +980,7 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
   labs(x = &quot;H2O2 concentration (mM)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
   textsize</code></pre>
 <p><img src="figure/c_gradients.Rmd/fig_line_conc_Bas013-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_tidy_Bas013, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_description != &quot;PBS step&quot;), 
@@ -966,8 +1002,248 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
   labs(x = &quot;Cumulative exposure (AUC of conc vs time)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
   textsize</code></pre>
 <p><img src="figure/c_gradients.Rmd/fig_line_cumexp_Bas013-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="combined-datasets-ds085-bas013" class="section level2">
+<h2>Combined datasets DS085 + Bas013</h2>
+<pre class="r"><code>df_tidy_Bas013$sample &lt;- as.character(df_tidy_Bas013$sample)
+df_combi &lt;- full_join(df_tidy_DS085, df_tidy_Bas013)</code></pre>
+<pre class="r"><code>proteins_combi &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pBTK (Y223)&quot;, &quot;pPLCy2 (Y759)&quot;, &quot;pAKT (S473)&quot;, &quot;pp38 (T180/Y182)&quot;, &quot;cCaspase 3 + cPARP&quot;)
+stimulations_combi &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20 min gradient&quot;, &quot;60 min gradient&quot;)</code></pre>
+<div id="ridge-plots-2" class="section level3">
+<h3>Ridge plots</h3>
+<pre class="r"><code>for (this_protein_DS085 in proteins_DS085) {
+  plot &lt;- ggplot(subset(df_tidy_DS085, protein == this_protein_DS085), aes(x = fluorescence)) +
+    geom_density_ridges(
+      aes(y = as.factor(time_min), 
+          fill = conc_at_time_mM),
+      scale = 2, 
+      alpha = 0.5
+    ) +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_DS085), y = &quot;Time (min)&quot;) +
+    theme_bw() +
+    textsize
+  
+  print(plot)
+}
+
+for (this_protein_Bas013 in proteins_Bas013) {
+  plot &lt;- ggplot(subset(df_tidy_Bas013, protein == this_protein_Bas013), aes(x = fluorescence)) +
+    geom_density_ridges(
+      aes(y = as.factor(cumulative_exposure), 
+          fill = conc_at_time_mM),
+      scale = 2, 
+      alpha = 0.5
+    ) +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 5) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_Bas013), y = &quot;Cumulative exposure\n(AUC of conc vs time)&quot;) +
+    theme_bw() +
+    textsize
+  
+  print(plot)
+}</code></pre>
+<pre class="r"><code>for (this_protein_DS085 in proteins_DS085) {
+  plot &lt;- ggplot(subset(df_tidy_DS085, 
+                        protein == this_protein_DS085 &amp; 
+                          staining == &quot;yes&quot; &amp; 
+                          stim_profile == &quot;gradient&quot;
+                        ), aes(x = fluorescence)) + 
+    geom_density_ridges(
+      aes(y = as.factor(conc_at_time_mM), 
+          fill = conc_at_time_mM),
+      scale = 2, 
+      alpha = 0.5
+    ) +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_DS085), y = &quot;H2O2 concentration (mM)&quot;) +
+    theme_bw() +
+    textsize
+  
+  print(plot)
+}
+
+for (this_protein_Bas013 in proteins_Bas013) {
+  plot &lt;- ggplot(subset(df_tidy_Bas013, 
+                        protein == this_protein_Bas013 &amp; 
+                          staining == &quot;yes&quot; &amp; 
+                          stim_profile == &quot;gradient&quot;
+                        ), aes(x = fluorescence)) + 
+    geom_density_ridges(
+      aes(y = as.factor(conc_at_time_mM), 
+          fill = conc_at_time_mM),
+      scale = 2, 
+      alpha = 0.5
+    ) +
+    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 4) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_Bas013), y = &quot;H2O2 concentration (mM)&quot;) +
+    theme_bw() +
+    textsize
+  
+  print(plot)
+}</code></pre>
+</div>
+<div id="line-plots-2" class="section level3">
+<h3>Line plots</h3>
+<pre class="r"><code>ggplot(subset(medians_tidy_DS085, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot;),
+       aes(
+         x = time_min,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS085)), ncol = 2) +
+  scale_x_continuous(
+    limits = c(0, 90),
+    breaks = c(0, 20, 60, 90)
+  ) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_DS085,
+    name = &quot;&quot;,
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = &quot;Time (min)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  textsize
+
+ggplot(subset(medians_tidy_Bas013, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot;),
+       aes(
+         x = time_min,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_Bas013)), ncol = 1) +
+  scale_x_continuous(
+    limits = c(0, 90),
+    breaks = c(0, 20, 60, 90)
+  ) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_Bas013,
+    name = &quot;&quot;,
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = &quot;Time (min)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
+  textsize</code></pre>
+<pre class="r"><code>ggplot(subset(medians_tidy_DS085, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_profile == &quot;gradient&quot;),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS085)), ncol = 2) +
+  scale_x_log10(limits = c(1e-1, 1e1)) + 
+  # scale_x_continuous(
+  #   limits = c(0, 5),
+  #   breaks = c(0, 1.25, 2.5, 3.75, 5)  
+  # ) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_DS085,
+    name = &quot;&quot;,
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  textsize
+
+ggplot(subset(medians_tidy_Bas013, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_profile == &quot;gradient&quot;),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_Bas013)), ncol = 1) +
+  scale_x_log10(limits = c(1e-1, 1e1)) + 
+  # scale_x_continuous(
+  #   limits = c(0, 5),
+  #   breaks = c(0, 1.25, 2.5, 3.75, 5)  
+  # ) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_Bas013,
+    name = &quot;&quot;,
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
+  textsize</code></pre>
+<pre class="r"><code>ggplot(subset(medians_tidy_DS085, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_description != &quot;PBS step&quot;), 
+       aes(
+         x = cumulative_exposure,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS085)), ncol = 2) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_DS085,
+    name = &quot;&quot;,
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = &quot;Cumulative exposure (AUC of conc vs time)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  textsize
+
+ggplot(subset(medians_tidy_Bas013, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_description != &quot;PBS step&quot;), 
+       aes(
+         x = cumulative_exposure,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_Bas013)), ncol = 1) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = stimulations_Bas013,
+    name = &quot;&quot;,
+  ) +
+  # coord_cartesian(ylim = c(0, 100)) + 
+  labs(x = &quot;Cumulative exposure (AUC of conc vs time)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
+  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
+  textsize</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
