@@ -42,6 +42,7 @@ textsize_small <- theme(text = element_text(size = 7, family = "sans", colour = 
 
 colors_dark9 <- c("#4daf4a", "#984ea3", "#ffff33", "#ff7f00", "#e41a1c", "#f781bf", "#a65628", "#999999", "#377eb8")
 colors_light12 <- c("#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#ffed6f")
+colors_paired10 <- c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#fb9a99", "#e31a1c")
 ```
 
 
@@ -228,7 +229,7 @@ for (this_protein_Bas013 in proteins_Bas013) {
 }
 ```
 
-```{r fig_ridge_conc_Bas013, fig.width=8, fig.height=4}
+```{r fig_ridge_conc_Bas013, fig.width=7, fig.height=4}
 for (this_protein_Bas013 in proteins_Bas013) {
   plot <- ggplot(subset(df_tidy_Bas013, 
                         protein == this_protein_Bas013 & 
@@ -341,102 +342,81 @@ ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + 
 
 ## Combined datasets DS085 + Bas013
 
-```{r combi_data, eval=F}
+***Table:** Experimental parameters of DS085 and Bas013 experiments*
+
+|                   | **DS085 (conc-based)** | **Bas013 (cum exp-based)** |
+|-------------------|------------------------|----------------------------|
+| *Cell density*    | 2M cells/mL            | 1M cells/mL                |
+|-------------------|------------------------|----------------------------|
+| *H2O2 final conc* | 5 mM                   | 5 mM                       |
+|-------------------|------------------------|----------------------------|
+| *Gradients*       | 20 + 60 min            | 20 + 60 + 90 min           |
+|-------------------|------------------------|----------------------------|
+| *Proteins*        | CD79a + SYK + PLCy2    | CD79a + SYK + PLCy2        |
+|                   | AKT + BTK + p38        |                            |
+
+
+```{r combi_data}
 df_tidy_Bas013$sample <- as.character(df_tidy_Bas013$sample)
 df_combi <- full_join(df_tidy_DS085, df_tidy_Bas013)
+
+medians_tidy_Bas013$sample <- as.character(medians_tidy_Bas013$sample)
+medians_combi <- full_join(medians_tidy_DS085, medians_tidy_Bas013)
 ```
 
-
-```{r fig_orders_combi, eval=F}
+```{r fig_orders_combi}
 proteins_combi <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pBTK (Y223)", "pPLCy2 (Y759)", "pAKT (S473)", "pp38 (T180/Y182)", "cCaspase 3 + cPARP")
-stimulations_combi <- c("PBS step", "H2O2 step", "20 min gradient", "60 min gradient")
+proteins_overlap <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pPLCy2 (Y759)")
+stimulations_combi <- c("PBS step", "H2O2 step", "20 min gradient", "60 min gradient", "90 min gradient")
+stimulations_overlap <- c("H2O2 step", "20 min gradient", "60 min gradient")
+
+stimulations_exp <- c("DS085 H2O2 step", "Bas013 H2O2 step", "DS085 20 min gradient", "Bas013 20 min gradient", "DS085 60 min gradient", "Bas013 60 min gradient")
 ```
 
 
 ### Ridge plots
 
-```{r fig_ridge_time_combi, fig.width=10, fig.height=6, eval=F}
-for (this_protein_DS085 in proteins_DS085) {
-  plot <- ggplot(subset(df_tidy_DS085, protein == this_protein_DS085), aes(x = fluorescence)) +
+```{r fig_ridge_time_combi, fig.width=10, fig.height=6}
+for (this_protein_combi in proteins_combi) {
+  plot <- ggplot(subset(df_combi, protein == this_protein_combi), aes(x = fluorescence)) +
     geom_density_ridges(
-      aes(y = as.factor(time_min), 
-          fill = conc_at_time_mM),
+      aes(y = as.factor(time_min), # cumulative_exposure # conc_at_time_mM
+          fill = expID),
       scale = 2, 
       alpha = 0.5
     ) +
     geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
-    facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_combi)), ncol = 5) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
-    labs(x = paste("Fluorescent intensity", this_protein_DS085), y = "Time (min)") +
+    labs(x = paste("Fluorescent intensity", this_protein_combi), y = "Time (min)") +
     theme_bw() +
     textsize
   
   print(plot)
 }
-
-for (this_protein_Bas013 in proteins_Bas013) {
-  plot <- ggplot(subset(df_tidy_Bas013, protein == this_protein_Bas013), aes(x = fluorescence)) +
-    geom_density_ridges(
-      aes(y = as.factor(cumulative_exposure), 
-          fill = conc_at_time_mM),
-      scale = 2, 
-      alpha = 0.5
-    ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
-    facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 5) +
-    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
-    scale_x_log10() +
-    labs(x = paste("Fluorescent intensity", this_protein_Bas013), y = "Cumulative exposure\n(AUC of conc vs time)") +
-    theme_bw() +
-    textsize
-  
-  print(plot)
-}
-
 ```
 
-```{r fig_ridge_conc_combi, fig.width=8, fig.height=4, eval=F}
-for (this_protein_DS085 in proteins_DS085) {
-  plot <- ggplot(subset(df_tidy_DS085, 
-                        protein == this_protein_DS085 & 
+```{r fig_ridge_conc_combi, fig.width=6, fig.height=4}
+# this_protein_combi <-  "pPLCy2 (Y759)"
+for (this_protein_combi in proteins_combi) {
+  plot <- ggplot(subset(df_combi, 
+                        protein == this_protein_combi & 
                           staining == "yes" & 
-                          stim_profile == "gradient"
+                          stim_profile == "gradient" & 
+                          gradient_duration != 90
                         ), aes(x = fluorescence)) + 
     geom_density_ridges(
-      aes(y = as.factor(conc_at_time_mM), 
-          fill = conc_at_time_mM),
+      aes(y = as.factor(cumulative_exposure), # cumulative_exposure # conc_at_time_mM
+          fill = expID),
       scale = 2, 
       alpha = 0.5
     ) +
     geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
-    facet_wrap(vars(factor(stim_description, levels = stimulations_DS085)), ncol = 4) +
+    facet_wrap(vars(factor(stim_description, levels = stimulations_combi)), ncol = 4) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
-    labs(x = paste("Fluorescent intensity", this_protein_DS085), y = "H2O2 concentration (mM)") +
-    theme_bw() +
-    textsize
-  
-  print(plot)
-}
-
-for (this_protein_Bas013 in proteins_Bas013) {
-  plot <- ggplot(subset(df_tidy_Bas013, 
-                        protein == this_protein_Bas013 & 
-                          staining == "yes" & 
-                          stim_profile == "gradient"
-                        ), aes(x = fluorescence)) + 
-    geom_density_ridges(
-      aes(y = as.factor(conc_at_time_mM), 
-          fill = conc_at_time_mM),
-      scale = 2, 
-      alpha = 0.5
-    ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
-    facet_wrap(vars(factor(stim_description, levels = stimulations_Bas013)), ncol = 4) +
-    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
-    scale_x_log10() +
-    labs(x = paste("Fluorescent intensity", this_protein_Bas013), y = "H2O2 concentration (mM)") +
+    labs(x = paste("Fluorescent intensity", this_protein_combi), y = "H2O2 concentration (mM)") +
     theme_bw() +
     textsize
   
@@ -447,155 +427,82 @@ for (this_protein_Bas013 in proteins_Bas013) {
 
 ### Line plots
 
-```{r fig_line_time_combi, fig.width=10, fig.height=8, eval=F}
-ggplot(subset(medians_tidy_DS085, staining == "yes" & protein != "cCaspase 3 + cPARP"),
+```{r fig_line_time_combi, fig.width=5, fig.height=7}
+medians_filter_combi <- medians_combi %>%
+  filter(protein %in% proteins_overlap & stim_description %in% stimulations_overlap)
+
+ggplot(subset(medians_filter_combi, staining == "yes"),
        aes(
          x = time_min,
          y = percent_on, 
-         group = stim_description,
-         color = stim_description,
+         group = paste(expID, stim_description),
+         color = paste(expID, stim_description),
        )) +
   geom_line(linewidth = 1.25) +
   geom_point(size = 2) +
-  facet_wrap(vars(factor(protein, levels = proteins_DS085)), ncol = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_combi)), ncol = 1) +
   scale_x_continuous(
     limits = c(0, 90),
     breaks = c(0, 20, 60, 90)
   ) +
   scale_color_manual(
-    values = colors_dark9,
-    breaks = stimulations_DS085,
+    values = colors_paired10,
+    breaks = stimulations_exp,
     name = "",
   ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
+  coord_cartesian(ylim = c(0, 100)) +
   labs(x = "Time (min)", y = paste("Percentage of cells ON")) +
   theme_bw() +
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
-  textsize
-
-ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + cPARP"),
-       aes(
-         x = time_min,
-         y = percent_on, 
-         group = stim_description,
-         color = stim_description,
-       )) +
-  geom_line(linewidth = 1.25) +
-  geom_point(size = 2) +
-  facet_wrap(vars(factor(protein, levels = proteins_Bas013)), ncol = 1) +
-  scale_x_continuous(
-    limits = c(0, 90),
-    breaks = c(0, 20, 60, 90)
-  ) +
-  scale_color_manual(
-    values = colors_dark9,
-    breaks = stimulations_Bas013,
-    name = "",
-  ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
-  labs(x = "Time (min)", y = paste("Percentage of cells ON")) +
-  theme_bw() +
-  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
-  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
+  guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize
 ```
 
-```{r fig_line_conc_combi, fig.width=10, fig.height=8, eval=F}
-ggplot(subset(medians_tidy_DS085, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_profile == "gradient"),
+```{r fig_line_conc_combi, fig.width=5, fig.height=7}
+ggplot(subset(medians_filter_combi, staining == "yes" & stim_profile == "gradient"),
        aes(
          x = conc_at_time_mM,
          y = percent_on, 
-         group = stim_description,
-         color = stim_description,
+         group = paste(expID, stim_description),
+         color = paste(expID, stim_description),
        )) +
   geom_line(linewidth = 1.25) +
   geom_point(size = 2) +
-  facet_wrap(vars(factor(protein, levels = proteins_DS085)), ncol = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_combi)), ncol = 1) +
   scale_x_log10(limits = c(1e-1, 1e1)) + 
-  # scale_x_continuous(
-  #   limits = c(0, 5),
-  #   breaks = c(0, 1.25, 2.5, 3.75, 5)  
-  # ) +
   scale_color_manual(
-    values = colors_dark9,
-    breaks = stimulations_DS085,
+    values = colors_paired10,
+    breaks = stimulations_exp,
     name = "",
   ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
+  coord_cartesian(ylim = c(0, 100)) +
   labs(x = "H2O2 concentration (mM)", y = paste("Percentage of cells ON")) +
   theme_bw() +
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
-  textsize
-
-ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_profile == "gradient"),
-       aes(
-         x = conc_at_time_mM,
-         y = percent_on, 
-         group = stim_description,
-         color = stim_description,
-       )) +
-  geom_line(linewidth = 1.25) +
-  geom_point(size = 2) +
-  facet_wrap(vars(factor(protein, levels = proteins_Bas013)), ncol = 1) +
-  scale_x_log10(limits = c(1e-1, 1e1)) + 
-  # scale_x_continuous(
-  #   limits = c(0, 5),
-  #   breaks = c(0, 1.25, 2.5, 3.75, 5)  
-  # ) +
-  scale_color_manual(
-    values = colors_dark9,
-    breaks = stimulations_Bas013,
-    name = "",
-  ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
-  labs(x = "H2O2 concentration (mM)", y = paste("Percentage of cells ON")) +
-  theme_bw() +
-  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
-  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
+  guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize
 ```
 
-```{r fig_line_cumexp_combi, fig.width=10, fig.height=8, eval=F}
-ggplot(subset(medians_tidy_DS085, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_description != "PBS step"), 
+```{r fig_line_cumexp_combi, fig.width=5, fig.height=7}
+ggplot(subset(medians_filter_combi, staining == "yes"),
        aes(
          x = cumulative_exposure,
          y = percent_on, 
-         group = stim_description,
-         color = stim_description,
+         group = paste(expID, stim_description),
+         color = paste(expID, stim_description),
        )) +
   geom_line(linewidth = 1.25) +
   geom_point(size = 2) +
-  facet_wrap(vars(factor(protein, levels = proteins_DS085)), ncol = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_combi)), ncol = 1) +
   scale_color_manual(
-    values = colors_dark9,
-    breaks = stimulations_DS085,
+    values = colors_paired10,
+    breaks = stimulations_exp,
     name = "",
   ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
+  coord_cartesian(ylim = c(0, 100)) +
   labs(x = "Cumulative exposure (AUC of conc vs time)", y = paste("Percentage of cells ON")) +
   theme_bw() +
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
-  textsize
-
-ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_description != "PBS step"), 
-       aes(
-         x = cumulative_exposure,
-         y = percent_on, 
-         group = stim_description,
-         color = stim_description,
-       )) +
-  geom_line(linewidth = 1.25) +
-  geom_point(size = 2) +
-  facet_wrap(vars(factor(protein, levels = proteins_Bas013)), ncol = 1) +
-  scale_color_manual(
-    values = colors_dark9,
-    breaks = stimulations_Bas013,
-    name = "",
-  ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
-  labs(x = "Cumulative exposure (AUC of conc vs time)", y = paste("Percentage of cells ON")) +
-  theme_bw() +
-  theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
-  guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
+  guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize
 ```
