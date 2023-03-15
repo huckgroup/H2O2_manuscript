@@ -50,7 +50,7 @@ colors_paired10 <- c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fdbf6f", "#ff
 
 
 
-## DS.085: Linear gradients with conc-based sampling
+## DS085: Lin gradients with conc sampling
 
 ```{r data_DS085}
 df_tidy_DS085 <- read_csv("output/annotated_data_tidy_DS085.csv")
@@ -195,7 +195,7 @@ ggplot(subset(medians_tidy_DS085, staining == "yes" & protein != "cCaspase 3 + c
 
 
 
-## Bas.013: Linear gradients with cum exp-based sampling
+## Bas013: Lin gradients with exposure sampling
 
 ```{r data_Bas013}
 df_tidy_Bas013 <- read_csv("output/annotated_data_tidy_Bas013.csv")
@@ -354,7 +354,6 @@ ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + 
 | *Gradients*       | 20 + 60 min            | 20 + 60 + 90 min           |
 | *Proteins*        | CD79a + SYK + PLCy2    | CD79a + SYK + PLCy2        |
 |                   | AKT + BTK + p38        |                            |
-|-------------------|------------------------|----------------------------|
 
 ```{r combi_data}
 df_tidy_Bas013$sample <- as.character(df_tidy_Bas013$sample)
@@ -458,7 +457,7 @@ ggplot(subset(medians_filter_combi, staining == "yes"),
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize +
-  theme(legend.text = element_text(size = 9))
+  theme(legend.text = element_text(size = 8.5))
   
 ```
 
@@ -536,5 +535,5 @@ ggplot(subset(medians_filter_combi, staining == "yes"),
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize +
-  theme(legend.text = element_text(size = 9))
+  theme(legend.text = element_text(size = 8.5))
 ```

@@ -364,7 +364,7 @@ write.csv(medians_tidy_Bas013, file = "output/annotated_medians_tidy_Bas013.csv"
 ### Load data
 
 Load the gated dataset and create a dataset with live single cells
-```{r data_DS095, eval=F}
+```{r data_DS095}
 gs_DS095 <- load_gs(paste0("output/", "gated_data_DS095"))
 
 gated_pops_DS095 <- gs_get_pop_paths(gs_DS095, path = "auto")
@@ -378,7 +378,7 @@ df_DS095[df_DS095 <= 0] <- NA
 df_DS095 <- df_DS095[ , c("name", "expID", "plateID", "rowID", "colID", "wellID", "FSC.A", "SSC.A", "BV421.A", "PE.A", "Alexa.647.A", "Alexa.488.A")]
 ```
 
-```{r metadata_DS095, eval=F}
+```{r metadata_DS095}
 # Add metadata per well from custom .csv file
 metadata_DS095 <- read_csv("data/DS095_DetailedStep_Conc/metadata_plate_DS095.csv")
 
@@ -411,9 +411,9 @@ kable(df_DS095 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "
 ### Transform data
 
 Pivot the full dataset into a tidy dataset
-```{r tidy_DS095, eval=F}
+```{r tidy_DS095}
 # Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
-cols_meta_DS095 <- c("expID", "plateID", "wellID", "sample", "stimulus", "stim_profile", "gradient_duration", "stim_description", "time_min", "time_point", "conc_at_time_mM", "cumulative_exposure", "staining", "panel", "sample_cell_count") # include all metadata columns
+cols_meta_DS095 <- c("expID", "plateID", "wellID", "sample", "stimulus", "H2O2_conc_mM", "time_min", "time_point", "cumulative_exposure", "replicate", "stim_description", "staining", "panel", "sample_cell_count") # include all metadata columns
 
 df_PE_DS095 <- df_DS095 %>% 
   select(all_of(cols_meta_DS095), protein_PE, PE.A, FSC.A, SSC.A) %>% 
@@ -453,14 +453,15 @@ df_tidy_DS095 <- list(df_PE_DS095, df_AF647_DS095, df_AF488_DS095, df_BV421_DS09
 kable(df_tidy_DS095 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
-```{r percent_on_DS095, eval=F}
-# Remove pBTK values >1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
-df_tidy_DS095 <- df_tidy_DS095 %>%
-  filter(!(protein == "pBTK (Y223)" & stim_profile == "gradient" & time_point == "0 min" & fluorescence > 1.4e4))
+```{r percent_on_DS095}
+# # Remove pBTK values >1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
+# df_tidy_DS095 <- df_tidy_DS095 %>%
+#   filter(!(protein == "pBTK (Y223)" & stim_profile == "gradient" & time_point == "0 min" & fluorescence > 1.4e4))
 
+# Get the value for each conc where in sample t = 0 2.5% of cells are higher
 data_info_DS095 <- df_tidy_DS095 %>%
-  filter(time_point == "0 min") %>% 
-  group_by(plateID, stim_description, protein) %>%
+  filter(time_point == "0 min") %>%
+  group_by(plateID, H2O2_conc_mM, protein) %>%
   summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
 
 df_tidy_DS095 <- left_join(df_tidy_DS095, data_info_DS095)
@@ -485,7 +486,7 @@ df_tidy_DS095 <- left_join(df_tidy_DS095, data_counts_DS095)
 ### Median data
 
 Calculate median fluorescent values for each sample/replicate
-```{r medians_sample_DS095, eval=F}
+```{r medians_sample_DS095}
 # Calculate median values for each sample
 medians_DS095 <- df_tidy_DS095 %>% 
   group_by(plateID, wellID, protein, fluor) %>% 
@@ -515,12 +516,34 @@ medians_tidy_DS095 <- left_join(medians_DS095, distinct(select(df_tidy_DS095, co
 kable(medians_tidy_DS095 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
+```{r medians_rep_DS095}
+# Make a dataframe with means and standard deviation of replicates
+medians_avg_DS095 <- medians_tidy_DS095 %>%
+  dplyr::group_by(H2O2_conc_mM, time_point, protein) %>%
+  summarise(
+    fluorescence_sd = sd(fluorescence_median, na.rm = T),
+    fluorescence = mean(fluorescence_median, na.rm = T), 
+    percent_on = mean(percent_on, na.rm = T)
+    )
+
+medians_avg_DS095 <- left_join(medians_avg_DS095, select(medians_tidy_DS095, c(expID, sample, stimulus, H2O2_conc_mM, time_min, time_point, cumulative_exposure, staining, panel, fluor, protein)), multiple = "all") %>%
+  select(-c("plateID", "wellID")) %>%
+  # select(stimulus, stim_profile, gradient_duration, stim_description, time_min, time_point, conc_at_time, cum_exposure, staining, panel,fluor, protein, fluorescence, fluorescence_sd, fluorescence_zero, FC, FC_sd, log2FC, log2FC_sd) %>% #, fluorescence_norm, fluorescence_norm_sd, fluorescence_norm_zero, FC_norm, FC_norm_sd, log2FC_norm, log2FC_norm_sd
+  distinct() %>% 
+  mutate(stim_description = paste(H2O2_conc_mM, "mM -", time_point))
+
+kable(medians_avg_DS095 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
 
 ### Save data
 
 Save annotated datasets as .csv file
-```{r save_DS095, eval=F}
+```{r save_DS095}
 write.csv(df_tidy_DS095, file = "output/annotated_data_tidy_DS095.csv", row.names = F)
 
 write.csv(medians_tidy_DS095, file = "output/annotated_medians_tidy_DS095.csv", row.names = F)
+
+write.csv(medians_avg_DS095, file = "output/annotated_medians_avg_rep_DS095.csv", row.names = F)
 ```

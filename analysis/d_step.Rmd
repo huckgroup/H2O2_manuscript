@@ -18,7 +18,7 @@ editor_options:
 
 ```{r setup, message=F, warning=F}
 knitr::opts_chunk$set(
-  message = F, warning = F, echo = T, eval = F
+  message = F, warning = F, echo = T, eval = T
 )
 
 # Load required packages
@@ -56,52 +56,31 @@ colors_paired10 <- c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fdbf6f", "#ff
 df_tidy_DS095 <- read_csv("output/annotated_data_tidy_DS095.csv")
 
 medians_tidy_DS095 <- read_csv("output/annotated_medians_tidy_DS095.csv")
+
+medians_avg_DS095 <- read_csv("output/annotated_medians_avg_rep_DS095.csv")
 ```
 
 ```{r fig_orders_DS095}
-proteins_DS095 <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pBTK (Y223)", "pPLCy2 (Y759)", "pAKT (S473)", "pp38 (T180/Y182)", "cCaspase 3 + cPARP")
-stimulations_DS095 <- c("PBS step", "H2O2 step", "20 min gradient", "60 min gradient")
+proteins_DS095 <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pPLCy2 (Y759)", "Rabbit IgG isotype", "cCaspase 3 + cPARP", "No stain")
+times_DS095 <- c("0 min", "0.5 min", "1 min", "2.5 min", "5 min", "10 min", "25 min", "10 min nostain", "25 min nostain")
+concentrations_DS095 <- c("0 mM", "0.25 mM", "1 mM", "2.5 mM", "5 mM", "10 mM", "25 mM")
 ```
 
 
 ### Ridge plots 
 
-```{r fig_ridge_time_DS095, fig.width=10, fig.height=6}
+```{r fig_ridge_conc_DS095, fig.width=10, fig.height=6}
+# this_protein_DS095 <- "pPLCy2 (Y759)"
 for (this_protein_DS095 in proteins_DS095) {
   plot <- ggplot(subset(df_tidy_DS095, protein == this_protein_DS095), aes(x = fluorescence)) +
     geom_density_ridges(
-      aes(y = as.factor(time_min), 
-          fill = conc_at_time_mM),
+      aes(y = as.factor(H2O2_conc_mM), 
+          fill = replicate),
       scale = 2, 
-      alpha = 0.5
+      alpha = 0.4
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
-    facet_wrap(vars(factor(stim_description, levels = stimulations_DS095)), ncol = 4) +
-    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
-    scale_x_log10() +
-    labs(x = paste("Fluorescent intensity", this_protein_DS095), y = "Time (min)") +
-    theme_bw() +
-    textsize
-  
-  print(plot)
-}
-```
-
-```{r fig_ridge_conc_DS095, fig.width=6, fig.height=4}
-for (this_protein_DS095 in proteins_DS095) {
-  plot <- ggplot(subset(df_tidy_DS095, 
-                        protein == this_protein_DS095 & 
-                          staining == "yes" & 
-                          stim_profile == "gradient"
-                        ), aes(x = fluorescence)) + 
-    geom_density_ridges(
-      aes(y = as.factor(conc_at_time_mM), 
-          fill = conc_at_time_mM),
-      scale = 2, 
-      alpha = 0.5
-    ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
-    facet_wrap(vars(factor(stim_description, levels = stimulations_DS095)), ncol = 4) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
+    facet_wrap(vars(factor(time_point, levels = times_DS095)), ncol = 9, scales = "free_y") +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
     labs(x = paste("Fluorescent intensity", this_protein_DS095), y = "H2O2 concentration (mM)") +
@@ -112,10 +91,31 @@ for (this_protein_DS095 in proteins_DS095) {
 }
 ```
 
+```{r fig_ridge_time_DS095, fig.width=10, fig.height=6}
+for (this_protein_DS095 in proteins_DS095) {
+  plot <- ggplot(subset(df_tidy_DS095, protein == this_protein_DS095), aes(x = fluorescence)) +
+    geom_density_ridges(
+      aes(y = as.factor(time_min), 
+          fill = replicate),
+      scale = 2, 
+      alpha = 0.4
+    ) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
+    facet_wrap(vars(factor(H2O2_conc_mM, labels = concentrations_DS095)), ncol = 7) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste("Fluorescent intensity", this_protein_DS095), y = "Time (min)") +
+    theme_bw() +
+    textsize
+  
+  print(plot)
+}
+```
+
 
 ### Line plots
 
-```{r fig_line_time_DS095, fig.width=10, fig.height=8}
+```{r fig_line_time_DS095, fig.width=10, fig.height=8, eval=F}
 ggplot(subset(medians_tidy_DS095, staining == "yes" & protein != "cCaspase 3 + cPARP"),
        aes(
          x = time_min,
@@ -142,7 +142,7 @@ ggplot(subset(medians_tidy_DS095, staining == "yes" & protein != "cCaspase 3 + c
   textsize
 ```
 
-```{r fig_line_conc_DS095, fig.width=10, fig.height=8}
+```{r fig_line_conc_DS095, fig.width=10, fig.height=8, eval=F}
 ggplot(subset(medians_tidy_DS095, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_profile == "gradient"),
        aes(
          x = conc_at_time_mM,
@@ -170,7 +170,7 @@ ggplot(subset(medians_tidy_DS095, staining == "yes" & protein != "cCaspase 3 + c
   textsize
 ```
 
-```{r fig_line_cumexp_DS095, fig.width=10, fig.height=8}
+```{r fig_line_cumexp_DS095, fig.width=10, fig.height=8, eval=F}
 ggplot(subset(medians_tidy_DS095, staining == "yes" & protein != "cCaspase 3 + cPARP" & stim_description != "PBS step"), 
        aes(
          x = cumulative_exposure,
