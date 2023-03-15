@@ -411,7 +411,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-10
+<strong>Last updated:</strong> 2023-03-15
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -543,13 +543,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong4a1526a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongf055a9b">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 4a1526a
+aria-hidden="true"></span> <strong>Repository version:</strong> f055a9b
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong4a1526a"
+<div id="strongRepositoryversionstrongf055a9b"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -558,7 +558,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 4a1526a.
+The results in this page were generated with repository version f055a9b.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -583,13 +583,18 @@ Untracked files:
     Untracked:  data/DS095_DetailedStep_Conc/
     Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
+    Untracked:  output/annotated_data_tidy_DS095.csv
+    Untracked:  output/annotated_medians_avg_rep_DS095.csv
     Untracked:  output/annotated_medians_tidy_Bas013.csv
     Untracked:  output/annotated_medians_tidy_DS085.csv
+    Untracked:  output/annotated_medians_tidy_DS095.csv
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
     Untracked:  output/gated_counts_DS085.csv
+    Untracked:  output/gated_counts_DS095.csv
     Untracked:  output/gated_data_Bas013/
     Untracked:  output/gated_data_DS085/
+    Untracked:  output/gated_data_DS095/
 
 Unstaged changes:
     Deleted:    analysis/about.Rmd
@@ -638,6 +643,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+f055a9b
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-15
+</td>
+<td>
+Publish gating + annotation of DS095
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+9f347a6
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -3723,12 +3762,516 @@ df_DS095 &lt;- df_DS095 %&gt;%
   select(-c(wellID_rem))
   
 kable(df_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+rowID
+</th>
+<th style="text-align:left;">
+colID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:right;">
+FSC.A
+</th>
+<th style="text-align:right;">
+SSC.A
+</th>
+<th style="text-align:right;">
+BV421.A
+</th>
+<th style="text-align:right;">
+PE.A
+</th>
+<th style="text-align:right;">
+Alexa.647.A
+</th>
+<th style="text-align:right;">
+Alexa.488.A
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:right;">
+H2O2_conc_mM
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+replicate
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:left;">
+protein_BV421
+</th>
+<th style="text-align:left;">
+protein_PE
+</th>
+<th style="text-align:left;">
+protein_AF647
+</th>
+<th style="text-align:left;">
+protein_AF488
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A01_001_20230314_131607.fcs
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+91701.33
+</td>
+<td style="text-align:right;">
+52519.65
+</td>
+<td style="text-align:right;">
+2595.488
+</td>
+<td style="text-align:right;">
+472.7249
+</td>
+<td style="text-align:right;">
+41.71801
+</td>
+<td style="text-align:right;">
+567.9207
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:left;">
+pPLCy2 (Y759)
+</td>
+<td style="text-align:left;">
+pCD79a (Y182)
+</td>
+<td style="text-align:right;">
+42629
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A01_001_20230314_131607.fcs
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+73908.25
+</td>
+<td style="text-align:right;">
+25794.02
+</td>
+<td style="text-align:right;">
+2023.629
+</td>
+<td style="text-align:right;">
+188.7645
+</td>
+<td style="text-align:right;">
+35.75829
+</td>
+<td style="text-align:right;">
+253.0420
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:left;">
+pPLCy2 (Y759)
+</td>
+<td style="text-align:left;">
+pCD79a (Y182)
+</td>
+<td style="text-align:right;">
+42629
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A01_001_20230314_131607.fcs
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+88227.36
+</td>
+<td style="text-align:right;">
+42436.21
+</td>
+<td style="text-align:right;">
+2515.495
+</td>
+<td style="text-align:right;">
+318.1332
+</td>
+<td style="text-align:right;">
+37.46107
+</td>
+<td style="text-align:right;">
+348.2379
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:left;">
+pPLCy2 (Y759)
+</td>
+<td style="text-align:left;">
+pCD79a (Y182)
+</td>
+<td style="text-align:right;">
+42629
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A01_001_20230314_131607.fcs
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+92051.44
+</td>
+<td style="text-align:right;">
+39803.27
+</td>
+<td style="text-align:right;">
+2134.257
+</td>
+<td style="text-align:right;">
+410.8882
+</td>
+<td style="text-align:right;">
+59.59715
+</td>
+<td style="text-align:right;">
+427.1610
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:left;">
+pPLCy2 (Y759)
+</td>
+<td style="text-align:left;">
+pCD79a (Y182)
+</td>
+<td style="text-align:right;">
+42629
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A01_001_20230314_131607.fcs
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+72490.55
+</td>
+<td style="text-align:right;">
+31535.06
+</td>
+<td style="text-align:right;">
+1502.830
+</td>
+<td style="text-align:right;">
+611.8573
+</td>
+<td style="text-align:right;">
+282.66080
+</td>
+<td style="text-align:right;">
+819.3354
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:left;">
+pPLCy2 (Y759)
+</td>
+<td style="text-align:left;">
+pCD79a (Y182)
+</td>
+<td style="text-align:right;">
+42629
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="transform-data-2" class="section level3">
 <h3>Transform data</h3>
 <p>Pivot the full dataset into a tidy dataset</p>
 <pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
-cols_meta_DS095 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+cols_meta_DS095 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;H2O2_conc_mM&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;cumulative_exposure&quot;, &quot;replicate&quot;, &quot;stim_description&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
 
 df_PE_DS095 &lt;- df_DS095 %&gt;% 
   select(all_of(cols_meta_DS095), protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
@@ -3766,13 +4309,374 @@ df_BV421_DS095 &lt;- df_DS095 %&gt;%
 df_tidy_DS095 &lt;- list(df_PE_DS095, df_AF647_DS095, df_AF488_DS095, df_BV421_DS095) %&gt;% reduce(full_join)
 
 kable(df_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
-<pre class="r"><code># Remove pBTK values &gt;1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
-df_tidy_DS095 &lt;- df_tidy_DS095 %&gt;%
-  filter(!(protein == &quot;pBTK (Y223)&quot; &amp; stim_profile == &quot;gradient&quot; &amp; time_point == &quot;0 min&quot; &amp; fluorescence &gt; 1.4e4))
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:right;">
+H2O2_conc_mM
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+replicate
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+472.7249
+</td>
+<td style="text-align:right;">
+91701.33
+</td>
+<td style="text-align:right;">
+52519.65
+</td>
+<td style="text-align:left;">
+PE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+188.7645
+</td>
+<td style="text-align:right;">
+73908.25
+</td>
+<td style="text-align:right;">
+25794.02
+</td>
+<td style="text-align:left;">
+PE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+318.1332
+</td>
+<td style="text-align:right;">
+88227.36
+</td>
+<td style="text-align:right;">
+42436.21
+</td>
+<td style="text-align:left;">
+PE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+410.8882
+</td>
+<td style="text-align:right;">
+92051.44
+</td>
+<td style="text-align:right;">
+39803.27
+</td>
+<td style="text-align:left;">
+PE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+611.8573
+</td>
+<td style="text-align:right;">
+72490.55
+</td>
+<td style="text-align:right;">
+31535.06
+</td>
+<td style="text-align:left;">
+PE
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># # Remove pBTK values &gt;1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
+# df_tidy_DS095 &lt;- df_tidy_DS095 %&gt;%
+#   filter(!(protein == &quot;pBTK (Y223)&quot; &amp; stim_profile == &quot;gradient&quot; &amp; time_point == &quot;0 min&quot; &amp; fluorescence &gt; 1.4e4))
 
+# Get the value for each conc where in sample t = 0 2.5% of cells are higher
 data_info_DS095 &lt;- df_tidy_DS095 %&gt;%
-  filter(time_point == &quot;0 min&quot;) %&gt;% 
-  group_by(plateID, stim_description, protein) %&gt;%
+  filter(time_point == &quot;0 min&quot;) %&gt;%
+  group_by(plateID, H2O2_conc_mM, protein) %&gt;%
   summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
 
 df_tidy_DS095 &lt;- left_join(df_tidy_DS095, data_info_DS095)
@@ -3822,13 +4726,697 @@ medians_tidy_DS095 &lt;- left_join(medians_DS095, distinct(select(df_tidy_DS095,
 #   select(-c(fluorescence_median)) 
 
 kable(medians_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+fluorescence_median
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:right;">
+H2O2_conc_mM
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+replicate
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:left;">
+BV421
+</td>
+<td style="text-align:right;">
+2180.20947
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.5006451
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+pCD79a (Y182)
+</td>
+<td style="text-align:left;">
+AF488
+</td>
+<td style="text-align:right;">
+503.64316
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.5006451
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+pPLCy2 (Y759)
+</td>
+<td style="text-align:left;">
+AF647
+</td>
+<td style="text-align:right;">
+64.70548
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1030
+</td>
+<td style="text-align:right;">
+2.4161955
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+358.00159
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.5006451
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:left;">
+BV421
+</td>
+<td style="text-align:right;">
+1508.78662
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:left;">
+0.5 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0.5 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+43633
+</td>
+<td style="text-align:right;">
+43633
+</td>
+<td style="text-align:right;">
+117
+</td>
+<td style="text-align:right;">
+0.2681457
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Make a dataframe with means and standard deviation of replicates
+medians_avg_DS095 &lt;- medians_tidy_DS095 %&gt;%
+  dplyr::group_by(H2O2_conc_mM, time_point, protein) %&gt;%
+  summarise(
+    fluorescence_sd = sd(fluorescence_median, na.rm = T),
+    fluorescence = mean(fluorescence_median, na.rm = T), 
+    percent_on = mean(percent_on, na.rm = T)
+    )
+
+medians_avg_DS095 &lt;- left_join(medians_avg_DS095, select(medians_tidy_DS095, c(expID, sample, stimulus, H2O2_conc_mM, time_min, time_point, cumulative_exposure, staining, panel, fluor, protein)), multiple = &quot;all&quot;) %&gt;%
+  select(-c(&quot;plateID&quot;, &quot;wellID&quot;)) %&gt;%
+  # select(stimulus, stim_profile, gradient_duration, stim_description, time_min, time_point, conc_at_time, cum_exposure, staining, panel,fluor, protein, fluorescence, fluorescence_sd, fluorescence_zero, FC, FC_sd, log2FC, log2FC_sd) %&gt;% #, fluorescence_norm, fluorescence_norm_sd, fluorescence_norm_zero, FC_norm, FC_norm_sd, log2FC_norm, log2FC_norm_sd
+  distinct() %&gt;% 
+  mutate(stim_description = paste(H2O2_conc_mM, &quot;mM -&quot;, time_point))
+
+kable(medians_avg_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+H2O2_conc_mM
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence_sd
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:right;">
+504.373896
+</td>
+<td style="text-align:right;">
+1648.34729
+</td>
+<td style="text-align:right;">
+2.5010842
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+BV421
+</td>
+<td style="text-align:left;">
+0 mM - 0 min
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+pCD79a (Y182)
+</td>
+<td style="text-align:right;">
+16.701102
+</td>
+<td style="text-align:right;">
+485.20065
+</td>
+<td style="text-align:right;">
+2.4964393
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+AF488
+</td>
+<td style="text-align:left;">
+0 mM - 0 min
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+pPLCy2 (Y759)
+</td>
+<td style="text-align:right;">
+6.613117
+</td>
+<td style="text-align:right;">
+59.31336
+</td>
+<td style="text-align:right;">
+2.3865194
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+AF647
+</td>
+<td style="text-align:left;">
+0 mM - 0 min
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+21.892805
+</td>
+<td style="text-align:right;">
+340.10151
+</td>
+<td style="text-align:right;">
+2.4987665
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:left;">
+0 mM - 0 min
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0.5 min
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:right;">
+309.352971
+</td>
+<td style="text-align:right;">
+1201.58307
+</td>
+<td style="text-align:right;">
+0.9840286
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+BV421
+</td>
+<td style="text-align:left;">
+0 mM - 0.5 min
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="save-data-2" class="section level3">
 <h3>Save data</h3>
 <p>Save annotated datasets as .csv file</p>
 <pre class="r"><code>write.csv(df_tidy_DS095, file = &quot;output/annotated_data_tidy_DS095.csv&quot;, row.names = F)
 
-write.csv(medians_tidy_DS095, file = &quot;output/annotated_medians_tidy_DS095.csv&quot;, row.names = F)</code></pre>
+write.csv(medians_tidy_DS095, file = &quot;output/annotated_medians_tidy_DS095.csv&quot;, row.names = F)
+
+write.csv(medians_avg_DS095, file = &quot;output/annotated_medians_avg_rep_DS095.csv&quot;, row.names = F)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

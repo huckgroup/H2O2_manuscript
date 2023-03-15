@@ -409,7 +409,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-10
+<strong>Last updated:</strong> 2023-03-15
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -541,13 +541,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong4a1526a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongf055a9b">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 4a1526a
+aria-hidden="true"></span> <strong>Repository version:</strong> f055a9b
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong4a1526a"
+<div id="strongRepositoryversionstrongf055a9b"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 4a1526a.
+The results in this page were generated with repository version f055a9b.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -581,13 +581,18 @@ Untracked files:
     Untracked:  data/DS095_DetailedStep_Conc/
     Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
+    Untracked:  output/annotated_data_tidy_DS095.csv
+    Untracked:  output/annotated_medians_avg_rep_DS095.csv
     Untracked:  output/annotated_medians_tidy_Bas013.csv
     Untracked:  output/annotated_medians_tidy_DS085.csv
+    Untracked:  output/annotated_medians_tidy_DS095.csv
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
     Untracked:  output/gated_counts_DS085.csv
+    Untracked:  output/gated_counts_DS095.csv
     Untracked:  output/gated_data_Bas013/
     Untracked:  output/gated_data_DS085/
+    Untracked:  output/gated_data_DS095/
 
 Unstaged changes:
     Deleted:    analysis/about.Rmd
@@ -640,6 +645,40 @@ Message
 Rmd
 </td>
 <td>
+f055a9b
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-15
+</td>
+<td>
+Publish gating + annotation of DS095
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+9f347a6
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 4a1526a
 </td>
 <td>
@@ -662,7 +701,7 @@ Publish updated gradient figures
 <div id="set-up" class="section level2">
 <h2>Set-up</h2>
 <pre class="r"><code>knitr::opts_chunk$set(
-  message = F, warning = F, echo = T, eval = F
+  message = F, warning = F, echo = T, eval = T
 )
 
 # Load required packages
@@ -692,43 +731,25 @@ colors_paired10 &lt;- c(&quot;#a6cee3&quot;, &quot;#1f78b4&quot;, &quot;#b2df8a&
 <h2>DS095: Detailed step dose</h2>
 <pre class="r"><code>df_tidy_DS095 &lt;- read_csv(&quot;output/annotated_data_tidy_DS095.csv&quot;)
 
-medians_tidy_DS095 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS095.csv&quot;)</code></pre>
-<pre class="r"><code>proteins_DS095 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pBTK (Y223)&quot;, &quot;pPLCy2 (Y759)&quot;, &quot;pAKT (S473)&quot;, &quot;pp38 (T180/Y182)&quot;, &quot;cCaspase 3 + cPARP&quot;)
-stimulations_DS095 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20 min gradient&quot;, &quot;60 min gradient&quot;)</code></pre>
+medians_tidy_DS095 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS095.csv&quot;)
+
+medians_avg_DS095 &lt;- read_csv(&quot;output/annotated_medians_avg_rep_DS095.csv&quot;)</code></pre>
+<pre class="r"><code>proteins_DS095 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;, &quot;Rabbit IgG isotype&quot;, &quot;cCaspase 3 + cPARP&quot;, &quot;No stain&quot;)
+times_DS095 &lt;- c(&quot;0 min&quot;, &quot;0.5 min&quot;, &quot;1 min&quot;, &quot;2.5 min&quot;, &quot;5 min&quot;, &quot;10 min&quot;, &quot;25 min&quot;, &quot;10 min nostain&quot;, &quot;25 min nostain&quot;)
+concentrations_DS095 &lt;- c(&quot;0 mM&quot;, &quot;0.25 mM&quot;, &quot;1 mM&quot;, &quot;2.5 mM&quot;, &quot;5 mM&quot;, &quot;10 mM&quot;, &quot;25 mM&quot;)</code></pre>
 <div id="ridge-plots" class="section level3">
 <h3>Ridge plots</h3>
-<pre class="r"><code>for (this_protein_DS095 in proteins_DS095) {
+<pre class="r"><code># this_protein_DS095 &lt;- &quot;pPLCy2 (Y759)&quot;
+for (this_protein_DS095 in proteins_DS095) {
   plot &lt;- ggplot(subset(df_tidy_DS095, protein == this_protein_DS095), aes(x = fluorescence)) +
     geom_density_ridges(
-      aes(y = as.factor(time_min), 
-          fill = conc_at_time_mM),
+      aes(y = as.factor(H2O2_conc_mM), 
+          fill = replicate),
       scale = 2, 
-      alpha = 0.5
+      alpha = 0.4
     ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
-    facet_wrap(vars(factor(stim_description, levels = stimulations_DS095)), ncol = 4) +
-    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
-    scale_x_log10() +
-    labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_DS095), y = &quot;Time (min)&quot;) +
-    theme_bw() +
-    textsize
-  
-  print(plot)
-}</code></pre>
-<pre class="r"><code>for (this_protein_DS095 in proteins_DS095) {
-  plot &lt;- ggplot(subset(df_tidy_DS095, 
-                        protein == this_protein_DS095 &amp; 
-                          staining == &quot;yes&quot; &amp; 
-                          stim_profile == &quot;gradient&quot;
-                        ), aes(x = fluorescence)) + 
-    geom_density_ridges(
-      aes(y = as.factor(conc_at_time_mM), 
-          fill = conc_at_time_mM),
-      scale = 2, 
-      alpha = 0.5
-    ) +
-    geom_vline(aes(xintercept = zero_quant95), linewidth = 0.75) +
-    facet_wrap(vars(factor(stim_description, levels = stimulations_DS095)), ncol = 4) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
+    facet_wrap(vars(factor(time_point, levels = times_DS095)), ncol = 9, scales = &quot;free_y&quot;) +
     # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
     scale_x_log10() +
     labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_DS095), y = &quot;H2O2 concentration (mM)&quot;) +
@@ -737,6 +758,26 @@ stimulations_DS095 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20
   
   print(plot)
 }</code></pre>
+<p><img src="figure/d_step.Rmd/fig_ridge_conc_DS095-1.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_conc_DS095-2.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_conc_DS095-3.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_conc_DS095-4.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_conc_DS095-5.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_conc_DS095-6.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for (this_protein_DS095 in proteins_DS095) {
+  plot &lt;- ggplot(subset(df_tidy_DS095, protein == this_protein_DS095), aes(x = fluorescence)) +
+    geom_density_ridges(
+      aes(y = as.factor(time_min), 
+          fill = replicate),
+      scale = 2, 
+      alpha = 0.4
+    ) +
+    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
+    facet_wrap(vars(factor(H2O2_conc_mM, labels = concentrations_DS095)), ncol = 7) +
+    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
+    scale_x_log10() +
+    labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_DS095), y = &quot;Time (min)&quot;) +
+    theme_bw() +
+    textsize
+  
+  print(plot)
+}</code></pre>
+<p><img src="figure/d_step.Rmd/fig_ridge_time_DS095-1.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_time_DS095-2.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_time_DS095-3.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_time_DS095-4.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_time_DS095-5.png" width="960" style="display: block; margin: auto;" /><img src="figure/d_step.Rmd/fig_ridge_time_DS095-6.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="line-plots" class="section level3">
 <h3>Line plots</h3>
@@ -818,6 +859,63 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.2 (2022-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.utf8  LC_CTYPE=English_Netherlands.utf8   
+[3] LC_MONETARY=English_Netherlands.utf8 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.utf8    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] greekLetters_0.0.7   kableExtra_1.3.4     ggrepel_0.9.3       
+ [4] scales_1.2.1         ggpubr_0.6.0         cowplot_1.1.1       
+ [7] ggthemes_4.2.4       RColorBrewer_1.1-3   viridis_0.6.2       
+[10] viridisLite_0.4.1    ggridges_0.5.4       platetools_0.1.5    
+[13] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
+[16] dplyr_1.1.0          purrr_1.0.1          readr_2.1.4         
+[19] tidyr_1.3.0          tibble_3.1.8         tidyverse_2.0.0     
+[22] ggcyto_1.26.4        flowWorkspace_4.10.1 ncdfFlow_2.44.0     
+[25] BH_1.81.0-1          ggplot2_3.4.1        flowCore_2.10.0     
+[28] workflowr_1.7.0     
+
+loaded via a namespace (and not attached):
+ [1] colorspace_2.1-0    ggsignif_0.6.4      ellipsis_0.3.2     
+ [4] rprojroot_2.0.3     cytolib_2.10.1      fs_1.6.1           
+ [7] rstudioapi_0.14     farver_2.1.1        hexbin_1.28.2      
+[10] bit64_4.0.5         fansi_1.0.4         xml2_1.3.3         
+[13] cachem_1.0.6        knitr_1.42          jsonlite_1.8.4     
+[16] broom_1.0.3         graph_1.76.0        compiler_4.2.2     
+[19] httr_1.4.4          backports_1.4.1     assertthat_0.2.1   
+[22] fastmap_1.1.0       cli_3.6.0           later_1.3.0        
+[25] htmltools_0.5.4     tools_4.2.2         gtable_0.3.1       
+[28] glue_1.6.2          Rcpp_1.0.10         carData_3.0-5      
+[31] Biobase_2.58.0      jquerylib_0.1.4     vctrs_0.5.2        
+[34] svglite_2.1.1       xfun_0.37           ps_1.7.2           
+[37] rvest_1.0.3         timechange_0.2.0    lifecycle_1.0.3    
+[40] rstatix_0.7.2       XML_3.99-0.13       getPass_0.2-2      
+[43] zlibbioc_1.44.0     vroom_1.6.1         RProtoBufLib_2.10.0
+[46] hms_1.1.2           promises_1.2.0.1    parallel_4.2.2     
+[49] yaml_2.3.7          gridExtra_2.3       sass_0.4.5         
+[52] stringi_1.7.12      highr_0.10          S4Vectors_0.36.1   
+[55] BiocGenerics_0.44.0 rlang_1.0.6         pkgconfig_2.0.3    
+[58] systemfonts_1.0.4   matrixStats_0.63.0  evaluate_0.20      
+[61] lattice_0.20-45     bit_4.0.5           processx_3.8.0     
+[64] tidyselect_1.2.0    plyr_1.8.8          magrittr_2.0.3     
+[67] R6_2.5.1            generics_0.1.3      DBI_1.1.3          
+[70] pillar_1.8.1        whisker_0.4.1       withr_2.5.0        
+[73] abind_1.4-5         crayon_1.5.2        car_3.1-1          
+[76] utf8_1.2.3          tzdb_0.3.0          rmarkdown_2.20     
+[79] grid_4.2.2          data.table_1.14.8   callr_3.7.3        
+[82] git2r_0.31.0        Rgraphviz_2.42.0    digest_0.6.31      
+[85] webshot_0.5.4       httpuv_1.6.9        stats4_4.2.2       
+[88] munsell_0.5.0       bslib_0.4.2        </code></pre>
 </div>
 </div>
 </div>

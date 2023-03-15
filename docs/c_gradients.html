@@ -409,7 +409,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-10
+<strong>Last updated:</strong> 2023-03-15
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -541,13 +541,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong4a1526a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongf055a9b">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 4a1526a
+aria-hidden="true"></span> <strong>Repository version:</strong> f055a9b
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong4a1526a"
+<div id="strongRepositoryversionstrongf055a9b"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 4a1526a.
+The results in this page were generated with repository version f055a9b.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -581,13 +581,18 @@ Untracked files:
     Untracked:  data/DS095_DetailedStep_Conc/
     Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
+    Untracked:  output/annotated_data_tidy_DS095.csv
+    Untracked:  output/annotated_medians_avg_rep_DS095.csv
     Untracked:  output/annotated_medians_tidy_Bas013.csv
     Untracked:  output/annotated_medians_tidy_DS085.csv
+    Untracked:  output/annotated_medians_tidy_DS095.csv
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
     Untracked:  output/gated_counts_DS085.csv
+    Untracked:  output/gated_counts_DS095.csv
     Untracked:  output/gated_data_Bas013/
     Untracked:  output/gated_data_DS085/
+    Untracked:  output/gated_data_DS095/
 
 Unstaged changes:
     Deleted:    analysis/about.Rmd
@@ -636,6 +641,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+f055a9b
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-15
+</td>
+<td>
+Publish gating + annotation of DS095
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+9f347a6
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -825,9 +864,8 @@ colors_dark9 &lt;- c(&quot;#4daf4a&quot;, &quot;#984ea3&quot;, &quot;#ffff33&quo
 colors_light12 &lt;- c(&quot;#8dd3c7&quot;,&quot;#ffffb3&quot;,&quot;#bebada&quot;,&quot;#fb8072&quot;,&quot;#80b1d3&quot;,&quot;#fdb462&quot;,&quot;#b3de69&quot;,&quot;#fccde5&quot;,&quot;#d9d9d9&quot;,&quot;#bc80bd&quot;,&quot;#ccebc5&quot;,&quot;#ffed6f&quot;)
 colors_paired10 &lt;- c(&quot;#a6cee3&quot;, &quot;#1f78b4&quot;, &quot;#b2df8a&quot;, &quot;#33a02c&quot;, &quot;#fdbf6f&quot;, &quot;#ff7f00&quot;, &quot;#cab2d6&quot;, &quot;#6a3d9a&quot;, &quot;#fb9a99&quot;, &quot;#e31a1c&quot;)</code></pre>
 </div>
-<div id="ds.085-linear-gradients-with-conc-based-sampling"
-class="section level2">
-<h2>DS.085: Linear gradients with conc-based sampling</h2>
+<div id="ds085-lin-gradients-with-conc-sampling" class="section level2">
+<h2>DS085: Lin gradients with conc sampling</h2>
 <pre class="r"><code>df_tidy_DS085 &lt;- read_csv(&quot;output/annotated_data_tidy_DS085.csv&quot;)
 
 medians_tidy_DS085 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS085.csv&quot;)</code></pre>
@@ -954,9 +992,9 @@ stimulations_DS085 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20
 <p><img src="figure/c_gradients.Rmd/fig_line_cumexp_DS085-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="bas.013-linear-gradients-with-cum-exp-based-sampling"
+<div id="bas013-lin-gradients-with-exposure-sampling"
 class="section level2">
-<h2>Bas.013: Linear gradients with cum exp-based sampling</h2>
+<h2>Bas013: Lin gradients with exposure sampling</h2>
 <pre class="r"><code>df_tidy_Bas013 &lt;- read_csv(&quot;output/annotated_data_tidy_Bas013.csv&quot;)
 
 medians_tidy_Bas013 &lt;- read_csv(&quot;output/annotated_medians_tidy_Bas013.csv&quot;)</code></pre>
@@ -1129,11 +1167,6 @@ Bas013 experiments</em></p>
 <td>AKT + BTK + p38</td>
 <td></td>
 </tr>
-<tr class="even">
-<td>——————-</td>
-<td>————————</td>
-<td>—————————-</td>
-</tr>
 </tbody>
 </table>
 <pre class="r"><code>df_tidy_Bas013$sample &lt;- as.character(df_tidy_Bas013$sample)
@@ -1225,7 +1258,7 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot;),
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize +
-  theme(legend.text = element_text(size = 9))</code></pre>
+  theme(legend.text = element_text(size = 8.5))</code></pre>
 <p><img src="figure/c_gradients.Rmd/fig_line_time_combi-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_filter_combi, staining == &quot;yes&quot; &amp; stim_profile == &quot;gradient&quot;),
        aes(
@@ -1298,7 +1331,7 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot; &amp; stim_profi
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize +
-  theme(legend.text = element_text(size = 9))</code></pre>
+  theme(legend.text = element_text(size = 8.5))</code></pre>
 <p><img src="figure/c_gradients.Rmd/fig_line_cumexp_combi-1.png" width="480" style="display: block; margin: auto;" /></p>
 <br>
 <p>

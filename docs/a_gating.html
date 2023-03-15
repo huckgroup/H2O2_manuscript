@@ -411,7 +411,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-10
+<strong>Last updated:</strong> 2023-03-15
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -543,13 +543,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong4a1526a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongf055a9b">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 4a1526a
+aria-hidden="true"></span> <strong>Repository version:</strong> f055a9b
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong4a1526a"
+<div id="strongRepositoryversionstrongf055a9b"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -558,7 +558,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 4a1526a.
+The results in this page were generated with repository version f055a9b.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -583,13 +583,18 @@ Untracked files:
     Untracked:  data/DS095_DetailedStep_Conc/
     Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
+    Untracked:  output/annotated_data_tidy_DS095.csv
+    Untracked:  output/annotated_medians_avg_rep_DS095.csv
     Untracked:  output/annotated_medians_tidy_Bas013.csv
     Untracked:  output/annotated_medians_tidy_DS085.csv
+    Untracked:  output/annotated_medians_tidy_DS095.csv
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
     Untracked:  output/gated_counts_DS085.csv
+    Untracked:  output/gated_counts_DS095.csv
     Untracked:  output/gated_data_Bas013/
     Untracked:  output/gated_data_DS085/
+    Untracked:  output/gated_data_DS095/
 
 Unstaged changes:
     Deleted:    analysis/about.Rmd
@@ -638,6 +643,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+f055a9b
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-15
+</td>
+<td>
+Publish gating + annotation of DS095
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+9f347a6
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1679,27 +1718,453 @@ pData(fs_A_DS095)$colID &lt;- as.numeric(gsub(&quot;.(.*)&quot;, &quot;\\1&quot;
 pData(fs_A_DS095)$expID &lt;- &quot;DS095&quot;
 pData(fs_A_DS095)$plateID &lt;- &quot;A&quot;
 
-kable(pData(fs_A_DS095) %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))
-
-# Plate B
+kable(pData(fs_A_DS095) %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+rowID
+</th>
+<th style="text-align:right;">
+colID
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A01_001_20230314_131607.fcs
+</td>
+<td style="text-align:left;">
+A01_001_20230314_131607.fcs
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A02_001_20230314_131636.fcs
+</td>
+<td style="text-align:left;">
+A02_001_20230314_131636.fcs
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A03_001_20230314_131704.fcs
+</td>
+<td style="text-align:left;">
+A03_001_20230314_131704.fcs
+</td>
+<td style="text-align:left;">
+A03
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A04_001_20230314_131734.fcs
+</td>
+<td style="text-align:left;">
+A04_001_20230314_131734.fcs
+</td>
+<td style="text-align:left;">
+A04
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A05_001_20230314_131815.fcs
+</td>
+<td style="text-align:left;">
+A05_001_20230314_131815.fcs
+</td>
+<td style="text-align:left;">
+A05
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Plate B
 pData(fs_B_DS095)$wellID &lt;- gsub(&quot;(.*)_.*_.*_.*.fcs&quot;, &quot;\\1&quot;, sampleNames(fs_B_DS095))
 pData(fs_B_DS095)$rowID &lt;- gsub(&quot;(.).*&quot;, &quot;\\1&quot;, pData(fs_B_DS095)$wellID)
 pData(fs_B_DS095)$colID &lt;- as.numeric(gsub(&quot;.(.*)&quot;, &quot;\\1&quot;, pData(fs_B_DS095)$wellID))
 pData(fs_B_DS095)$expID &lt;- &quot;DS095&quot;
 pData(fs_B_DS095)$plateID &lt;- &quot;B&quot;
 
-kable(pData(fs_B_DS095) %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))
-
-# Plate C
+kable(pData(fs_B_DS095) %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+rowID
+</th>
+<th style="text-align:right;">
+colID
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A01_002_20230314_135353.fcs
+</td>
+<td style="text-align:left;">
+A01_002_20230314_135353.fcs
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+B
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A02_002_20230314_135422.fcs
+</td>
+<td style="text-align:left;">
+A02_002_20230314_135422.fcs
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+B
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A03_002_20230314_135450.fcs
+</td>
+<td style="text-align:left;">
+A03_002_20230314_135450.fcs
+</td>
+<td style="text-align:left;">
+A03
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+B
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A04_002_20230314_135519.fcs
+</td>
+<td style="text-align:left;">
+A04_002_20230314_135519.fcs
+</td>
+<td style="text-align:left;">
+A04
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+B
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A05_002_20230314_135549.fcs
+</td>
+<td style="text-align:left;">
+A05_002_20230314_135549.fcs
+</td>
+<td style="text-align:left;">
+A05
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+B
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Plate C
 pData(fs_C_DS095)$wellID &lt;- gsub(&quot;(.*)_.*_.*_.*.fcs&quot;, &quot;\\1&quot;, sampleNames(fs_C_DS095))
 pData(fs_C_DS095)$rowID &lt;- gsub(&quot;(.).*&quot;, &quot;\\1&quot;, pData(fs_C_DS095)$wellID)
 pData(fs_C_DS095)$colID &lt;- as.numeric(gsub(&quot;.(.*)&quot;, &quot;\\1&quot;, pData(fs_C_DS095)$wellID))
 pData(fs_C_DS095)$expID &lt;- &quot;DS095&quot;
 pData(fs_C_DS095)$plateID &lt;- &quot;C&quot;
 
-kable(pData(fs_C_DS095) %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))
-
-fs_AB_DS095 &lt;- rbind2(fs_A_DS095, fs_B_DS095)
+kable(pData(fs_C_DS095) %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+rowID
+</th>
+<th style="text-align:right;">
+colID
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A01_003_20230314_144705.fcs
+</td>
+<td style="text-align:left;">
+A01_003_20230314_144705.fcs
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+C
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A02_003_20230314_144735.fcs
+</td>
+<td style="text-align:left;">
+A02_003_20230314_144735.fcs
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+C
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A03_003_20230314_144803.fcs
+</td>
+<td style="text-align:left;">
+A03_003_20230314_144803.fcs
+</td>
+<td style="text-align:left;">
+A03
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+C
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A04_003_20230314_144832.fcs
+</td>
+<td style="text-align:left;">
+A04_003_20230314_144832.fcs
+</td>
+<td style="text-align:left;">
+A04
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+C
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A05_003_20230314_144902.fcs
+</td>
+<td style="text-align:left;">
+A05_003_20230314_144902.fcs
+</td>
+<td style="text-align:left;">
+A05
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+C
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>fs_AB_DS095 &lt;- rbind2(fs_A_DS095, fs_B_DS095)
 fs_DS095 &lt;- rbind2(fs_AB_DS095, fs_C_DS095)</code></pre>
 </div>
 <div id="debris-2" class="section level3">
@@ -1720,11 +2185,13 @@ ggcyto(gs_DS095[[1]], aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><em><strong>Figure:</strong> Cell size vs cell complexity and debris
+<p><img src="figure/a_gating.Rmd/debris_DS095-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size vs cell complexity and debris
 gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
-gs_pop_add(gs_DS095, g_debris_DS095)
-recompute(gs_DS095)
+gs_pop_add(gs_DS095, g_debris_DS095)</code></pre>
+<pre><code>[1] 2</code></pre>
+<pre class="r"><code>recompute(gs_DS095)
 
 # Plate A
 ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
@@ -1736,9 +2203,9 @@ ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.A, y = SSC.A), su
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;, title = &quot;Non-debris from root (plate A)&quot;) +
   theme_bw() +
   theme(legend.position = &quot;none&quot;) + 
-  textsize
-
-# Plate B
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_debris_DS095-1.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plate B
 ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   geom_hex(bins = 100) +
   geom_gate(&quot;Debris&quot;) +
@@ -1749,6 +2216,19 @@ ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.A, y = SSC.A), su
   theme_bw() +
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_debris_DS095-2.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plate C
+ggcyto(subset(gs_DS095, plateID == &quot;C&quot;), aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Debris&quot;) +
+  geom_stats(adjust = 0.8) +
+  ggcyto_par_set(limits = &quot;instrument&quot; ) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;, title = &quot;Non-debris from root (plate C)&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_debris_DS095-3.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="singlets-2" class="section level3">
 <h3>Singlets</h3>
@@ -1764,11 +2244,13 @@ ggcyto(gs_DS095[[1]], aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><em><strong>Figure:</strong> Cell size height vs cell size width and
+<p><img src="figure/a_gating.Rmd/singlets_DS095-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size height vs cell size width and
 singlet cell gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
-gs_pop_add(gs_DS095, g_singlets_DS095, parent = &quot;Debris&quot;)
-recompute(gs_DS095) 
+gs_pop_add(gs_DS095, g_singlets_DS095, parent = &quot;Debris&quot;)</code></pre>
+<pre><code>[1] 3</code></pre>
+<pre class="r"><code>recompute(gs_DS095) 
 
 # Plate A
 ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
@@ -1780,9 +2262,9 @@ ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.H, y = FSC.W), su
   labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;, title = &quot;Singlets from non-debris (plate A)&quot;) +
   theme_bw() +
   theme(legend.position = &quot;none&quot;) + 
-  textsize
-
-# Plate B
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_singlets_DS095-1.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plate B
 ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   geom_hex(bins = 100) +
   geom_gate(&quot;Singlets&quot;) +
@@ -1793,6 +2275,19 @@ ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.H, y = FSC.W), su
   theme_bw() +
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_singlets_DS095-2.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plate C
+ggcyto(subset(gs_DS095, plateID == &quot;C&quot;), aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Singlets&quot;) +
+  geom_stats(adjust = c(1.5, 0)) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;, title = &quot;Singlets from non-debris (plate C)&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_singlets_DS095-3.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="live-cells-fixed-2" class="section level3">
 <h3>Live cells (fixed)</h3>
@@ -1800,9 +2295,9 @@ ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.H, y = FSC.W), su
 the upper data points and those data point that fall at/off the right
 edges of the plot</p>
 <pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
-g_live_DS095 &lt;- polygonGate(filterId = &quot;Live&quot;, &quot;FSC.A&quot; = c(4.4e4, 1.6e5, 1.6e5, 4.4e4), &quot;BV421.A&quot; = c(1e2, 1e2, 5e3, 2e3)) # define gate
+g_live_DS095 &lt;- polygonGate(filterId = &quot;Live&quot;, &quot;FSC.A&quot; = c(4.4e4, 1.6e5, 1.6e5, 4.4e4), &quot;BV421.A&quot; = c(5e1, 5e1, 1e4, 3e3)) # define gate
 
-ggcyto(gs_DS095[[1]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+ggcyto(gs_DS095[[139]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
   geom_hex(bins = 200) +
   geom_gate(g_live_DS095) +
   scale_x_log10() +
@@ -1810,11 +2305,13 @@ ggcyto(gs_DS095[[1]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><em><strong>Figure:</strong> Cell size vs live/death stain and live
-cell gate. One exemplary sample.</em></p>
+<p><img src="figure/a_gating.Rmd/live_DS095-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size vs live/death stain and live cell
+gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
-gs_pop_add(gs_DS095, g_live_DS095, parent = &quot;Singlets&quot;)
-recompute(gs_DS095) 
+gs_pop_add(gs_DS095, g_live_DS095, parent = &quot;Singlets&quot;)</code></pre>
+<pre><code>[1] 4</code></pre>
+<pre class="r"><code>recompute(gs_DS095) 
 
 # Plate A
 ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
@@ -1827,9 +2324,9 @@ ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.A, y = BV421.A), 
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;, title = &quot;Live cells from singlets (plate A)&quot;) +
   theme_bw() +
   theme(legend.position = &quot;none&quot;) + 
-  textsize
-
-# Plate B
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_live_DS095-1.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plate B
 ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
   geom_hex(bins = 100) +
   geom_gate(&quot;Live&quot;) +
@@ -1841,6 +2338,20 @@ ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.A, y = BV421.A), 
   theme_bw() +
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_live_DS095-2.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plate C
+ggcyto(subset(gs_DS095, plateID == &quot;C&quot;), aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Live&quot;) +
+  geom_stats(adjust = 0.8) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e1, 5e4)) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;, title = &quot;Live cells from singlets (plate C)&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_live_DS095-3.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="summary-2" class="section level3">
 <h3>Summary</h3>
@@ -1854,7 +2365,8 @@ save_gs(gs_DS095, path = paste0(&quot;output/&quot;, &quot;gated_data_DS095&quot
 
 # Gating strategy
 plot(gs_DS095, bool = TRUE)</code></pre>
-<p><em><strong>Figure:</strong> Gating strategy.</em></p>
+<p><img src="figure/a_gating.Rmd/gating_DS095-1.png" width="672" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Gating strategy.</em></p>
 </div>
 <div id="population-statistics-2" class="section level3">
 <h3>Population statistics</h3>
@@ -1877,16 +2389,25 @@ raw_map(data = counts_final_A_DS095$Count, well = counts_final_A_DS095$wellID, p
   scale_fill_viridis() +
   labs(title = &quot;Single cell counts (plate A)&quot;) +
   theme_bw() +
-  textsize
-
-# Plate B
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_cells_DS095-1.png" width="576" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plate B
 counts_final_B_DS095 &lt;- subset(counts_DS095, Population == &quot;/Debris/Singlets/Live&quot; &amp; plateID == &quot;B&quot;)
 raw_map(data = counts_final_B_DS095$Count, well = counts_final_B_DS095$wellID, plate = 96, size = 10) +
   scale_fill_viridis() +
   labs(title = &quot;Single cell counts (plate B)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><em><strong>Figure:</strong> Number of live single cells after gating
+<p><img src="figure/a_gating.Rmd/fig_cells_DS095-2.png" width="576" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plate C
+counts_final_B_DS095 &lt;- subset(counts_DS095, Population == &quot;/Debris/Singlets/Live&quot; &amp; plateID == &quot;C&quot;)
+raw_map(data = counts_final_B_DS095$Count, well = counts_final_B_DS095$wellID, plate = 96, size = 10) +
+  scale_fill_viridis() +
+  labs(title = &quot;Single cell counts (plate C)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_cells_DS095-3.png" width="576" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Number of live single cells after gating
 (counts per sample/well).</em></p>
 <pre class="r"><code>percent_live_DS095 &lt;- subset(counts_DS095, Population == &quot;/Debris/Singlets/Live&quot;)[, c(&quot;name&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;PercentRoot&quot;)]
 
@@ -1894,21 +2415,22 @@ raw_map(data = counts_final_B_DS095$Count, well = counts_final_B_DS095$wellID, p
 metadata_DS095 &lt;- read_csv(&quot;data/DS095_DetailedStep_Conc/metadata_plate_DS095.csv&quot;)
 percent_live_DS095 &lt;- left_join(percent_live_DS095, metadata_DS095)</code></pre>
 <pre class="r"><code>ggplot(subset(percent_live_DS095, staining == &quot;yes&quot;), aes(x = time_min, y = PercentRoot)) +
-  geom_point(aes(color = factor(stim_description)), size = 2) +
-  facet_wrap(~plateID, ncol = 2) +
+  geom_point(aes(color = factor(H2O2_conc_mM)), size = 2) +
+  facet_wrap(~plateID, ncol = 3) +
   ylim(0, 100) +
   scale_x_continuous() +
   scale_color_manual(
-    values = colors_dark9[1:4],
-    breaks = unique(percent_live_DS095$stim_description),
+    values = colors_dark9,
+    breaks = unique(percent_live_DS095$H2O2_conc_mM),
     name = &quot;&quot;,
   ) +
   labs(y = &quot;Percentage live single \ncells from root (%)&quot;, x = &quot;Stimulation time (min)&quot;) +
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
-  guides(color = guide_legend(nrow = 2, bycol = TRUE)) +
+  # guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
   textsize</code></pre>
-<p><em><strong>Figure:</strong> Percentage of live single cells from
+<p><img src="figure/a_gating.Rmd/fig_live_percent_DS095-1.png" width="576" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Percentage of live single cells from
 root.</em></p>
 <br>
 <p>
