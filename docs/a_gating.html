@@ -411,7 +411,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-15
+<strong>Last updated:</strong> 2023-05-04
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -543,13 +543,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongf055a9b">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongca05189">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> f055a9b
+aria-hidden="true"></span> <strong>Repository version:</strong> ca05189
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongf055a9b"
+<div id="strongRepositoryversionstrongca05189"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -558,7 +558,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version f055a9b.
+The results in this page were generated with repository version ca05189.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -581,6 +581,10 @@ Untracked files:
     Untracked:  data/Bas013_LinGradient_CumExp/
     Untracked:  data/DS085_LinGradient_Conc/
     Untracked:  data/DS095_DetailedStep_Conc/
+    Untracked:  data/DS096_LinQuadGradient_HighConc/
+    Untracked:  data/DS097_LinGradient_LowConc/
+    Untracked:  data/DS098_StepInhibitor_Conc/
+    Untracked:  output/DynSign.095_annotated.zip
     Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
     Untracked:  output/annotated_data_tidy_DS095.csv
@@ -592,9 +596,15 @@ Untracked files:
     Untracked:  output/gated_counts_Bas013.csv
     Untracked:  output/gated_counts_DS085.csv
     Untracked:  output/gated_counts_DS095.csv
+    Untracked:  output/gated_counts_DS096.csv
+    Untracked:  output/gated_counts_DS097.csv
+    Untracked:  output/gated_counts_DS098.csv
     Untracked:  output/gated_data_Bas013/
     Untracked:  output/gated_data_DS085/
     Untracked:  output/gated_data_DS095/
+    Untracked:  output/gated_data_DS096/
+    Untracked:  output/gated_data_DS097/
+    Untracked:  output/gated_data_DS098/
 
 Unstaged changes:
     Deleted:    analysis/about.Rmd
@@ -643,6 +653,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+ca05189
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-05-04
+</td>
+<td>
+Added gating for new experiments
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+e2c6d51
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-03-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -831,8 +875,8 @@ textsize_small &lt;- theme(text = element_text(size = 7, family = &quot;sans&quo
 colors_dark9 &lt;- c(&quot;#4daf4a&quot;, &quot;#984ea3&quot;, &quot;#ffff33&quot;, &quot;#ff7f00&quot;, &quot;#e41a1c&quot;, &quot;#f781bf&quot;, &quot;#a65628&quot;, &quot;#999999&quot;, &quot;#377eb8&quot;)
 colors_light12 &lt;- c(&quot;#8dd3c7&quot;,&quot;#ffffb3&quot;,&quot;#bebada&quot;,&quot;#fb8072&quot;,&quot;#80b1d3&quot;,&quot;#fdb462&quot;,&quot;#b3de69&quot;,&quot;#fccde5&quot;,&quot;#d9d9d9&quot;,&quot;#bc80bd&quot;,&quot;#ccebc5&quot;,&quot;#ffed6f&quot;)</code></pre>
 </div>
-<div id="ds085-lin-gradients-with-conc-sampling" class="section level2">
-<h2>DS085: Lin gradients with conc sampling</h2>
+<div id="ds085-lingradient_conc" class="section level2">
+<h2>DS085: LinGradient_Conc</h2>
 <div id="data" class="section level3">
 <h3>Data</h3>
 <p>Read the .fcs files and create a FlowSet object with metadata</p>
@@ -1367,9 +1411,8 @@ percent_live_DS085 &lt;- left_join(percent_live_DS085, metadata_DS085)</code></p
 root.</em></p>
 </div>
 </div>
-<div id="bas013-lin-gradients-with-exposure-sampling"
-class="section level2">
-<h2>Bas013: Lin gradients with exposure sampling</h2>
+<div id="bas013-lingradient_cumexp" class="section level2">
+<h2>Bas013: LinGradient_CumExp</h2>
 <div id="data-1" class="section level3">
 <h3>Data</h3>
 <p>Read the .fcs files and create a FlowSet object with metadata</p>
@@ -1700,8 +1743,8 @@ percent_live_Bas013 &lt;- left_join(percent_live_Bas013, metadata_Bas013)</code>
 root.</em></p>
 </div>
 </div>
-<div id="ds095-detailed-step-dose" class="section level2">
-<h2>DS095: Detailed step dose</h2>
+<div id="ds095-detailedstep_conc" class="section level2">
+<h2>DS095: DetailedStep_Conc</h2>
 <div id="data-2" class="section level3">
 <h3>Data</h3>
 <p>Read the .fcs files and create a FlowSet object with metadata</p>
@@ -2430,6 +2473,1002 @@ percent_live_DS095 &lt;- left_join(percent_live_DS095, metadata_DS095)</code></p
   # guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_live_percent_DS095-1.png" width="576" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Percentage of live single cells from
+root.</em></p>
+</div>
+</div>
+<div id="ds096-linquadgradient_highconc" class="section level2">
+<h2>DS096: LinQuadGradient_HighConc</h2>
+<div id="data-3" class="section level3">
+<h3>Data</h3>
+<p>Read the .fcs files and create a FlowSet object with metadata</p>
+<pre class="r"><code># Read files with the FlowSet function
+fs_DS096 &lt;- read.flowSet(path = &quot;data/DS096_LinQuadGradient_HighConc/fcs&quot;, pattern = &quot;.fcs&quot;, alter.names = T)</code></pre>
+<pre class="r"><code># Extract information on wellID, row and column from the file name
+# Format of file name: wellID_number_date_time.fcs
+pData(fs_DS096)$wellID &lt;- gsub(&quot;(.*)_.*_.*_.*.fcs&quot;, &quot;\\1&quot;, sampleNames(fs_DS096))
+pData(fs_DS096)$rowID &lt;- gsub(&quot;(.).*&quot;, &quot;\\1&quot;, pData(fs_DS096)$wellID)
+pData(fs_DS096)$colID &lt;- as.numeric(gsub(&quot;.(.*)&quot;, &quot;\\1&quot;, pData(fs_DS096)$wellID))
+pData(fs_DS096)$expID &lt;- &quot;DS096&quot;
+pData(fs_DS096)$plateID &lt;- &quot;A&quot;
+
+kable(pData(fs_DS096) %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+rowID
+</th>
+<th style="text-align:right;">
+colID
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A01_001_20230323_115713.fcs
+</td>
+<td style="text-align:left;">
+A01_001_20230323_115713.fcs
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A02_001_20230323_115808.fcs
+</td>
+<td style="text-align:left;">
+A02_001_20230323_115808.fcs
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A03_001_20230323_115853.fcs
+</td>
+<td style="text-align:left;">
+A03_001_20230323_115853.fcs
+</td>
+<td style="text-align:left;">
+A03
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A04_001_20230323_115945.fcs
+</td>
+<td style="text-align:left;">
+A04_001_20230323_115945.fcs
+</td>
+<td style="text-align:left;">
+A04
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A05_001_20230323_120038.fcs
+</td>
+<td style="text-align:left;">
+A05_001_20230323_120038.fcs
+</td>
+<td style="text-align:left;">
+A05
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="debris-3" class="section level3">
+<h3>Debris</h3>
+<p>Define the gate on debris (SSC-A vs FSC-A): Exclude the lower left
+data points and those data point that fall at/off the upper and right
+edges of the plot</p>
+<pre class="r"><code># Create a GatingSet object from the FlowSet object
+gs_DS096 &lt;- GatingSet(fs_DS096)
+
+# Manually adjust the numbers and check in the graph to set the right gate
+g_debris_DS096 &lt;- polygonGate(filterId = &quot;Debris&quot;, &quot;FSC.A&quot; = c(4e4, 26e4, 26e4, 1e5), &quot;SSC.A&quot; = c(1e4, 1e4, 26e4, 26e4)) # define gate
+
+ggcyto(gs_DS096[[1]], aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
+  geom_hex(bins = 200) +
+  geom_gate(g_debris_DS096) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/debris_DS096-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size vs cell complexity and debris
+gate. One exemplary sample.</em></p>
+<pre class="r"><code># Apply the gate to all data
+gs_pop_add(gs_DS096, g_debris_DS096)</code></pre>
+<pre><code>[1] 2</code></pre>
+<pre class="r"><code>recompute(gs_DS096)
+
+ggcyto(gs_DS096, aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Debris&quot;) +
+  geom_stats(adjust = 0.8) +
+  ggcyto_par_set(limits = &quot;instrument&quot; ) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;, title = &quot;Non-debris from root&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_debris_DS096-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="singlets-3" class="section level3">
+<h3>Singlets</h3>
+<p>Define the gate on singlets (FSC-W vs FSC-H): Exclude all data points
+that do not fall in the mass of data points</p>
+<pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
+g_singlets_DS096 &lt;- polygonGate(filterId = &quot;Singlets&quot;, &quot;FSC.H&quot; = c(3e4, 6e4, 9e4, 2.5e4), &quot;FSC.W&quot; = c(8e4, 9e4, 1.5e5, 1.4e5)) # define gate
+
+ggcyto(gs_DS096[[1]], aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
+  geom_hex(bins = 200) +
+  geom_gate(g_singlets_DS096) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/singlets_DS096-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size height vs cell size width and
+singlet cell gate. One exemplary sample.</em></p>
+<pre class="r"><code># Apply the gate to all data
+gs_pop_add(gs_DS096, g_singlets_DS096, parent = &quot;Debris&quot;)</code></pre>
+<pre><code>[1] 3</code></pre>
+<pre class="r"><code>recompute(gs_DS096) 
+
+ggcyto(gs_DS096, aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Singlets&quot;) +
+  geom_stats(adjust = c(1.5, 0)) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;, title = &quot;Singlets from non-debris&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_singlets_DS096-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="live-cells-fixed-3" class="section level3">
+<h3>Live cells (fixed)</h3>
+<p>Define the gate on live/dead (fixed) cells (BV421 vs FSC-A): Exclude
+the upper data points and those data point that fall at/off the right
+edges of the plot</p>
+<pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
+g_live_DS096 &lt;- polygonGate(filterId = &quot;Live&quot;, &quot;FSC.A&quot; = c(4.5e4, 1.8e5, 1.8e5, 4.5e4), &quot;BV421.A&quot; = c(5e2, 5e2, 2e5, 2e5)) # define gate
+
+ggcyto(gs_DS096[[2]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+  geom_hex(bins = 200) +
+  geom_gate(g_live_DS096) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e0, 5e5)) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/live_DS096-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size vs live/death stain and live cell
+gate. One exemplary sample.</em></p>
+<pre class="r"><code># Apply the gate to all data
+gs_pop_add(gs_DS096, g_live_DS096, parent = &quot;Singlets&quot;)</code></pre>
+<pre><code>[1] 4</code></pre>
+<pre class="r"><code>recompute(gs_DS096)
+
+ggcyto(gs_DS096, aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Live&quot;) +
+  geom_stats(adjust = 0.8) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e2, 5e5)) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;, title = &quot;Live cells from singlets&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_live_DS096-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="summary-3" class="section level3">
+<h3>Summary</h3>
+<pre class="r"><code># Remove previous file if it exist
+if(file.exists(paste0(&quot;output/&quot;, &quot;gated_data_DS096&quot;))) {
+  unlink(paste0(&quot;output/&quot;, &quot;gated_data_DS096&quot;), recursive = TRUE)
+}
+
+# Save dataset
+save_gs(gs_DS096, path = paste0(&quot;output/&quot;, &quot;gated_data_DS096&quot;))
+
+# Gating strategy
+plot(gs_DS096, bool = TRUE)</code></pre>
+<p><img src="figure/a_gating.Rmd/gating_DS096-1.png" width="672" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Gating strategy.</em></p>
+</div>
+<div id="population-statistics-3" class="section level3">
+<h3>Population statistics</h3>
+<pre class="r"><code># Get cell counts
+counts_DS096 &lt;- gs_pop_get_count_fast(gs_DS096)
+counts_DS096 &lt;- merge(counts_DS096, pData(fs_DS096), by = &quot;name&quot;)
+counts_DS096$PercentParent &lt;- (counts_DS096$Count / counts_DS096$ParentCount) * 100
+
+# Calculate percentage from root
+counts_root_DS096 &lt;- counts_DS096 %&gt;% filter(Parent == &quot;root&quot;) %&gt;% select(name, RootCount = ParentCount)
+counts_DS096 &lt;- left_join(counts_DS096, counts_root_DS096)
+counts_DS096$PercentRoot &lt;- (counts_DS096$Count / counts_DS096$RootCount) * 100
+
+# Save the number of cells per well per gate as .csv file
+counts_save_DS096 &lt;- counts_DS096[ , c(&quot;plateID&quot;, &quot;wellID&quot;, &quot;name&quot;, &quot;Population&quot;, &quot;Count&quot;, &quot;ParentCount&quot;, &quot;PercentParent&quot;, &quot;RootCount&quot;, &quot;PercentRoot&quot;)]
+write_csv(counts_save_DS096, file = &quot;output/gated_counts_DS096.csv&quot;)</code></pre>
+<pre class="r"><code>counts_final_DS096 &lt;- subset(counts_DS096, Population == &quot;/Debris/Singlets/Live&quot;)
+raw_map(data = counts_final_DS096$Count, well = counts_final_DS096$wellID, plate = 96, size = 10) +
+  scale_fill_viridis() +
+  labs(title = &quot;Single cell counts&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_cells_DS096-1.png" width="576" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Number of live single cells after gating
+(counts per sample/well).</em></p>
+<pre class="r"><code>percent_live_DS096 &lt;- subset(counts_DS096, Population == &quot;/Debris/Singlets/Live&quot;)[, c(&quot;name&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;PercentRoot&quot;)]
+
+# Add metadata per well from custom .csv file
+metadata_DS096 &lt;- read_csv(&quot;data/DS096_LinQuadGradient_HighConc/metadata_plate_DS096.csv&quot;)
+percent_live_DS096 &lt;- left_join(percent_live_DS096, metadata_DS096)</code></pre>
+<pre class="r"><code>ggplot(subset(percent_live_DS096, staining == &quot;yes&quot;), aes(x = time_min, y = PercentRoot)) +
+  geom_point(aes(color = factor(stim_description)), size = 2) +
+  ylim(0, 100) +
+  scale_x_continuous() +
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = rev(unique(percent_live_DS096$stim_description)),
+    name = &quot;&quot;,
+  ) +
+  labs(y = &quot;Percentage live single \ncells from root (%)&quot;, x = &quot;Stimulation time (min)&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
+  guides(color = guide_legend(nrow = 3, byrow = TRUE)) +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_live_percent_DS096-1.png" width="384" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Percentage of live single cells from
+root.</em></p>
+</div>
+</div>
+<div id="ds097-lingradient_lowconc" class="section level2">
+<h2>DS097: LinGradient_LowConc</h2>
+<div id="data-4" class="section level3">
+<h3>Data</h3>
+<p>Read the .fcs files and create a FlowSet object with metadata</p>
+<pre class="r"><code># Read files with the FlowSet function
+fs_DS097 &lt;- read.flowSet(path = &quot;data/DS097_LinGradient_LowConc/fcs&quot;, pattern = &quot;.fcs&quot;, alter.names = T)</code></pre>
+<pre class="r"><code># Extract information on wellID, row and column from the file name
+# Format of file name: wellID_number_date_time.fcs
+pData(fs_DS097)$wellID &lt;- gsub(&quot;(.*)_.*_.*_.*.fcs&quot;, &quot;\\1&quot;, sampleNames(fs_DS097))
+pData(fs_DS097)$rowID &lt;- gsub(&quot;(.).*&quot;, &quot;\\1&quot;, pData(fs_DS097)$wellID)
+pData(fs_DS097)$colID &lt;- as.numeric(gsub(&quot;.(.*)&quot;, &quot;\\1&quot;, pData(fs_DS097)$wellID))
+pData(fs_DS097)$expID &lt;- &quot;DS097&quot;
+pData(fs_DS097)$plateID &lt;- &quot;A&quot;
+
+kable(pData(fs_DS097) %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+rowID
+</th>
+<th style="text-align:right;">
+colID
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A01_001_20230426_132145.fcs
+</td>
+<td style="text-align:left;">
+A01_001_20230426_132145.fcs
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A02_001_20230426_132211.fcs
+</td>
+<td style="text-align:left;">
+A02_001_20230426_132211.fcs
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A03_001_20230426_132238.fcs
+</td>
+<td style="text-align:left;">
+A03_001_20230426_132238.fcs
+</td>
+<td style="text-align:left;">
+A03
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A04_001_20230426_132305.fcs
+</td>
+<td style="text-align:left;">
+A04_001_20230426_132305.fcs
+</td>
+<td style="text-align:left;">
+A04
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A05_001_20230426_132333.fcs
+</td>
+<td style="text-align:left;">
+A05_001_20230426_132333.fcs
+</td>
+<td style="text-align:left;">
+A05
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="debris-4" class="section level3">
+<h3>Debris</h3>
+<p>Define the gate on debris (SSC-A vs FSC-A): Exclude the lower left
+data points and those data point that fall at/off the upper and right
+edges of the plot</p>
+<pre class="r"><code># Create a GatingSet object from the FlowSet object
+gs_DS097 &lt;- GatingSet(fs_DS097)
+
+# Manually adjust the numbers and check in the graph to set the right gate
+g_debris_DS097 &lt;- polygonGate(filterId = &quot;Debris&quot;, &quot;FSC.A&quot; = c(4e4, 26e4, 26e4, 1e5), &quot;SSC.A&quot; = c(1e4, 1e4, 26e4, 26e4)) # define gate
+
+ggcyto(gs_DS097[[1]], aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
+  geom_hex(bins = 200) +
+  geom_gate(g_debris_DS097) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/debris_DS097-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size vs cell complexity and debris
+gate. One exemplary sample.</em></p>
+<pre class="r"><code># Apply the gate to all data
+gs_pop_add(gs_DS097, g_debris_DS097)</code></pre>
+<pre><code>[1] 2</code></pre>
+<pre class="r"><code>recompute(gs_DS097)
+
+ggcyto(gs_DS097, aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Debris&quot;) +
+  geom_stats(adjust = 0.8) +
+  ggcyto_par_set(limits = &quot;instrument&quot; ) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;, title = &quot;Non-debris from root&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_debris_DS097-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="singlets-4" class="section level3">
+<h3>Singlets</h3>
+<p>Define the gate on singlets (FSC-W vs FSC-H): Exclude all data points
+that do not fall in the mass of data points</p>
+<pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
+g_singlets_DS097 &lt;- polygonGate(filterId = &quot;Singlets&quot;, &quot;FSC.H&quot; = c(3e4, 6e4, 8.5e4, 2.5e4), &quot;FSC.W&quot; = c(8e4, 9e4, 1.4e5, 1.4e5)) # define gate
+
+ggcyto(gs_DS097[[1]], aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
+  geom_hex(bins = 200) +
+  geom_gate(g_singlets_DS097) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/singlets_DS097-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size height vs cell size width and
+singlet cell gate. One exemplary sample.</em></p>
+<pre class="r"><code># Apply the gate to all data
+gs_pop_add(gs_DS097, g_singlets_DS097, parent = &quot;Debris&quot;)</code></pre>
+<pre><code>[1] 3</code></pre>
+<pre class="r"><code>recompute(gs_DS097) 
+
+ggcyto(gs_DS097, aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Singlets&quot;) +
+  geom_stats(adjust = c(1.5, 0)) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;, title = &quot;Singlets from non-debris&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_singlets_DS097-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="live-cells-fixed-4" class="section level3">
+<h3>Live cells (fixed)</h3>
+<p>Define the gate on live/dead (fixed) cells (BV421 vs FSC-A): Exclude
+the upper data points and those data point that fall at/off the right
+edges of the plot</p>
+<pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
+g_live_DS097 &lt;- polygonGate(filterId = &quot;Live&quot;, &quot;FSC.A&quot; = c(4.5e4, 1.8e5, 1.8e5, 4.5e4), &quot;BV421.A&quot; = c(5e2, 5e2, 3e4, 1e4)) # define gate
+
+ggcyto(gs_DS097[[1]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+  geom_hex(bins = 200) +
+  geom_gate(g_live_DS097) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e0, 1e5)) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/live_DS097-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size vs live/death stain and live cell
+gate. One exemplary sample.</em></p>
+<pre class="r"><code># Apply the gate to all data
+gs_pop_add(gs_DS097, g_live_DS097, parent = &quot;Singlets&quot;)</code></pre>
+<pre><code>[1] 4</code></pre>
+<pre class="r"><code>recompute(gs_DS097) 
+
+ggcyto(gs_DS097, aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Live&quot;) +
+  geom_stats(adjust = 0.8) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e2, 5e4)) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;, title = &quot;Live cells from singlets&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_live_DS097-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="summary-4" class="section level3">
+<h3>Summary</h3>
+<pre class="r"><code># Remove previous file if it exist
+if(file.exists(paste0(&quot;output/&quot;, &quot;gated_data_DS097&quot;))) {
+  unlink(paste0(&quot;output/&quot;, &quot;gated_data_DS097&quot;), recursive = TRUE)
+}
+
+# Save dataset
+save_gs(gs_DS097, path = paste0(&quot;output/&quot;, &quot;gated_data_DS097&quot;))
+
+# Gating strategy
+plot(gs_DS097, bool = TRUE)</code></pre>
+<p><img src="figure/a_gating.Rmd/gating_DS097-1.png" width="672" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Gating strategy.</em></p>
+</div>
+<div id="population-statistics-4" class="section level3">
+<h3>Population statistics</h3>
+<pre class="r"><code># Get cell counts
+counts_DS097 &lt;- gs_pop_get_count_fast(gs_DS097)
+counts_DS097 &lt;- merge(counts_DS097, pData(fs_DS097), by = &quot;name&quot;)
+counts_DS097$PercentParent &lt;- (counts_DS097$Count / counts_DS097$ParentCount) * 100
+
+# Calculate percentage from root
+counts_root_DS097 &lt;- counts_DS097 %&gt;% filter(Parent == &quot;root&quot;) %&gt;% select(name, RootCount = ParentCount)
+counts_DS097 &lt;- left_join(counts_DS097, counts_root_DS097)
+counts_DS097$PercentRoot &lt;- (counts_DS097$Count / counts_DS097$RootCount) * 100
+
+# Save the number of cells per well per gate as .csv file
+counts_save_DS097 &lt;- counts_DS097[ , c(&quot;plateID&quot;, &quot;wellID&quot;, &quot;name&quot;, &quot;Population&quot;, &quot;Count&quot;, &quot;ParentCount&quot;, &quot;PercentParent&quot;, &quot;RootCount&quot;, &quot;PercentRoot&quot;)]
+write_csv(counts_save_DS097, file = &quot;output/gated_counts_DS097.csv&quot;)</code></pre>
+<pre class="r"><code>counts_final_DS097 &lt;- subset(counts_DS097, Population == &quot;/Debris/Singlets/Live&quot;)
+raw_map(data = counts_final_DS097$Count, well = counts_final_DS097$wellID, plate = 96, size = 10) +
+  scale_fill_viridis() +
+  labs(title = &quot;Single cell counts&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_cells_DS097-1.png" width="576" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Number of live single cells after gating
+(counts per sample/well).</em></p>
+<pre class="r"><code>percent_live_DS097 &lt;- subset(counts_DS097, Population == &quot;/Debris/Singlets/Live&quot;)[, c(&quot;name&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;PercentRoot&quot;)]
+
+# Add metadata per well from custom .csv file
+metadata_DS097 &lt;- read_csv(&quot;data/DS097_LinGradient_LowConc/metadata_plate_DS097.csv&quot;)
+percent_live_DS097 &lt;- left_join(percent_live_DS097, metadata_DS097)</code></pre>
+<pre class="r"><code>ggplot(subset(percent_live_DS097, staining == &quot;yes&quot;), aes(x = time_min, y = PercentRoot)) +
+  geom_point(aes(color = factor(stim_description)), size = 2) +
+  ylim(0, 100) +
+  scale_x_continuous() +
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = rev(unique(percent_live_DS097$stim_description)),
+    name = &quot;&quot;,
+  ) +
+  labs(y = &quot;Percentage live single \ncells from root (%)&quot;, x = &quot;Stimulation time (min)&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
+  guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_live_percent_DS097-1.png" width="384" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Percentage of live single cells from
+root.</em></p>
+</div>
+</div>
+<div id="ds098-stepinhibitor_conc" class="section level2">
+<h2>DS098: StepInhibitor_Conc</h2>
+<div id="data-5" class="section level3">
+<h3>Data</h3>
+<p>Read the .fcs files and create a FlowSet object with metadata</p>
+<pre class="r"><code># Read files with the FlowSet function
+fs_DS098 &lt;- read.flowSet(path = &quot;data/DS098_StepInhibitor_Conc/fcs&quot;, pattern = &quot;.fcs&quot;, alter.names = T)</code></pre>
+<pre class="r"><code># Extract information on wellID, row and column from the file name
+# Format of file name: wellID_number_date_time.fcs
+pData(fs_DS098)$wellID &lt;- gsub(&quot;(.*)_.*_.*_.*.fcs&quot;, &quot;\\1&quot;, sampleNames(fs_DS098))
+pData(fs_DS098)$rowID &lt;- gsub(&quot;(.).*&quot;, &quot;\\1&quot;, pData(fs_DS098)$wellID)
+pData(fs_DS098)$colID &lt;- as.numeric(gsub(&quot;.(.*)&quot;, &quot;\\1&quot;, pData(fs_DS098)$wellID))
+pData(fs_DS098)$expID &lt;- &quot;DS098&quot;
+pData(fs_DS098)$plateID &lt;- &quot;A&quot;
+
+kable(pData(fs_DS098) %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+rowID
+</th>
+<th style="text-align:right;">
+colID
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+B02_001_20230501_145929.fcs
+</td>
+<td style="text-align:left;">
+B02_001_20230501_145929.fcs
+</td>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B03_001_20230501_150001.fcs
+</td>
+<td style="text-align:left;">
+B03_001_20230501_150001.fcs
+</td>
+<td style="text-align:left;">
+B03
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B04_001_20230501_150034.fcs
+</td>
+<td style="text-align:left;">
+B04_001_20230501_150034.fcs
+</td>
+<td style="text-align:left;">
+B04
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B05_001_20230501_150111.fcs
+</td>
+<td style="text-align:left;">
+B05_001_20230501_150111.fcs
+</td>
+<td style="text-align:left;">
+B05
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B06_001_20230501_150142.fcs
+</td>
+<td style="text-align:left;">
+B06_001_20230501_150142.fcs
+</td>
+<td style="text-align:left;">
+B06
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="debris-5" class="section level3">
+<h3>Debris</h3>
+<p>Define the gate on debris (SSC-A vs FSC-A): Exclude the lower left
+data points and those data point that fall at/off the upper and right
+edges of the plot</p>
+<pre class="r"><code># Create a GatingSet object from the FlowSet object
+gs_DS098 &lt;- GatingSet(fs_DS098)
+
+# Manually adjust the numbers and check in the graph to set the right gate
+g_debris_DS098 &lt;- polygonGate(filterId = &quot;Debris&quot;, &quot;FSC.A&quot; = c(4e4, 26e4, 26e4, 1e5), &quot;SSC.A&quot; = c(1e4, 1e4, 26e4, 26e4)) # define gate
+
+ggcyto(gs_DS098[[1]], aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
+  geom_hex(bins = 200) +
+  geom_gate(g_debris_DS098) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/debris_DS098-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size vs cell complexity and debris
+gate. One exemplary sample.</em></p>
+<pre class="r"><code># Apply the gate to all data
+gs_pop_add(gs_DS098, g_debris_DS098)</code></pre>
+<pre><code>[1] 2</code></pre>
+<pre class="r"><code>recompute(gs_DS098)
+
+ggcyto(gs_DS098, aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Debris&quot;) +
+  geom_stats(adjust = 0.8) +
+  ggcyto_par_set(limits = &quot;instrument&quot; ) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;, title = &quot;Non-debris from root&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_debris_DS098-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="singlets-5" class="section level3">
+<h3>Singlets</h3>
+<p>Define the gate on singlets (FSC-W vs FSC-H): Exclude all data points
+that do not fall in the mass of data points</p>
+<pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
+g_singlets_DS098 &lt;- polygonGate(filterId = &quot;Singlets&quot;, &quot;FSC.H&quot; = c(3e4, 6.5e4, 7.5e4, 2.5e4), &quot;FSC.W&quot; = c(8e4, 9e4, 1.4e5, 1.4e5)) # define gate
+
+ggcyto(gs_DS098[[1]], aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
+  geom_hex(bins = 200) +
+  geom_gate(g_singlets_DS098) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/singlets_DS098-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size height vs cell size width and
+singlet cell gate. One exemplary sample.</em></p>
+<pre class="r"><code># Apply the gate to all data
+gs_pop_add(gs_DS098, g_singlets_DS098, parent = &quot;Debris&quot;)</code></pre>
+<pre><code>[1] 3</code></pre>
+<pre class="r"><code>recompute(gs_DS098) 
+
+ggcyto(gs_DS098, aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Singlets&quot;) +
+  geom_stats(adjust = c(1.5, 0)) +
+  ggcyto_par_set(limits = &quot;instrument&quot;) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;, title = &quot;Singlets from non-debris&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_singlets_DS098-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="live-cells-fixed-5" class="section level3">
+<h3>Live cells (fixed)</h3>
+<p>Define the gate on live/dead (fixed) cells (BV421 vs FSC-A): Exclude
+the upper data points and those data point that fall at/off the right
+edges of the plot</p>
+<pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
+g_live_DS098 &lt;- polygonGate(filterId = &quot;Live&quot;, &quot;FSC.A&quot; = c(4.4e4, 1.6e5, 1.6e5, 4.4e4), &quot;BV421.A&quot; = c(5e1, 5e1, 5e3, 1e3)) # define gate
+
+ggcyto(gs_DS098[[4]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+  geom_hex(bins = 200) +
+  geom_gate(g_live_DS098) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e0, 5e4)) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/live_DS098-1.png" width="480" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Cell size vs live/death stain and live cell
+gate. One exemplary sample.</em></p>
+<pre class="r"><code># Apply the gate to all data
+gs_pop_add(gs_DS098, g_live_DS098, parent = &quot;Singlets&quot;)</code></pre>
+<pre><code>[1] 4</code></pre>
+<pre class="r"><code>recompute(gs_DS098) 
+
+ggcyto(gs_DS098, aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+  geom_hex(bins = 100) +
+  geom_gate(&quot;Live&quot;) +
+  geom_stats(adjust = 0.8) +
+  scale_x_log10() +
+  scale_y_log10(limits = c(5e1, 5e4)) +
+  facet_grid(vars(rowID), vars(factor(colID, levels = col_order))) +
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;, title = &quot;Live cells from singlets&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_live_DS098-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="summary-5" class="section level3">
+<h3>Summary</h3>
+<pre class="r"><code># Remove previous file if it exist
+if(file.exists(paste0(&quot;output/&quot;, &quot;gated_data_DS098&quot;))) {
+  unlink(paste0(&quot;output/&quot;, &quot;gated_data_DS098&quot;), recursive = TRUE)
+}
+
+# Save dataset
+save_gs(gs_DS098, path = paste0(&quot;output/&quot;, &quot;gated_data_DS098&quot;))
+
+# Gating strategy
+plot(gs_DS098, bool = TRUE)</code></pre>
+<p><img src="figure/a_gating.Rmd/gating_DS098-1.png" width="672" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Gating strategy.</em></p>
+</div>
+<div id="population-statistics-5" class="section level3">
+<h3>Population statistics</h3>
+<pre class="r"><code># Get cell counts
+counts_DS098 &lt;- gs_pop_get_count_fast(gs_DS098)
+counts_DS098 &lt;- merge(counts_DS098, pData(fs_DS098), by = &quot;name&quot;)
+counts_DS098$PercentParent &lt;- (counts_DS098$Count / counts_DS098$ParentCount) * 100
+
+# Calculate percentage from root
+counts_root_DS098 &lt;- counts_DS098 %&gt;% filter(Parent == &quot;root&quot;) %&gt;% select(name, RootCount = ParentCount)
+counts_DS098 &lt;- left_join(counts_DS098, counts_root_DS098)
+counts_DS098$PercentRoot &lt;- (counts_DS098$Count / counts_DS098$RootCount) * 100
+
+# Save the number of cells per well per gate as .csv file
+counts_save_DS098 &lt;- counts_DS098[ , c(&quot;plateID&quot;, &quot;wellID&quot;, &quot;name&quot;, &quot;Population&quot;, &quot;Count&quot;, &quot;ParentCount&quot;, &quot;PercentParent&quot;, &quot;RootCount&quot;, &quot;PercentRoot&quot;)]
+write_csv(counts_save_DS098, file = &quot;output/gated_counts_DS098.csv&quot;)</code></pre>
+<pre class="r"><code>counts_final_DS098 &lt;- subset(counts_DS098, Population == &quot;/Debris/Singlets/Live&quot;)
+raw_map(data = counts_final_DS098$Count, well = counts_final_DS098$wellID, plate = 96, size = 10) +
+  scale_fill_viridis() +
+  labs(title = &quot;Single cell counts&quot;) +
+  theme_bw() +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_cells_DS098-1.png" width="576" style="display: block; margin: auto;" />
+<em><strong>Figure:</strong> Number of live single cells after gating
+(counts per sample/well).</em></p>
+<pre class="r"><code>percent_live_DS098 &lt;- subset(counts_DS098, Population == &quot;/Debris/Singlets/Live&quot;)[, c(&quot;name&quot;,&quot;plateID&quot;, &quot;wellID&quot;, &quot;PercentRoot&quot;)]
+
+# Add metadata per well from custom .csv file
+metadata_DS098 &lt;- read_csv(&quot;data/DS098_StepInhibitor_Conc/metadata_plate_DS098.csv&quot;)
+percent_live_DS098 &lt;- left_join(percent_live_DS098, metadata_DS098)</code></pre>
+<pre class="r"><code>ggplot(subset(percent_live_DS098, staining == &quot;yes&quot;), aes(x = paste(inhibitor, replicate), y = PercentRoot)) +
+  geom_point(aes(color = factor(H2O2_conc_mM)), size = 2) +
+  ylim(0, 100) +
+  scale_x_discrete(labels=function(x){sub(&quot;\\s&quot;, &quot;\n&quot;, x)}) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = unique(percent_live_DS098$H2O2_conc_mM),
+    labels = c(&quot;1 mM&quot;, &quot;10 mM&quot;, &quot;25 mM&quot;),
+    name = &quot;&quot;,
+  ) +
+  labs(y = &quot;Percentage live single \ncells from root (%)&quot;, x = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;top&quot;, legend.justification = &quot;right&quot;) +
+  textsize</code></pre>
+<p><img src="figure/a_gating.Rmd/fig_live_percent_DS098-1.png" width="480" style="display: block; margin: auto;" />
 <em><strong>Figure:</strong> Percentage of live single cells from
 root.</em></p>
 <br>
