@@ -23,3 +23,20 @@ This is the analysis folder for the flow cytometry data of the H2O2 dynamic sign
 [Gradients](c_gradients.html) contains the analysis of the gradient data.
 
 [Step](d_step.html) contains the analysis of the step data.
+
+
+## Experiments
+
+Bas013: LinGradient_CumExp
+
+DS085: LinGradient_Conc
+
+DS095: DetailedStep_Conc
+
+DS096: LinQuadGradient_HighCnc
+
+DS097: LinGradient_LowConc
+
+DS098: StepInhibitor_Conc
+
+
