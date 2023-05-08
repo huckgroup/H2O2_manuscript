@@ -14,15 +14,21 @@ editor_options:
 This is the analysis folder for the flow cytometry data of the H2O2 dynamic signaling manuscript.
 
 
+
 ## In this repository
 
 [Gating](a_gating.html) contains the gating strategy for all analyses.
 
 [Annotation](b_annotation.html) contains the annotation of the gated data with experimental metadata.
 
+[Paper figs](e_paper_figs.html) contains the main and supplementary figures for the paper.
+
 [Gradients](c_gradients.html) contains the analysis of the gradient data.
 
 [Step](d_step.html) contains the analysis of the step data.
+
+[other](f_other.html) contains any other (old) code from the project.
+
 
 
 ## Experiments

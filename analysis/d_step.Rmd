@@ -18,7 +18,7 @@ editor_options:
 
 ```{r setup, message=F, warning=F}
 knitr::opts_chunk$set(
-  message = F, warning = F, echo = T, eval = T
+  message = F, warning = F, echo = T, eval = F
 )
 
 # Load required packages
@@ -50,7 +50,7 @@ colors_paired10 <- c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fdbf6f", "#ff
 
 
 
-## DS095: Detailed step dose
+## DS095_DetailedStep_Conc
 
 ```{r data_DS095}
 df_tidy_DS095 <- read_csv("output/annotated_data_tidy_DS095.csv")
@@ -192,3 +192,8 @@ ggplot(subset(medians_tidy_DS095, staining == "yes" & protein != "cCaspase 3 + c
   theme(legend.position = "bottom", legend.justification = "right", panel.grid.minor = element_blank()) +
   textsize
 ```
+
+
+
+## DS098_StepInhibitor_Conc
+

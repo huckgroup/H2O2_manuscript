@@ -18,7 +18,7 @@ editor_options:
 
 ```{r setup, message=F, warning=F}
 knitr::opts_chunk$set(
-  message = F, warning = F, echo = T, eval = T
+  message = F, warning = F, echo = T, eval = F
 )
 
 # Load required packages
@@ -50,7 +50,7 @@ colors_paired10 <- c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fdbf6f", "#ff
 
 
 
-## DS085: Lin gradients with conc sampling
+## DS085_LinGradient_Conc
 
 ```{r data_DS085}
 df_tidy_DS085 <- read_csv("output/annotated_data_tidy_DS085.csv")
@@ -195,7 +195,7 @@ ggplot(subset(medians_tidy_DS085, staining == "yes" & protein != "cCaspase 3 + c
 
 
 
-## Bas013: Lin gradients with exposure sampling
+## Bas013_LinGradient_CumExp
 
 ```{r data_Bas013}
 df_tidy_Bas013 <- read_csv("output/annotated_data_tidy_Bas013.csv")
@@ -343,7 +343,7 @@ ggplot(subset(medians_tidy_Bas013, staining == "yes" & protein != "cCaspase 3 + 
 
 
 
-## Combined datasets DS085 + Bas013
+## Combined DS085 + Bas013
 
 ***Table:** Experimental parameters of DS085 and Bas013 experiments*
 
