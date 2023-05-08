@@ -11,9 +11,9 @@
 
 <meta name="author" content="mwitmond" />
 
-<meta name="date" content="2023-03-10" />
+<meta name="date" content="2023-05-08" />
 
-<title>Analysis of step data</title>
+<title>f_other</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -384,9 +384,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Analysis of step data</h1>
+<h1 class="title toc-ignore">f_other</h1>
 <h4 class="author">mwitmond</h4>
-<h4 class="date">2023-03-10</h4>
+<h4 class="date">2023-05-08</h4>
 
 </div>
 
@@ -637,10 +637,11 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/d_step.Rmd</code>) and HTML
-(<code>docs/d_step.html</code>) files. If you’ve configured a remote Git
-repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
-in the table below to view the files as they were in that past version.
+made to the R Markdown (<code>analysis/f_other.Rmd</code>) and HTML
+(<code>docs/f_other.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -681,91 +682,6 @@ mwitmond
 Publish updated datasets, gating, annotation
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-b3e90bb
-</td>
-<td>
-mwitmond
-</td>
-<td>
-2023-05-04
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-e2c6d51
-</td>
-<td>
-mwitmond
-</td>
-<td>
-2023-03-15
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-f055a9b
-</td>
-<td>
-mwitmond
-</td>
-<td>
-2023-03-15
-</td>
-<td>
-Publish gating + annotation of DS095
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-9f347a6
-</td>
-<td>
-mwitmond
-</td>
-<td>
-2023-03-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-4a1526a
-</td>
-<td>
-mwitmond
-</td>
-<td>
-2023-03-10
-</td>
-<td>
-Publish updated gradient figures
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -801,132 +717,6 @@ textsize_small &lt;- theme(text = element_text(size = 7, family = &quot;sans&quo
 colors_dark9 &lt;- c(&quot;#4daf4a&quot;, &quot;#984ea3&quot;, &quot;#ffff33&quot;, &quot;#ff7f00&quot;, &quot;#e41a1c&quot;, &quot;#f781bf&quot;, &quot;#a65628&quot;, &quot;#999999&quot;, &quot;#377eb8&quot;)
 colors_light12 &lt;- c(&quot;#8dd3c7&quot;,&quot;#ffffb3&quot;,&quot;#bebada&quot;,&quot;#fb8072&quot;,&quot;#80b1d3&quot;,&quot;#fdb462&quot;,&quot;#b3de69&quot;,&quot;#fccde5&quot;,&quot;#d9d9d9&quot;,&quot;#bc80bd&quot;,&quot;#ccebc5&quot;,&quot;#ffed6f&quot;)
 colors_paired10 &lt;- c(&quot;#a6cee3&quot;, &quot;#1f78b4&quot;, &quot;#b2df8a&quot;, &quot;#33a02c&quot;, &quot;#fdbf6f&quot;, &quot;#ff7f00&quot;, &quot;#cab2d6&quot;, &quot;#6a3d9a&quot;, &quot;#fb9a99&quot;, &quot;#e31a1c&quot;)</code></pre>
-</div>
-<div id="ds095_detailedstep_conc" class="section level2">
-<h2>DS095_DetailedStep_Conc</h2>
-<pre class="r"><code>df_tidy_DS095 &lt;- read_csv(&quot;output/annotated_data_tidy_DS095.csv&quot;)
-
-medians_tidy_DS095 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS095.csv&quot;)
-
-medians_avg_DS095 &lt;- read_csv(&quot;output/annotated_medians_avg_rep_DS095.csv&quot;)</code></pre>
-<pre class="r"><code>proteins_DS095 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;, &quot;Rabbit IgG isotype&quot;, &quot;cCaspase 3 + cPARP&quot;, &quot;No stain&quot;)
-times_DS095 &lt;- c(&quot;0 min&quot;, &quot;0.5 min&quot;, &quot;1 min&quot;, &quot;2.5 min&quot;, &quot;5 min&quot;, &quot;10 min&quot;, &quot;25 min&quot;, &quot;10 min nostain&quot;, &quot;25 min nostain&quot;)
-concentrations_DS095 &lt;- c(&quot;0 mM&quot;, &quot;0.25 mM&quot;, &quot;1 mM&quot;, &quot;2.5 mM&quot;, &quot;5 mM&quot;, &quot;10 mM&quot;, &quot;25 mM&quot;)</code></pre>
-<div id="ridge-plots" class="section level3">
-<h3>Ridge plots</h3>
-<pre class="r"><code># this_protein_DS095 &lt;- &quot;pPLCy2 (Y759)&quot;
-for (this_protein_DS095 in proteins_DS095) {
-  plot &lt;- ggplot(subset(df_tidy_DS095, protein == this_protein_DS095), aes(x = fluorescence)) +
-    geom_density_ridges(
-      aes(y = as.factor(H2O2_conc_mM), 
-          fill = replicate),
-      scale = 2, 
-      alpha = 0.4
-    ) +
-    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
-    facet_wrap(vars(factor(time_point, levels = times_DS095)), ncol = 9, scales = &quot;free_y&quot;) +
-    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
-    scale_x_log10() +
-    labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_DS095), y = &quot;H2O2 concentration (mM)&quot;) +
-    theme_bw() +
-    textsize
-  
-  print(plot)
-}</code></pre>
-<pre class="r"><code>for (this_protein_DS095 in proteins_DS095) {
-  plot &lt;- ggplot(subset(df_tidy_DS095, protein == this_protein_DS095), aes(x = fluorescence)) +
-    geom_density_ridges(
-      aes(y = as.factor(time_min), 
-          fill = replicate),
-      scale = 2, 
-      alpha = 0.4
-    ) +
-    geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.75) +
-    facet_wrap(vars(factor(H2O2_conc_mM, labels = concentrations_DS095)), ncol = 7) +
-    # scale_x_logicle(limits = c(1e0, 1e5)) + # logicle scale instead of log10 scale
-    scale_x_log10() +
-    labs(x = paste(&quot;Fluorescent intensity&quot;, this_protein_DS095), y = &quot;Time (min)&quot;) +
-    theme_bw() +
-    textsize
-  
-  print(plot)
-}</code></pre>
-</div>
-<div id="line-plots" class="section level3">
-<h3>Line plots</h3>
-<pre class="r"><code>ggplot(subset(medians_tidy_DS095, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot;),
-       aes(
-         x = time_min,
-         y = percent_on, 
-         group = stim_description,
-         color = stim_description,
-       )) +
-  geom_line(linewidth = 1.25) +
-  geom_point(size = 2) +
-  facet_wrap(vars(factor(protein, levels = proteins_DS095)), ncol = 2) +
-  scale_x_continuous(
-    limits = c(0, 90),
-    breaks = c(0, 20, 60, 90)
-  ) +
-  scale_color_manual(
-    values = colors_dark9,
-    breaks = stimulations_DS095,
-    name = &quot;&quot;,
-  ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
-  labs(x = &quot;Time (min)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
-  theme_bw() +
-  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
-  textsize</code></pre>
-<pre class="r"><code>ggplot(subset(medians_tidy_DS095, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_profile == &quot;gradient&quot;),
-       aes(
-         x = conc_at_time_mM,
-         y = percent_on, 
-         group = stim_description,
-         color = stim_description,
-       )) +
-  geom_line(linewidth = 1.25) +
-  geom_point(size = 2) +
-  facet_wrap(vars(factor(protein, levels = proteins_DS095)), ncol = 2) +
-  scale_x_log10(limits = c(1e-1, 1e1)) + 
-  # scale_x_continuous(
-  #   limits = c(0, 5),
-  #   breaks = c(0, 1.25, 2.5, 3.75, 5)  
-  # ) +
-  scale_color_manual(
-    values = colors_dark9,
-    breaks = stimulations_DS095,
-    name = &quot;&quot;,
-  ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
-  labs(x = &quot;H2O2 concentration (mM)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
-  theme_bw() +
-  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
-  textsize</code></pre>
-<pre class="r"><code>ggplot(subset(medians_tidy_DS095, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_description != &quot;PBS step&quot;), 
-       aes(
-         x = cumulative_exposure,
-         y = percent_on, 
-         group = stim_description,
-         color = stim_description,
-       )) +
-  geom_line(linewidth = 1.25) +
-  geom_point(size = 2) +
-  facet_wrap(vars(factor(protein, levels = proteins_DS095)), ncol = 2) +
-  scale_color_manual(
-    values = colors_dark9,
-    breaks = stimulations_DS095,
-    name = &quot;&quot;,
-  ) +
-  # coord_cartesian(ylim = c(0, 100)) + 
-  labs(x = &quot;Cumulative exposure (AUC of conc vs time)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
-  theme_bw() +
-  theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
-  textsize</code></pre>
-</div>
-</div>
-<div id="ds098_stepinhibitor_conc" class="section level2">
-<h2>DS098_StepInhibitor_Conc</h2>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

@@ -350,10 +350,16 @@ div.tocify {
   <a href="b_annotation.html">Annotation</a>
 </li>
 <li>
+  <a href="e_paper_figs.html">Paper figs</a>
+</li>
+<li>
   <a href="c_gradients.html">Gradients</a>
 </li>
 <li>
   <a href="d_step.html">Step</a>
+</li>
+<li>
+  <a href="f_other.html">Other</a>
 </li>
 <li>
   <a href="license.html">License</a>
@@ -409,7 +415,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-05-04
+<strong>Last updated:</strong> 2023-05-08
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -541,13 +547,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongca05189">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong6521f7c">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> ca05189
+aria-hidden="true"></span> <strong>Repository version:</strong> 6521f7c
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongca05189"
+<div id="strongRepositoryversionstrong6521f7c"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +562,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version ca05189.
+The results in this page were generated with repository version 6521f7c.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -586,10 +592,17 @@ Untracked files:
     Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
     Untracked:  output/annotated_data_tidy_DS095.csv
+    Untracked:  output/annotated_data_tidy_DS096.csv
+    Untracked:  output/annotated_data_tidy_DS097.csv
+    Untracked:  output/annotated_data_tidy_DS098.csv
     Untracked:  output/annotated_medians_avg_rep_DS095.csv
+    Untracked:  output/annotated_medians_avg_rep_DS098.csv
     Untracked:  output/annotated_medians_tidy_Bas013.csv
     Untracked:  output/annotated_medians_tidy_DS085.csv
     Untracked:  output/annotated_medians_tidy_DS095.csv
+    Untracked:  output/annotated_medians_tidy_DS096.csv
+    Untracked:  output/annotated_medians_tidy_DS097.csv
+    Untracked:  output/annotated_medians_tidy_DS098.csv
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
     Untracked:  output/gated_counts_DS085.csv
@@ -605,6 +618,7 @@ Untracked files:
     Untracked:  output/gated_data_DS098/
 
 Unstaged changes:
+    Modified:   analysis/a_gating.Rmd
     Deleted:    analysis/about.Rmd
 
 </code></pre>
@@ -651,6 +665,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+6521f7c
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-05-08
+</td>
+<td>
+Publish updated datasets, gating, annotation
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+b3e90bb
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-05-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -865,7 +913,7 @@ Publish correct gating + annotation
 <div id="set-up" class="section level2">
 <h2>Set-up</h2>
 <pre class="r"><code>knitr::opts_chunk$set(
-  message = F, warning = F, echo = T, eval = T
+  message = F, warning = F, echo = T, eval = F
 )
 
 # Load required packages
@@ -891,8 +939,8 @@ colors_dark9 &lt;- c(&quot;#4daf4a&quot;, &quot;#984ea3&quot;, &quot;#ffff33&quo
 colors_light12 &lt;- c(&quot;#8dd3c7&quot;,&quot;#ffffb3&quot;,&quot;#bebada&quot;,&quot;#fb8072&quot;,&quot;#80b1d3&quot;,&quot;#fdb462&quot;,&quot;#b3de69&quot;,&quot;#fccde5&quot;,&quot;#d9d9d9&quot;,&quot;#bc80bd&quot;,&quot;#ccebc5&quot;,&quot;#ffed6f&quot;)
 colors_paired10 &lt;- c(&quot;#a6cee3&quot;, &quot;#1f78b4&quot;, &quot;#b2df8a&quot;, &quot;#33a02c&quot;, &quot;#fdbf6f&quot;, &quot;#ff7f00&quot;, &quot;#cab2d6&quot;, &quot;#6a3d9a&quot;, &quot;#fb9a99&quot;, &quot;#e31a1c&quot;)</code></pre>
 </div>
-<div id="ds085-lin-gradients-with-conc-sampling" class="section level2">
-<h2>DS085: Lin gradients with conc sampling</h2>
+<div id="ds085_lingradient_conc" class="section level2">
+<h2>DS085_LinGradient_Conc</h2>
 <pre class="r"><code>df_tidy_DS085 &lt;- read_csv(&quot;output/annotated_data_tidy_DS085.csv&quot;)
 
 medians_tidy_DS085 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS085.csv&quot;)</code></pre>
@@ -918,7 +966,6 @@ stimulations_DS085 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20
   
   print(plot)
 }</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_ridge_time_DS085-1.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_DS085-2.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_DS085-3.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_DS085-4.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_DS085-5.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_DS085-6.png" width="960" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_DS085-7.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>for (this_protein_DS085 in proteins_DS085) {
   plot &lt;- ggplot(subset(df_tidy_DS085, 
                         protein == this_protein_DS085 &amp; 
@@ -941,7 +988,6 @@ stimulations_DS085 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20
   
   print(plot)
 }</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_ridge_conc_DS085-1.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_DS085-2.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_DS085-3.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_DS085-4.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_DS085-5.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_DS085-6.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_DS085-7.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="line-plots" class="section level3">
 <h3>Line plots</h3>
@@ -969,7 +1015,6 @@ stimulations_DS085 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   textsize</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_time_DS085-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_tidy_DS085, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_profile == &quot;gradient&quot;),
        aes(
          x = conc_at_time_mM,
@@ -995,7 +1040,6 @@ stimulations_DS085 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   textsize</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_conc_DS085-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_tidy_DS085, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_description != &quot;PBS step&quot;), 
        aes(
          x = cumulative_exposure,
@@ -1016,12 +1060,10 @@ stimulations_DS085 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;20
   theme_bw() +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   textsize</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_cumexp_DS085-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="bas013-lin-gradients-with-exposure-sampling"
-class="section level2">
-<h2>Bas013: Lin gradients with exposure sampling</h2>
+<div id="bas013_lingradient_cumexp" class="section level2">
+<h2>Bas013_LinGradient_CumExp</h2>
 <pre class="r"><code>df_tidy_Bas013 &lt;- read_csv(&quot;output/annotated_data_tidy_Bas013.csv&quot;)
 
 medians_tidy_Bas013 &lt;- read_csv(&quot;output/annotated_medians_tidy_Bas013.csv&quot;)</code></pre>
@@ -1047,7 +1089,6 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
   
   print(plot)
 }</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_ridge_time_Bas013-1.png" width="1152" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_Bas013-2.png" width="1152" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_Bas013-3.png" width="1152" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_time_Bas013-4.png" width="1152" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>for (this_protein_Bas013 in proteins_Bas013) {
   plot &lt;- ggplot(subset(df_tidy_Bas013, 
                         protein == this_protein_Bas013 &amp; 
@@ -1070,7 +1111,6 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
   
   print(plot)
 }</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_ridge_conc_Bas013-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_Bas013-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_Bas013-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_Bas013-4.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="line-plots-1" class="section level3">
 <h3>Line plots</h3>
@@ -1099,7 +1139,6 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
   textsize</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_time_Bas013-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_tidy_Bas013, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_profile == &quot;gradient&quot;),
        aes(
          x = conc_at_time_mM,
@@ -1126,7 +1165,6 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, byrow = TRUE)) +
   textsize</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_conc_Bas013-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_tidy_Bas013, staining == &quot;yes&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot; &amp; stim_description != &quot;PBS step&quot;), 
        aes(
          x = cumulative_exposure,
@@ -1148,11 +1186,10 @@ stimulations_Bas013 &lt;- c(&quot;PBS step&quot;, &quot;H2O2 step&quot;, &quot;2
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 2, byrow = TRUE)) +
   textsize</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_cumexp_Bas013-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="combined-datasets-ds085-bas013" class="section level2">
-<h2>Combined datasets DS085 + Bas013</h2>
+<div id="combined-ds085-bas013" class="section level2">
+<h2>Combined DS085 + Bas013</h2>
 <p><em><strong>Table:</strong> Experimental parameters of DS085 and
 Bas013 experiments</em></p>
 <table>
@@ -1253,7 +1290,6 @@ for (this_protein_combi in c(proteins_overlap, &quot;cCaspase 3 + cPARP&quot;)) 
   
   print(plot)
 }</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-1.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-2.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-3.png" width="576" style="display: block; margin: auto;" /><img src="figure/c_gradients.Rmd/fig_ridge_conc_combi-4.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="line-plots-2" class="section level3">
 <h3>Line plots</h3>
@@ -1286,7 +1322,6 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot;),
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize +
   theme(legend.text = element_text(size = 8.5))</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_time_combi-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_filter_combi, staining == &quot;yes&quot; &amp; stim_profile == &quot;gradient&quot;),
        aes(
          x = conc_at_time_mM,
@@ -1309,9 +1344,9 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot;),
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;, panel.grid.minor = element_blank()) +
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize +
-  theme(legend.text = element_text(size = 9))</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_conc_combi-1.png" width="480" style="display: block; margin: auto;" /></p>
-<pre class="r"><code># Log10 x-axis
+  theme(legend.text = element_text(size = 9))
+
+# Log10 x-axis
 ggplot(subset(medians_filter_combi, staining == &quot;yes&quot; &amp; stim_profile == &quot;gradient&quot;),
        aes(
          x = conc_at_time_mM,
@@ -1335,7 +1370,6 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot; &amp; stim_profi
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize +
   theme(legend.text = element_text(size = 9))</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_conc_combi-2.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(subset(medians_filter_combi, staining == &quot;yes&quot;),
        aes(
          x = cumulative_exposure,
@@ -1359,7 +1393,6 @@ ggplot(subset(medians_filter_combi, staining == &quot;yes&quot; &amp; stim_profi
   guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
   textsize +
   theme(legend.text = element_text(size = 8.5))</code></pre>
-<p><img src="figure/c_gradients.Rmd/fig_line_cumexp_combi-1.png" width="480" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1369,63 +1402,6 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.2.2 (2022-10-31 ucrt)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 19045)
-
-Matrix products: default
-
-locale:
-[1] LC_COLLATE=English_Netherlands.utf8  LC_CTYPE=English_Netherlands.utf8   
-[3] LC_MONETARY=English_Netherlands.utf8 LC_NUMERIC=C                        
-[5] LC_TIME=English_Netherlands.utf8    
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-other attached packages:
- [1] greekLetters_0.0.7   kableExtra_1.3.4     ggrepel_0.9.3       
- [4] scales_1.2.1         ggpubr_0.6.0         cowplot_1.1.1       
- [7] ggthemes_4.2.4       RColorBrewer_1.1-3   viridis_0.6.2       
-[10] viridisLite_0.4.1    ggridges_0.5.4       platetools_0.1.5    
-[13] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
-[16] dplyr_1.1.0          purrr_1.0.1          readr_2.1.4         
-[19] tidyr_1.3.0          tibble_3.1.8         tidyverse_2.0.0     
-[22] ggcyto_1.26.4        flowWorkspace_4.10.1 ncdfFlow_2.44.0     
-[25] BH_1.81.0-1          ggplot2_3.4.1        flowCore_2.10.0     
-[28] workflowr_1.7.0     
-
-loaded via a namespace (and not attached):
- [1] colorspace_2.1-0    ggsignif_0.6.4      ellipsis_0.3.2     
- [4] rprojroot_2.0.3     cytolib_2.10.1      fs_1.6.1           
- [7] rstudioapi_0.14     farver_2.1.1        hexbin_1.28.2      
-[10] bit64_4.0.5         fansi_1.0.4         xml2_1.3.3         
-[13] cachem_1.0.6        knitr_1.42          jsonlite_1.8.4     
-[16] broom_1.0.3         graph_1.76.0        compiler_4.2.2     
-[19] httr_1.4.4          backports_1.4.1     assertthat_0.2.1   
-[22] fastmap_1.1.0       cli_3.6.0           later_1.3.0        
-[25] htmltools_0.5.4     tools_4.2.2         gtable_0.3.1       
-[28] glue_1.6.2          Rcpp_1.0.10         carData_3.0-5      
-[31] Biobase_2.58.0      jquerylib_0.1.4     vctrs_0.5.2        
-[34] svglite_2.1.1       xfun_0.37           ps_1.7.2           
-[37] rvest_1.0.3         timechange_0.2.0    lifecycle_1.0.3    
-[40] rstatix_0.7.2       XML_3.99-0.13       getPass_0.2-2      
-[43] zlibbioc_1.44.0     vroom_1.6.1         RProtoBufLib_2.10.0
-[46] hms_1.1.2           promises_1.2.0.1    parallel_4.2.2     
-[49] yaml_2.3.7          gridExtra_2.3       sass_0.4.5         
-[52] stringi_1.7.12      highr_0.10          S4Vectors_0.36.1   
-[55] BiocGenerics_0.44.0 rlang_1.0.6         pkgconfig_2.0.3    
-[58] systemfonts_1.0.4   matrixStats_0.63.0  evaluate_0.20      
-[61] lattice_0.20-45     labeling_0.4.2      bit_4.0.5          
-[64] processx_3.8.0      tidyselect_1.2.0    plyr_1.8.8         
-[67] magrittr_2.0.3      R6_2.5.1            generics_0.1.3     
-[70] DBI_1.1.3           pillar_1.8.1        whisker_0.4.1      
-[73] withr_2.5.0         abind_1.4-5         crayon_1.5.2       
-[76] car_3.1-1           utf8_1.2.3          tzdb_0.3.0         
-[79] rmarkdown_2.20      grid_4.2.2          data.table_1.14.8  
-[82] callr_3.7.3         git2r_0.31.0        Rgraphviz_2.42.0   
-[85] digest_0.6.31       webshot_0.5.4       httpuv_1.6.9       
-[88] stats4_4.2.2        munsell_0.5.0       bslib_0.4.2        </code></pre>
 </div>
 </div>
 </div>

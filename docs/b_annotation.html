@@ -38,6 +38,8 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -350,10 +352,16 @@ div.tocify {
   <a href="b_annotation.html">Annotation</a>
 </li>
 <li>
+  <a href="e_paper_figs.html">Paper figs</a>
+</li>
+<li>
   <a href="c_gradients.html">Gradients</a>
 </li>
 <li>
   <a href="d_step.html">Step</a>
+</li>
+<li>
+  <a href="f_other.html">Other</a>
 </li>
 <li>
   <a href="license.html">License</a>
@@ -409,7 +417,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-05-04
+<strong>Last updated:</strong> 2023-05-08
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -541,13 +549,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongca05189">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong6521f7c">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> ca05189
+aria-hidden="true"></span> <strong>Repository version:</strong> 6521f7c
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongca05189"
+<div id="strongRepositoryversionstrong6521f7c"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +564,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version ca05189.
+The results in this page were generated with repository version 6521f7c.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -586,10 +594,17 @@ Untracked files:
     Untracked:  output/annotated_data_tidy_Bas013.csv
     Untracked:  output/annotated_data_tidy_DS085.csv
     Untracked:  output/annotated_data_tidy_DS095.csv
+    Untracked:  output/annotated_data_tidy_DS096.csv
+    Untracked:  output/annotated_data_tidy_DS097.csv
+    Untracked:  output/annotated_data_tidy_DS098.csv
     Untracked:  output/annotated_medians_avg_rep_DS095.csv
+    Untracked:  output/annotated_medians_avg_rep_DS098.csv
     Untracked:  output/annotated_medians_tidy_Bas013.csv
     Untracked:  output/annotated_medians_tidy_DS085.csv
     Untracked:  output/annotated_medians_tidy_DS095.csv
+    Untracked:  output/annotated_medians_tidy_DS096.csv
+    Untracked:  output/annotated_medians_tidy_DS097.csv
+    Untracked:  output/annotated_medians_tidy_DS098.csv
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
     Untracked:  output/gated_counts_DS085.csv
@@ -605,6 +620,7 @@ Untracked files:
     Untracked:  output/gated_data_DS098/
 
 Unstaged changes:
+    Modified:   analysis/a_gating.Rmd
     Deleted:    analysis/about.Rmd
 
 </code></pre>
@@ -651,6 +667,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+6521f7c
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-05-08
+</td>
+<td>
+Publish updated datasets, gating, annotation
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+b3e90bb
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-05-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -865,7 +915,7 @@ Publish correct gating + annotation
 <div id="set-up" class="section level2">
 <h2>Set-up</h2>
 <pre class="r"><code>knitr::opts_chunk$set(
-  message = F, warning = F, echo = T, eval = F
+  message = F, warning = F, echo = T, eval = T
 )
 
 # Load required packages
@@ -887,7 +937,12 @@ df_DS085 &lt;- fortify(cs_DS085)
 df_DS085[df_DS085 &lt;= 0] &lt;- NA
 
 # Select only columns that are needed
-df_DS085 &lt;- df_DS085[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]</code></pre>
+df_DS085 &lt;- df_DS085[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells  3144482 168.0    6229117  332.7   3978957  212.5
+Vcells 46694911 356.3  151603903 1156.7 188666465 1439.5</code></pre>
 <pre class="r"><code># Add metadata per well from custom .csv file
 metadata_DS085 &lt;- read_csv(&quot;data/DS085_LinGradient_Conc/metadata_plate_DS085.csv&quot;)
 
@@ -912,15 +967,19 @@ df_DS085 &lt;- df_DS085 %&gt;%
   replace_na(list(wellID_rem = &quot;x&quot;)) %&gt;%
   filter(wellID_rem == &quot;x&quot;) %&gt;%
   select(-c(wellID_rem))
-  
-kable(df_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+
+gc()</code></pre>
+<pre><code>            used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells   3259458 174.1    6229117  332.7   4303330  229.9
+Vcells 110916125 846.3  319236056 2435.6 334277892 2550.4</code></pre>
+<pre class="r"><code># kable(df_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 </div>
 <div id="transform-data" class="section level3">
 <h3>Transform data</h3>
 <p>Pivot the full dataset into a tidy dataset</p>
 <pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
-cols_meta_DS085 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
-
+cols_meta_DS085 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;conc_final&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;stim_descrip_short&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;after_end&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+         
 df_PE_DS085 &lt;- df_DS085 %&gt;% 
   select(all_of(cols_meta_DS085), protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
   mutate(fluor = &quot;PE&quot;) %&gt;%
@@ -956,7 +1015,11 @@ df_BV421_DS085 &lt;- df_DS085 %&gt;%
 
 df_tidy_DS085 &lt;- list(df_PE_DS085, df_AF647_DS085, df_AF488_DS085, df_BV421_DS085) %&gt;% reduce(full_join)
 
-kable(df_tidy_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3262459  174.3    6229117  332.7    4303330  229.9
+Vcells 436217426 3328.1 1196341917 9127.4 1076434989 8212.6</code></pre>
+<pre class="r"><code># kable(df_tidy_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 <pre class="r"><code># Remove pBTK values &gt;1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
 df_tidy_DS085 &lt;- df_tidy_DS085 %&gt;%
   filter(!(protein == &quot;pBTK (Y223)&quot; &amp; stim_profile == &quot;gradient&quot; &amp; time_point == &quot;0 min&quot; &amp; fluorescence &gt; 1.4e4))
@@ -981,7 +1044,517 @@ data_on_DS085 &lt;- df_tidy_DS085 %&gt;%
 data_counts_DS085 &lt;- left_join(data_total_DS085, data_on_DS085) %&gt;%
   mutate(percent_on = (count_on / count_total) * 100)
 
-df_tidy_DS085 &lt;- left_join(df_tidy_DS085, data_counts_DS085)</code></pre>
+df_tidy_DS085 &lt;- left_join(df_tidy_DS085, data_counts_DS085)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3267328  174.5    6229117  332.7    4303330  229.9
+Vcells 491427847 3749.3 1196341917 9127.4 1196139183 9125.9</code></pre>
+<pre class="r"><code>kable(df_tidy_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:left;">
+conc_final
+</th>
+<th style="text-align:left;">
+stim_profile
+</th>
+<th style="text-align:right;">
+gradient_duration
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+stim_descrip_short
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:left;">
+after_end
+</th>
+<th style="text-align:right;">
+conc_at_time_mM
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+684.0028
+</td>
+<td style="text-align:right;">
+91974.84
+</td>
+<td style="text-align:right;">
+38366.86
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+361.3911
+</td>
+<td style="text-align:right;">
+64157.01
+</td>
+<td style="text-align:right;">
+20968.94
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+566.8395
+</td>
+<td style="text-align:right;">
+74937.94
+</td>
+<td style="text-align:right;">
+26742.94
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+535.4859
+</td>
+<td style="text-align:right;">
+60827.07
+</td>
+<td style="text-align:right;">
+25723.13
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+551.9878
+</td>
+<td style="text-align:right;">
+84303.09
+</td>
+<td style="text-align:right;">
+39976.62
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="median-data" class="section level3">
 <h3>Median data</h3>
@@ -994,32 +1567,25 @@ medians_DS085 &lt;- df_tidy_DS085 %&gt;%
 medians_tidy_DS085 &lt;- left_join(medians_DS085, distinct(select(df_tidy_DS085, cols_meta_DS085))) %&gt;%
   left_join(data_counts_DS085)
 
-# # Transform data into fold change (FC) to t = 0 min and log2(FC)
-# medians_zero_DS085 &lt;- medians_tidy_DS085 %&gt;% 
-#   filter(time_point == &quot;0 min&quot;) %&gt;% 
-#   select(
-#     plateID, 
-#     stim_description_rep, 
-#     protein,
-#     fluorescence_zero = fluorescence_median
-#     )
-# medians_tidy_DS085 &lt;- left_join(medians_tidy_DS085, medians_zero_DS085[, c(&quot;plateID&quot;, &quot;stim_description_rep&quot;, &quot;protein&quot;, &quot;fluorescence_zero&quot;)])
-# 
-# medians_tidy_DS085 &lt;- medians_tidy_DS085 %&gt;%
-#   mutate(fluorescence = fluorescence_median, 
-#          FC = (fluorescence / fluorescence_zero), 
-#          log2FC = (log2(FC)), 
-#          ) %&gt;%
-#   select(-c(fluorescence_median)) 
-
-kable(medians_tidy_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3289946  175.8    6229117  332.7    4303330  229.9
+Vcells 491499421 3749.9 1196341917 9127.4 1196139183 9125.9</code></pre>
+<pre class="r"><code># kable(medians_tidy_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 </div>
 <div id="save-data" class="section level3">
 <h3>Save data</h3>
 <p>Save annotated datasets as .csv file</p>
 <pre class="r"><code>write.csv(df_tidy_DS085, file = &quot;output/annotated_data_tidy_DS085.csv&quot;, row.names = F)
 
-write.csv(medians_tidy_DS085, file = &quot;output/annotated_medians_tidy_DS085.csv&quot;, row.names = F)</code></pre>
+write.csv(medians_tidy_DS085, file = &quot;output/annotated_medians_tidy_DS085.csv&quot;, row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;_DS085&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells 3288148 175.7    6229117  332.7    4303330  229.9
+Vcells 5433127  41.5  957073534 7301.9 1196139183 9125.9</code></pre>
 </div>
 </div>
 <div id="bas013-lingradient_cumexp" class="section level2">
@@ -1038,7 +1604,12 @@ df_Bas013 &lt;- fortify(cs_Bas013)
 df_Bas013[df_Bas013 &lt;= 0] &lt;- NA
 
 # Select only columns that are needed
-df_Bas013 &lt;- df_Bas013[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]</code></pre>
+df_Bas013 &lt;- df_Bas013[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells  3289620 175.7    6229117  332.7    4424513  236.3
+Vcells 24765659 189.0  765658828 5841.6 1196139183 9125.9</code></pre>
 <pre class="r"><code># Add metadata per well from custom .csv file
 metadata_Bas013 &lt;- read_csv(&quot;data/Bas013_LinGradient_CumExp/metadata_plate_Bas013.csv&quot;)
 
@@ -1064,13 +1635,17 @@ df_Bas013 &lt;- df_Bas013 %&gt;%
   filter(wellID_rem == &quot;x&quot;) %&gt;%
   select(-c(wellID_rem))
 
-kable(df_Bas013 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells  3288827 175.7    6229117  332.7    4424513  236.3
+Vcells 53419342 407.6  612527063 4673.3 1196139183 9125.9</code></pre>
+<pre class="r"><code># kable(df_Bas013 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 </div>
 <div id="transform-data-1" class="section level3">
 <h3>Transform data</h3>
 <p>Pivot the full dataset into a tidy dataset</p>
 <pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
-cols_meta_Bas013 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+cols_meta_Bas013 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;conc_final&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;stim_descrip_short&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;after_end&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
 
 df_PE_Bas013 &lt;- df_Bas013 %&gt;% 
   select(cols_meta_Bas013, protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
@@ -1107,7 +1682,11 @@ df_BV421_Bas013 &lt;- df_Bas013 %&gt;%
 
 df_tidy_Bas013 &lt;- list(df_PE_Bas013, df_AF647_Bas013, df_AF488_Bas013, df_BV421_Bas013) %&gt;% reduce(full_join)
 
-kable(df_tidy_Bas013 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3290009  175.8    6229117  332.7    4424513  236.3
+Vcells 201310953 1535.9  588089980 4486.8 1196139183 9125.9</code></pre>
+<pre class="r"><code># kable(df_tidy_Bas013 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 <pre class="r"><code>data_info_Bas013 &lt;- df_tidy_Bas013 %&gt;%
   filter(time_point == &quot;0 min&quot;) %&gt;% 
   group_by(plateID, stim_description, protein) %&gt;%
@@ -1128,7 +1707,517 @@ data_on_Bas013 &lt;- df_tidy_Bas013 %&gt;%
 data_counts_Bas013 &lt;- left_join(data_total_Bas013, data_on_Bas013) %&gt;%
   mutate(percent_on = (count_on / count_total) * 100)
 
-df_tidy_Bas013 &lt;- left_join(df_tidy_Bas013, data_counts_Bas013)</code></pre>
+df_tidy_Bas013 &lt;- left_join(df_tidy_Bas013, data_counts_Bas013)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3290653  175.8    6229117  332.7    4424513  236.3
+Vcells 226486652 1728.0  588089980 4486.8 1196139183 9125.9</code></pre>
+<pre class="r"><code>kable(df_tidy_Bas013 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:left;">
+conc_final
+</th>
+<th style="text-align:left;">
+stim_profile
+</th>
+<th style="text-align:right;">
+gradient_duration
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+stim_descrip_short
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:left;">
+after_end
+</th>
+<th style="text-align:right;">
+conc_at_time_mM
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Bas013
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+60 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+445.9991
+</td>
+<td style="text-align:right;">
+90981.62
+</td>
+<td style="text-align:right;">
+65017.77
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+795.5437
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:right;">
+961
+</td>
+<td style="text-align:right;">
+2.499285
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bas013
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+60 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+358.6130
+</td>
+<td style="text-align:right;">
+86520.18
+</td>
+<td style="text-align:right;">
+39660.95
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+795.5437
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:right;">
+961
+</td>
+<td style="text-align:right;">
+2.499285
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bas013
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+60 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+244.8461
+</td>
+<td style="text-align:right;">
+68340.91
+</td>
+<td style="text-align:right;">
+37360.05
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+795.5437
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:right;">
+961
+</td>
+<td style="text-align:right;">
+2.499285
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bas013
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+60 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+336.3542
+</td>
+<td style="text-align:right;">
+135673.02
+</td>
+<td style="text-align:right;">
+43390.52
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+795.5437
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:right;">
+961
+</td>
+<td style="text-align:right;">
+2.499285
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bas013
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+60 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+260.5096
+</td>
+<td style="text-align:right;">
+97298.53
+</td>
+<td style="text-align:right;">
+34087.19
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+795.5437
+</td>
+<td style="text-align:right;">
+38451
+</td>
+<td style="text-align:right;">
+961
+</td>
+<td style="text-align:right;">
+2.499285
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="median-data-1" class="section level3">
 <h3>Median data</h3>
@@ -1140,32 +2229,25 @@ medians_Bas013 &lt;- df_tidy_Bas013 %&gt;%
 medians_tidy_Bas013 &lt;- left_join(medians_Bas013, distinct(select(df_tidy_Bas013, cols_meta_Bas013))) %&gt;%
   left_join(data_counts_Bas013)
 
-# # Transform data into fold change (FC) to t = 0 min and log2(FC)
-# medians_zero_Bas013 &lt;- medians_tidy_Bas013 %&gt;% 
-#   filter(time_point == &quot;0 min&quot;) %&gt;% 
-#   select(
-#     plateID, 
-#     stim_description_rep, 
-#     protein,
-#     fluorescence_zero = fluorescence_median
-#     )
-# medians_tidy_Bas013 &lt;- left_join(medians_tidy_Bas013, medians_zero_Bas013[, c(&quot;plateID&quot;, &quot;stim_description_rep&quot;, &quot;protein&quot;, &quot;fluorescence_zero&quot;)])
-# 
-# medians_tidy_Bas013 &lt;- medians_tidy_Bas013 %&gt;%
-#   mutate(fluorescence = fluorescence_median, 
-#          FC = (fluorescence / fluorescence_zero), 
-#          log2FC = (log2(FC)), 
-#          ) %&gt;%
-#   select(-c(fluorescence_median)) 
-
-kable(medians_tidy_Bas013 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3290967  175.8    6229117  332.7    4424513  236.3
+Vcells 226497478 1728.1  588089980 4486.8 1196139183 9125.9</code></pre>
+<pre class="r"><code># kable(medians_tidy_Bas013 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 </div>
 <div id="save-data-1" class="section level3">
 <h3>Save data</h3>
 <p>Save annotated datasets as .csv file</p>
 <pre class="r"><code>write.csv(df_tidy_Bas013, file = &quot;output/annotated_data_tidy_Bas013.csv&quot;, row.names = F)
 
-write.csv(medians_tidy_Bas013, file = &quot;output/annotated_medians_tidy_Bas013.csv&quot;, row.names = F)</code></pre>
+write.csv(medians_tidy_Bas013, file = &quot;output/annotated_medians_tidy_Bas013.csv&quot;, row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;_Bas013&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells 3289473 175.7    6229117  332.7    4424513  236.3
+Vcells 5437851  41.5  470471984 3589.5 1196139183 9125.9</code></pre>
 </div>
 </div>
 <div id="ds095-detailedstep_conc" class="section level2">
@@ -1184,7 +2266,12 @@ df_DS095 &lt;- fortify(cs_DS095)
 df_DS095[df_DS095 &lt;= 0] &lt;- NA
 
 # Select only columns that are needed
-df_DS095 &lt;- df_DS095[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]</code></pre>
+df_DS095 &lt;- df_DS095[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells  3289881 175.7    6229117  332.7    6229117  332.7
+Vcells 99039991 755.7  376377588 2871.6 1196139183 9125.9</code></pre>
 <pre class="r"><code># Add metadata per well from custom .csv file
 metadata_DS095 &lt;- read_csv(&quot;data/DS095_DetailedStep_Conc/metadata_plate_DS095.csv&quot;)
 
@@ -1209,8 +2296,12 @@ df_DS095 &lt;- df_DS095 %&gt;%
   replace_na(list(wellID_rem = &quot;x&quot;)) %&gt;%
   filter(wellID_rem == &quot;x&quot;) %&gt;%
   select(-c(wellID_rem))
-  
-kable(df_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3290308  175.8    6229117  332.7    6229117  332.7
+Vcells 212135826 1618.5  628391701 4794.3 1196139183 9125.9</code></pre>
+<pre class="r"><code># kable(df_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 </div>
 <div id="transform-data-2" class="section level3">
 <h3>Transform data</h3>
@@ -1253,12 +2344,12 @@ df_BV421_DS095 &lt;- df_DS095 %&gt;%
 
 df_tidy_DS095 &lt;- list(df_PE_DS095, df_AF647_DS095, df_AF488_DS095, df_BV421_DS095) %&gt;% reduce(full_join)
 
-kable(df_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
-<pre class="r"><code># # Remove pBTK values &gt;1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
-# df_tidy_DS095 &lt;- df_tidy_DS095 %&gt;%
-#   filter(!(protein == &quot;pBTK (Y223)&quot; &amp; stim_profile == &quot;gradient&quot; &amp; time_point == &quot;0 min&quot; &amp; fluorescence &gt; 1.4e4))
-
-# Get the value for each conc where in sample t = 0 2.5% of cells are higher
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells   3290433  175.8    6229117   332.7    6229117   332.7
+Vcells 820516821 6260.1 2343868948 17882.4 2013888321 15364.8</code></pre>
+<pre class="r"><code># kable(df_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<pre class="r"><code># Get the value for each conc where in sample t = 0 2.5% of cells are higher
 data_info_DS095 &lt;- df_tidy_DS095 %&gt;%
   filter(time_point == &quot;0 min&quot;) %&gt;%
   group_by(plateID, H2O2_conc_mM, protein) %&gt;%
@@ -1279,7 +2370,445 @@ data_on_DS095 &lt;- df_tidy_DS095 %&gt;%
 data_counts_DS095 &lt;- left_join(data_total_DS095, data_on_DS095) %&gt;%
   mutate(percent_on = (count_on / count_total) * 100)
 
-df_tidy_DS095 &lt;- left_join(df_tidy_DS095, data_counts_DS095)</code></pre>
+df_tidy_DS095 &lt;- left_join(df_tidy_DS095, data_counts_DS095)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells   3292506  175.9    6229117   332.7    6229117   332.7
+Vcells 945329917 7212.3 2343868948 17882.4 2342359788 17870.8</code></pre>
+<pre class="r"><code>kable(df_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:right;">
+H2O2_conc_mM
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+replicate
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+472.7249
+</td>
+<td style="text-align:right;">
+91701.33
+</td>
+<td style="text-align:right;">
+52519.65
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+188.7645
+</td>
+<td style="text-align:right;">
+73908.25
+</td>
+<td style="text-align:right;">
+25794.02
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+318.1332
+</td>
+<td style="text-align:right;">
+88227.36
+</td>
+<td style="text-align:right;">
+42436.21
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+410.8882
+</td>
+<td style="text-align:right;">
+92051.44
+</td>
+<td style="text-align:right;">
+39803.27
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+611.8573
+</td>
+<td style="text-align:right;">
+72490.55
+</td>
+<td style="text-align:right;">
+31535.06
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="median-data-2" class="section level3">
 <h3>Median data</h3>
@@ -1292,25 +2821,11 @@ medians_DS095 &lt;- df_tidy_DS095 %&gt;%
 medians_tidy_DS095 &lt;- left_join(medians_DS095, distinct(select(df_tidy_DS095, cols_meta_DS095))) %&gt;%
   left_join(data_counts_DS095)
 
-# # Transform data into fold change (FC) to t = 0 min and log2(FC)
-# medians_zero_DS095 &lt;- medians_tidy_DS095 %&gt;% 
-#   filter(time_point == &quot;0 min&quot;) %&gt;% 
-#   select(
-#     plateID, 
-#     stim_description_rep, 
-#     protein,
-#     fluorescence_zero = fluorescence_median
-#     )
-# medians_tidy_DS095 &lt;- left_join(medians_tidy_DS095, medians_zero_DS095[, c(&quot;plateID&quot;, &quot;stim_description_rep&quot;, &quot;protein&quot;, &quot;fluorescence_zero&quot;)])
-# 
-# medians_tidy_DS095 &lt;- medians_tidy_DS095 %&gt;%
-#   mutate(fluorescence = fluorescence_median, 
-#          FC = (fluorescence / fluorescence_zero), 
-#          log2FC = (log2(FC)), 
-#          ) %&gt;%
-#   select(-c(fluorescence_median)) 
-
-kable(medians_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells   3293792  176.0    6229117   332.7    6229117   332.7
+Vcells 945358037 7212.6 2343868948 17882.4 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(medians_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 <pre class="r"><code># Make a dataframe with means and standard deviation of replicates
 medians_avg_DS095 &lt;- medians_tidy_DS095 %&gt;%
   dplyr::group_by(H2O2_conc_mM, time_point, protein) %&gt;%
@@ -1326,7 +2841,11 @@ medians_avg_DS095 &lt;- left_join(medians_avg_DS095, select(medians_tidy_DS095, 
   distinct() %&gt;% 
   mutate(stim_description = paste(H2O2_conc_mM, &quot;mM -&quot;, time_point))
 
-kable(medians_avg_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells   3295462  176.0    6229117   332.7    6229117   332.7
+Vcells 945362307 7212.6 2343868948 17882.4 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(medians_avg_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 </div>
 <div id="save-data-2" class="section level3">
 <h3>Save data</h3>
@@ -1335,18 +2854,1343 @@ kable(medians_avg_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options =
 
 write.csv(medians_tidy_DS095, file = &quot;output/annotated_medians_tidy_DS095.csv&quot;, row.names = F)
 
-write.csv(medians_avg_DS095, file = &quot;output/annotated_medians_avg_rep_DS095.csv&quot;, row.names = F)</code></pre>
+write.csv(medians_avg_DS095, file = &quot;output/annotated_medians_avg_rep_DS095.csv&quot;, row.names = F)
+
+# Remove files to clear up memory
+rm(list = ls(pattern = &quot;_DS095&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells 3291147 175.8    6229117   332.7    6229117   332.7
+Vcells 5443369  41.6 1875095159 14305.9 2342359788 17870.8</code></pre>
 </div>
 </div>
 <div id="ds096-linquadgradient_highconc" class="section level2">
 <h2>DS096: LinQuadGradient_HighConc</h2>
+<div id="load-data-3" class="section level3">
+<h3>Load data</h3>
+<p>Load the gated dataset and create a dataset with live single
+cells</p>
+<pre class="r"><code>gs_DS096 &lt;- load_gs(paste0(&quot;output/&quot;, &quot;gated_data_DS096&quot;))
+
+gated_pops_DS096 &lt;- gs_get_pop_paths(gs_DS096, path = &quot;auto&quot;)
+cs_DS096 &lt;- gs_pop_get_data(gs_DS096, tail(gated_pops_DS096, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS096 &lt;- fortify(cs_DS096)
+df_DS096[df_DS096 &lt;= 0] &lt;- NA
+
+# Select only columns that are needed
+df_DS096 &lt;- df_DS096[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells  3292553 175.9    6229117   332.7    6229117   332.7
+Vcells 24091033 183.8 1500076128 11444.7 2342359788 17870.8</code></pre>
+<pre class="r"><code># Add metadata per well from custom .csv file
+metadata_DS096 &lt;- read_csv(&quot;data/DS096_LinQuadGradient_HighConc/metadata_plate_DS096.csv&quot;)
+
+# Change columns into character if necessary
+metadata_DS096$colID &lt;- as.character(metadata_DS096$colID)
+
+df_DS096 &lt;- left_join(df_DS096, metadata_DS096)
+
+# Remove samples with &lt;5000 cells (except if the sample is t = 0 min)
+counts_DS096 &lt;- df_DS096 %&gt;% count(plateID, wellID, name = &quot;sample_cell_count&quot;)
+df_DS096 &lt;- left_join(df_DS096, counts_DS096)
+# df_DS096 &lt;- df_DS096[df_DS096$sample_cell_count &gt; 5000, ]
+remove_wells_DS096 &lt;- df_DS096 %&gt;%
+  filter(sample_cell_count &lt; 5000) %&gt;%
+  select(plateID, wellID, time_min) %&gt;% 
+  distinct() %&gt;%
+  filter(time_min &gt; 0) %&gt;%
+  select(plateID, wellID) %&gt;%
+  mutate(wellID_rem = wellID)
+df_DS096 &lt;- df_DS096 %&gt;%
+  left_join(remove_wells_DS096) %&gt;%
+  replace_na(list(wellID_rem = &quot;x&quot;)) %&gt;%
+  filter(wellID_rem == &quot;x&quot;) %&gt;%
+  select(-c(wellID_rem))
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells  3291714 175.8    6229117  332.7    6229117   332.7
+Vcells 51715239 394.6 1200060903 9155.8 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(df_DS096 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="transform-data-3" class="section level3">
+<h3>Transform data</h3>
+<p>Pivot the full dataset into a tidy dataset</p>
+<pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS096 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;conc_final&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;stim_descrip_short&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;after_end&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+
+df_PE_DS096 &lt;- df_DS096 %&gt;% 
+  select(cols_meta_DS096, protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;PE&quot;) %&gt;%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS096 &lt;- df_DS096 %&gt;% 
+  select(cols_meta_DS096, protein_AF647, Alexa.647.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF647&quot;) %&gt;%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS096 &lt;- df_DS096 %&gt;% 
+  select(cols_meta_DS096, protein_AF488, Alexa.488.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF488&quot;) %&gt;%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS096 &lt;- df_DS096 %&gt;% 
+  select(cols_meta_DS096, protein_BV421, BV421.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;BV421&quot;) %&gt;%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS096 &lt;- list(df_PE_DS096, df_AF647_DS096, df_AF488_DS096, df_BV421_DS096) %&gt;% reduce(full_join)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3291780  175.9    6229117  332.7    6229117   332.7
+Vcells 194322662 1482.6  960048723 7324.6 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(df_tidy_DS096 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<pre class="r"><code>data_info_DS096 &lt;- df_tidy_DS096 %&gt;%
+  filter(time_point == &quot;0 min&quot;) %&gt;% 
+  group_by(plateID, stim_description, protein) %&gt;%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS096 &lt;- left_join(df_tidy_DS096, data_info_DS096)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS096 &lt;- df_tidy_DS096 %&gt;%
+  group_by(wellID, protein) %&gt;%
+  count(name = &quot;count_total&quot;)
+
+data_on_DS096 &lt;- df_tidy_DS096 %&gt;%
+  filter((fluorescence - zero_quant97.5) &gt; 0) %&gt;%
+  group_by(wellID, protein) %&gt;%
+  count(name = &quot;count_on&quot;)
+
+data_counts_DS096 &lt;- left_join(data_total_DS096, data_on_DS096) %&gt;%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS096 &lt;- left_join(df_tidy_DS096, data_counts_DS096)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3292482  175.9    6229117  332.7    6229117   332.7
+Vcells 218599397 1667.8  768038979 5859.7 2342359788 17870.8</code></pre>
+<pre class="r"><code>kable(df_tidy_DS096 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:left;">
+conc_final
+</th>
+<th style="text-align:left;">
+stim_profile
+</th>
+<th style="text-align:right;">
+gradient_duration
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+stim_descrip_short
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:left;">
+after_end
+</th>
+<th style="text-align:right;">
+conc_at_time_mM
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+919.4431
+</td>
+<td style="text-align:right;">
+103952.48
+</td>
+<td style="text-align:right;">
+52536.32
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+554.9496
+</td>
+<td style="text-align:right;">
+79505.84
+</td>
+<td style="text-align:right;">
+26172.11
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+494.2007
+</td>
+<td style="text-align:right;">
+69465.74
+</td>
+<td style="text-align:right;">
+31530.33
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+616.5194
+</td>
+<td style="text-align:right;">
+113960.14
+</td>
+<td style="text-align:right;">
+45876.11
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+357.9261
+</td>
+<td style="text-align:right;">
+78951.20
+</td>
+<td style="text-align:right;">
+31797.95
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="median-data-3" class="section level3">
+<h3>Median data</h3>
+<p>Calculate median fluorescent values for each sample/replicate</p>
+<pre class="r"><code># Calculate median values for each sample
+medians_DS096 &lt;- df_tidy_DS096 %&gt;% 
+  group_by(plateID, wellID, protein, fluor) %&gt;% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+medians_tidy_DS096 &lt;- left_join(medians_DS096, distinct(select(df_tidy_DS096, cols_meta_DS096))) %&gt;%
+  left_join(data_counts_DS096)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3292715  175.9    6229117  332.7    6229117   332.7
+Vcells 218609925 1667.9  614431184 4687.8 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(medians_tidy_DS096 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="save-data-3" class="section level3">
+<h3>Save data</h3>
+<p>Save annotated datasets as .csv file</p>
+<pre class="r"><code>write.csv(df_tidy_DS096, file = &quot;output/annotated_data_tidy_DS096.csv&quot;, row.names = F)
+
+write.csv(medians_tidy_DS096, file = &quot;output/annotated_medians_tidy_DS096.csv&quot;, row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;_DS096&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells 3291255 175.8    6229117  332.7    6229117   332.7
+Vcells 5445151  41.6  491544948 3750.2 2342359788 17870.8</code></pre>
+</div>
 </div>
 <div id="ds097-lingradient_lowconc" class="section level2">
 <h2>DS097: LinGradient_LowConc</h2>
+<div id="load-data-4" class="section level3">
+<h3>Load data</h3>
+<p>Load the gated dataset and create a dataset with live single
+cells</p>
+<pre class="r"><code>gs_DS097 &lt;- load_gs(paste0(&quot;output/&quot;, &quot;gated_data_DS097&quot;))
+
+gated_pops_DS097 &lt;- gs_get_pop_paths(gs_DS097, path = &quot;auto&quot;)
+cs_DS097 &lt;- gs_pop_get_data(gs_DS097, tail(gated_pops_DS097, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS097 &lt;- fortify(cs_DS097)
+df_DS097[df_DS097 &lt;= 0] &lt;- NA
+
+# Select only columns that are needed
+df_DS097 &lt;- df_DS097[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells  3292937 175.9    6229117  332.7    6229117   332.7
+Vcells 28079050 214.3  393235959 3000.2 2342359788 17870.8</code></pre>
+<pre class="r"><code># Add metadata per well from custom .csv file
+metadata_DS097 &lt;- read_csv(&quot;data/DS097_LinGradient_LowConc/metadata_plate_DS097.csv&quot;)
+
+# Change columns into character if necessary
+metadata_DS097$colID &lt;- as.character(metadata_DS097$colID)
+
+df_DS097 &lt;- left_join(df_DS097, metadata_DS097)
+
+# Remove samples with &lt;5000 cells (except if the sample is t = 0 min)
+counts_DS097 &lt;- df_DS097 %&gt;% count(plateID, wellID, name = &quot;sample_cell_count&quot;)
+df_DS097 &lt;- left_join(df_DS097, counts_DS097)
+# df_DS097 &lt;- df_DS097[df_DS097$sample_cell_count &gt; 5000, ]
+remove_wells_DS097 &lt;- df_DS097 %&gt;%
+  filter(sample_cell_count &lt; 5000) %&gt;%
+  select(plateID, wellID, time_min) %&gt;% 
+  distinct() %&gt;%
+  filter(time_min &gt; 0) %&gt;%
+  select(plateID, wellID) %&gt;%
+  mutate(wellID_rem = wellID)
+df_DS097 &lt;- df_DS097 %&gt;%
+  left_join(remove_wells_DS097) %&gt;%
+  replace_na(list(wellID_rem = &quot;x&quot;)) %&gt;%
+  filter(wellID_rem == &quot;x&quot;) %&gt;%
+  select(-c(wellID_rem))
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells  3291872 175.9    6229117  332.7    6229117   332.7
+Vcells 61636543 470.3  314588768 2400.2 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(df_DS097 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="transform-data-4" class="section level3">
+<h3>Transform data</h3>
+<p>Pivot the full dataset into a tidy dataset</p>
+<pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS097 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;conc_final&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;stim_descrip_short&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;after_end&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+
+df_PE_DS097 &lt;- df_DS097 %&gt;% 
+  select(cols_meta_DS097, protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;PE&quot;) %&gt;%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS097 &lt;- df_DS097 %&gt;% 
+  select(cols_meta_DS097, protein_AF647, Alexa.647.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF647&quot;) %&gt;%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS097 &lt;- df_DS097 %&gt;% 
+  select(cols_meta_DS097, protein_AF488, Alexa.488.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF488&quot;) %&gt;%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS097 &lt;- df_DS097 %&gt;% 
+  select(cols_meta_DS097, protein_BV421, BV421.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;BV421&quot;) %&gt;%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS097 &lt;- list(df_PE_DS097, df_AF647_DS097, df_AF488_DS097, df_BV421_DS097) %&gt;% reduce(full_join)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3291935  175.9    6229117  332.7    6229117   332.7
+Vcells 234814554 1791.5  675177597 5151.2 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(df_tidy_DS097 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<pre class="r"><code>data_info_DS097 &lt;- df_tidy_DS097 %&gt;%
+  filter(time_point == &quot;0 min&quot;) %&gt;% 
+  group_by(plateID, stim_description, protein) %&gt;%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS097 &lt;- left_join(df_tidy_DS097, data_info_DS097)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS097 &lt;- df_tidy_DS097 %&gt;%
+  group_by(wellID, protein) %&gt;%
+  count(name = &quot;count_total&quot;)
+
+data_on_DS097 &lt;- df_tidy_DS097 %&gt;%
+  filter((fluorescence - zero_quant97.5) &gt; 0) %&gt;%
+  group_by(wellID, protein) %&gt;%
+  count(name = &quot;count_on&quot;)
+
+data_counts_DS097 &lt;- left_join(data_total_DS097, data_on_DS097) %&gt;%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS097 &lt;- left_join(df_tidy_DS097, data_counts_DS097)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3292613  175.9    6229117  332.7    6229117   332.7
+Vcells 264294962 2016.5  675177597 5151.2 2342359788 17870.8</code></pre>
+<pre class="r"><code>kable(df_tidy_DS097 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:left;">
+conc_final
+</th>
+<th style="text-align:left;">
+stim_profile
+</th>
+<th style="text-align:right;">
+gradient_duration
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+stim_descrip_short
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:left;">
+after_end
+</th>
+<th style="text-align:right;">
+conc_at_time_mM
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+499.3735
+</td>
+<td style="text-align:right;">
+107944.19
+</td>
+<td style="text-align:right;">
+66260.41
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+468.7827
+</td>
+<td style="text-align:right;">
+94587.57
+</td>
+<td style="text-align:right;">
+58362.21
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+282.7578
+</td>
+<td style="text-align:right;">
+62121.43
+</td>
+<td style="text-align:right;">
+28264.21
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+1013.6290
+</td>
+<td style="text-align:right;">
+127189.91
+</td>
+<td style="text-align:right;">
+151443.28
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+608.5081
+</td>
+<td style="text-align:right;">
+99536.66
+</td>
+<td style="text-align:right;">
+76406.62
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="median-data-4" class="section level3">
+<h3>Median data</h3>
+<p>Calculate median fluorescent values for each sample/replicate</p>
+<pre class="r"><code># Calculate median values for each sample
+medians_DS097 &lt;- df_tidy_DS097 %&gt;% 
+  group_by(plateID, wellID, protein, fluor) %&gt;% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+medians_tidy_DS097 &lt;- left_join(medians_DS097, distinct(select(df_tidy_DS097, cols_meta_DS097))) %&gt;%
+  left_join(data_counts_DS097)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3292953  175.9    6229117  332.7    6229117   332.7
+Vcells 264306715 2016.6  675177597 5151.2 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(medians_tidy_DS097 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="save-data-4" class="section level3">
+<h3>Save data</h3>
+<p>Save annotated datasets as .csv file</p>
+<pre class="r"><code>write.csv(df_tidy_DS097, file = &quot;output/annotated_data_tidy_DS097.csv&quot;, row.names = F)
+
+write.csv(medians_tidy_DS097, file = &quot;output/annotated_medians_tidy_DS097.csv&quot;, row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;_DS097&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells 3291399 175.8    6229117  332.7    6229117   332.7
+Vcells 5447093  41.6  540142078 4121.0 2342359788 17870.8</code></pre>
+</div>
 </div>
 <div id="ds098-stepinhibitor_conc" class="section level2">
 <h2>DS098: StepInhibitor_Conc</h2>
-<div id="load-data-3" class="section level3">
+<div id="load-data-5" class="section level3">
 <h3>Load data</h3>
 <p>Load the gated dataset and create a dataset with live single
 cells</p>
@@ -1360,9 +4204,14 @@ df_DS098 &lt;- fortify(cs_DS098)
 df_DS098[df_DS098 &lt;= 0] &lt;- NA
 
 # Select only columns that are needed
-df_DS098 &lt;- df_DS098[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]</code></pre>
+df_DS098 &lt;- df_DS098[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells  3292507 175.9    6229117  332.7    6229117   332.7
+Vcells 19442048 148.4  432113663 3296.8 2342359788 17870.8</code></pre>
 <pre class="r"><code># Add metadata per well from custom .csv file
-metadata_DS098 &lt;- read_csv(&quot;data/metadata_plate_DS098.csv&quot;)
+metadata_DS098 &lt;- read_csv(&quot;data/DS098_StepInhibitor_Conc/metadata_plate_DS098.csv&quot;)
 
 # Change columns into character if necessary
 metadata_DS098$colID &lt;- as.character(metadata_DS098$colID)
@@ -1374,9 +4223,13 @@ counts_DS098 &lt;- df_DS098 %&gt;% count(wellID, name = &quot;sample_cell_count&
 df_DS098 &lt;- left_join(df_DS098, counts_DS098)
 df_DS098 &lt;- df_DS098[df_DS098$sample_cell_count &gt; 5000, ]
 
-kable(df_DS098 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells  3292328 175.9    6229117  332.7    6229117   332.7
+Vcells 39617145 302.3  345690931 2637.5 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(df_DS098 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 </div>
-<div id="transform-data-3" class="section level3">
+<div id="transform-data-5" class="section level3">
 <h3>Transform data</h3>
 <p>Pivot the full dataset into a tidy dataset</p>
 <pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
@@ -1417,7 +4270,11 @@ df_BV421_DS098 &lt;- df_DS098 %&gt;%
 
 df_tidy_DS098 &lt;- list(df_PE_DS098, df_AF647_DS098, df_AF488_DS098, df_BV421_DS098) %&gt;% reduce(full_join)
 
-kable(df_tidy_DS098 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3292502  175.9    6229117  332.7    6229117   332.7
+Vcells 141500216 1079.6  345690931 2637.5 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(df_tidy_DS098 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 <pre class="r"><code># Get the value for each conc where in sample t = 0 2.5% of cells are higher
 data_info_DS098 &lt;- df_tidy_DS098 %&gt;%
   filter(H2O2_conc_mM == 1 &amp; inhibitor == &quot;DMSO&quot;) %&gt;%
@@ -1439,9 +4296,465 @@ data_on_DS098 &lt;- df_tidy_DS098 %&gt;%
 data_counts_DS098 &lt;- left_join(data_total_DS098, data_on_DS098) %&gt;%
   mutate(percent_on = (count_on / count_total) * 100)
 
-df_tidy_DS098 &lt;- left_join(df_tidy_DS098, data_counts_DS098)</code></pre>
+df_tidy_DS098 &lt;- left_join(df_tidy_DS098, data_counts_DS098)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3293078  175.9    6229117  332.7    6229117   332.7
+Vcells 161382580 1231.3  414909117 3165.6 2342359788 17870.8</code></pre>
+<pre class="r"><code>kable(df_tidy_DS098 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:right;">
+H2O2_conc_mM
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+inhibitor
+</th>
+<th style="text-align:left;">
+replicate
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+971.6901
+</td>
+<td style="text-align:right;">
+95171.40
+</td>
+<td style="text-align:right;">
+38732.95
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+2113.779
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+1028
+</td>
+<td style="text-align:right;">
+2.497935
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+773.0297
+</td>
+<td style="text-align:right;">
+93951.27
+</td>
+<td style="text-align:right;">
+42883.20
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+2113.779
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+1028
+</td>
+<td style="text-align:right;">
+2.497935
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+1018.2381
+</td>
+<td style="text-align:right;">
+84203.66
+</td>
+<td style="text-align:right;">
+46618.68
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+2113.779
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+1028
+</td>
+<td style="text-align:right;">
+2.497935
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+650.0099
+</td>
+<td style="text-align:right;">
+75070.34
+</td>
+<td style="text-align:right;">
+35143.76
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+2113.779
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+1028
+</td>
+<td style="text-align:right;">
+2.497935
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+1887.6887
+</td>
+<td style="text-align:right;">
+127603.58
+</td>
+<td style="text-align:right;">
+75750.27
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+2113.779
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+1028
+</td>
+<td style="text-align:right;">
+2.497935
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="median-data-3" class="section level3">
+<div id="median-data-5" class="section level3">
 <h3>Median data</h3>
 <p>Calculate median fluorescent values for each sample/replicate</p>
 <pre class="r"><code># Calculate median values for each sample
@@ -1453,6 +4766,406 @@ medians_tidy_DS098 &lt;- left_join(medians_DS098, distinct(select(df_tidy_DS098,
   left_join(data_counts_DS098)
 
 kable(medians_tidy_DS098 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+fluorescence_median
+</th>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:right;">
+H2O2_conc_mM
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+inhibitor
+</th>
+<th style="text-align:left;">
+replicate
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:left;">
+BV421
+</td>
+<td style="text-align:right;">
+972.9384
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+1027
+</td>
+<td style="text-align:right;">
+2.495505
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:left;">
+pCD79a (Y182)
+</td>
+<td style="text-align:left;">
+AF488
+</td>
+<td style="text-align:right;">
+988.3144
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+1027
+</td>
+<td style="text-align:right;">
+2.495505
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:left;">
+pPLCy2 (Y759)
+</td>
+<td style="text-align:left;">
+AF647
+</td>
+<td style="text-align:right;">
+96.1685
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+1008
+</td>
+<td style="text-align:right;">
+2.449337
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B02
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+811.2656
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+41154
+</td>
+<td style="text-align:right;">
+1028
+</td>
+<td style="text-align:right;">
+2.497935
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B03
+</td>
+<td style="text-align:left;">
+cCaspase 3 + cPARP
+</td>
+<td style="text-align:left;">
+BV421
+</td>
+<td style="text-align:right;">
+1016.1002
+</td>
+<td style="text-align:left;">
+DS098
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5 min
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+DMSO
+</td>
+<td style="text-align:left;">
+rep2
+</td>
+<td style="text-align:left;">
+1 mM - 5 min - DMSO - rep2
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+41279
+</td>
+<td style="text-align:right;">
+41279
+</td>
+<td style="text-align:right;">
+1031
+</td>
+<td style="text-align:right;">
+2.497638
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3293697  176.0    6229117  332.7    6229117   332.7
+Vcells 161392370 1231.4  414909117 3165.6 2342359788 17870.8</code></pre>
 <pre class="r"><code># Make a dataframe with means and standard deviation of replicates
 medians_avg_DS098 &lt;- medians_tidy_DS098 %&gt;%
   dplyr::group_by(H2O2_conc_mM, inhibitor, protein) %&gt;%
@@ -1468,16 +5181,27 @@ medians_avg_DS098 &lt;- left_join(medians_avg_DS098, select(medians_tidy_DS098, 
   distinct() %&gt;% 
   mutate(stim_description = paste(H2O2_conc_mM, &quot;mM -&quot;, inhibitor))
 
-kable(medians_avg_DS098 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3293710  176.0    6229117  332.7    6229117   332.7
+Vcells 161389166 1231.4  414909117 3165.6 2342359788 17870.8</code></pre>
+<pre class="r"><code># kable(medians_avg_DS098 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
 </div>
-<div id="save-data-3" class="section level3">
+<div id="save-data-5" class="section level3">
 <h3>Save data</h3>
 <p>Save annotated datasets as .csv file</p>
 <pre class="r"><code>write.csv(df_tidy_DS098, file = &quot;output/annotated_data_tidy_DS098.csv&quot;, row.names = F)
 
 write.csv(medians_tidy_DS098, file = &quot;output/annotated_medians_tidy_DS098.csv&quot;, row.names = F)
 
-write.csv(medians_avg_DS098, file = &quot;output/annotated_medians_avg_rep_DS098.csv&quot;, row.names = F)</code></pre>
+write.csv(medians_avg_DS098, file = &quot;output/annotated_medians_avg_rep_DS098.csv&quot;, row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;_DS098&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells 3292527 175.9    6229117  332.7    6229117   332.7
+Vcells 5454063  41.7  331927294 2532.5 2342359788 17870.8</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1487,6 +5211,63 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.2 (2022-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.utf8  LC_CTYPE=English_Netherlands.utf8   
+[3] LC_MONETARY=English_Netherlands.utf8 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.utf8    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] greekLetters_0.0.7   kableExtra_1.3.4     ggrepel_0.9.3       
+ [4] scales_1.2.1         ggpubr_0.6.0         cowplot_1.1.1       
+ [7] ggthemes_4.2.4       RColorBrewer_1.1-3   viridis_0.6.2       
+[10] viridisLite_0.4.1    ggridges_0.5.4       platetools_0.1.5    
+[13] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
+[16] dplyr_1.1.0          purrr_1.0.1          readr_2.1.4         
+[19] tidyr_1.3.0          tibble_3.1.8         tidyverse_2.0.0     
+[22] ggcyto_1.26.4        flowWorkspace_4.10.1 ncdfFlow_2.44.0     
+[25] BH_1.81.0-1          ggplot2_3.4.1        flowCore_2.10.0     
+[28] workflowr_1.7.0     
+
+loaded via a namespace (and not attached):
+ [1] colorspace_2.1-0    ggsignif_0.6.4      ellipsis_0.3.2     
+ [4] rprojroot_2.0.3     cytolib_2.10.1      fs_1.6.1           
+ [7] rstudioapi_0.14     hexbin_1.28.2       bit64_4.0.5        
+[10] fansi_1.0.4         xml2_1.3.3          cachem_1.0.6       
+[13] knitr_1.42          jsonlite_1.8.4      broom_1.0.3        
+[16] graph_1.76.0        compiler_4.2.2      httr_1.4.4         
+[19] backports_1.4.1     assertthat_0.2.1    fastmap_1.1.0      
+[22] cli_3.6.0           later_1.3.0         htmltools_0.5.4    
+[25] tools_4.2.2         gtable_0.3.1        glue_1.6.2         
+[28] Rcpp_1.0.10         carData_3.0-5       Biobase_2.58.0     
+[31] jquerylib_0.1.4     vctrs_0.5.2         svglite_2.1.1      
+[34] xfun_0.37           ps_1.7.2            rvest_1.0.3        
+[37] timechange_0.2.0    lifecycle_1.0.3     rstatix_0.7.2      
+[40] XML_3.99-0.13       getPass_0.2-2       zlibbioc_1.44.0    
+[43] vroom_1.6.1         RProtoBufLib_2.10.0 hms_1.1.2          
+[46] promises_1.2.0.1    parallel_4.2.2      yaml_2.3.7         
+[49] gridExtra_2.3       sass_0.4.5          stringi_1.7.12     
+[52] highr_0.10          S4Vectors_0.36.1    BiocGenerics_0.44.0
+[55] rlang_1.0.6         pkgconfig_2.0.3     systemfonts_1.0.4  
+[58] matrixStats_0.63.0  evaluate_0.20       lattice_0.20-45    
+[61] bit_4.0.5           processx_3.8.0      tidyselect_1.2.0   
+[64] plyr_1.8.8          magrittr_2.0.3      R6_2.5.1           
+[67] generics_0.1.3      DBI_1.1.3           pillar_1.8.1       
+[70] whisker_0.4.1       withr_2.5.0         abind_1.4-5        
+[73] crayon_1.5.2        car_3.1-1           utf8_1.2.3         
+[76] tzdb_0.3.0          rmarkdown_2.20      grid_4.2.2         
+[79] data.table_1.14.8   callr_3.7.3         git2r_0.31.0       
+[82] Rgraphviz_2.42.0    digest_0.6.31       webshot_0.5.4      
+[85] httpuv_1.6.9        stats4_4.2.2        munsell_0.5.0      
+[88] bslib_0.4.2        </code></pre>
 </div>
 </div>
 </div>
