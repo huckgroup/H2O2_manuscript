@@ -39,7 +39,7 @@ DS085: LinGradient_Conc
 
 DS095: DetailedStep_Conc
 
-DS096: LinQuadGradient_HighCnc
+DS096: LinQuadGradient_HighConc
 
 DS097: LinGradient_LowConc
 

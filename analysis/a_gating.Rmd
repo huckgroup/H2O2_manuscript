@@ -246,6 +246,8 @@ if(file.exists(paste0("output/", "gated_data_DS085"))) {
 # Save dataset
 save_gs(gs_DS085, path = paste0("output/", "gated_data_DS085"))
 
+gc()
+
 # Gating strategy
 plot(gs_DS085, bool = TRUE)
 ```
@@ -462,6 +464,8 @@ if(file.exists(paste0("output/", "gated_data_Bas013"))) {
 # Save dataset
 save_gs(gs_Bas013, path = paste0("output/", "gated_data_Bas013"))
 
+gc()
+
 # Gating strategy
 plot(gs_Bas013, bool = TRUE)
 ```
@@ -529,7 +533,7 @@ ggplot(subset(percent_live_Bas013, staining == "yes"), aes(x = time_min, y = Per
 ### Data
 
 Read the .fcs files and create a FlowSet object with metadata
-```{r data_DS09}
+```{r data_DS095}
 # Read files with the FlowSet function
 fs_A_DS095 <- read.flowSet(path = "data/DS095_DetailedStep_Conc/fcs_plateA", pattern = ".fcs", alter.names = T)
 fs_B_DS095 <- read.flowSet(path = "data/DS095_DetailedStep_Conc/fcs_plateB", pattern = ".fcs", alter.names = T)
@@ -769,6 +773,8 @@ if(file.exists(paste0("output/", "gated_data_DS095"))) {
 # Save dataset
 save_gs(gs_DS095, path = paste0("output/", "gated_data_DS095"))
 
+gc()
+
 # Gating strategy
 plot(gs_DS095, bool = TRUE)
 ```
@@ -993,6 +999,8 @@ if(file.exists(paste0("output/", "gated_data_DS096"))) {
 # Save dataset
 save_gs(gs_DS096, path = paste0("output/", "gated_data_DS096"))
 
+gc()
+
 # Gating strategy
 plot(gs_DS096, bool = TRUE)
 ```
@@ -1199,6 +1207,8 @@ if(file.exists(paste0("output/", "gated_data_DS097"))) {
 # Save dataset
 save_gs(gs_DS097, path = paste0("output/", "gated_data_DS097"))
 
+gc()
+
 # Gating strategy
 plot(gs_DS097, bool = TRUE)
 ```
@@ -1404,6 +1414,8 @@ if(file.exists(paste0("output/", "gated_data_DS098"))) {
 
 # Save dataset
 save_gs(gs_DS098, path = paste0("output/", "gated_data_DS098"))
+
+gc()
 
 # Gating strategy
 plot(gs_DS098, bool = TRUE)

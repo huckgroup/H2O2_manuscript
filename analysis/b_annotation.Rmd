@@ -507,6 +507,7 @@ medians_avg_DS095 <- medians_tidy_DS095 %>%
   summarise(
     fluorescence_sd = sd(fluorescence_median, na.rm = T),
     fluorescence = mean(fluorescence_median, na.rm = T), 
+    percent_sd = sd(percent_on, na.rm = T),
     percent_on = mean(percent_on, na.rm = T)
     )
 
