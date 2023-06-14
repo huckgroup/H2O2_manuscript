@@ -13,7 +13,7 @@
 
 <meta name="date" content="2023-05-08" />
 
-<title>e_paper_figs</title>
+<title>Manuscript figures</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -350,7 +350,7 @@ div.tocify {
   <a href="b_annotation.html">Annotation</a>
 </li>
 <li>
-  <a href="e_paper_figs.html">Paper figs</a>
+  <a href="e_paper_figs.html">Manuscript figs</a>
 </li>
 <li>
   <a href="c_gradients.html">Gradients</a>
@@ -384,7 +384,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">e_paper_figs</h1>
+<h1 class="title toc-ignore">Manuscript figures</h1>
 <h4 class="author">mwitmond</h4>
 <h4 class="date">2023-05-08</h4>
 
@@ -415,7 +415,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-05-08
+<strong>Last updated:</strong> 2023-06-14
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -547,13 +547,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong6521f7c">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong23ac408">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 6521f7c
+aria-hidden="true"></span> <strong>Repository version:</strong> 23ac408
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong6521f7c"
+<div id="strongRepositoryversionstrong23ac408"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -562,7 +562,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 6521f7c.
+The results in this page were generated with repository version 23ac408.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,6 +603,7 @@ Untracked files:
     Untracked:  output/annotated_medians_tidy_DS096.csv
     Untracked:  output/annotated_medians_tidy_DS097.csv
     Untracked:  output/annotated_medians_tidy_DS098.csv
+    Untracked:  output/figures/
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
     Untracked:  output/gated_counts_DS085.csv
@@ -618,7 +619,6 @@ Untracked files:
     Untracked:  output/gated_data_DS098/
 
 Unstaged changes:
-    Modified:   analysis/a_gating.Rmd
     Deleted:    analysis/about.Rmd
 
 </code></pre>
@@ -670,6 +670,40 @@ Message
 Rmd
 </td>
 <td>
+23ac408
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+Supplementary figs v1
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+9695f8d
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-05-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 6521f7c
 </td>
 <td>
@@ -692,7 +726,7 @@ Publish updated datasets, gating, annotation
 <div id="set-up" class="section level2">
 <h2>Set-up</h2>
 <pre class="r"><code>knitr::opts_chunk$set(
-  message = F, warning = F, echo = T, eval = F
+  message = F, warning = F, echo = T, eval = T
 )
 
 # Load required packages
@@ -704,8 +738,8 @@ panel_labels &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;,&quot;D&quot;, 
 textsize &lt;- theme(axis.text.x = element_text(colour = &quot;grey&quot;, size = 12, face = &quot;bold&quot;),
                   axis.text.y = element_text(colour = &quot;grey&quot;, size = 12, face = &quot;bold&quot;),
                   axis.title = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;), 
-                  # legend.title = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;), 
-                  legend.title = element_blank(), 
+                  legend.title = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;),
+                  # legend.title = element_blank(), 
                   legend.text = element_text(colour = &quot;grey&quot;, size = 12, face = &quot;bold&quot;), 
                   strip.text.x = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;)
 )
@@ -714,9 +748,10 @@ textsize_small &lt;- theme(text = element_text(size = 7, family = &quot;sans&quo
                         plot.title = element_text(size = 8)
 )
 
-colors_dark9 &lt;- c(&quot;#4daf4a&quot;, &quot;#984ea3&quot;, &quot;#ffff33&quot;, &quot;#ff7f00&quot;, &quot;#e41a1c&quot;, &quot;#f781bf&quot;, &quot;#a65628&quot;, &quot;#999999&quot;, &quot;#377eb8&quot;)
+colors_dark9 &lt;- c(&quot;#4daf4a&quot;, &quot;#984ea3&quot;, &quot;#377eb8&quot;, &quot;#ff7f00&quot;, &quot;#ffff33&quot;, &quot;#e41a1c&quot;, &quot;#f781bf&quot;, &quot;#a65628&quot;, &quot;#999999&quot;)
 colors_light12 &lt;- c(&quot;#8dd3c7&quot;,&quot;#ffffb3&quot;,&quot;#bebada&quot;,&quot;#fb8072&quot;,&quot;#80b1d3&quot;,&quot;#fdb462&quot;,&quot;#b3de69&quot;,&quot;#fccde5&quot;,&quot;#d9d9d9&quot;,&quot;#bc80bd&quot;,&quot;#ccebc5&quot;,&quot;#ffed6f&quot;)
-colors_paired10 &lt;- c(&quot;#a6cee3&quot;, &quot;#1f78b4&quot;, &quot;#b2df8a&quot;, &quot;#33a02c&quot;, &quot;#fdbf6f&quot;, &quot;#ff7f00&quot;, &quot;#cab2d6&quot;, &quot;#6a3d9a&quot;, &quot;#fb9a99&quot;, &quot;#e31a1c&quot;)</code></pre>
+colors_paired10 &lt;- c(&quot;#a6cee3&quot;, &quot;#1f78b4&quot;, &quot;#b2df8a&quot;, &quot;#33a02c&quot;, &quot;#fdbf6f&quot;, &quot;#ff7f00&quot;, &quot;#cab2d6&quot;, &quot;#6a3d9a&quot;, &quot;#fb9a99&quot;, &quot;#e31a1c&quot;)
+colors_blue9 &lt;- c(&quot;#f7fbff&quot;, &quot;#deebf7&quot;, &quot;#c6dbef&quot;, &quot;#9ecae1&quot;, &quot;#6baed6&quot;, &quot;#4292c6&quot;, &quot;#2171b5&quot;, &quot;#08519c&quot;, &quot;#08306b&quot;)</code></pre>
 </div>
 <div id="main-fig-1" class="section level2">
 <h2>Main fig 1</h2>
@@ -729,6 +764,250 @@ cell-to-cell variability.</p>
 <li><p>Gating strategy</p></li>
 <li><p>Ridge plots of other time points + concentrations</p></li>
 </ul>
+<pre class="r"><code># DS095: DetailedStep_Conc
+data_DS095 &lt;- read_csv(&quot;output/annotated_data_tidy_DS095.csv&quot;)
+medians_DS095 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS095.csv&quot;)
+avg_DS095 &lt;- read_csv(&quot;output/annotated_medians_avg_rep_DS095.csv&quot;)</code></pre>
+<pre class="r"><code>proteins_DS095 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;, &quot;Rabbit IgG isotype&quot;, &quot;cCaspase 3 + cPARP&quot;, &quot;No stain&quot;)
+times_DS095 &lt;- c(&quot;0 min&quot;, &quot;0.5 min&quot;, &quot;1 min&quot;, &quot;2.5 min&quot;, &quot;5 min&quot;, &quot;10 min&quot;, &quot;25 min&quot;, &quot;10 min isotype&quot;, &quot;25 min nostain&quot;)
+concentrations_DS095 &lt;- c(&quot;0 mM&quot;, &quot;0.25 mM&quot;, &quot;1 mM&quot;, &quot;2.5 mM&quot;, &quot;5 mM&quot;, &quot;10 mM&quot;, &quot;25 mM&quot;)
+conc_fig1B &lt;- c(&quot;Low (1 mM)&quot;, &quot;Medium (10 mM)&quot;, &quot;High (25 mM)&quot;)
+times_fig1B &lt;- c(&quot;0 min&quot;, &quot;5 min&quot;, &quot;10 min&quot;, &quot;25 min&quot;)
+proteins_fig1C &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;)</code></pre>
+<div id="panel-a" class="section level3">
+<h3>Panel A</h3>
+<p>BCR network Biorender</p>
+<pre class="r"><code>fig1_panelA &lt;- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = &quot;BCR signaling network&quot;) + 
+  theme_bw() +
+  theme(axis.text = element_text(color = &quot;white&quot;), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+
+fig1_panelA</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_panelA-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>png_BCR_network &lt;- image_read(&quot;output/figures/non_R_figs/BCR_network_simple_H2O2.png&quot;) %&gt;%
+  image_ggplot()
+png_BCR_network</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_panelA-2.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="panel-b" class="section level3">
+<h3>Panel B</h3>
+<p>Ridge plots of PLCy2 at low (1 mM), medium (10 mM) and high (25 mM)
+concentrations at 0, 5, 10 and 25 min</p>
+<pre class="r"><code># Select data
+data_DS095_fig1B &lt;- data_DS095 %&gt;%
+  subset(protein == &quot;pPLCy2 (Y759)&quot; &amp; time_point %in% times_fig1B &amp; H2O2_conc_mM %in% c(1, 10, 25)) # &amp; replicate == &quot;rep1&quot;
+
+# Figure
+fig1_panelB &lt;- ggplot(data_DS095_fig1B, aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_fig1B)), #fct_rev(as.factor(time_min))
+        fill = as.factor(H2O2_conc_mM)), 
+    # fill = &quot;#80b1d3&quot;, 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.5) +
+  # geom_text(aes(1e3, &quot;0 min&quot;), label = &quot;97.5%&quot;, color = &quot;black&quot;, size = 2.5, show.legend = F, hjust = 1, vjust = -0.8) +
+  facet_wrap(vars(factor(H2O2_conc_mM, labels = conc_fig1B)), ncol = 3) +
+  scale_x_log10() +
+  scale_fill_manual(values = c(colors_blue9[c(4, 6, 8)])) +
+  labs(x = &quot;Fluorescent intensity PLCy2 (Y759)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+fig1_panelB</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_panelB-1.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="panel-c" class="section level3">
+<h3>Panel C</h3>
+<p>Line plots of time vs % ON for CD79a, SYK and PLCy2</p>
+<pre class="r"><code># Select data
+avg_DS095_fig1C &lt;- avg_DS095 %&gt;%
+  subset(staining == &quot;yes&quot; &amp; protein %in% proteins_fig1C)
+
+# Figure option 1: continuous x-axis
+fig1_panelC &lt;- ggplot(avg_DS095_fig1C, 
+                      aes(
+                        x = time_min, #factor(time_point, levels = times_DS095[1:7], labels = sort(unique(time_min)))
+                        y = percent_on, 
+                        group = H2O2_conc_mM,
+                        color = H2O2_conc_mM,
+                      )) +
+  geom_vline(xintercept = 5, size = 0.25, linetype = &quot;dashed&quot;) +
+  geom_line(linewidth = 0.5) +
+  # geom_point(size = 2) +
+  geom_errorbar(aes(
+    x = time_min,
+    ymin = percent_on - percent_sd,
+    ymax = percent_on + percent_sd,
+    group = H2O2_conc_mM),
+    # position = position_dodge2(width = 0.9),
+    linewidth = 0.25,
+    width = 0.25,
+  ) +
+  facet_wrap(vars(factor(protein, levels = proteins_DS095)), ncol = 3) +
+  scale_x_continuous(
+    trans = &quot;log1p&quot;, 
+    # limits = c(0, 25),
+    breaks = c(0.5, 5, 25)
+  ) +
+  scale_color_gradient( #colors_blue9 &lt;- c(&quot;#f7fbff&quot;, &quot;#deebf7&quot;, &quot;#c6dbef&quot;, &quot;#9ecae1&quot;, &quot;#6baed6&quot;, &quot;#4292c6&quot;, &quot;#2171b5&quot;, &quot;#08519c&quot;, &quot;#08306b&quot;)
+    low = &quot;#deebf7&quot;,
+    high = &quot;#08306b&quot;,
+    trans = &quot;log10&quot;, 
+    limits = c(0.09, 30), 
+    # breaks = 
+    name = &quot;H2O2 conc (mM)&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;Time (min) (log10)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank()) +
+  textsize_small
+
+fig1_panelC</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_panelC-1.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="panel-d" class="section level3">
+<h3>Panel D</h3>
+<p>Line plot of H2O2 concentration vs % ON for CD79a, SYK and PLCy2 ant
+10 min</p>
+<pre class="r"><code># Select data
+avg_DS095_fig1D &lt;- avg_DS095 %&gt;%
+  subset(staining == &quot;yes&quot; &amp; protein %in% proteins_fig1C &amp; time_point == &quot;10 min&quot;)
+
+# Figure
+fig1_panelD &lt;- ggplot(avg_DS095_fig1D,
+       aes(
+         x = H2O2_conc_mM,
+         y = percent_on, 
+         group = protein,
+         color = protein,
+       )) +
+  # geom_line(linewidth = 1.25) +
+  geom_smooth(linewidth = 0.5, se = FALSE) + 
+  geom_point(size = 1) +
+  geom_errorbar(aes(
+    x = H2O2_conc_mM,
+    ymin = percent_on - percent_sd,
+    ymax = percent_on + percent_sd,
+    group = H2O2_conc_mM),
+    linewidth = 0.5,
+    width = 0.2,
+  ) +
+  scale_x_continuous(trans = &quot;log1p&quot;, 
+                     breaks = c(0, 1, 10, 25)) +
+  scale_color_manual(
+    values = colors_dark9,
+    breaks = proteins_fig1C,
+    name = element_blank(),
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = paste(&quot;Percentage of cells ON&quot;)) +
+  theme_bw() +
+  textsize_small + 
+  theme(legend.position = c(0.4, 0.8), legend.justification = &quot;right&quot;, legend.background = element_rect(linetype = &quot;solid&quot;, color = &quot;black&quot;), legend.text = element_text(size = 4), legend.title = element_text(size = 1), legend.margin = unit(0.5, &quot;cm&quot;), legend.spacing = unit(0.01, &quot;cm&quot;), panel.grid.minor = element_blank()) 
+  
+
+fig1_panelD</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_panelD-1.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="panel-e" class="section level3">
+<h3>Panel E</h3>
+<p>Model</p>
+<pre class="r"><code>fig1_panelE &lt;- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = &quot;Model&quot;) + 
+  theme_bw() +
+  theme(axis.text = element_text(color = &quot;white&quot;), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+
+fig1_panelE</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_panelE-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>png_model &lt;- image_read(&quot;output/figures/non_R_figs/H2O2_model_network_with_PFBL.png&quot;) %&gt;%
+  image_ggplot()
+png_model</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_panelE-2.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="panel-f" class="section level3">
+<h3>Panel F</h3>
+<p>Dose-response visualisation from model</p>
+<pre class="r"><code>fig1_panelF &lt;- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = &quot;Dose-response visualisation&quot;) + 
+  theme_bw() +
+  theme(axis.text = element_text(color = &quot;white&quot;), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+
+fig1_panelF</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_panelF-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>png_DR_vis &lt;- image_read(&quot;output/figures/non_R_figs/DRcurves_x50var_bimodregion_EK.png&quot;) %&gt;%
+  image_ggplot()
+png_DR_vis</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_panelF-2.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="combined" class="section level3">
+<h3>Combined</h3>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells   4808984  256.9    8960118  478.6   6856812  366.2
+Vcells 780061933 5951.5 1144844816 8734.5 953837545 7277.3</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+fig1_BC &lt;- plot_grid(fig1_panelB, fig1_panelC, labels = panel_labels[c(2, 3)], ncol = 1, rel_heights = c(1, 1.5))
+fig1_ABC &lt;- plot_grid(png_BCR_network, fig1_BC, labels = c(panel_labels[1], &quot;&quot;), ncol = 2, rel_widths = c(1, 1.5)) #fig1_panelA
+fig1_DEF &lt;- plot_grid(fig1_panelD, png_model, png_DR_vis, labels = panel_labels[4:6], ncol = 3, rel_widths = c(1, 1, 1)) #fig1_panelE, fig1_panelF
+fig1 &lt;- plot_grid(fig1_ABC, fig1_DEF, ncol = 1, rel_heights = c(1.5, 1))
+
+fig1</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig1_main-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  fig1,
+  filename = &quot;output/figures/fig1_main.pdf&quot;,
+  width = 8,
+  height = 7,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  fig1,
+  filename = &quot;output/figures/fig1_main.jpeg&quot;,
+  width = 8,
+  height = 7,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;fig1_&quot;))
+rm(list = ls(pattern = &quot;_fig1&quot;))
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used   (Mb)
+Ncells   4938345  263.8    8960118   478.6    8960118  478.6
+Vcells 801166236 6112.5 1373893779 10482.0 1144269366 8730.1</code></pre>
+<p><em><strong>Figure: Bimodal signaling responses to H2O2 at the
+population level result from a combination of a steep dose-response
+relationship and cell-to-cell variability.</strong> A) BCR signaling
+network; B) Ridge plots of PLCY response at low, medium and high H2O2
+concentrations; C) Phosphoprotein response over time at different
+concentrations; D) Dose-response curve at 10 min stimulation; E)
+Model.</em></p>
+</div>
 </div>
 <div id="main-fig-2" class="section level2">
 <h2>Main fig 2</h2>
@@ -741,6 +1020,253 @@ the sole determinant of response strength.</p>
 <li><p>Line plots of CD79a + SYK</p></li>
 <li><p>Heatmap of experimental data</p></li>
 </ul>
+<pre class="r"><code># DS096: LinQuadGradient_HighConc
+# data_DS096 &lt;- read_csv(&quot;output/annotated_data_tidy_DS096.csv&quot;)
+medians_DS096 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS096.csv&quot;)</code></pre>
+<pre class="r"><code>proteins_DS096 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;, &quot;cCaspase 3 + cPARP&quot;, &quot;No stain&quot;)
+profiles_long_DS096 &lt;- c(&quot;PBS step (0 mM)&quot;, &quot;H2O2 step (10 mM)&quot;, &quot;20 min gradient (10 mM)&quot;, &quot;60 min gradient (10 mM)&quot;, &quot;60 min quadratic gradient (10 mM)&quot;)
+profiles_short_DS096 &lt;- c(&quot;step to 0 mM&quot;, &quot;step to 10 mM&quot;, &quot;20 min to 10 mM&quot;, &quot;60 min to 10 mM&quot;, &quot;60 min to 10 mM (quad)&quot;)
+proteins_fig2D &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;)
+profiles_fig2D &lt;- c(&quot;20 min gradient (10 mM)&quot;, &quot;60 min gradient (10 mM)&quot;, &quot;60 min quadratic gradient (10 mM)&quot;)
+profiles_fig2D_names &lt;- c(&quot;20 min&quot;, &quot;60 min&quot;, &quot;60 min quad&quot;)</code></pre>
+<div id="panel-a-1" class="section level3">
+<h3>Panel A</h3>
+<p>Experimental gradient set-up</p>
+<pre class="r"><code>fig2_panelA &lt;- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = &quot;Experimental set-up&quot;) + 
+  theme_bw() +
+  theme(axis.text = element_text(color = &quot;white&quot;), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+
+fig2_panelA</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelA-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>png_set_up &lt;- image_read(&quot;output/figures/non_R_figs/gradient_setup_portrait.png&quot;) %&gt;%
+  image_ggplot()
+png_set_up</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelA-2.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="panel-b-1" class="section level3">
+<h3>Panel B</h3>
+<p>H2O2 input profiles for step, 20 min linear gradient, 60 min linear
+gradient and 60 min quadratic gradient stimulation</p>
+<pre class="r"><code># Select data
+medians_DS096_fig2B &lt;- medians_DS096 %&gt;%
+  select(stim_description, time_min, conc_at_time_mM) %&gt;%
+  distinct() %&gt;%
+  add_row(stim_description = &quot;H2O2 step (10 mM)&quot;, time_min = 0, conc_at_time_mM = 10)
+
+# Figure
+fig2_panelB &lt;- ggplot(medians_DS096_fig2B) +
+  geom_vline(xintercept = 20, size = 0.5, linetype = &quot;dashed&quot;) +
+  geom_vline(xintercept = 60, size = 0.5, linetype = &quot;dotdash&quot;) +
+  geom_line(aes(x = time_min, y = conc_at_time_mM, group = stim_description, color = stim_description), linewidth = 1) +
+  # geom_text(aes(75, 10), label = &quot;H2O2 step&quot;, color = &quot;black&quot;, size = 2.5, show.legend = F, hjust = 1, vjust = -0.8) +
+  scale_x_continuous(
+    limits = c(0, 75),
+    breaks = c(0, 20, 60),
+  ) +
+  scale_y_continuous(
+    limits = c(-0.2, 11), 
+    breaks = c(0, 10)
+  ) + 
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  labs(x = &quot;Time (min)&quot;, y = &quot;H2O2 concentration (mM)&quot;) + 
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = &quot;none&quot;) +
+  textsize_small
+
+fig2_panelB</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelB-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as jpeg
+ggsave(
+  fig2_panelB,
+  filename = &quot;output/figures/fig2_panelB.jpeg&quot;,
+  width = 5.5,
+  height = 2.5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )</code></pre>
+</div>
+<div id="panel-c-1" class="section level3">
+<h3>Panel C</h3>
+<p>Line plots of time/conc/exposure vs % ON for PLCy2</p>
+<pre class="r"><code># Select data
+medians_DS096_fig2C &lt;- medians_DS096 %&gt;%
+  subset(protein == &quot;pPLCy2 (Y759)&quot; &amp; staining == &quot;yes&quot;)
+
+# Time
+fig2_panelC_time &lt;- ggplot(medians_DS096_fig2C,
+       aes(
+         x = time_min,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1.25) +
+  geom_vline(xintercept = 20, size = 0.5, linetype = &quot;dashed&quot;) +
+  geom_vline(xintercept = 60, size = 0.5, linetype = &quot;dotdash&quot;) +
+  facet_wrap(vars(factor(protein, labels = &quot;Time&quot;))) + 
+  scale_x_continuous(
+    limits = c(0, 75),
+    breaks = c(0, 20, 60),
+  ) +
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;Time (min)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+fig2_panelC_time</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelC-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Concentration
+fig2_panelC_conc &lt;- ggplot(subset(medians_DS096_fig2C, stim_profile == &quot;gradient&quot;),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1.25) +
+  geom_hline(yintercept = 50, size = 0.5, linetype = &quot;dashed&quot;) +
+  facet_wrap(vars(factor(protein, labels = &quot;Concentration&quot;))) + 
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = &quot;Percentage of cells ON&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+fig2_panelC_conc</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelC-2.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Cumulative exposure
+fig2_panelC_exp &lt;- ggplot(subset(medians_DS096_fig2C, stim_description != &quot;PBS step (0 mM)&quot;), 
+       aes(
+         x = cumulative_exposure,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1.25) +
+  facet_wrap(vars(factor(protein, labels = &quot;Total exposure&quot;))) + 
+  # scale_x_log10() + #limits = c(1e-1, 1.5e1)
+  scale_x_continuous(
+    trans = &quot;log1p&quot;, 
+    limits = c(0, 1000),
+    breaks = c(0, 1, 10, 100, 1000)) + 
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;Total exposure (AUC of conc vs time) (log10)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+fig2_panelC_exp</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelC-3.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fig2_panelC &lt;- plot_grid(fig2_panelC_time, fig2_panelC_conc, fig2_panelC_exp, ncol = 1, rel_heights = c(1, 1, 1))
+fig2_panelC</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelC-4.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as jpeg
+ggsave(
+  fig2_panelC,
+  filename = &quot;output/figures/fig2_panelC.jpeg&quot;,
+  width = 5.5,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )</code></pre>
+</div>
+<div id="panel-d-1" class="section level3">
+<h3>panel D</h3>
+<p>Model: Simulated signaling response strength upon different input
+patterns for CD79a, SYK and PLCy2</p>
+<pre class="r"><code># Simulated data
+fig2_panelD &lt;- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = &quot;Simulated response&quot;) + 
+  theme_bw() +
+  theme(axis.text = element_text(color = &quot;white&quot;), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+fig2_panelD</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelD-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Model figure
+png_model_heatmap &lt;- image_read(&quot;output/figures/non_R_figs/Model_gradients_heatmap.png&quot;) %&gt;%
+  image_ggplot()
+png_model_heatmap</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelD-2.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="combined-1" class="section level3">
+<h3>Combined</h3>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used   (Mb)
+Ncells   4875135  260.4    8960118   478.6    8960118  478.6
+Vcells 798617708 6093.0 1373893779 10482.0 1144269366 8730.1</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+fig2_BC &lt;- plot_grid(fig2_panelB, fig2_panelC, labels = panel_labels[c(2, 3)], ncol = 1, rel_heights = c(1, 3))
+fig2_AD &lt;- plot_grid(png_set_up, png_model_heatmap, labels = panel_labels[c(1, 4)], ncol = 1, rel_heights = c(2, 1))
+fig2 &lt;- plot_grid(fig2_AD, fig2_BC, ncol = 2, rel_widths = c(1, 1))
+
+fig2</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_main-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  fig2,
+  filename = &quot;output/figures/fig2_main.pdf&quot;,
+  width = 8,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  fig2,
+  filename = &quot;output/figures/fig2_main.jpeg&quot;,
+  width = 8,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;fig2_&quot;))
+rm(list = ls(pattern = &quot;_fig2&quot;))
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used   (Mb)
+Ncells   4949448  264.4    8960118   478.6    8960118  478.6
+Vcells 817176069 6234.6 1373893779 10482.0 1144269366 8730.1</code></pre>
+<p><em><strong>Figure: Dynamic H2O2-induced BCR signaling reveals that
+concentration is not the sole determinant of response strength.</strong>
+A) H2O2 input patterns; B) Line plots of PLCy2 response over
+time/conc/exposure; C) Simulated signaling response upon different input
+patterns.</em></p>
+</div>
 </div>
 <div id="main-fig-3" class="section level2">
 <h2>Main fig 3</h2>
@@ -753,9 +1279,1130 @@ increase.</p>
 <li><p>% ON vs conc line plots of CD79a + SYK + PLCy2</p></li>
 <li><p>Conc vs time + EC50 vs rate of other 2 proteins</p></li>
 </ul>
+<pre class="r"><code># Bas013: LinGradient_CumExp
+# data_Bas013 &lt;- read_csv(&quot;output/annotated_data_tidy_Bas013.csv&quot;)
+medians_Bas013 &lt;- read_csv(&quot;output/annotated_medians_tidy_Bas013.csv&quot;)
+medians_Bas013$sample &lt;- as.character(medians_Bas013$sample)
+
+# DS085: LinGradient_Conc
+# data_DS085 &lt;- read_csv(&quot;output/annotated_data_tidy_DS085.csv&quot;)
+medians_DS085 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS085.csv&quot;)
+medians_DS085$sample &lt;- as.character(medians_DS085$sample)
+
+# DS096: LinQuadGradient_HighConc
+# data_DS096 &lt;- read_csv(&quot;output/annotated_data_tidy_DS096.csv&quot;)
+medians_DS096 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS096.csv&quot;)
+medians_DS096$sample &lt;- as.character(medians_DS096$sample)
+
+# DS097: LinGradient_LowConc
+# data_DS097 &lt;- read_csv(&quot;output/annotated_data_tidy_DS097.csv&quot;)
+medians_DS097 &lt;- read_csv(&quot;output/annotated_medians_tidy_DS097.csv&quot;)
+medians_DS097$sample &lt;- as.character(medians_DS097$sample)
+
+# Combine datasets
+medians_combi &lt;- list(medians_DS096, medians_DS097, medians_Bas013, medians_DS085) %&gt;% reduce(full_join)</code></pre>
+<pre class="r"><code>proteins_combi &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;, &quot;cCaspase 3 + cPARP&quot;, &quot;No stain&quot;)
+profiles_combi &lt;- c(&quot;PBS step (0 mM)&quot;, &quot;H2O2 step (2.5 mM)&quot;, &quot;H2O2 step (5 mM)&quot;, &quot;H2O2 step (10 mM)&quot;, &quot;20 min gradient (5 mM)&quot;, &quot;20 min gradient (10 mM)&quot;, &quot;60 min gradient (2.5 mM)&quot;, &quot;60 min gradient (5 mM)&quot;, &quot;60 min gradient (10 mM)&quot;, &quot;60 min quadratic gradient (10 mM)&quot;, &quot;90 min gradient (5 mM)&quot;)
+profiles_combi_short &lt;- c(&quot;step to 0 mM&quot;, &quot;step to 2.5 mM&quot;, &quot;step to 5 mM&quot;, &quot;step to 10 mM&quot;, &quot;20 min to 5 mM&quot;, &quot;20 min to 10 mM&quot;, &quot;60 min to 2.5 mM&quot;, &quot;60 min to 5 mM&quot;, &quot;60 min to 10 mM&quot;, &quot;60 min to 10 mM (quad)&quot;, &quot;90 min to 5 mM&quot;)
+
+proteins_fig3C &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;)</code></pre>
+<div id="panel-a-2" class="section level3">
+<h3>Panel A</h3>
+<p>Model: Simulated gradient rate vs EC50%</p>
+<pre class="r"><code>fig3_panelA &lt;- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = &quot;Simulated sensitivity to gradient rate&quot;) + 
+  theme_bw() +
+  theme(axis.text = element_text(color = &quot;white&quot;), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+
+fig3_panelA</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig3_panelA-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>png_rate_EC50 &lt;- image_read(&quot;output/figures/non_R_figs/Model_EC50_ratedependence_EK.png&quot;) %&gt;%
+  image_ggplot()
+png_rate_EC50</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig3_panelA-2.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="panel-b-2" class="section level3">
+<h3>Panel B</h3>
+<p>H2O2 input profiles for step, 20 min linear gradient, 60 min linear
+gradient and 60 min quadratic gradient stimulation</p>
+<pre class="r"><code># Select data
+medians_combi_fig3B &lt;- medians_combi %&gt;%
+  select(expID, stim_profile, gradient_duration, stim_description, stim_descrip_short, time_min, conc_at_time_mM) %&gt;%
+  distinct() %&gt;%
+  add_row(expID =  &quot;DS097&quot;, stim_profile = &quot;step&quot;, stim_description = &quot;H2O2 step (2.5 mM)&quot;, stim_descrip_short = &quot;step to 2.5 mM&quot;, time_min = 0, conc_at_time_mM = 2.5) %&gt;%
+  add_row(expID =  &quot;DS085&quot;, stim_profile = &quot;step&quot;, stim_description = &quot;H2O2 step (5 mM)&quot;, stim_descrip_short = &quot;step to 5 mM&quot;, time_min = 0, conc_at_time_mM = 5) %&gt;%
+  add_row(expID =  &quot;Bas013&quot;, stim_profile = &quot;step&quot;, stim_description = &quot;H2O2 step (5 mM)&quot;, stim_descrip_short = &quot;step to 5 mM&quot;, time_min = 0, conc_at_time_mM = 5) %&gt;%
+  add_row(expID =  &quot;DS097&quot;, stim_profile = &quot;step&quot;, stim_description = &quot;H2O2 step (5 mM)&quot;, stim_descrip_short = &quot;step to 5 mM&quot;, time_min = 0, conc_at_time_mM = 5) %&gt;%
+  add_row(expID =  &quot;DS096&quot;, stim_profile = &quot;step&quot;, stim_description = &quot;H2O2 step (10 mM)&quot;, stim_descrip_short = &quot;step to 10 mM&quot;, time_min = 0, conc_at_time_mM = 10)
+
+# Figure
+fig3_panelB &lt;- ggplot(medians_combi_fig3B) +
+  geom_vline(xintercept = 20, size = 0.5, linetype = &quot;dashed&quot;) +
+  geom_vline(xintercept = 60, size = 0.5, linetype = &quot;dotdash&quot;) +
+  geom_vline(xintercept = 90, size = 0.5, linetype = &quot;dotted&quot;) +
+  geom_line(aes(x = time_min, y = conc_at_time_mM, group = stim_descrip_short, color = paste(gradient_duration, stim_profile)), size = 0.75) +
+  # geom_text(aes(75, 0), label = &quot;PBS step&quot;, color = &quot;black&quot;, size = 2.5, show.legend = F, hjust = 1, vjust = -0.8) +
+  facet_wrap(vars(expID)) + 
+  scale_x_continuous(
+    limits = c(0, 90),
+    breaks = c(0, 20, 60, 90),
+  ) +
+  scale_y_continuous(
+    # limits = c(-0.2, 11), 
+    breaks = c(0, 2.5, 5, 7.5, 10)
+  ) + 
+  scale_color_manual(
+    values = colors_dark9,
+    # breaks = profiles_combi_short,
+    name = &quot;&quot;,
+  ) +
+  labs(x = &quot;Time (min)&quot;, y = &quot;H2O2 concentration (mM)&quot;) + 
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), legend.position = &quot;right&quot;) + #, legend.position = &quot;none&quot;
+  # guides(color = guide_legend(ncol = 3, bycol = TRUE)) +
+  textsize_small
+
+fig3_panelB</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig3_panelB-1.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="panel-c-2" class="section level3">
+<h3>Panel C</h3>
+<p>Line plot of gradient rate vs conc of EC50% for PLCy2</p>
+<pre class="r"><code># Select/wrangle data
+medians_combi_fig3C &lt;- medians_combi %&gt;%
+  subset(protein %in% proteins_fig3C &amp; staining == &quot;yes&quot; &amp; stim_profile == &quot;gradient&quot; &amp; stim_descrip_short != &quot;60 min to 10 mM (quad)&quot; &amp; after_end == &quot;no&quot;) #%&gt;% &amp; expID != &quot;Bas013&quot;
+  # mutate(rate_mM_min = as.numeric((gsub(&quot;(.*) mM&quot;, &quot;\\1&quot;, conc_final))) / gradient_duration) # Get rate of each gradient
+
+# Get conc at EC50% for each gradient
+combi_EC50 &lt;- medians_combi_fig3C %&gt;%
+  group_by(expID, stim_descrip_short, protein) %&gt;%
+  mutate(percent_min = min(percent_on), 
+         percent_max = max(percent_on), 
+         percent_mid = (percent_min + ((percent_max - percent_min) / 2)), 
+         percent_50 = 50) %&gt;%
+  select(expID, stim_descrip_short, protein, percent_mid, percent_50, percent_min, percent_max) %&gt;%
+  distinct() #%&gt;%
+  # mutate(percent_on = percent_mid)
+
+combi_EC50 &lt;- combi_EC50 %&gt;%
+  mutate(percent_on = percent_50) %&gt;%
+  full_join(combi_EC50) %&gt;%
+  arrange(expID, stim_descrip_short, protein, percent_on)
+
+combi_conc_EC50 &lt;- medians_combi_fig3C %&gt;%
+  full_join(combi_EC50) %&gt;%
+  # filter(stim_descrip_short == &quot;90 min to 5 mM&quot;) %&gt;%
+  arrange(expID, stim_descrip_short, protein, percent_on) %&gt;%
+  select(expID, stim_descrip_short, protein, percent_on, conc_at_time_mM, percent_mid, percent_50, ) %&gt;%
+  filter(!(expID == &quot;DS097&quot; &amp; ((stim_descrip_short  == &quot;60 min to 2.5 mM&quot; &amp; percent_on == 50) | (stim_descrip_short  == &quot;20 min to 5 mM&quot; &amp; percent_on == 50 &amp; protein == &quot;pPLCy2 (Y759)&quot;)))) %&gt;% # remove rows where arbitrary 50% ON is the highest value (hardcoded)
+  group_by(expID, stim_descrip_short, protein) %&gt;%
+  mutate(conc_at_time_mM_approx = na.approx(conc_at_time_mM, x = percent_on)) %&gt;%
+  mutate(conc_at_time_mM_interp = na.interp(conc_at_time_mM))
+
+# Table with rate and conc at EC50
+rate_EC50_fig3C &lt;- combi_conc_EC50 %&gt;%
+  mutate(conc_final = as.numeric(gsub(&quot;.. min to (.*) mM&quot;, &quot;\\1&quot;, stim_descrip_short)), 
+         gradient_duration = as.numeric(gsub(&quot;(..) min to .* mM&quot;, &quot;\\1&quot;, stim_descrip_short)), 
+         rate_mM_min = conc_final / gradient_duration
+    ) %&gt;%
+  # drop_na() 
+  subset(percent_on == 50)
+
+# Figure with conc vs % ON
+fig3_panelC_conc &lt;- ggplot(subset(combi_conc_EC50, protein == &quot;pPLCy2 (Y759)&quot;), #medians_combi_fig3B #combi_conc_EC50
+       aes(
+         x = conc_at_time_mM_approx,
+         y = percent_on, 
+         group = paste(expID, stim_descrip_short),
+         color = expID,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1) +
+  facet_wrap(vars(stim_descrip_short)) + 
+  # scale_x_log10(limits = c(1e-1, 1.5e1)) +
+  scale_color_manual(
+    values = colors_dark9,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = &quot;Percentage of cells ON&quot;) +
+  theme_bw() +
+  # theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+fig3_panelC_conc</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig3_panelC-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Figure of gradient rate vs conc at EC50%
+fig3_panelC_data &lt;- ggplot(subset(rate_EC50_fig3C, percent_on == 50 &amp; expID != &quot;Bas013&quot;), #protein == &quot;pPLCy2 (Y759)&quot; &amp;
+       aes(
+         x = rate_mM_min,
+         y = conc_at_time_mM_approx,
+         group = paste(expID, protein), #protein, #
+         color = protein,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1) +
+  facet_wrap(vars(factor(protein, levels = proteins_fig3C))) +
+  scale_color_manual(
+    values = colors_dark9,
+    name = &quot;&quot;,
+  ) +
+  labs(x = &quot;Gradient rate (mM/min)&quot;, y = &quot;Conc (mM) at 50% ON&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + #legend.position = &quot;none&quot; #legend.position = &quot;top&quot;, legend.justification = &quot;right&quot;
+  # guides(color = guide_legend(ncol = 2, bycol = TRUE)) +
+  textsize_small
+
+fig3_panelC_data</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig3_panelC-2.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="combined-2" class="section level3">
+<h3>Combined</h3>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used   (Mb)
+Ncells   4930404  263.4    8960118   478.6    8960118  478.6
+Vcells 803251727 6128.4 1373893779 10482.0 1144269366 8730.1</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+fig3_AB &lt;- plot_grid(png_rate_EC50, fig3_panelB, labels = panel_labels[1:2], ncol = 2, rel_widths = c(1, 1.5))
+fig3 &lt;- plot_grid(fig3_AB, fig3_panelC_data, labels = c(&quot;&quot;, panel_labels[3]), ncol = 1, rel_heights = c(1, 1))
+
+fig3</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig3_main-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  fig3,
+  filename = &quot;output/figures/fig3_main.pdf&quot;,
+  width = 8,
+  height = 4,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  fig3,
+  filename = &quot;output/figures/fig3_main.jpeg&quot;,
+  width = 8,
+  height = 4,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;fig3_&quot;))
+rm(list = ls(pattern = &quot;_fig3&quot;))
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used   (Mb)
+Ncells   5010584  267.6    8960118   478.6    8960118  478.6
+Vcells 807922493 6164.0 1373893779 10482.0 1144269366 8730.1</code></pre>
+<p><em><strong>Figure: H2O2 response sensitivity can be attenuated by
+the rate of increase.</strong> A) H2O2 input patterns; B) Line plot of
+gradient rate vs conc of EC50% (PLCy2).</em></p>
+</div>
 </div>
 <div id="supplementary-figs" class="section level2">
 <h2>Supplementary figs</h2>
+<div id="supp-to-main-fig-1" class="section level3">
+<h3>Supp to main fig 1</h3>
+<ul>
+<li><p>Gating strategy</p></li>
+<li><p>Ridge plots of other time points + concentrations</p></li>
+</ul>
+<pre class="r"><code># Load panels
+subfig1_panelA &lt;- image_read(&quot;output/figures/gating_figs/gating_DS095-1.png&quot;) %&gt;%
+  image_ggplot()
+subfig1_panelA</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig1_gating-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>subfig1_panelB &lt;- image_read(&quot;output/figures/gating_figs/debris_DS095-1.png&quot;) %&gt;%
+  image_ggplot()
+subfig1_panelB</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig1_gating-2.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>subfig1_panelC &lt;- image_read(&quot;output/figures/gating_figs/live_DS095-1.png&quot;) %&gt;%
+  image_ggplot()
+subfig1_panelC</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig1_gating-3.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>subfig1_panelD &lt;- image_read(&quot;output/figures/gating_figs/singlets_DS095-1.png&quot;) %&gt;%
+  image_ggplot()
+subfig1_panelD</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig1_gating-4.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used   (Mb)
+Ncells   4958027  264.8    8960118   478.6    8960118  478.6
+Vcells 811075092 6188.1 1373893779 10482.0 1144269366 8730.1</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+subfig1_BCD &lt;- plot_grid(subfig1_panelB, subfig1_panelC, subfig1_panelD, labels = panel_labels[c(2, 3, 4)], ncol = 3, rel_widths = c(1, 1, 1))
+subfig1 &lt;- plot_grid(subfig1_panelA, subfig1_BCD, ncol = 1, rel_heights = c(1, 1))
+
+subfig1</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig1_gating-5.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  subfig1,
+  filename = &quot;output/figures/subfig1_gating.pdf&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  subfig1,
+  filename = &quot;output/figures/subfig1_gating.jpeg&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;subfig1_&quot;))
+rm(list = ls(pattern = &quot;_subfig1&quot;))
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used   (Mb)
+Ncells   4984710  266.3    8960118   478.6    8960118  478.6
+Vcells 814649723 6215.3 1373893779 10482.0 1144269366 8730.1</code></pre>
+<p><em><strong>Figure: Gating strategy.</strong> 1 exemplary sample of
+experiment DS095.</em></p>
+<pre class="r"><code># c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;)
+
+times_subfig2 &lt;- c(&quot;0 min&quot;, &quot;0.5 min&quot;, &quot;1 min&quot;, &quot;2.5 min&quot;, &quot;5 min&quot;, &quot;10 min&quot;, &quot;25 min&quot;)
+conc_subfig2 &lt;- c(&quot;0 mM&quot;, &quot;0.25 mM&quot;, &quot;1 mM&quot;, &quot;2.5 mM&quot;, &quot;5 mM&quot;, &quot;10 mM&quot;, &quot;25 mM&quot;)
+
+# Panel A: CD79a
+data_subfig2A &lt;- data_DS095 %&gt;%
+  subset(protein == &quot;pCD79a (Y182)&quot;)
+
+subfig2_panelA &lt;- ggplot(data_subfig2A, aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_subfig2)),
+        fill = as.factor(H2O2_conc_mM)), 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.25) +
+  facet_wrap(vars(factor(H2O2_conc_mM, labels = conc_subfig2)), ncol = 7) +
+  scale_x_log10() +
+  scale_fill_manual(values = colors_blue9[2:8]) +
+  labs(x = &quot;Fluorescent intensity pCD79a (Y182)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+subfig2_panelA</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig2_ridge_step-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Panel B: SYK
+data_subfig2B &lt;- data_DS095 %&gt;%
+  subset(protein == &quot;pSYK (Y525/Y526)&quot;)
+
+subfig2_panelB &lt;- ggplot(data_subfig2B, aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_subfig2)), 
+        fill = as.factor(H2O2_conc_mM)), 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.25) +
+  facet_wrap(vars(factor(H2O2_conc_mM, labels = conc_subfig2)), ncol = 7) +
+  scale_x_log10() +
+  scale_fill_manual(values = colors_blue9[2:8]) +
+  labs(x = &quot;Fluorescent intensity pSYK (Y525/Y526)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+subfig2_panelB</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig2_ridge_step-2.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Panel A: PLCy2
+data_subfig2C &lt;- data_DS095 %&gt;%
+  subset(protein == &quot;pPLCy2 (Y759)&quot;)
+
+subfig2_panelC &lt;- ggplot(data_subfig2C, aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_subfig2)),
+        fill = as.factor(H2O2_conc_mM)), 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.25) +
+  facet_wrap(vars(factor(H2O2_conc_mM, labels = conc_subfig2)), ncol = 7) +
+  scale_x_log10() +
+  scale_fill_manual(values = colors_blue9[2:8]) +
+  labs(x = &quot;Fluorescent intensity pPLCy2 (Y759)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+subfig2_panelC</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig2_ridge_step-3.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>             used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5137483  274.4    8960118   478.6    8960118   478.6
+Vcells 1230821638 9390.5 1978728242 15096.5 1844129095 14069.6</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+subfig2 &lt;- plot_grid(subfig2_panelA, subfig2_panelB, subfig2_panelC, labels = panel_labels[1:3], ncol = 1, rel_heights = c(1, 1, 1))
+
+subfig2</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig2_ridge_step-4.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  subfig2,
+  filename = &quot;output/figures/subfig2_ridge_step.pdf&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  subfig2,
+  filename = &quot;output/figures/subfig2_ridge_step.jpeg&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;subfig2_&quot;))
+rm(list = ls(pattern = &quot;_subfig2&quot;))
+gc()</code></pre>
+<pre><code>             used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5304895  283.4    8960118   478.6    8960118   478.6
+Vcells 1232438971 9402.8 1979237008 15100.4 1979237008 15100.4</code></pre>
+<p><em><strong>Figure: Ridge plots of static step stimulations.</strong>
+3 replicates per condition combined. A) CD79a; B) SYK; C)
+PLCy2.</em></p>
+</div>
+<div id="supp-to-main-fig-2" class="section level3">
+<h3>Supp to main fig 2</h3>
+<ul>
+<li><p>Ridge plots of CD79a + SYK + PLCy2</p></li>
+<li><p>Line plots of CD79a + SYK</p></li>
+<li><p>Heatmap of experimental data</p></li>
+</ul>
+<pre class="r"><code># DS096: LinQuadGradient_HighConc
+data_DS096 &lt;- read_csv(&quot;output/annotated_data_tidy_DS096.csv&quot;) %&gt;%
+  mutate(sample = as.character(sample))
+
+times_subfig3 &lt;- c(&quot;0 min&quot;, &quot;2.5 min&quot;, &quot;5 min&quot;, &quot;7.5 min&quot;, &quot;10 min&quot;, &quot;12.5 min&quot;, &quot;15 min&quot;, &quot;17.5 min&quot;, &quot;20 min&quot;, &quot;22.5 min&quot;, &quot;30 min&quot;, &quot;35 min&quot;, &quot;37.5 min&quot; , &quot;37.8 min&quot;, &quot;43.3 min&quot;, &quot;45 min&quot;, &quot;47.6 min&quot;, &quot;47.62 min&quot;, &quot;51.3 min&quot;, &quot;54.5 min&quot;, &quot;57.4 min&quot;, &quot;60 min&quot;, &quot;75 min&quot;) #time_point
+inputs_subfig3 &lt;- c(&quot;H2O2 step (10 mM)&quot;, &quot;20 min gradient (10 mM)&quot;, &quot;60 min gradient (10 mM)&quot;, &quot;60 min quadratic gradient (10 mM)&quot;) # stim_description
+input_names_subfig3 &lt;- c(&quot;Step&quot;, &quot;20 min linear&quot;, &quot;60 min linear&quot;, &quot;60 min quadratic&quot;)
+
+# Panel A: CD79a
+data_subfig3A &lt;- data_DS096 %&gt;%
+  subset(protein == &quot;pCD79a (Y182)&quot; &amp; stim_description %in% inputs_subfig3)
+
+subfig3_panelA &lt;- ggplot(data_subfig3A, aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_subfig3)), # conc_at_time_mM # time_point # cumulative_exposure
+        fill = as.factor(conc_at_time_mM)), 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.5) +
+  facet_wrap(vars(factor(stim_description, levels = inputs_subfig3, labels = input_names_subfig3)), ncol = 4, scales = &quot;free_y&quot;) +
+  scale_x_log10() +
+  scale_fill_manual(values = colors_blue9) +
+  labs(x = &quot;Fluorescent intensity pCD79a (Y182)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+subfig3_panelA</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig3_ridge_gradient-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Panel B: SYK
+data_subfig3B &lt;- data_DS096 %&gt;%
+  subset(protein == &quot;pSYK (Y525/Y526)&quot; &amp; stim_description %in% inputs_subfig3)
+
+subfig3_panelB &lt;- ggplot(data_subfig3B, aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_subfig3)), # conc_at_time_mM # time_point # cumulative_exposure
+        fill = as.factor(conc_at_time_mM)), 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.5) +
+  facet_wrap(vars(factor(stim_description, levels = inputs_subfig3, labels = input_names_subfig3)), ncol = 4, scales = &quot;free_y&quot;) +
+  scale_x_log10() +
+  scale_fill_manual(values = colors_blue9) +
+  labs(x = &quot;Fluorescent intensity pSYK (Y525/Y526)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+subfig3_panelB</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig3_ridge_gradient-2.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Panel A: PLCy2
+data_subfig3C &lt;- data_DS096 %&gt;%
+  subset(protein == &quot;pPLCy2 (Y759)&quot; &amp; stim_description %in% inputs_subfig3)
+
+subfig3_panelC &lt;- ggplot(data_subfig3C, aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_subfig3)), # conc_at_time_mM # time_point # cumulative_exposure
+        fill = as.factor(conc_at_time_mM)), 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.5) +
+  facet_wrap(vars(factor(stim_description, levels = inputs_subfig3, labels = input_names_subfig3)), ncol = 4, scales = &quot;free_y&quot;) +
+  scale_x_log10() +
+  scale_fill_manual(values = colors_blue9) +
+  labs(x = &quot;Fluorescent intensity pPLCy2 (Y759)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+subfig3_panelC</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig3_ridge_gradient-3.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5149528   275.1    8960118   478.6    8960118   478.6
+Vcells 1500599295 11448.7 2375164409 18121.1 1979237008 15100.4</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+subfig3 &lt;- plot_grid(subfig3_panelA, subfig3_panelB, subfig3_panelC, labels = panel_labels[1:3], ncol = 1, rel_heights = c(1, 1, 1))
+
+subfig3</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig3_ridge_gradient-4.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  subfig3,
+  filename = &quot;output/figures/subfig3_ridge_gradient.pdf&quot;,
+  width = 6,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  subfig3,
+  filename = &quot;output/figures/subfig3_ridge_gradient.jpeg&quot;,
+  width = 6,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;subfig3_&quot;))
+rm(list = ls(pattern = &quot;_subfig3&quot;))
+gc()</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5294348   282.8    8960118   478.6    8960118   478.6
+Vcells 1501801883 11457.9 2375164409 18121.1 1979237008 15100.4</code></pre>
+<p><em><strong>Figure: Ridge plots of gradient experiment.</strong>
+Input profiles: H2O2 step, 20 min linear gradient, 60 min linear
+gradient, 60 min quadratic gradient. A) CD79a; B) SYK; C)
+PLCy2.</em></p>
+<pre class="r"><code># Panel A: CD79a
+medians_DS096_subfig4A &lt;- medians_DS096 %&gt;%
+  subset(protein == &quot;pCD79a (Y182)&quot; &amp; staining == &quot;yes&quot;)
+
+subfig4_A_time &lt;- ggplot(medians_DS096_subfig4A,
+       aes(
+         x = time_min,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1.25) +
+  geom_vline(xintercept = 20, size = 0.5, linetype = &quot;dashed&quot;) +
+  geom_vline(xintercept = 60, size = 0.5, linetype = &quot;dotdash&quot;) +
+  facet_wrap(vars(factor(protein, labels = &quot;Time&quot;))) + 
+  scale_x_continuous(
+    limits = c(0, 75),
+    breaks = c(0, 20, 60),
+  ) +
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;Time (min)\n &quot;, y = &quot;Percentage of cells ON&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+# subfig4_A_time
+
+subfig4_A_conc &lt;- ggplot(subset(medians_DS096_subfig4A, stim_profile == &quot;gradient&quot;),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1.25) +
+  geom_hline(yintercept = 50, size = 0.5, linetype = &quot;dashed&quot;) +
+  facet_wrap(vars(factor(protein, labels = &quot;Concentration&quot;))) + 
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;H2O2 concentration (mM)\n &quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+# subfig4_A_conc
+
+subfig4_A_exp &lt;- ggplot(subset(medians_DS096_subfig4A, stim_description != &quot;PBS step (0 mM)&quot;), 
+       aes(
+         x = cumulative_exposure,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1.25) +
+  facet_wrap(vars(factor(protein, labels = &quot;Total exposure&quot;))) + 
+  # scale_x_log10() + #limits = c(1e-1, 1.5e1)
+  scale_x_continuous(
+    trans = &quot;log1p&quot;, 
+    limits = c(0, 1000),
+    breaks = c(0, 1, 10, 100, 1000)) + 
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;Total exposure (log10)\n(AUC of conc vs time)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  # theme(legend.position = &quot;none&quot;) +
+  textsize_small
+# subfig4_A_exp
+
+# Panel B: SYK
+medians_DS096_subfig4B &lt;- medians_DS096 %&gt;%
+  subset(protein == &quot;pSYK (Y525/Y526)&quot; &amp; staining == &quot;yes&quot;)
+
+subfig4_B_time &lt;- ggplot(medians_DS096_subfig4B,
+       aes(
+         x = time_min,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1.25) +
+  geom_vline(xintercept = 20, size = 0.5, linetype = &quot;dashed&quot;) +
+  geom_vline(xintercept = 60, size = 0.5, linetype = &quot;dotdash&quot;) +
+  facet_wrap(vars(factor(protein, labels = &quot;Time&quot;))) + 
+  scale_x_continuous(
+    limits = c(0, 75),
+    breaks = c(0, 20, 60),
+  ) +
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;Time (min)\n &quot;, y = &quot;Percentage of cells ON&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+# subfig4_B_time
+
+subfig4_B_conc &lt;- ggplot(subset(medians_DS096_subfig4B, stim_profile == &quot;gradient&quot;),
+       aes(
+         x = conc_at_time_mM,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1.25) +
+  geom_hline(yintercept = 50, size = 0.5, linetype = &quot;dashed&quot;) +
+  facet_wrap(vars(factor(protein, labels = &quot;Concentration&quot;))) + 
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;H2O2 concentration (mM)\n &quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+# subfig4_B_conc
+
+subfig4_B_exp &lt;- ggplot(subset(medians_DS096_subfig4B, stim_description != &quot;PBS step (0 mM)&quot;), 
+       aes(
+         x = cumulative_exposure,
+         y = percent_on, 
+         group = stim_description,
+         color = stim_description,
+       )) +
+  geom_line(linewidth = 0.75) +
+  geom_point(size = 1.25) +
+  facet_wrap(vars(factor(protein, labels = &quot;Total exposure&quot;))) + 
+  # scale_x_log10() + #limits = c(1e-1, 1.5e1)
+  scale_x_continuous(
+    trans = &quot;log1p&quot;, 
+    limits = c(0, 1000),
+    breaks = c(0, 1, 10, 100, 1000)) + 
+  scale_color_manual(
+    values = colors_dark9[1:5],
+    breaks = profiles_long_DS096,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;Total exposure (log10)\n(AUC of conc vs time)&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  # theme(legend.position = &quot;none&quot;) +
+  textsize_small
+# subfig4_B_exp
+
+gc() # free up memory</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5025683   268.5    8960118   478.6    8960118   478.6
+Vcells 1499706341 11441.9 2375164409 18121.1 1979237008 15100.4</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+subfig4_A &lt;- plot_grid(subfig4_A_time, subfig4_A_conc, subfig4_A_exp, labels = c(panel_labels[1], &quot;&quot;, &quot;&quot;), ncol = 3, rel_widths = c(1, 1, 2))
+subfig4_B &lt;- plot_grid(subfig4_B_time, subfig4_B_conc, subfig4_B_exp, labels = c(panel_labels[2], &quot;&quot;, &quot;&quot;), ncol = 3, rel_widths = c(1, 1, 2))
+subfig4 &lt;- plot_grid(subfig4_A, subfig4_B, ncol = 1, rel_heights = c(1, 1, 1))
+
+subfig4</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig4_line_gradient-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  subfig4,
+  filename = &quot;output/figures/subfig4_line_gradient.pdf&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  subfig4,
+  filename = &quot;output/figures/subfig4_line_gradient.jpeg&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;subfig4_&quot;))
+rm(list = ls(pattern = &quot;_subfig4&quot;))
+gc()</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5160150   275.6    8960118   478.6    8960118   478.6
+Vcells 1500056963 11444.6 2375164409 18121.1 1979237008 15100.4</code></pre>
+<p><em><strong>Figure: Line plots of time/conc/exposure vs % ON for
+gradient experiment.</strong> Input profiles: H2O2 step, 20 min linear
+gradient, 60 min linear gradient, 60 min quadratic gradient. A) CD79a;
+B) SYK.</em></p>
+<pre class="r"><code>proteins_subfig5 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;)
+profiles_subfig5 &lt;- c(&quot;20 min gradient (10 mM)&quot;, &quot;60 min gradient (10 mM)&quot;, &quot;60 min quadratic gradient (10 mM)&quot;)
+profiles_subfig5_names &lt;- c(&quot;20 min&quot;, &quot;60 min&quot;, &quot;60 min quad&quot;)
+
+# Experimental data
+medians_DS096_subfig5 &lt;- medians_DS096 %&gt;%
+  subset(protein %in% proteins_subfig5 &amp; stim_description %in% profiles_subfig5 &amp; staining == &quot;yes&quot;) %&gt;%
+  add_row(wellID = &quot;B06&quot;, protein = &quot;pCD79a (Y182)&quot;, sample = &quot;18&quot;, stim_description = &quot;60 min gradient (10 mM)&quot;, stim_descrip_short = &quot;60 min to 10 mM&quot;, time_min = 52.5, conc_at_time_mM = 8.75, cumulative_exposure = 229.6) %&gt;%
+  add_row(wellID = &quot;B06&quot;, protein = &quot;pPLCy2 (Y759)&quot;, sample = &quot;18&quot;, stim_description = &quot;60 min gradient (10 mM)&quot;, stim_descrip_short = &quot;60 min to 10 mM&quot;, time_min = 52.5, conc_at_time_mM = 8.75, cumulative_exposure = 229.6) %&gt;%
+  add_row(wellID = &quot;B06&quot;, protein = &quot;pSYK (Y525/Y526)&quot;, sample = &quot;18&quot;, stim_description = &quot;60 min gradient (10 mM)&quot;, stim_descrip_short = &quot;60 min to 10 mM&quot;, time_min = 52.5, conc_at_time_mM = 8.75, cumulative_exposure = 229.6)
+
+subfig5 &lt;- ggplot(medians_DS096_subfig5, 
+                           aes(x = as.factor(conc_at_time_mM), 
+                               y = factor(stim_description, levels = rev(profiles_subfig5), labels = rev(profiles_subfig5_names))
+                               )) + 
+  geom_tile(aes(fill = percent_on)) + 
+  facet_wrap(vars(factor(protein, levels = proteins_subfig5)), ncol = 1) +
+  scale_x_discrete(expand = c(0, 0), breaks = c(0, 2.5, 5, 7.5, 10), labels = c(0, 2.5, 5, 7.5, 10)) +
+  scale_y_discrete(expand = c(0,0)) +
+  scale_fill_gradient(
+    low = &quot;#c6dbef&quot;,
+    high = &quot;#084594&quot;
+  ) +
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = &quot;H2O2 input profile&quot;) +
+  theme_bw() + 
+  guides(fill = guide_colorbar(title = &quot;Percent ON&quot;)) + 
+  theme(legend.position = &quot;top&quot;, legend.direction = &quot;horizontal&quot;) +
+  textsize_small
+
+subfig5</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/sub_fig5_heatmap-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5081491   271.4    8960118   478.6    8960118   478.6
+Vcells 1499841729 11442.9 2375164409 18121.1 1979237008 15100.4</code></pre>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  subfig5,
+  filename = &quot;output/figures/subfig5_heatmap.pdf&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  subfig5,
+  filename = &quot;output/figures/subfig5_heatmap.jpeg&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;subfig5_&quot;))
+rm(list = ls(pattern = &quot;_subfig5&quot;))
+gc()</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5081690   271.4    8960118   478.6    8960118   478.6
+Vcells 1499841895 11442.9 2375164409 18121.1 1979237008 15100.4</code></pre>
+<p><em><strong>Figure: Heatmap of signaling response strength upon
+different input patterns for CD79a, SYK and PLCy2.</strong> Input
+profiles: H2O2 step, 20 min linear gradient, 60 min linear gradient, 60
+min quadratic gradient. A) CD79a; B) SYK; C) PLCy2.</em></p>
+<pre class="r"><code>subfig6 &lt;- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = &quot;Line plots of simulated gradient data&quot;) + 
+  theme_bw() +
+  theme(axis.text = element_text(color = &quot;white&quot;), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+
+subfig6</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig6_line_model-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># subfig6_png &lt;- image_read(&quot;output/figures/non_R_figs/sth.png&quot;) %&gt;%
+#   image_ggplot()
+# subfig6_png
+
+gc() # free up memory</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5065428   270.6    8960118   478.6    8960118   478.6
+Vcells 1499794727 11442.6 2375164409 18121.1 1979237008 15100.4</code></pre>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  subfig6,
+  filename = &quot;output/figures/subfig6_line_model.pdf&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  subfig6,
+  filename = &quot;output/figures/subfig6_line_model.jpeg&quot;,
+  width = 8,
+  height = 5,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;subfig6_&quot;))
+rm(list = ls(pattern = &quot;_subfig6&quot;))
+gc()</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5065550   270.6    8960118   478.6    8960118   478.6
+Vcells 1499794843 11442.6 2375164409 18121.1 1979237008 15100.4</code></pre>
+<p><em><strong>Figure: Line plots of simulated gradient data.</strong>
+Simulated input profiles: H2O2 step, 20 min linear gradient, 60 min
+linear gradient, 60 min quadratic gradient. A) CD79a; B) SYK; C)
+PLCy2.</em></p>
+</div>
+<div id="supp-to-main-fig-3" class="section level3">
+<h3>Supp to main fig 3</h3>
+<ul>
+<li><p>Ridge plots of CD79a + SYK + PLCy2</p></li>
+<li><p>% ON vs conc line plots of CD79a + SYK + PLCy2</p></li>
+</ul>
+<pre class="r"><code># Load data
+# Bas013: LinGradient_CumExp
+data_Bas013 &lt;- read_csv(&quot;output/annotated_data_tidy_Bas013.csv&quot;)
+
+proteins_subfig7 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;)
+times_subfig7 &lt;- data_Bas013 %&gt;%
+  arrange(time_min) %&gt;%
+  pull(time_point) %&gt;%
+  unique()
+inputs_subfig7 &lt;- c(&quot;step to 0 mM&quot;, &quot;step to 5 mM&quot;, &quot;20 min to 5 mM&quot;, &quot;60 min to 5 mM&quot;, &quot;90 min to 5 mM&quot;)
+# inputs_names_subfig7 &lt;- c(&quot;Step (0 mM)&quot;, &quot;Step (5 mM)&quot;, &quot;20 min (5 mM)&quot;, &quot;60 min (5 mM)&quot;, &quot;90 min (5 mM)&quot;) 
+
+# Panel A: Ridge plots of CD79a + SYK + PLCy2
+subfig7_panelA &lt;- ggplot(subset(data_Bas013, protein != &quot;cCaspase 3 + cPARP&quot; &amp; staining == &quot;yes&quot;), 
+                         aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_subfig7)), # conc_at_time_mM # time_point # cumulative_exposure
+        fill = conc_at_time_mM), 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.5) +
+  # facet_grid(vars(factor(protein, levels = proteins_subfig7)), vars(factor(stim_description, levels = inputs_subfig7)), switch = &quot;y&quot;) + 
+  # facet_wrap(vars(factor(protein, levels = proteins_subfig7), factor(stim_description, levels = inputs_subfig7)), ncol = 5, scales = &quot;free_y&quot;) + #, labels = inputs_names_subfig7 
+  ggh4x::facet_grid2(vars(factor(protein, levels = proteins_subfig7)), vars(factor(stim_descrip_short, levels = inputs_subfig7)), scales = &quot;free&quot;, independent = &quot;all&quot;) + 
+  scale_x_log10() +
+  scale_fill_gradient(low = &quot;#deebf7&quot;, high = &quot;#08306b&quot;) + 
+  labs(x = &quot;Fluorescent intensity&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+subfig7_panelA</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig7_gradient_Bas013-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Panel B: Line plots of % ON vs conc of CD79a + SYK + PLCy2
+subfig7_panelB &lt;- ggplot(subset(combi_conc_EC50, expID == &quot;Bas013&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot;),
+       aes(
+         x = conc_at_time_mM_approx,
+         y = percent_on, 
+         group = stim_descrip_short,
+         color = stim_descrip_short,
+       )) +
+  geom_hline(yintercept = 50, size = 0.5, linetype = &quot;dashed&quot;) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_subfig7)), ncol = 3) + 
+  # scale_x_log10(limits = c(1e-1, 1.5e1)) +
+  scale_color_manual(
+    values = colors_dark9,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = &quot;Percentage of cells ON&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;) +
+  textsize_small
+
+subfig7_panelB</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig7_gradient_Bas013-2.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5358080   286.2    8960118   478.6    8960118   478.6
+Vcells 1799311846 13727.7 2850447166 21747.2 2375305972 18122.2</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+subfig7 &lt;- plot_grid(subfig7_panelA, subfig7_panelB, labels = panel_labels[1:2], ncol = 1, rel_heights = c(2, 1))
+
+subfig7</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig7_gradient_Bas013-3.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  subfig7,
+  filename = &quot;output/figures/subfig7_gradient_Bas013.pdf&quot;,
+  width = 8,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  subfig7,
+  filename = &quot;output/figures/subfig7_gradient_Bas013.jpeg&quot;,
+  width = 8,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;subfig7_&quot;))
+rm(list = ls(pattern = &quot;_subfig7&quot;))
+gc()</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5509421   294.3    8960118   478.6    8960118   478.6
+Vcells 1800197154 13734.5 2850447166 21747.2 2850391598 21746.8</code></pre>
+<p><em><strong>Figure: Gradient data used for rate vs EC50 plot
+(Bas013)</strong> A) Ridge plots; B) Line plots of conc vs %
+ON.</em></p>
+<pre class="r"><code># Load data
+# DS085: LinGradient_Conc
+data_DS085 &lt;- read_csv(&quot;output/annotated_data_tidy_DS085.csv&quot;)
+
+proteins_subfig8 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;)
+times_subfig8 &lt;- data_DS085 %&gt;%
+  arrange(time_min) %&gt;%
+  pull(time_point) %&gt;%
+  unique()
+inputs_subfig8 &lt;- c(&quot;step to 0 mM&quot;, &quot;step to 5 mM&quot;, &quot;20 min to 5 mM&quot;, &quot;60 min to 5 mM&quot;)
+
+# Panel A: Ridge plots of CD79a + SYK + PLCy2
+subfig8_panelA &lt;- ggplot(subset(data_DS085, protein %in% proteins_subfig8 &amp; staining == &quot;yes&quot;), 
+                         aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_subfig8)), # conc_at_time_mM # time_point # cumulative_exposure
+        fill = conc_at_time_mM), 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.5) +
+  # facet_grid(vars(factor(protein, levels = proteins_subfig7)), vars(factor(stim_description, levels = inputs_subfig7)), switch = &quot;y&quot;) + 
+  # facet_wrap(vars(factor(protein, levels = proteins_subfig7), factor(stim_description, levels = inputs_subfig7)), ncol = 5, scales = &quot;free_y&quot;) + #, labels = inputs_names_subfig7 
+  ggh4x::facet_grid2(vars(factor(protein, levels = proteins_subfig8)), vars(factor(stim_descrip_short, levels = inputs_subfig8)), scales = &quot;free&quot;, independent = &quot;all&quot;) + 
+  scale_x_log10() +
+  scale_fill_gradient(low = &quot;#deebf7&quot;, high = &quot;#08306b&quot;) + 
+  labs(x = &quot;Fluorescent intensity&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+subfig8_panelA</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig8_gradient_DS085-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Panel B: Line plots of % ON vs conc of CD79a + SYK + PLCy2
+subfig8_panelB &lt;- ggplot(subset(combi_conc_EC50, expID == &quot;DS085&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot;),
+       aes(
+         x = conc_at_time_mM_approx,
+         y = percent_on, 
+         group = stim_descrip_short,
+         color = stim_descrip_short,
+       )) +
+  geom_hline(yintercept = 50, size = 0.5, linetype = &quot;dashed&quot;) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_subfig8)), ncol = 3) + 
+  # scale_x_log10(limits = c(1e-1, 1.5e1)) +
+  scale_color_manual(
+    values = colors_dark9,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = &quot;Percentage of cells ON&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;) +
+  textsize_small
+
+subfig8_panelB</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig8_gradient_DS085-2.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5374002   287.1    8960118   478.6    8960118   478.6
+Vcells 2316868662 17676.4 3420616599 26097.3 2978635338 22725.2</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+subfig8 &lt;- plot_grid(subfig8_panelA, subfig8_panelB, labels = panel_labels[1:2], ncol = 1, rel_heights = c(2, 1))
+
+subfig8</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig8_gradient_DS085-3.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  subfig8,
+  filename = &quot;output/figures/subfig8_gradient_DS085.pdf&quot;,
+  width = 8,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  subfig8,
+  filename = &quot;output/figures/subfig8_gradient_DS085.jpeg&quot;,
+  width = 8,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;subfig8_&quot;))
+rm(list = ls(pattern = &quot;_subfig8&quot;))
+gc()</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5510592   294.3    8960118   478.6    8960118   478.6
+Vcells 2317896806 17684.2 3420616599 26097.3 3419707403 26090.3</code></pre>
+<p><em><strong>Figure: Gradient data used for rate vs EC50 plot
+(DS085)</strong> A) Ridge plots; B) Line plots of conc vs % ON.</em></p>
+<pre class="r"><code># Load data
+# DS097: LinGradient_LowConc
+data_DS097 &lt;- read_csv(&quot;output/annotated_data_tidy_DS097.csv&quot;)
+
+proteins_subfig9 &lt;- c(&quot;pCD79a (Y182)&quot;, &quot;pSYK (Y525/Y526)&quot;, &quot;pPLCy2 (Y759)&quot;)
+times_subfig9 &lt;- data_DS097 %&gt;%
+  arrange(time_min) %&gt;%
+  pull(time_point) %&gt;%
+  unique()
+inputs_subfig9 &lt;- c(&quot;step to 2.5 mM&quot;, &quot;step to 5 mM&quot;, &quot;20 min to 5 mM&quot;, &quot;60 min to 2.5 mM&quot;, &quot;60 min to 5 mM&quot;)
+
+# Panel A: Ridge plots of CD79a + SYK + PLCy2
+subfig9_panelA &lt;- ggplot(subset(data_DS097, protein %in% proteins_subfig9 &amp; staining == &quot;yes&quot;), 
+                         aes(x = fluorescence)) +
+  geom_density_ridges(
+    aes(y = factor(time_point, levels = rev(times_subfig9)), # conc_at_time_mM # time_point # cumulative_exposure
+        fill = conc_at_time_mM), 
+    scale = 1.5, 
+    alpha = 0.8
+  ) +
+  geom_vline(aes(xintercept = zero_quant97.5), linewidth = 0.5) +
+  # facet_grid(vars(factor(protein, levels = proteins_subfig7)), vars(factor(stim_description, levels = inputs_subfig7)), switch = &quot;y&quot;) + 
+  # facet_wrap(vars(factor(protein, levels = proteins_subfig7), factor(stim_description, levels = inputs_subfig7)), ncol = 5, scales = &quot;free_y&quot;) + #, labels = inputs_names_subfig7 
+  ggh4x::facet_grid2(vars(factor(protein, levels = proteins_subfig9)), vars(factor(stim_descrip_short, levels = inputs_subfig9)), scales = &quot;free&quot;, independent = &quot;all&quot;) + 
+  scale_x_log10() +
+  scale_fill_gradient(low = &quot;#deebf7&quot;, high = &quot;#08306b&quot;) + 
+  labs(x = &quot;Fluorescent intensity&quot;, y = &quot;&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) +
+  textsize_small
+
+subfig9_panelA</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig9_gradient_DS097-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Panel B: Line plots of % ON vs conc of CD79a + SYK + PLCy2
+subfig9_panelB &lt;- ggplot(subset(combi_conc_EC50, expID == &quot;DS097&quot; &amp; protein != &quot;cCaspase 3 + cPARP&quot;),
+       aes(
+         x = conc_at_time_mM_approx,
+         y = percent_on, 
+         group = stim_descrip_short,
+         color = stim_descrip_short,
+       )) +
+  geom_hline(yintercept = 50, size = 0.5, linetype = &quot;dashed&quot;) +
+  geom_line(linewidth = 1.25) +
+  geom_point(size = 2) +
+  facet_wrap(vars(factor(protein, levels = proteins_subfig9)), ncol = 3) + 
+  # scale_x_log10(limits = c(1e-1, 1.5e1)) +
+  scale_color_manual(
+    values = colors_dark9,
+    name = &quot;&quot;,
+  ) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = &quot;H2O2 concentration (mM)&quot;, y = &quot;Percentage of cells ON&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;) +
+  textsize_small
+
+subfig9_panelB</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig9_gradient_DS097-2.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gc() # free up memory</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5437322   290.4    8960118   478.6    8960118   478.6
+Vcells 2650793204 20224.0 4104819918 31317.3 3419707403 26090.3</code></pre>
+<pre class="r"><code># Combine all panels of the figure
+subfig9 &lt;- plot_grid(subfig9_panelA, subfig9_panelB, labels = panel_labels[1:2], ncol = 1, rel_heights = c(2, 1))
+
+subfig9</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/subfig9_gradient_DS097-3.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as pdf and jpeg
+ggsave(
+  subfig9,
+  filename = &quot;output/figures/subfig9_gradient_DS097.pdf&quot;,
+  width = 8,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+ggsave(
+  subfig9,
+  filename = &quot;output/figures/subfig9_gradient_DS097.jpeg&quot;,
+  width = 8,
+  height = 6,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;subfig9_&quot;))
+rm(list = ls(pattern = &quot;_subfig9&quot;))
+gc()</code></pre>
+<pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    5589311   298.6    8960118   478.6    8960118   478.6
+Vcells 2651702787 20230.9 4104819918 31317.3 4104051441 31311.5</code></pre>
+<p><em><strong>Figure: Gradient data used for rate vs EC50 plot
+(DS097)</strong> A) Ridge plots; B) Line plots of conc vs % ON.</em></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -765,6 +2412,71 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.2 (2022-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.utf8  LC_CTYPE=English_Netherlands.utf8   
+[3] LC_MONETARY=English_Netherlands.utf8 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.utf8    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] ggh4x_0.2.4          magick_2.7.4         greekLetters_0.0.7  
+ [4] kableExtra_1.3.4     ggrepel_0.9.3        scales_1.2.1        
+ [7] ggpubr_0.6.0         cowplot_1.1.1        ggthemes_4.2.4      
+[10] RColorBrewer_1.1-3   viridis_0.6.2        viridisLite_0.4.1   
+[13] ggridges_0.5.4       platetools_0.1.5     forecast_8.21       
+[16] readxl_1.4.2         zoo_1.8-11           lubridate_1.9.2     
+[19] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.0         
+[22] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
+[25] tibble_3.1.8         tidyverse_2.0.0      ggcyto_1.26.4       
+[28] flowWorkspace_4.10.1 ncdfFlow_2.44.0      BH_1.81.0-1         
+[31] ggplot2_3.4.2        flowCore_2.10.0      workflowr_1.7.0     
+
+loaded via a namespace (and not attached):
+  [1] backports_1.4.1     systemfonts_1.0.4   plyr_1.8.8         
+  [4] splines_4.2.2       digest_0.6.31       htmltools_0.5.4    
+  [7] fansi_1.0.4         magrittr_2.0.3      tzdb_0.3.0         
+ [10] matrixStats_0.63.0  vroom_1.6.1         xts_0.13.1         
+ [13] svglite_2.1.1       timechange_0.2.0    cytolib_2.10.1     
+ [16] tseries_0.10-54     colorspace_2.1-0    rvest_1.0.3        
+ [19] textshaping_0.3.6   xfun_0.37           callr_3.7.3        
+ [22] crayon_1.5.2        jsonlite_1.8.4      hexbin_1.28.2      
+ [25] graph_1.76.0        glue_1.6.2          gtable_0.3.1       
+ [28] zlibbioc_1.44.0     webshot_0.5.4       car_3.1-1          
+ [31] Rgraphviz_2.42.0    BiocGenerics_0.44.0 quantmod_0.4.22    
+ [34] abind_1.4-5         DBI_1.1.3           rstatix_0.7.2      
+ [37] Rcpp_1.0.10         bit_4.0.5           stats4_4.2.2       
+ [40] httr_1.4.4          ellipsis_0.3.2      pkgconfig_2.0.3    
+ [43] XML_3.99-0.13       farver_2.1.1        nnet_7.3-18        
+ [46] sass_0.4.5          utf8_1.2.3          tidyselect_1.2.0   
+ [49] labeling_0.4.2      rlang_1.1.1         later_1.3.0        
+ [52] munsell_0.5.0       cellranger_1.1.0    tools_4.2.2        
+ [55] cachem_1.0.6        cli_3.6.0           generics_0.1.3     
+ [58] broom_1.0.3         evaluate_0.20       fastmap_1.1.0      
+ [61] ragg_1.2.5          yaml_2.3.7          processx_3.8.0     
+ [64] knitr_1.42          bit64_4.0.5         fs_1.6.1           
+ [67] nlme_3.1-160        whisker_0.4.1       xml2_1.3.3         
+ [70] compiler_4.2.2      rstudioapi_0.14     curl_5.0.0         
+ [73] ggsignif_0.6.4      bslib_0.4.2         stringi_1.7.12     
+ [76] highr_0.10          ps_1.7.2            lattice_0.20-45    
+ [79] Matrix_1.5-3        urca_1.3-3          vctrs_0.5.2        
+ [82] pillar_1.8.1        lifecycle_1.0.3     lmtest_0.9-40      
+ [85] jquerylib_0.1.4     data.table_1.14.8   httpuv_1.6.9       
+ [88] R6_2.5.1            promises_1.2.0.1    gridExtra_2.3      
+ [91] RProtoBufLib_2.10.0 assertthat_0.2.1    rprojroot_2.0.3    
+ [94] withr_2.5.0         fracdiff_1.5-2      S4Vectors_0.36.1   
+ [97] mgcv_1.8-41         parallel_4.2.2      hms_1.1.2          
+[100] quadprog_1.5-8      grid_4.2.2          timeDate_4022.108  
+[103] rmarkdown_2.20      carData_3.0-5       git2r_0.31.0       
+[106] TTR_0.24.3          getPass_0.2-2       Biobase_2.58.0     </code></pre>
+</div>
 </div>
 </div>
 

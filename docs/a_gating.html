@@ -352,7 +352,7 @@ div.tocify {
   <a href="b_annotation.html">Annotation</a>
 </li>
 <li>
-  <a href="e_paper_figs.html">Paper figs</a>
+  <a href="e_paper_figs.html">Manuscript figs</a>
 </li>
 <li>
   <a href="c_gradients.html">Gradients</a>
@@ -417,7 +417,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-05-08
+<strong>Last updated:</strong> 2023-06-14
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -549,13 +549,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong6521f7c">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong23ac408">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 6521f7c
+aria-hidden="true"></span> <strong>Repository version:</strong> 23ac408
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong6521f7c"
+<div id="strongRepositoryversionstrong23ac408"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -564,7 +564,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 6521f7c.
+The results in this page were generated with repository version 23ac408.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -581,6 +581,7 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
 
 Untracked files:
     Untracked:  code/packages_FACS.R
@@ -605,6 +606,7 @@ Untracked files:
     Untracked:  output/annotated_medians_tidy_DS096.csv
     Untracked:  output/annotated_medians_tidy_DS097.csv
     Untracked:  output/annotated_medians_tidy_DS098.csv
+    Untracked:  output/figures/
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
     Untracked:  output/gated_counts_DS085.csv
@@ -666,6 +668,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+23ac408
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+Supplementary figs v1
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+9695f8d
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-05-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1378,7 +1414,11 @@ if(file.exists(paste0(&quot;output/&quot;, &quot;gated_data_DS085&quot;))) {
 # Save dataset
 save_gs(gs_DS085, path = paste0(&quot;output/&quot;, &quot;gated_data_DS085&quot;))
 
-# Gating strategy
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells  3682554 196.7    6878500  367.4   6878500  367.4
+Vcells 76233214 581.7  164594392 1255.8 164594392 1255.8</code></pre>
+<pre class="r"><code># Gating strategy
 plot(gs_DS085, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS085-1.png" width="672" style="display: block; margin: auto;" />
 <em><strong>Figure:</strong> Gating strategy.</em></p>
@@ -1720,7 +1760,11 @@ if(file.exists(paste0(&quot;output/&quot;, &quot;gated_data_Bas013&quot;))) {
 # Save dataset
 save_gs(gs_Bas013, path = paste0(&quot;output/&quot;, &quot;gated_data_Bas013&quot;))
 
-# Gating strategy
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells  3825652 204.4    6878500  367.4   6878500  367.4
+Vcells 96856677 739.0  165145223 1260.0 165145223 1260.0</code></pre>
+<pre class="r"><code># Gating strategy
 plot(gs_Bas013, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_Bas013-1.png" width="672" style="display: block; margin: auto;" />
 <em><strong>Figure:</strong> Gating strategy.</em></p>
@@ -2436,7 +2480,11 @@ if(file.exists(paste0(&quot;output/&quot;, &quot;gated_data_DS095&quot;))) {
 # Save dataset
 save_gs(gs_DS095, path = paste0(&quot;output/&quot;, &quot;gated_data_DS095&quot;))
 
-# Gating strategy
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells   3880351  207.3    6878500  367.4   6878500  367.4
+Vcells 207566065 1583.7  411530223 3139.8 411527691 3139.8</code></pre>
+<pre class="r"><code># Gating strategy
 plot(gs_DS095, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS095-1.png" width="672" style="display: block; margin: auto;" />
 <em><strong>Figure:</strong> Gating strategy.</em></p>
@@ -2786,7 +2834,11 @@ if(file.exists(paste0(&quot;output/&quot;, &quot;gated_data_DS096&quot;))) {
 # Save dataset
 save_gs(gs_DS096, path = paste0(&quot;output/&quot;, &quot;gated_data_DS096&quot;))
 
-# Gating strategy
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells   3892421  207.9    6879030  367.4   6879030  367.4
+Vcells 217471160 1659.2  411530223 3139.8 411527691 3139.8</code></pre>
+<pre class="r"><code># Gating strategy
 plot(gs_DS096, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS096-1.png" width="672" style="display: block; margin: auto;" />
 <em><strong>Figure:</strong> Gating strategy.</em></p>
@@ -3118,7 +3170,11 @@ if(file.exists(paste0(&quot;output/&quot;, &quot;gated_data_DS097&quot;))) {
 # Save dataset
 save_gs(gs_DS097, path = paste0(&quot;output/&quot;, &quot;gated_data_DS097&quot;))
 
-# Gating strategy
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells   3907758  208.7    6881702  367.6   6881702  367.6
+Vcells 247535732 1888.6  411530223 3139.8 411529297 3139.8</code></pre>
+<pre class="r"><code># Gating strategy
 plot(gs_DS097, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS097-1.png" width="672" style="display: block; margin: auto;" />
 <em><strong>Figure:</strong> Gating strategy.</em></p>
@@ -3450,7 +3506,11 @@ if(file.exists(paste0(&quot;output/&quot;, &quot;gated_data_DS098&quot;))) {
 # Save dataset
 save_gs(gs_DS098, path = paste0(&quot;output/&quot;, &quot;gated_data_DS098&quot;))
 
-# Gating strategy
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells   3916198  209.2    6881702  367.6   6881702  367.6
+Vcells 258656118 1973.4  411875329 3142.4 411875329 3142.4</code></pre>
+<pre class="r"><code># Gating strategy
 plot(gs_DS098, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS098-1.png" width="672" style="display: block; margin: auto;" />
 <em><strong>Figure:</strong> Gating strategy.</em></p>
@@ -3525,48 +3585,54 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] greekLetters_0.0.7   kableExtra_1.3.4     ggrepel_0.9.3       
- [4] scales_1.2.1         ggpubr_0.6.0         cowplot_1.1.1       
- [7] ggthemes_4.2.4       RColorBrewer_1.1-3   viridis_0.6.2       
-[10] viridisLite_0.4.1    ggridges_0.5.4       platetools_0.1.5    
-[13] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
-[16] dplyr_1.1.0          purrr_1.0.1          readr_2.1.4         
-[19] tidyr_1.3.0          tibble_3.1.8         tidyverse_2.0.0     
-[22] ggcyto_1.26.4        flowWorkspace_4.10.1 ncdfFlow_2.44.0     
-[25] BH_1.81.0-1          ggplot2_3.4.1        flowCore_2.10.0     
-[28] workflowr_1.7.0     
+ [1] ggh4x_0.2.4          magick_2.7.4         greekLetters_0.0.7  
+ [4] kableExtra_1.3.4     ggrepel_0.9.3        scales_1.2.1        
+ [7] ggpubr_0.6.0         cowplot_1.1.1        ggthemes_4.2.4      
+[10] RColorBrewer_1.1-3   viridis_0.6.2        viridisLite_0.4.1   
+[13] ggridges_0.5.4       platetools_0.1.5     forecast_8.21       
+[16] readxl_1.4.2         zoo_1.8-11           lubridate_1.9.2     
+[19] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.0         
+[22] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
+[25] tibble_3.1.8         tidyverse_2.0.0      ggcyto_1.26.4       
+[28] flowWorkspace_4.10.1 ncdfFlow_2.44.0      BH_1.81.0-1         
+[31] ggplot2_3.4.2        flowCore_2.10.0      workflowr_1.7.0     
 
 loaded via a namespace (and not attached):
- [1] colorspace_2.1-0    ggsignif_0.6.4      ellipsis_0.3.2     
- [4] rprojroot_2.0.3     cytolib_2.10.1      fs_1.6.1           
- [7] rstudioapi_0.14     farver_2.1.1        hexbin_1.28.2      
-[10] bit64_4.0.5         fansi_1.0.4         xml2_1.3.3         
-[13] cachem_1.0.6        knitr_1.42          jsonlite_1.8.4     
-[16] broom_1.0.3         graph_1.76.0        compiler_4.2.2     
-[19] httr_1.4.4          backports_1.4.1     assertthat_0.2.1   
-[22] fastmap_1.1.0       cli_3.6.0           later_1.3.0        
-[25] htmltools_0.5.4     tools_4.2.2         gtable_0.3.1       
-[28] glue_1.6.2          Rcpp_1.0.10         carData_3.0-5      
-[31] Biobase_2.58.0      jquerylib_0.1.4     vctrs_0.5.2        
-[34] svglite_2.1.1       xfun_0.37           ps_1.7.2           
-[37] rvest_1.0.3         timechange_0.2.0    lifecycle_1.0.3    
-[40] rstatix_0.7.2       XML_3.99-0.13       getPass_0.2-2      
-[43] zlibbioc_1.44.0     vroom_1.6.1         RProtoBufLib_2.10.0
-[46] hms_1.1.2           promises_1.2.0.1    parallel_4.2.2     
-[49] yaml_2.3.7          gridExtra_2.3       sass_0.4.5         
-[52] stringi_1.7.12      highr_0.10          S4Vectors_0.36.1   
-[55] BiocGenerics_0.44.0 rlang_1.0.6         pkgconfig_2.0.3    
-[58] systemfonts_1.0.4   matrixStats_0.63.0  evaluate_0.20      
-[61] lattice_0.20-45     labeling_0.4.2      bit_4.0.5          
-[64] processx_3.8.0      tidyselect_1.2.0    plyr_1.8.8         
-[67] magrittr_2.0.3      R6_2.5.1            generics_0.1.3     
-[70] DBI_1.1.3           pillar_1.8.1        whisker_0.4.1      
-[73] withr_2.5.0         abind_1.4-5         crayon_1.5.2       
-[76] car_3.1-1           utf8_1.2.3          tzdb_0.3.0         
-[79] rmarkdown_2.20      grid_4.2.2          data.table_1.14.8  
-[82] callr_3.7.3         git2r_0.31.0        Rgraphviz_2.42.0   
-[85] digest_0.6.31       webshot_0.5.4       httpuv_1.6.9       
-[88] stats4_4.2.2        munsell_0.5.0       bslib_0.4.2        </code></pre>
+  [1] backports_1.4.1     systemfonts_1.0.4   plyr_1.8.8         
+  [4] digest_0.6.31       htmltools_0.5.4     fansi_1.0.4        
+  [7] magrittr_2.0.3      tzdb_0.3.0          matrixStats_0.63.0 
+ [10] vroom_1.6.1         xts_0.13.1          svglite_2.1.1      
+ [13] timechange_0.2.0    cytolib_2.10.1      tseries_0.10-54    
+ [16] colorspace_2.1-0    rvest_1.0.3         xfun_0.37          
+ [19] callr_3.7.3         crayon_1.5.2        jsonlite_1.8.4     
+ [22] hexbin_1.28.2       graph_1.76.0        glue_1.6.2         
+ [25] gtable_0.3.1        zlibbioc_1.44.0     webshot_0.5.4      
+ [28] car_3.1-1           Rgraphviz_2.42.0    BiocGenerics_0.44.0
+ [31] quantmod_0.4.22     abind_1.4-5         DBI_1.1.3          
+ [34] rstatix_0.7.2       Rcpp_1.0.10         bit_4.0.5          
+ [37] stats4_4.2.2        httr_1.4.4          ellipsis_0.3.2     
+ [40] pkgconfig_2.0.3     XML_3.99-0.13       farver_2.1.1       
+ [43] nnet_7.3-18         sass_0.4.5          utf8_1.2.3         
+ [46] tidyselect_1.2.0    labeling_0.4.2      rlang_1.1.1        
+ [49] later_1.3.0         munsell_0.5.0       cellranger_1.1.0   
+ [52] tools_4.2.2         cachem_1.0.6        cli_3.6.0          
+ [55] generics_0.1.3      broom_1.0.3         evaluate_0.20      
+ [58] fastmap_1.1.0       yaml_2.3.7          processx_3.8.0     
+ [61] knitr_1.42          bit64_4.0.5         fs_1.6.1           
+ [64] nlme_3.1-160        whisker_0.4.1       xml2_1.3.3         
+ [67] compiler_4.2.2      rstudioapi_0.14     curl_5.0.0         
+ [70] ggsignif_0.6.4      bslib_0.4.2         stringi_1.7.12     
+ [73] highr_0.10          ps_1.7.2            lattice_0.20-45    
+ [76] urca_1.3-3          vctrs_0.5.2         pillar_1.8.1       
+ [79] lifecycle_1.0.3     lmtest_0.9-40       jquerylib_0.1.4    
+ [82] data.table_1.14.8   httpuv_1.6.9        R6_2.5.1           
+ [85] promises_1.2.0.1    gridExtra_2.3       RProtoBufLib_2.10.0
+ [88] assertthat_0.2.1    rprojroot_2.0.3     withr_2.5.0        
+ [91] fracdiff_1.5-2      S4Vectors_0.36.1    parallel_4.2.2     
+ [94] hms_1.1.2           quadprog_1.5-8      grid_4.2.2         
+ [97] timeDate_4022.108   rmarkdown_2.20      carData_3.0-5      
+[100] git2r_0.31.0        TTR_0.24.3          getPass_0.2-2      
+[103] Biobase_2.58.0     </code></pre>
 </div>
 </div>
 </div>
