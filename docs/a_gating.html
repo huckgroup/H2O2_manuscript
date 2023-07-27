@@ -417,7 +417,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-14
+<strong>Last updated:</strong> 2023-07-27
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -549,13 +549,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong23ac408">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong4866f26">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 23ac408
+aria-hidden="true"></span> <strong>Repository version:</strong> 4866f26
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong23ac408"
+<div id="strongRepositoryversionstrong4866f26"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -564,7 +564,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 23ac408.
+The results in this page were generated with repository version 4866f26.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -581,7 +581,6 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
 
 Untracked files:
     Untracked:  code/packages_FACS.R
@@ -591,21 +590,7 @@ Untracked files:
     Untracked:  data/DS096_LinQuadGradient_HighConc/
     Untracked:  data/DS097_LinGradient_LowConc/
     Untracked:  data/DS098_StepInhibitor_Conc/
-    Untracked:  output/DynSign.095_annotated.zip
-    Untracked:  output/annotated_data_tidy_Bas013.csv
-    Untracked:  output/annotated_data_tidy_DS085.csv
-    Untracked:  output/annotated_data_tidy_DS095.csv
-    Untracked:  output/annotated_data_tidy_DS096.csv
-    Untracked:  output/annotated_data_tidy_DS097.csv
-    Untracked:  output/annotated_data_tidy_DS098.csv
-    Untracked:  output/annotated_medians_avg_rep_DS095.csv
-    Untracked:  output/annotated_medians_avg_rep_DS098.csv
-    Untracked:  output/annotated_medians_tidy_Bas013.csv
-    Untracked:  output/annotated_medians_tidy_DS085.csv
-    Untracked:  output/annotated_medians_tidy_DS095.csv
-    Untracked:  output/annotated_medians_tidy_DS096.csv
-    Untracked:  output/annotated_medians_tidy_DS097.csv
-    Untracked:  output/annotated_medians_tidy_DS098.csv
+    Untracked:  output/annotated_data/
     Untracked:  output/figures/
     Untracked:  output/gated_counts.csv
     Untracked:  output/gated_counts_Bas013.csv
@@ -620,9 +605,11 @@ Untracked files:
     Untracked:  output/gated_data_DS096/
     Untracked:  output/gated_data_DS097/
     Untracked:  output/gated_data_DS098/
+    Untracked:  output/rate_data/
 
 Unstaged changes:
     Deleted:    analysis/about.Rmd
+    Modified:   analysis/b_annotation.Rmd
 
 </code></pre>
 <p>
@@ -668,6 +655,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+4866f26
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-07-27
+</td>
+<td>
+wflow_publish(c("analysis/a_gating.Rmd", "analysis/e_paper_figs.Rmd"),
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+cdb5f6c
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -923,19 +944,18 @@ Publish correct gating + annotation
 source(&quot;code/packages_FACS.R&quot;, local = knitr::knit_global())</code></pre>
 <pre class="r"><code>row_order = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;)
 col_order = c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;11&quot;, &quot;12&quot;)
-panel_labels &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;,&quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;, &quot;J&quot;, &quot;K&quot;, &quot;L&quot;, &quot;M&quot;)
+panel_labels &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;,&quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;, &quot;m&quot;)
 
-textsize &lt;- theme(axis.text.x = element_text(colour = &quot;grey&quot;, size = 12, face = &quot;bold&quot;),
-                  axis.text.y = element_text(colour = &quot;grey&quot;, size = 12, face = &quot;bold&quot;),
-                  axis.title = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;), 
-                  # legend.title = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;), 
-                  legend.title = element_blank(), 
-                  legend.text = element_text(colour = &quot;grey&quot;, size = 12, face = &quot;bold&quot;), 
-                  strip.text.x = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;)
+textsize &lt;- theme(axis.text = element_text(colour = &quot;black&quot;, size = 11), #, face = &quot;bold&quot;
+                  axis.title = element_text(colour = &quot;black&quot;, size = 12), 
+                  legend.title = element_text(colour = &quot;black&quot;, size = 12),
+                  # legend.title = element_blank(), 
+                  legend.text = element_text(colour = &quot;black&quot;, size = 11), 
+                  strip.text.x = element_text(colour = &quot;black&quot;, size = 12)
 )
 
-textsize_small &lt;- theme(text = element_text(size = 7, family = &quot;sans&quot;, colour = &quot;black&quot;),
-                        plot.title = element_text(size = 8)
+textsize_small &lt;- theme(text = element_text(size = 9, family = &quot;sans&quot;, colour = &quot;black&quot;),
+                        plot.title = element_text(size = 10)
 )
 
 colors_dark9 &lt;- c(&quot;#4daf4a&quot;, &quot;#984ea3&quot;, &quot;#ffff33&quot;, &quot;#ff7f00&quot;, &quot;#e41a1c&quot;, &quot;#f781bf&quot;, &quot;#a65628&quot;, &quot;#999999&quot;, &quot;#377eb8&quot;)
@@ -1416,8 +1436,8 @@ save_gs(gs_DS085, path = paste0(&quot;output/&quot;, &quot;gated_data_DS085&quot
 
 gc()</code></pre>
 <pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells  3682554 196.7    6878500  367.4   6878500  367.4
-Vcells 76233214 581.7  164594392 1255.8 164594392 1255.8</code></pre>
+Ncells  3695369 197.4    6892891  368.2   6892891  368.2
+Vcells 76255896 581.8  177437889 1353.8 177437889 1353.8</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_DS085, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS085-1.png" width="672" style="display: block; margin: auto;" />
@@ -1762,8 +1782,8 @@ save_gs(gs_Bas013, path = paste0(&quot;output/&quot;, &quot;gated_data_Bas013&qu
 
 gc()</code></pre>
 <pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells  3825652 204.4    6878500  367.4   6878500  367.4
-Vcells 96856677 739.0  165145223 1260.0 165145223 1260.0</code></pre>
+Ncells  3838509 205.0    6892891  368.2   6892891  368.2
+Vcells 96879369 739.2  177437889 1353.8 177437889 1353.8</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_Bas013, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_Bas013-1.png" width="672" style="display: block; margin: auto;" />
@@ -2295,15 +2315,26 @@ gs_DS095 &lt;- GatingSet(fs_DS095)
 # Manually adjust the numbers and check in the graph to set the right gate
 g_debris_DS095 &lt;- polygonGate(filterId = &quot;Debris&quot;, &quot;FSC.A&quot; = c(4e4, 26e4, 26e4, 1e5), &quot;SSC.A&quot; = c(1e4, 1e4, 26e4, 26e4)) # define gate
 
-ggcyto(gs_DS095[[1]], aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
+fig_debris_DS095 &lt;- ggcyto(gs_DS095[[1]], aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   geom_hex(bins = 200) +
   geom_gate(g_debris_DS095) +
   ggcyto_par_set(limits = &quot;instrument&quot;) +
-  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;) +
+  facet_wrap(vars(factor(name, labels = &quot;A01&quot;))) + 
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;, title = &quot;Non-debris gate&quot;) +
   theme_bw() +
-  textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/debris_DS095-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size vs cell complexity and debris
+  textsize_small +
+  theme(legend.position = &quot;none&quot;)
+
+# Save figure as png
+ggsave(
+  fig_debris_DS095,
+  filename = &quot;output/figures/gating_figs/fig_debris_DS095.png&quot;,
+  width = 3,
+  height = 3,
+  units = &quot;in&quot;,
+  dpi = 300
+  )</code></pre>
+<p><em><strong>Figure:</strong> Cell size vs cell complexity and debris
 gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS095, g_debris_DS095)</code></pre>
@@ -2354,15 +2385,26 @@ that do not fall in the mass of data points</p>
 <pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
 g_singlets_DS095 &lt;- polygonGate(filterId = &quot;Singlets&quot;, &quot;FSC.H&quot; = c(3e4, 6.5e4, 7.5e4, 2.5e4), &quot;FSC.W&quot; = c(8e4, 9e4, 1.4e5, 1.4e5)) # define gate
 
-ggcyto(gs_DS095[[1]], aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
+fig_singlets_DS095 &lt;- ggcyto(gs_DS095[[1]], aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   geom_hex(bins = 200) +
   geom_gate(g_singlets_DS095) +
   ggcyto_par_set(limits = &quot;instrument&quot;) +
-  labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;) +
+  facet_wrap(vars(factor(name, labels = &quot;A01&quot;))) + 
+  labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;, title = &quot;Singlets gate&quot;) +
   theme_bw() +
-  textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/singlets_DS095-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size height vs cell size width and
+  textsize_small +
+  theme(legend.position = &quot;none&quot;)
+
+# Save figure as png
+ggsave(
+  fig_singlets_DS095,
+  filename = &quot;output/figures/gating_figs/fig_singlets_DS095.png&quot;,
+  width = 3,
+  height = 3,
+  units = &quot;in&quot;,
+  dpi = 300
+  )</code></pre>
+<p><em><strong>Figure:</strong> Cell size height vs cell size width and
 singlet cell gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS095, g_singlets_DS095, parent = &quot;Debris&quot;)</code></pre>
@@ -2414,21 +2456,32 @@ edges of the plot</p>
 <pre class="r"><code># Manually adjust the numbers and check in the graph to set right gate
 g_live_DS095 &lt;- polygonGate(filterId = &quot;Live&quot;, &quot;FSC.A&quot; = c(4.4e4, 1.6e5, 1.6e5, 4.4e4), &quot;BV421.A&quot; = c(5e1, 5e1, 1e4, 3e3)) # define gate
 
-ggcyto(gs_DS095[[139]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
+fig_live_DS095 &lt;- ggcyto(gs_DS095[[139]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
   geom_hex(bins = 200) +
   geom_gate(g_live_DS095) +
   scale_x_log10() +
   scale_y_log10(limits = c(5e0, 5e4)) +
-  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;) +
+  facet_wrap(vars(factor(name, labels = &quot;A01&quot;))) + 
+  labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;, title = &quot;Live cell gate&quot;) +
   theme_bw() +
-  textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/live_DS095-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size vs live/death stain and live cell
-gate. One exemplary sample.</em></p>
+  textsize_small +
+  theme(legend.position = &quot;none&quot;)
+
+# Save figure as png
+ggsave(
+  fig_live_DS095,
+  filename = &quot;output/figures/gating_figs/fig_live_DS095.png&quot;,
+  width = 3,
+  height = 3,
+  units = &quot;in&quot;,
+  dpi = 300
+  )</code></pre>
+<p><em><strong>Figure:</strong> Cell size vs live/death stain and live
+cell gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS095, g_live_DS095, parent = &quot;Singlets&quot;)</code></pre>
 <pre><code>[1] 4</code></pre>
-<pre class="r"><code>recompute(gs_DS095) 
+<pre class="r"><code>recompute(gs_DS095)
 
 # Plate A
 ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
@@ -2482,8 +2535,8 @@ save_gs(gs_DS095, path = paste0(&quot;output/&quot;, &quot;gated_data_DS095&quot
 
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3880351  207.3    6878500  367.4   6878500  367.4
-Vcells 207566065 1583.7  411530223 3139.8 411527691 3139.8</code></pre>
+Ncells   3904867  208.6    6893340  368.2   6893340  368.2
+Vcells 207619861 1584.1  372283540 2840.3 372283540 2840.3</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_DS095, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS095-1.png" width="672" style="display: block; margin: auto;" />
@@ -2836,8 +2889,8 @@ save_gs(gs_DS096, path = paste0(&quot;output/&quot;, &quot;gated_data_DS096&quot
 
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3892421  207.9    6879030  367.4   6879030  367.4
-Vcells 217471160 1659.2  411530223 3139.8 411527691 3139.8</code></pre>
+Ncells   3917003  209.2    6893340  368.2   6893340  368.2
+Vcells 217525003 1659.6  372283540 2840.3 372283540 2840.3</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_DS096, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS096-1.png" width="672" style="display: block; margin: auto;" />
@@ -3172,8 +3225,8 @@ save_gs(gs_DS097, path = paste0(&quot;output/&quot;, &quot;gated_data_DS097&quot
 
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3907758  208.7    6881702  367.6   6881702  367.6
-Vcells 247535732 1888.6  411530223 3139.8 411529297 3139.8</code></pre>
+Ncells   3932326  210.1    6893340  368.2   6893340  368.2
+Vcells 247574983 1888.9  447778543 3416.3 447778543 3416.3</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_DS097, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS097-1.png" width="672" style="display: block; margin: auto;" />
@@ -3508,8 +3561,8 @@ save_gs(gs_DS098, path = paste0(&quot;output/&quot;, &quot;gated_data_DS098&quot
 
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3916198  209.2    6881702  367.6   6881702  367.6
-Vcells 258656118 1973.4  411875329 3142.4 411875329 3142.4</code></pre>
+Ncells   3940873  210.5    6893340  368.2   6893340  368.2
+Vcells 258710029 1973.9  447778543 3416.3 447778543 3416.3</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_DS098, bool = TRUE)</code></pre>
 <p><img src="figure/a_gating.Rmd/gating_DS098-1.png" width="672" style="display: block; margin: auto;" />
@@ -3585,17 +3638,18 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] ggh4x_0.2.4          magick_2.7.4         greekLetters_0.0.7  
- [4] kableExtra_1.3.4     ggrepel_0.9.3        scales_1.2.1        
- [7] ggpubr_0.6.0         cowplot_1.1.1        ggthemes_4.2.4      
-[10] RColorBrewer_1.1-3   viridis_0.6.2        viridisLite_0.4.1   
-[13] ggridges_0.5.4       platetools_0.1.5     forecast_8.21       
-[16] readxl_1.4.2         zoo_1.8-11           lubridate_1.9.2     
-[19] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.0         
-[22] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
-[25] tibble_3.1.8         tidyverse_2.0.0      ggcyto_1.26.4       
-[28] flowWorkspace_4.10.1 ncdfFlow_2.44.0      BH_1.81.0-1         
-[31] ggplot2_3.4.2        flowCore_2.10.0      workflowr_1.7.0     
+ [1] png_0.1-8            patchwork_1.1.2      geomtextpath_0.1.1  
+ [4] ggh4x_0.2.4          magick_2.7.4         greekLetters_0.0.7  
+ [7] kableExtra_1.3.4     ggrepel_0.9.3        scales_1.2.1        
+[10] ggpubr_0.6.0         cowplot_1.1.1        ggthemes_4.2.4      
+[13] RColorBrewer_1.1-3   viridis_0.6.2        viridisLite_0.4.1   
+[16] ggridges_0.5.4       platetools_0.1.5     forecast_8.21       
+[19] readxl_1.4.2         zoo_1.8-11           lubridate_1.9.2     
+[22] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.0         
+[25] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
+[28] tibble_3.1.8         tidyverse_2.0.0      ggcyto_1.26.4       
+[31] flowWorkspace_4.10.1 ncdfFlow_2.44.0      BH_1.81.0-1         
+[34] ggplot2_3.4.2        flowCore_2.10.0      workflowr_1.7.0     
 
 loaded via a namespace (and not attached):
   [1] backports_1.4.1     systemfonts_1.0.4   plyr_1.8.8         
@@ -3603,36 +3657,36 @@ loaded via a namespace (and not attached):
   [7] magrittr_2.0.3      tzdb_0.3.0          matrixStats_0.63.0 
  [10] vroom_1.6.1         xts_0.13.1          svglite_2.1.1      
  [13] timechange_0.2.0    cytolib_2.10.1      tseries_0.10-54    
- [16] colorspace_2.1-0    rvest_1.0.3         xfun_0.37          
- [19] callr_3.7.3         crayon_1.5.2        jsonlite_1.8.4     
- [22] hexbin_1.28.2       graph_1.76.0        glue_1.6.2         
- [25] gtable_0.3.1        zlibbioc_1.44.0     webshot_0.5.4      
- [28] car_3.1-1           Rgraphviz_2.42.0    BiocGenerics_0.44.0
- [31] quantmod_0.4.22     abind_1.4-5         DBI_1.1.3          
- [34] rstatix_0.7.2       Rcpp_1.0.10         bit_4.0.5          
- [37] stats4_4.2.2        httr_1.4.4          ellipsis_0.3.2     
- [40] pkgconfig_2.0.3     XML_3.99-0.13       farver_2.1.1       
- [43] nnet_7.3-18         sass_0.4.5          utf8_1.2.3         
- [46] tidyselect_1.2.0    labeling_0.4.2      rlang_1.1.1        
- [49] later_1.3.0         munsell_0.5.0       cellranger_1.1.0   
- [52] tools_4.2.2         cachem_1.0.6        cli_3.6.0          
- [55] generics_0.1.3      broom_1.0.3         evaluate_0.20      
- [58] fastmap_1.1.0       yaml_2.3.7          processx_3.8.0     
- [61] knitr_1.42          bit64_4.0.5         fs_1.6.1           
- [64] nlme_3.1-160        whisker_0.4.1       xml2_1.3.3         
- [67] compiler_4.2.2      rstudioapi_0.14     curl_5.0.0         
- [70] ggsignif_0.6.4      bslib_0.4.2         stringi_1.7.12     
- [73] highr_0.10          ps_1.7.2            lattice_0.20-45    
- [76] urca_1.3-3          vctrs_0.5.2         pillar_1.8.1       
- [79] lifecycle_1.0.3     lmtest_0.9-40       jquerylib_0.1.4    
- [82] data.table_1.14.8   httpuv_1.6.9        R6_2.5.1           
- [85] promises_1.2.0.1    gridExtra_2.3       RProtoBufLib_2.10.0
- [88] assertthat_0.2.1    rprojroot_2.0.3     withr_2.5.0        
- [91] fracdiff_1.5-2      S4Vectors_0.36.1    parallel_4.2.2     
- [94] hms_1.1.2           quadprog_1.5-8      grid_4.2.2         
- [97] timeDate_4022.108   rmarkdown_2.20      carData_3.0-5      
-[100] git2r_0.31.0        TTR_0.24.3          getPass_0.2-2      
-[103] Biobase_2.58.0     </code></pre>
+ [16] colorspace_2.1-0    rvest_1.0.3         textshaping_0.3.6  
+ [19] xfun_0.37           crayon_1.5.2        callr_3.7.3        
+ [22] jsonlite_1.8.4      hexbin_1.28.2       graph_1.76.0       
+ [25] glue_1.6.2          gtable_0.3.1        zlibbioc_1.44.0    
+ [28] webshot_0.5.4       car_3.1-1           Rgraphviz_2.42.0   
+ [31] BiocGenerics_0.44.0 quantmod_0.4.22     abind_1.4-5        
+ [34] DBI_1.1.3           rstatix_0.7.2       Rcpp_1.0.10        
+ [37] bit_4.0.5           stats4_4.2.2        httr_1.4.4         
+ [40] ellipsis_0.3.2      pkgconfig_2.0.3     XML_3.99-0.13      
+ [43] farver_2.1.1        nnet_7.3-18         sass_0.4.5         
+ [46] utf8_1.2.3          tidyselect_1.2.0    labeling_0.4.2     
+ [49] rlang_1.1.1         later_1.3.0         munsell_0.5.0      
+ [52] cellranger_1.1.0    tools_4.2.2         cachem_1.0.6       
+ [55] cli_3.6.0           generics_0.1.3      broom_1.0.3        
+ [58] evaluate_0.20       fastmap_1.1.0       ragg_1.2.5         
+ [61] yaml_2.3.7          bit64_4.0.5         processx_3.8.0     
+ [64] knitr_1.42          fs_1.6.1            nlme_3.1-160       
+ [67] whisker_0.4.1       xml2_1.3.3          compiler_4.2.2     
+ [70] rstudioapi_0.14     curl_5.0.0          ggsignif_0.6.4     
+ [73] bslib_0.4.2         stringi_1.7.12      highr_0.10         
+ [76] ps_1.7.2            lattice_0.20-45     urca_1.3-3         
+ [79] vctrs_0.5.2         pillar_1.8.1        lifecycle_1.0.3    
+ [82] lmtest_0.9-40       jquerylib_0.1.4     data.table_1.14.8  
+ [85] httpuv_1.6.9        R6_2.5.1            promises_1.2.0.1   
+ [88] gridExtra_2.3       RProtoBufLib_2.10.0 assertthat_0.2.1   
+ [91] rprojroot_2.0.3     withr_2.5.0         fracdiff_1.5-2     
+ [94] S4Vectors_0.36.1    parallel_4.2.2      hms_1.1.2          
+ [97] quadprog_1.5-8      grid_4.2.2          timeDate_4022.108  
+[100] rmarkdown_2.20      carData_3.0-5       git2r_0.31.0       
+[103] TTR_0.24.3          getPass_0.2-2       Biobase_2.58.0     </code></pre>
 </div>
 </div>
 </div>
