@@ -28,19 +28,18 @@ source("code/packages_FACS.R", local = knitr::knit_global())
 ```{r fig_settings}
 row_order = c("A", "B", "C", "D", "E", "F", "G", "H")
 col_order = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
-panel_labels <- c("A", "B", "C","D", "E", "F", "G", "H", "I", "J", "K", "L", "M")
+panel_labels <- c("a", "b", "c","d", "e", "f", "g", "h", "i", "j", "k", "l", "m")
 
-textsize <- theme(axis.text.x = element_text(colour = "grey", size = 12, face = "bold"),
-                  axis.text.y = element_text(colour = "grey", size = 12, face = "bold"),
-                  axis.title = element_text(colour = "black", size = 12, face = "bold"), 
-                  # legend.title = element_text(colour = "black", size = 12, face = "bold"), 
-                  legend.title = element_blank(), 
-                  legend.text = element_text(colour = "grey", size = 12, face = "bold"), 
-                  strip.text.x = element_text(colour = "black", size = 12, face = "bold")
+textsize <- theme(axis.text = element_text(colour = "black", size = 11), #, face = "bold"
+                  axis.title = element_text(colour = "black", size = 12), 
+                  legend.title = element_text(colour = "black", size = 12),
+                  # legend.title = element_blank(), 
+                  legend.text = element_text(colour = "black", size = 11), 
+                  strip.text.x = element_text(colour = "black", size = 12)
 )
 
-textsize_small <- theme(text = element_text(size = 7, family = "sans", colour = "black"),
-                        plot.title = element_text(size = 8)
+textsize_small <- theme(text = element_text(size = 9, family = "sans", colour = "black"),
+                        plot.title = element_text(size = 10)
 )
 
 colors_dark9 <- c("#4daf4a", "#984ea3", "#ffff33", "#ff7f00", "#e41a1c", "#f781bf", "#a65628", "#999999", "#377eb8")
@@ -578,20 +577,32 @@ fs_DS095 <- rbind2(fs_AB_DS095, fs_C_DS095)
 ### Debris
 
 Define the gate on debris (SSC-A vs FSC-A): Exclude the lower left data points and those data point that fall at/off the upper and right edges of the plot
-```{r debris_DS095, fig.width=5, fig.height=4}
+```{r debris_DS095, fig.width=3, fig.height=3}
 # Create a GatingSet object from the FlowSet object
 gs_DS095 <- GatingSet(fs_DS095)
 
 # Manually adjust the numbers and check in the graph to set the right gate
 g_debris_DS095 <- polygonGate(filterId = "Debris", "FSC.A" = c(4e4, 26e4, 26e4, 1e5), "SSC.A" = c(1e4, 1e4, 26e4, 26e4)) # define gate
 
-ggcyto(gs_DS095[[1]], aes(x = FSC.A, y = SSC.A), subset = "root") +
+fig_debris_DS095 <- ggcyto(gs_DS095[[1]], aes(x = FSC.A, y = SSC.A), subset = "root") +
   geom_hex(bins = 200) +
   geom_gate(g_debris_DS095) +
   ggcyto_par_set(limits = "instrument") +
-  labs(x = "Cell size (FSC-A)", y = "Cell complexity (SSC-A)") +
+  facet_wrap(vars(factor(name, labels = "A01"))) + 
+  labs(x = "Cell size (FSC-A)", y = "Cell complexity (SSC-A)", title = "Non-debris gate") +
   theme_bw() +
-  textsize
+  textsize_small +
+  theme(legend.position = "none")
+
+# Save figure as png
+ggsave(
+  fig_debris_DS095,
+  filename = "output/figures/gating_figs/fig_debris_DS095.png",
+  width = 3,
+  height = 3,
+  units = "in",
+  dpi = 300
+  )
 ```
 ***Figure:** Cell size vs cell complexity and debris gate. One exemplary sample.*  
 
@@ -641,17 +652,29 @@ ggcyto(subset(gs_DS095, plateID == "C"), aes(x = FSC.A, y = SSC.A), subset = "ro
 ### Singlets
 
 Define the gate on singlets (FSC-W vs FSC-H): Exclude all data points that do not fall in the mass of data points
-```{r singlets_DS095, fig.width=5, fig.height=4}
+```{r singlets_DS095, fig.width=3, fig.height=3}
 # Manually adjust the numbers and check in the graph to set right gate
 g_singlets_DS095 <- polygonGate(filterId = "Singlets", "FSC.H" = c(3e4, 6.5e4, 7.5e4, 2.5e4), "FSC.W" = c(8e4, 9e4, 1.4e5, 1.4e5)) # define gate
 
-ggcyto(gs_DS095[[1]], aes(x = FSC.H, y = FSC.W), subset = "Debris") +
+fig_singlets_DS095 <- ggcyto(gs_DS095[[1]], aes(x = FSC.H, y = FSC.W), subset = "Debris") +
   geom_hex(bins = 200) +
   geom_gate(g_singlets_DS095) +
   ggcyto_par_set(limits = "instrument") +
-  labs(x = "Cell size height (FSC-H)", y = "Cell size width (FSC-W)") +
+  facet_wrap(vars(factor(name, labels = "A01"))) + 
+  labs(x = "Cell size height (FSC-H)", y = "Cell size width (FSC-W)", title = "Singlets gate") +
   theme_bw() +
-  textsize
+  textsize_small +
+  theme(legend.position = "none")
+
+# Save figure as png
+ggsave(
+  fig_singlets_DS095,
+  filename = "output/figures/gating_figs/fig_singlets_DS095.png",
+  width = 3,
+  height = 3,
+  units = "in",
+  dpi = 300
+  )
 ```
 ***Figure:** Cell size height vs cell size width and singlet cell gate. One exemplary sample.* 
 
@@ -701,25 +724,37 @@ ggcyto(subset(gs_DS095, plateID == "C"), aes(x = FSC.H, y = FSC.W), subset = "De
 ### Live cells (fixed)
 
 Define the gate on live/dead (fixed) cells (BV421 vs FSC-A): Exclude the upper data points and those data point that fall at/off the right edges of the plot
-```{r live_DS095, fig.width=5, fig.height=4}
+```{r live_DS095, fig.width=3, fig.height=3}
 # Manually adjust the numbers and check in the graph to set right gate
 g_live_DS095 <- polygonGate(filterId = "Live", "FSC.A" = c(4.4e4, 1.6e5, 1.6e5, 4.4e4), "BV421.A" = c(5e1, 5e1, 1e4, 3e3)) # define gate
 
-ggcyto(gs_DS095[[139]], aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
+fig_live_DS095 <- ggcyto(gs_DS095[[139]], aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
   geom_hex(bins = 200) +
   geom_gate(g_live_DS095) +
   scale_x_log10() +
   scale_y_log10(limits = c(5e0, 5e4)) +
-  labs(x = "Cell size (FSC-A)", y = "Live/death stain (BV421-A)") +
+  facet_wrap(vars(factor(name, labels = "A01"))) + 
+  labs(x = "Cell size (FSC-A)", y = "Live/death stain (BV421-A)", title = "Live cell gate") +
   theme_bw() +
-  textsize
+  textsize_small +
+  theme(legend.position = "none")
+
+# Save figure as png
+ggsave(
+  fig_live_DS095,
+  filename = "output/figures/gating_figs/fig_live_DS095.png",
+  width = 3,
+  height = 3,
+  units = "in",
+  dpi = 300
+  )
 ```
 ***Figure:** Cell size vs live/death stain and live cell gate. One exemplary sample.* 
 
 ```{r fig_live_DS095, fig.width=9, fig.height=7}
 # Apply the gate to all data
 gs_pop_add(gs_DS095, g_live_DS095, parent = "Singlets")
-recompute(gs_DS095) 
+recompute(gs_DS095)
 
 # Plate A
 ggcyto(subset(gs_DS095, plateID == "A"), aes(x = FSC.A, y = BV421.A), subset = "Singlets") +
