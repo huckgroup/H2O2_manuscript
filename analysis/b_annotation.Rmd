@@ -181,9 +181,9 @@ gc()
 
 Save annotated datasets as .csv file
 ```{r save_DS085}
-write.csv(df_tidy_DS085, file = "output/annotated_data_tidy_DS085.csv", row.names = F)
+write.csv(df_tidy_DS085, file = "output/annotated_data/annotated_data_tidy_DS085.csv", row.names = F)
 
-write.csv(medians_tidy_DS085, file = "output/annotated_medians_tidy_DS085.csv", row.names = F)
+write.csv(medians_tidy_DS085, file = "output/annotated_data/annotated_medians_tidy_DS085.csv", row.names = F)
 
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "_DS085"))
@@ -342,9 +342,9 @@ gc()
 
 Save annotated datasets as .csv file
 ```{r save_Bas013}
-write.csv(df_tidy_Bas013, file = "output/annotated_data_tidy_Bas013.csv", row.names = F)
+write.csv(df_tidy_Bas013, file = "output/annotated_data/annotated_data_tidy_Bas013.csv", row.names = F)
 
-write.csv(medians_tidy_Bas013, file = "output/annotated_medians_tidy_Bas013.csv", row.names = F)
+write.csv(medians_tidy_Bas013, file = "output/annotated_data/annotated_medians_tidy_Bas013.csv", row.names = F)
 
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "_Bas013"))
@@ -527,11 +527,11 @@ gc()
 
 Save annotated datasets as .csv file
 ```{r save_DS095}
-write.csv(df_tidy_DS095, file = "output/annotated_data_tidy_DS095.csv", row.names = F)
+write.csv(df_tidy_DS095, file = "output/annotated_data/annotated_data_tidy_DS095.csv", row.names = F)
 
-write.csv(medians_tidy_DS095, file = "output/annotated_medians_tidy_DS095.csv", row.names = F)
+write.csv(medians_tidy_DS095, file = "output/annotated_data/annotated_medians_tidy_DS095.csv", row.names = F)
 
-write.csv(medians_avg_DS095, file = "output/annotated_medians_avg_rep_DS095.csv", row.names = F)
+write.csv(medians_avg_DS095, file = "output/annotated_data/annotated_medians_avg_rep_DS095.csv", row.names = F)
 
 # Remove files to clear up memory
 rm(list = ls(pattern = "_DS095"))
@@ -690,9 +690,9 @@ gc()
 
 Save annotated datasets as .csv file
 ```{r save_DS096}
-write.csv(df_tidy_DS096, file = "output/annotated_data_tidy_DS096.csv", row.names = F)
+write.csv(df_tidy_DS096, file = "output/annotated_data/annotated_data_tidy_DS096.csv", row.names = F)
 
-write.csv(medians_tidy_DS096, file = "output/annotated_medians_tidy_DS096.csv", row.names = F)
+write.csv(medians_tidy_DS096, file = "output/annotated_data/annotated_medians_tidy_DS096.csv", row.names = F)
 
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "_DS096"))
@@ -851,9 +851,9 @@ gc()
 
 Save annotated datasets as .csv file
 ```{r save_DS097}
-write.csv(df_tidy_DS097, file = "output/annotated_data_tidy_DS097.csv", row.names = F)
+write.csv(df_tidy_DS097, file = "output/annotated_data/annotated_data_tidy_DS097.csv", row.names = F)
 
-write.csv(medians_tidy_DS097, file = "output/annotated_medians_tidy_DS097.csv", row.names = F)
+write.csv(medians_tidy_DS097, file = "output/annotated_data/annotated_medians_tidy_DS097.csv", row.names = F)
 
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "_DS097"))
@@ -1023,11 +1023,11 @@ gc()
 
 Save annotated datasets as .csv file
 ```{r save_DS098}
-write.csv(df_tidy_DS098, file = "output/annotated_data_tidy_DS098.csv", row.names = F)
+write.csv(df_tidy_DS098, file = "output/annotated_data/annotated_data_tidy_DS098.csv", row.names = F)
 
-write.csv(medians_tidy_DS098, file = "output/annotated_medians_tidy_DS098.csv", row.names = F)
+write.csv(medians_tidy_DS098, file = "output/annotated_data/annotated_medians_tidy_DS098.csv", row.names = F)
 
-write.csv(medians_avg_DS098, file = "output/annotated_medians_avg_rep_DS098.csv", row.names = F)
+write.csv(medians_avg_DS098, file = "output/annotated_data/annotated_medians_avg_rep_DS098.csv", row.names = F)
 
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "_DS098"))
