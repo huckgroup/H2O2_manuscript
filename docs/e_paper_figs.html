@@ -415,7 +415,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-07-31
+<strong>Last updated:</strong> 2023-08-04
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -547,13 +547,13 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongb89b798">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongf3b4389">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> b89b798
+aria-hidden="true"></span> <strong>Repository version:</strong> f3b4389
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongb89b798"
+<div id="strongRepositoryversionstrongf3b4389"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -562,7 +562,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version b89b798.
+The results in this page were generated with repository version f3b4389.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -652,6 +652,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+f3b4389
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-04
+</td>
+<td>
+Publish paper vigures v4.1
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+7feb8d5
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-07-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -955,8 +989,8 @@ fig1_panelC</code></pre>
 <h3>Combined</h3>
 <pre class="r"><code>gc() # free up memory</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3665239  195.8    6886895  367.8   6886895  367.8
-Vcells 765031639 5836.8 1144890410 8734.9 953813389 7277.1</code></pre>
+Ncells   3665282  195.8    6890988  368.1   6890988  368.1
+Vcells 765031910 5836.8 1144890878 8734.9 953813660 7277.1</code></pre>
 <pre class="r"><code># Combine all panels of the figure
 fig1_BC &lt;- plot_grid(fig1_panelB, fig1_panelC, labels = panel_labels[c(2, 3)], ncol = 1, rel_heights = c(1, 1.25), label_size = 10)
 fig1 &lt;- plot_grid(png_BCR_network, fig1_BC, labels = c(panel_labels[1], &quot;&quot;), ncol = 2, rel_widths = c(1, 1.75), label_size = 10)
@@ -987,8 +1021,8 @@ rm(list = ls(pattern = &quot;fig1&quot;))
 rm(list = ls(pattern = &quot;png_&quot;))
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
-Ncells   3766578  201.2    6886895  367.8    6886895  367.8
-Vcells 772945391 5897.2 1144890410 8734.9 1020024860 7782.2</code></pre>
+Ncells   3766621  201.2    6890988  368.1    6890988  368.1
+Vcells 772945662 5897.2 1144890878 8734.9 1020026749 7782.2</code></pre>
 <p><em><strong>Figure 1: Static H2O2 exposure results in heterogeneous
 dose-dependent phosphorylation of BCR network proteins.</strong>
 </em></p>
@@ -1046,7 +1080,7 @@ fig2_panelA &lt;- ggplot(avg_DS095_fig2A,
   labs(x = expression(&quot;H&quot;[2]*&quot;O&quot;[2]*&quot; dose (mM)&quot;), y = paste(&quot;% cells ON&quot;)) +
   theme_bw() +
   textsize_small + 
-  theme(legend.position = &quot;none&quot;, panel.grid.minor = element_blank(), text = element_text(size = 7)) 
+  theme(legend.position = &quot;none&quot;, panel.grid.minor = element_blank()) #, text = element_text(size = 7)
 
 # fig2_panelA
 
@@ -1111,14 +1145,40 @@ png_model &lt;- image_read(&quot;output/figures/non_R_figs/H2O2_model_network_20
 png_model</code></pre>
 <p><img src="figure/e_paper_figs.Rmd/fig2_panelC-1.png" style="display: block; margin: auto;" /></p>
 </div>
+<div id="panel-d" class="section level3">
+<h3>Panel D</h3>
+<p>Simulated DR curves</p>
+<pre class="r"><code>fig2_panelD &lt;- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = &quot;Simulated DR curves from the model&quot;) + 
+  theme_bw() +
+  theme(axis.text = element_text(color = &quot;white&quot;), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+# fig2_panelD
+
+png_model_percent &lt;- image_read(&quot;output/figures/non_R_figs/DRcurve_model_percon_MW_v1.png&quot;) %&gt;%
+  image_ggplot()
+png_model_percent</code></pre>
+<p><img src="figure/e_paper_figs.Rmd/fig2_panelD-1.png" style="display: block; margin: auto;" />
+<em><strong>Figure S4: Simulated dose-response curves.</strong>
+</em></p>
+</div>
 <div id="combined-1" class="section level3">
 <h3>Combined</h3>
 <pre class="r"><code>gc() # free up memory</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
-Ncells   3682856  196.7    6886895  367.8    6886895  367.8
-Vcells 728411066 5557.4 1144890410 8734.9 1020024860 7782.2</code></pre>
+Ncells   3685434  196.9    6890988  368.1    6890988  368.1
+Vcells 730406853 5572.6 1144890878 8734.9 1020026749 7782.2</code></pre>
 <pre class="r"><code># Combine all panels of the figure
-fig2 &lt;- plot_grid(fig2_panelA_full, png_DR_vis, png_model, labels = panel_labels[1:3], ncol = 3, rel_widths = c(1.2, 1, 1), label_size = 10)
+# fig2 &lt;- plot_grid(fig2_panelA_full, png_DR_vis, png_model, labels = panel_labels[1:3], ncol = 3, rel_widths = c(1.2, 1, 1), label_size = 10)
+
+fig2_AB &lt;- plot_grid(fig2_panelA_full, png_DR_vis, labels = panel_labels[1:2], ncol = 2, rel_widths = c(1.2, 1), label_size = 10)
+fig2_CD &lt;- plot_grid(png_model, png_model_percent, labels = panel_labels[3:4], ncol = 2, rel_widths = c(1, 1.2), label_size = 10)
+fig2 &lt;- plot_grid(fig2_AB, fig2_CD, ncol = 1, rel_heights = c(1.2, 1))
 
 fig2</code></pre>
 <p><img src="figure/e_paper_figs.Rmd/fig2_main-1.png" style="display: block; margin: auto;" /></p>
@@ -1127,7 +1187,7 @@ ggsave(
   fig2,
   filename = &quot;output/figures/fig2_main.pdf&quot;,
   width = 6,
-  height = 2,
+  height = 4.5,
   units = &quot;in&quot;,
   dpi = 300
   )
@@ -1135,19 +1195,19 @@ ggsave(
   fig2,
   filename = &quot;output/figures/fig2_main.jpeg&quot;,
   width = 6,
-  height = 2,
+  height = 4.5,
   units = &quot;in&quot;,
   dpi = 300
   )
 
-# Remove unnecessary files to clear up memory
+# # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = &quot;fig2&quot;))
 # rm(list = ls(pattern = &quot;_fig2&quot;))
 rm(list = ls(pattern = &quot;png_&quot;))
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
-Ncells   3707223  198.0    6886895  367.8    6886895  367.8
-Vcells 733222460 5594.1 1144890410 8734.9 1020024860 7782.2</code></pre>
+Ncells   3721839  198.8    6890988  368.1    6890988  368.1
+Vcells 737240318 5624.7 1144890878 8734.9 1020026749 7782.2</code></pre>
 <p><em><strong>Figure 2: Bimodality result from a combination of a steep
 dose-response relationship and cell-to-cell variability.</strong>
 </em></p>
@@ -1300,7 +1360,7 @@ fig3_panelC &lt;- ggplot() +
 fig3_panelC</code></pre>
 <p><img src="figure/e_paper_figs.Rmd/fig3_panelC-1.png" style="display: block; margin: auto;" /></p>
 </div>
-<div id="panel-d" class="section level3">
+<div id="panel-d-1" class="section level3">
 <h3>Panel D</h3>
 <p>Line plot of concentration vs % ON for PLCy2</p>
 <pre class="r"><code># Concentration
@@ -1426,8 +1486,8 @@ ggsave(
   )</code></pre>
 <pre class="r"><code>gc() # free up memory</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
-Ncells   3744416  200.0    6886895  367.8    6886895  367.8
-Vcells 728413420 5557.4 1144890410 8734.9 1020024860 7782.2</code></pre>
+Ncells   3744490  200.0    6890988  368.1    6890988  368.1
+Vcells 728413825 5557.4 1144890878 8734.9 1020026749 7782.2</code></pre>
 <pre class="r"><code># Combine all panels of the figure
 fig3_AB &lt;- plot_grid(png_set_up, fig3_panelB, labels = panel_labels[c(1, 2)], ncol = 1, rel_heights = c(1.5, 1), label_size = 10)
 fig3_CDE &lt;- plot_grid(fig3_panelC, fig3_panelD, fig3_panelE, labels = panel_labels[c(3, 4, 5)], ncol = 1, rel_heights = c(1, 1, 1), label_size = 10)
@@ -1459,8 +1519,8 @@ rm(list = ls(pattern = &quot;fig3&quot;))
 rm(list = ls(pattern = &quot;png_&quot;))
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
-Ncells   3806255  203.3    6886895  367.8    6886895  367.8
-Vcells 733221955 5594.1 1144890410 8734.9 1020024860 7782.2</code></pre>
+Ncells   3806324  203.3    6890988  368.1    6890988  368.1
+Vcells 733222354 5594.1 1144890878 8734.9 1020026749 7782.2</code></pre>
 <p><em><strong>Figure 3: Dynamic H2O2-induced BCR signaling reveals that
 both concentration and rate of increase determine half-maximal signaling
 response.</strong> </em></p>
@@ -1704,7 +1764,7 @@ png_rate_table</code></pre>
 png_sens_table</code></pre>
 <p><img src="figure/e_paper_figs.Rmd/fig4_panelC_alt-2.png" style="display: block; margin: auto;" /></p>
 </div>
-<div id="panel-d-1" class="section level3">
+<div id="panel-d-2" class="section level3">
 <h3>Panel D</h3>
 <pre class="r"><code># Figure of gradient rate vs conc at EC50%
 fig4_panelD &lt;- ggplot(subset(rate_EC50_fig4CD, percent_on == 50),
@@ -1730,8 +1790,8 @@ fig4_panelD</code></pre>
 <h3>Combined</h3>
 <pre class="r"><code>gc() # free up memory</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
-Ncells   3732730  199.4    6886895  367.8    6886895  367.8
-Vcells 725579662 5535.8 1144890410 8734.9 1020024860 7782.2</code></pre>
+Ncells   3732802  199.4    6890988  368.1    6890988  368.1
+Vcells 725580066 5535.8 1144890878 8734.9 1020026749 7782.2</code></pre>
 <pre class="r"><code># Fig option 1
 fig4_BC &lt;- plot_grid(fig4_panelB, NULL, labels = panel_labels[c(2, 3)], ncol = 1, rel_heights = c(2, 1), label_size = 10)
 fig4_v1 &lt;- plot_grid(png_rate_EC50, fig4_BC, labels = panel_labels[1], ncol = 2, rel_widths = c(1, 1.75), label_size = 10)
@@ -1815,8 +1875,8 @@ rm(list = ls(pattern = &quot;fig4_&quot;))
 rm(list = ls(pattern = &quot;_fig4&quot;))
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
-Ncells   3869581  206.7    6886895  367.8    6886895  367.8
-Vcells 732815696 5591.0 1144890410 8734.9 1020024860 7782.2</code></pre>
+Ncells   3869650  206.7    6890988  368.1    6890988  368.1
+Vcells 732816095 5591.0 1144890878 8734.9 1020026749 7782.2</code></pre>
 <p><em><strong>Figure 4: H2O2 response sensitivity can be tuned by the
 rate of increase.</strong> </em></p>
 </div>
@@ -1920,8 +1980,8 @@ suppfig1_panelC &lt;- ggplot(data_suppfig1C, aes(x = fluorescence)) +
 
 gc() # free up memory</code></pre>
 <pre><code>             used   (Mb) gc trigger    (Mb)   max used   (Mb)
-Ncells    3731251  199.3    6886895   367.8    6886895  367.8
-Vcells 1147813682 8757.2 1648818190 12579.5 1203856264 9184.7</code></pre>
+Ncells    3731320  199.3    6890988   368.1    6890988  368.1
+Vcells 1147814081 8757.2 1648818863 12579.5 1203856663 9184.7</code></pre>
 <pre class="r"><code># Combine all panels of the figure
 suppfig1 &lt;- plot_grid(suppfig1_panelA, suppfig1_panelB, suppfig1_panelC, labels = panel_labels[1:3], ncol = 1, rel_heights = c(1, 1, 1), label_size = 10)
 
@@ -1950,8 +2010,8 @@ rm(list = ls(pattern = &quot;suppfig1_&quot;))
 rm(list = ls(pattern = &quot;_suppfig1&quot;))
 gc()</code></pre>
 <pre><code>             used   (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3912126  209.0    6886895   367.8    6886895   367.8
-Vcells 1149375863 8769.1 1648818190 12579.5 1648757427 12579.1</code></pre>
+Ncells    3912177  209.0    6890988   368.1    6890988   368.1
+Vcells 1149376267 8769.1 1648818863 12579.5 1648757826 12579.1</code></pre>
 <p><em><strong>Figure S1: Ridge plots of static step
 stimulations.</strong> </em></p>
 <pre class="r"><code>suppfig2 &lt;- ggplot() +
@@ -1985,61 +2045,11 @@ rm(list = ls(pattern = &quot;suppfig2_&quot;))
 rm(list = ls(pattern = &quot;_suppfig2&quot;))
 gc()</code></pre>
 <pre><code>             used   (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3767147  201.2    6886895   367.8    6886895   367.8
-Vcells 1148672357 8763.7 1648818190 12579.5 1648757427 12579.1</code></pre>
+Ncells    3767194  201.2    6890988   368.1    6890988   368.1
+Vcells 1148648418 8763.5 1648818863 12579.5 1648757826 12579.1</code></pre>
 <p><em><strong>Figure S2: Estimation of cell-to-cell
 variability.</strong> </em></p>
-<pre class="r"><code>suppfig3_place &lt;- ggplot() +
-  geom_blank() +
-  scale_x_continuous(limits = c(0, 10)) + 
-  scale_y_continuous(limits = c(0, 10)) + 
-  labs(title = &quot;Simulated DR curves from the model&quot;) + 
-  theme_bw() +
-  theme(axis.text = element_text(color = &quot;white&quot;), 
-        axis.ticks = element_blank(), 
-        panel.grid = element_blank()) +
-  textsize_small
-# suppfig3_place
-
-png_model_MFI &lt;- image_read(&quot;output/figures/non_R_figs/DRcurve_model_MW_v1.png&quot;) %&gt;%
-  image_ggplot()
-# png_model_MFI
-
-png_model_percent &lt;- image_read(&quot;output/figures/non_R_figs/DRcurve_model_percon_MW_v1.png&quot;) %&gt;%
-  image_ggplot()
-# png_model_percent
-
-suppfig3 &lt;- plot_grid(png_model_MFI, png_model_percent, labels = panel_labels[c(1, 2)], ncol = 2, rel_widths = c(1, 1))
-suppfig3</code></pre>
-<p><img src="figure/e_paper_figs.Rmd/supp_fig3_model_DR-1.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code># Save figure as pdf and jpeg
-ggsave(
-  suppfig3,
-  filename = &quot;output/figures/suppfig3_model_DR.pdf&quot;,
-  width = 6,
-  height = 2.5,
-  units = &quot;in&quot;,
-  dpi = 300
-  )
-ggsave(
-  suppfig3,
-  filename = &quot;output/figures/suppfig3_model_DR.jpeg&quot;,
-  width = 6,
-  height = 2.5,
-  units = &quot;in&quot;,
-  dpi = 300
-  )
-
-# Remove unnecessary files to clear up memory
-rm(list = ls(pattern = &quot;suppfig3_&quot;))
-rm(list = ls(pattern = &quot;_suppfig3&quot;))
-gc()</code></pre>
-<pre><code>             used   (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3778935  201.9    6886895   367.8    6886895   367.8
-Vcells 1156560820 8823.9 1978661828 15096.0 1648757427 12579.1</code></pre>
-<p><em><strong>Figure S3: Simulated dose-response curves.</strong>
-</em></p>
-<pre class="r"><code>suppfig4 &lt;- ggplot() +
+<pre class="r"><code>suppfig3 &lt;- ggplot() +
   geom_blank() +
   scale_x_continuous(limits = c(0, 10)) + 
   scale_y_continuous(limits = c(0, 10)) + 
@@ -2049,19 +2059,60 @@ Vcells 1156560820 8823.9 1978661828 15096.0 1648757427 12579.1</code></pre>
         axis.ticks = element_blank(), 
         panel.grid = element_blank()) +
   textsize_small
-# suppfig4
+# suppfig3
 
 png_model_var &lt;- image_read(&quot;output/figures/non_R_figs/Model_bimodality_x50var_5mM_MW_v1.png&quot;) %&gt;%
   image_ggplot()
 png_model_var</code></pre>
-<p><img src="figure/e_paper_figs.Rmd/supp_fig4_model_variability-1.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code># Save figure as pdf and jpeg
-
+<p><img src="figure/e_paper_figs.Rmd/supp_fig3_model_variability-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Save figure as jpeg
 ggsave(
-  suppfig4,
-  filename = &quot;output/figures/suppfig4_model_variability_placeholder.jpeg&quot;,
+  suppfig3,
+  filename = &quot;output/figures/suppfig3_model_variability_placeholder.jpeg&quot;,
   width = 6,
   height = 3,
+  units = &quot;in&quot;,
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;suppfig3_&quot;))
+rm(list = ls(pattern = &quot;_suppfig3&quot;))
+gc()</code></pre>
+<pre><code>             used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells    3769771  201.4    6890988   368.1    6890988   368.1
+Vcells 1154384513 8807.3 1978662635 15096.0 1648757826 12579.1</code></pre>
+<p><em><strong>Figure S3: Cell-to-cell variability in the
+model.</strong> </em></p>
+<pre class="r"><code>suppfig4_place &lt;- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = &quot;Simulated DR curves from the model&quot;) + 
+  theme_bw() +
+  theme(axis.text = element_text(color = &quot;white&quot;), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+# suppfig4_place
+
+png_model_MFI &lt;- image_read(&quot;output/figures/non_R_figs/DRcurve_model_MW_v1.png&quot;) %&gt;%
+  image_ggplot()
+# png_model_MFI
+
+png_model_percent &lt;- image_read(&quot;output/figures/non_R_figs/DRcurve_model_percon_MW_v1.png&quot;) %&gt;%
+  image_ggplot()
+# png_model_percent
+
+# suppfig4 &lt;- plot_grid(png_model_MFI, png_model_percent, labels = panel_labels[c(1, 2)], ncol = 2, rel_widths = c(1, 1))
+# suppfig4
+
+# Save figure as jpeg
+ggsave(
+  suppfig4_place,
+  filename = &quot;output/figures/suppfig4_model_DR_placeholder.jpeg&quot;,
+  width = 3,
+  height = 2.5,
   units = &quot;in&quot;,
   dpi = 300
   )
@@ -2071,10 +2122,10 @@ rm(list = ls(pattern = &quot;suppfig4_&quot;))
 rm(list = ls(pattern = &quot;_suppfig4&quot;))
 gc()</code></pre>
 <pre><code>             used   (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3774180  201.6    6886895   367.8    6886895   367.8
-Vcells 1158385574 8837.8 1978661828 15096.0 1648757427 12579.1</code></pre>
-<p><em><strong>Figure S4: Cell-to-cell variability in the
-model.</strong> </em></p>
+Ncells    3769127  201.3    6890988   368.1    6890988   368.1
+Vcells 1155445195 8815.4 1978662635 15096.0 1648757826 12579.1</code></pre>
+<p><em><strong>Figure S4: Simulated dose-response curves.</strong>
+</em></p>
 </div>
 <div id="supp-to-main-fig-3" class="section level3">
 <h3>Supp to main fig 3</h3>
@@ -2163,8 +2214,8 @@ suppfig5_panelC &lt;- ggplot(data_suppfig5C, aes(x = fluorescence)) +
 
 gc() # free up memory</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3776753   201.8    6886895   367.8    6886895   367.8
-Vcells 1424943879 10871.5 2374474193 18115.9 1648757427 12579.1</code></pre>
+Ncells    3773828   201.6    6890988   368.1    6890988   368.1
+Vcells 1424927326 10871.4 2374475162 18115.9 1648757826 12579.1</code></pre>
 <pre class="r"><code># Combine all panels of the figure
 suppfig5 &lt;- plot_grid(suppfig5_panelA, suppfig5_panelB, suppfig5_panelC, labels = panel_labels[1:3], ncol = 1, rel_heights = c(1, 1, 1), label_size = 10)
 
@@ -2193,8 +2244,8 @@ rm(list = ls(pattern = &quot;suppfig5_&quot;))
 rm(list = ls(pattern = &quot;_suppfig5&quot;))
 gc()</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3929237   209.9    6886895   367.8    6886895   367.8
-Vcells 1426152872 10880.7 2374474193 18115.9 1800489194 13736.7</code></pre>
+Ncells    3926315   209.7    6890988   368.1    6890988   368.1
+Vcells 1426136324 10880.6 2374475162 18115.9 1800473244 13736.6</code></pre>
 <p><em><strong>Figure S5: Ridge plots of gradient experiment.</strong>
 </em></p>
 <pre class="r"><code># Panel A: CD79a time
@@ -2350,8 +2401,8 @@ suppfig6_F &lt;- ggplot() +
 
 gc() # free up memory</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3812801   203.7    6886895   367.8    6886895   367.8
-Vcells 1425448759 10875.4 2374474193 18115.9 1800489194 13736.7</code></pre>
+Ncells    3809879   203.5    6890988   368.1    6890988   368.1
+Vcells 1425432211 10875.2 2374475162 18115.9 1800473244 13736.6</code></pre>
 <pre class="r"><code># Combine all panels of the figure
 suppfig6_ABC &lt;- plot_grid(suppfig6_A, suppfig6_B, suppfig6_C, labels = panel_labels[c(1, 2, 3)], ncol = 1, rel_heights = c(1, 1, 1.5), label_size = 10)
 suppfig6_DEF &lt;- plot_grid(suppfig6_D, suppfig6_E, suppfig6_F, NULL, labels = panel_labels[c(4, 5, 6)], ncol = 1, rel_heights = c(1, 1, 1, 0.47), label_size = 10)
@@ -2382,8 +2433,8 @@ rm(list = ls(pattern = &quot;suppfig6_&quot;))
 rm(list = ls(pattern = &quot;_suppfig6&quot;))
 gc()</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3939392   210.4    6886895   367.8    6886895   367.8
-Vcells 1425777902 10877.9 2374474193 18115.9 1800489194 13736.7</code></pre>
+Ncells    3936470   210.3    6890988   368.1    6890988   368.1
+Vcells 1425761341 10877.7 2374475162 18115.9 1800473244 13736.6</code></pre>
 <p><em><strong>Figure S6: Line plots of time/conc/exposure vs % ON for
 gradient experiment.</strong> </em></p>
 <pre class="r"><code>suppfig7 &lt;- ggplot() +
@@ -2417,8 +2468,8 @@ rm(list = ls(pattern = &quot;suppfig7_&quot;))
 rm(list = ls(pattern = &quot;_suppfig7&quot;))
 gc()</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3835580   204.9    6886895   367.8    6886895   367.8
-Vcells 1437839565 10969.9 2374474193 18115.9 1800489194 13736.7</code></pre>
+Ncells    3832658   204.7    6890988   368.1    6890988   368.1
+Vcells 1437823004 10969.8 2374475162 18115.9 1800473244 13736.6</code></pre>
 <p><em><strong>Figure S7: Simulated response to gradient input
 patterns.</strong> </em></p>
 </div>
@@ -2524,8 +2575,8 @@ suppfig8_panelD &lt;- ggplot(subset(combi_conc_EC50, expID == &quot;DS085&quot; 
 
 gc() # free up memory</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3839745   205.1    6886895   367.8    6886895   367.8
-Vcells 1939271086 14795.5 2849449031 21739.6 2374139705 18113.3</code></pre>
+Ncells    3836823   205.0    6890988   368.1    6890988   368.1
+Vcells 1939254538 14795.4 2849450194 21739.6 2374123241 18113.2</code></pre>
 <pre class="r"><code># Combine all panels of the figure
 suppfig8 &lt;- plot_grid(suppfig8_panelA, suppfig8_panelB, suppfig8_panelC, suppfig8_panelD, labels = panel_labels[1:4], ncol = 1, rel_heights = c(1, 1, 1, 1.2), label_size = 10)
 
@@ -2554,8 +2605,8 @@ rm(list = ls(pattern = &quot;suppfig8_&quot;))
 rm(list = ls(pattern = &quot;_suppfig8&quot;))
 gc()</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    4042190   215.9    6886895   367.8    6886895   367.8
-Vcells 1941176086 14810.0 2849449031 21739.6 2460270019 18770.4</code></pre>
+Ncells    4039268   215.8    6890988   368.1    6890988   368.1
+Vcells 1941159538 14809.9 2849450194 21739.6 2460235250 18770.2</code></pre>
 <p><em><strong>Figure S8: Gradient data used for rate vs EC50 plot
 (DS085)</strong> </em></p>
 <pre class="r"><code># Load data
@@ -2657,8 +2708,8 @@ suppfig9_panelD &lt;- ggplot(subset(combi_conc_EC50, expID == &quot;DS097&quot; 
 
 gc() # free up memory</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3883175   207.4    6886895   367.8    6886895   367.8
-Vcells 2254207227 17198.3 3419418837 26088.1 2524074246 19257.2</code></pre>
+Ncells    3880253   207.3    6890988   368.1    6890988   368.1
+Vcells 2254190679 17198.2 3419420232 26088.2 2524054437 19257.1</code></pre>
 <pre class="r"><code># Combine all panels of the figure
 suppfig9 &lt;- plot_grid(suppfig9_panelA, suppfig9_panelB, suppfig9_panelC, suppfig9_panelD, labels = panel_labels[1:4], ncol = 1, rel_heights = c(1, 1, 1, 1.2), label_size = 10)
 
@@ -2687,8 +2738,8 @@ rm(list = ls(pattern = &quot;suppfig9_&quot;))
 rm(list = ls(pattern = &quot;_suppfig9&quot;))
 gc()</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    4105531   219.3    6886895   367.8    6886895   367.8
-Vcells 2255778145 17210.3 3419418837 26088.1 2696451924 20572.3</code></pre>
+Ncells    4102609   219.2    6890988   368.1    6890988   368.1
+Vcells 2255761593 17210.1 3419420232 26088.2 2696447661 20572.3</code></pre>
 <p><em><strong>Figure S9: Gradient data used for rate vs EC50 plot
 (DS097)</strong> </em></p>
 </div>
@@ -2716,8 +2767,8 @@ suppfig10_panelD &lt;- image_read(&quot;output/figures/gating_figs/fig_live_DS09
 
 gc() # free up memory</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3948044   210.9    6886895   367.8    6886895   367.8
-Vcells 2257287179 17221.8 3419418837 26088.1 2696451924 20572.3</code></pre>
+Ncells    3945123   210.7    6890988   368.1    6890988   368.1
+Vcells 2257270629 17221.7 3419420232 26088.2 2696447661 20572.3</code></pre>
 <pre class="r"><code># Combine all panels of the figure
 suppfig10 &lt;- plot_grid(suppfig10_panelB, suppfig10_panelC, suppfig10_panelD, labels = panel_labels[1:3], ncol = 3, rel_widths = c(1, 1, 1), label_size = 10)
 
@@ -2746,8 +2797,8 @@ rm(list = ls(pattern = &quot;suppfig10_&quot;))
 rm(list = ls(pattern = &quot;_suppfig10&quot;))
 gc()</code></pre>
 <pre><code>             used    (Mb) gc trigger    (Mb)   max used    (Mb)
-Ncells    3966732   211.9    6886895   367.8    6886895   367.8
-Vcells 2259769209 17240.7 3419418837 26088.1 2696451924 20572.3</code></pre>
+Ncells    3963811   211.7    6890988   368.1    6890988   368.1
+Vcells 2259752659 17240.6 3419420232 26088.2 2696447661 20572.3</code></pre>
 <p><em><strong>Figure S10: Gating strategy.</strong> </em></p>
 <br>
 <p>
