@@ -314,7 +314,7 @@ fig2_panelA <- ggplot(avg_DS095_fig2A,
   labs(x = expression("H"[2]*"O"[2]*" dose (mM)"), y = paste("% cells ON")) +
   theme_bw() +
   textsize_small + 
-  theme(legend.position = "none", panel.grid.minor = element_blank(), text = element_text(size = 7)) 
+  theme(legend.position = "none", panel.grid.minor = element_blank()) #, text = element_text(size = 7)
 
 # fig2_panelA
 
@@ -387,13 +387,41 @@ png_model
 ```
 
 
+### Panel D
+
+Simulated DR curves
+
+```{r fig2_panelD, fig.retina=1}
+fig2_panelD <- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = "Simulated DR curves from the model") + 
+  theme_bw() +
+  theme(axis.text = element_text(color = "white"), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+# fig2_panelD
+
+png_model_percent <- image_read("output/figures/non_R_figs/DRcurve_model_percon_MW_v1.png") %>%
+  image_ggplot()
+png_model_percent
+```
+***Figure S4: Simulated dose-response curves.** *
+
+
 ### Combined
 
-```{r fig2_main, fig.width=6, fig.height=2, fig.retina=1}
+```{r fig2_main, fig.width=6, fig.height=4.5, fig.retina=1}
 gc() # free up memory
 
 # Combine all panels of the figure
-fig2 <- plot_grid(fig2_panelA_full, png_DR_vis, png_model, labels = panel_labels[1:3], ncol = 3, rel_widths = c(1.2, 1, 1), label_size = 10)
+# fig2 <- plot_grid(fig2_panelA_full, png_DR_vis, png_model, labels = panel_labels[1:3], ncol = 3, rel_widths = c(1.2, 1, 1), label_size = 10)
+
+fig2_AB <- plot_grid(fig2_panelA_full, png_DR_vis, labels = panel_labels[1:2], ncol = 2, rel_widths = c(1.2, 1), label_size = 10)
+fig2_CD <- plot_grid(png_model, png_model_percent, labels = panel_labels[3:4], ncol = 2, rel_widths = c(1, 1.2), label_size = 10)
+fig2 <- plot_grid(fig2_AB, fig2_CD, ncol = 1, rel_heights = c(1.2, 1))
 
 fig2
 
@@ -402,7 +430,7 @@ ggsave(
   fig2,
   filename = "output/figures/fig2_main.pdf",
   width = 6,
-  height = 2,
+  height = 4.5,
   units = "in",
   dpi = 300
   )
@@ -410,12 +438,12 @@ ggsave(
   fig2,
   filename = "output/figures/fig2_main.jpeg",
   width = 6,
-  height = 2,
+  height = 4.5,
   units = "in",
   dpi = 300
   )
 
-# Remove unnecessary files to clear up memory
+# # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "fig2"))
 # rm(list = ls(pattern = "_fig2"))
 rm(list = ls(pattern = "png_"))
@@ -1320,58 +1348,8 @@ gc()
 ***Figure S2: Estimation of cell-to-cell variability.** *
 
 
-```{r supp_fig3_model_DR,fig.width=6, fig.height=2.5, fig.retina=1}
-suppfig3_place <- ggplot() +
-  geom_blank() +
-  scale_x_continuous(limits = c(0, 10)) + 
-  scale_y_continuous(limits = c(0, 10)) + 
-  labs(title = "Simulated DR curves from the model") + 
-  theme_bw() +
-  theme(axis.text = element_text(color = "white"), 
-        axis.ticks = element_blank(), 
-        panel.grid = element_blank()) +
-  textsize_small
-# suppfig3_place
-
-png_model_MFI <- image_read("output/figures/non_R_figs/DRcurve_model_MW_v1.png") %>%
-  image_ggplot()
-# png_model_MFI
-
-png_model_percent <- image_read("output/figures/non_R_figs/DRcurve_model_percon_MW_v1.png") %>%
-  image_ggplot()
-# png_model_percent
-
-suppfig3 <- plot_grid(png_model_MFI, png_model_percent, labels = panel_labels[c(1, 2)], ncol = 2, rel_widths = c(1, 1))
-suppfig3
-
-# Save figure as pdf and jpeg
-ggsave(
-  suppfig3,
-  filename = "output/figures/suppfig3_model_DR.pdf",
-  width = 6,
-  height = 2.5,
-  units = "in",
-  dpi = 300
-  )
-ggsave(
-  suppfig3,
-  filename = "output/figures/suppfig3_model_DR.jpeg",
-  width = 6,
-  height = 2.5,
-  units = "in",
-  dpi = 300
-  )
-
-# Remove unnecessary files to clear up memory
-rm(list = ls(pattern = "suppfig3_"))
-rm(list = ls(pattern = "_suppfig3"))
-gc()
-```
-***Figure S3: Simulated dose-response curves.** *
-
-
-```{r supp_fig4_model_variability, fig.retina=1}
-suppfig4 <- ggplot() +
+```{r supp_fig3_model_variability, fig.retina=1}
+suppfig3 <- ggplot() +
   geom_blank() +
   scale_x_continuous(limits = c(0, 10)) + 
   scale_y_continuous(limits = c(0, 10)) + 
@@ -1381,19 +1359,60 @@ suppfig4 <- ggplot() +
         axis.ticks = element_blank(), 
         panel.grid = element_blank()) +
   textsize_small
-# suppfig4
+# suppfig3
 
 png_model_var <- image_read("output/figures/non_R_figs/Model_bimodality_x50var_5mM_MW_v1.png") %>%
   image_ggplot()
 png_model_var
 
-# Save figure as pdf and jpeg
-
+# Save figure as jpeg
 ggsave(
-  suppfig4,
-  filename = "output/figures/suppfig4_model_variability_placeholder.jpeg",
+  suppfig3,
+  filename = "output/figures/suppfig3_model_variability_placeholder.jpeg",
   width = 6,
   height = 3,
+  units = "in",
+  dpi = 300
+  )
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = "suppfig3_"))
+rm(list = ls(pattern = "_suppfig3"))
+gc()
+```
+***Figure S3: Cell-to-cell variability in the model.** *
+
+
+```{r supp_fig4_model_DR,fig.width=3, fig.height=2.5, fig.retina=1}
+suppfig4_place <- ggplot() +
+  geom_blank() +
+  scale_x_continuous(limits = c(0, 10)) + 
+  scale_y_continuous(limits = c(0, 10)) + 
+  labs(title = "Simulated DR curves from the model") + 
+  theme_bw() +
+  theme(axis.text = element_text(color = "white"), 
+        axis.ticks = element_blank(), 
+        panel.grid = element_blank()) +
+  textsize_small
+# suppfig4_place
+
+png_model_MFI <- image_read("output/figures/non_R_figs/DRcurve_model_MW_v1.png") %>%
+  image_ggplot()
+# png_model_MFI
+
+png_model_percent <- image_read("output/figures/non_R_figs/DRcurve_model_percon_MW_v1.png") %>%
+  image_ggplot()
+# png_model_percent
+
+# suppfig4 <- plot_grid(png_model_MFI, png_model_percent, labels = panel_labels[c(1, 2)], ncol = 2, rel_widths = c(1, 1))
+# suppfig4
+
+# Save figure as jpeg
+ggsave(
+  suppfig4_place,
+  filename = "output/figures/suppfig4_model_DR_placeholder.jpeg",
+  width = 3,
+  height = 2.5,
   units = "in",
   dpi = 300
   )
@@ -1403,7 +1422,7 @@ rm(list = ls(pattern = "suppfig4_"))
 rm(list = ls(pattern = "_suppfig4"))
 gc()
 ```
-***Figure S4: Cell-to-cell variability in the model.** *
+***Figure S4: Simulated dose-response curves.** *
 
 
 ### Supp to main fig 3
