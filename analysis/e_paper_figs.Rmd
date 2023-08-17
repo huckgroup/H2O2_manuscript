@@ -56,6 +56,131 @@ colors_profiles <- c("PBS step (0 mM)" = "#377eb8", "H2O2 step (10 mM)" = "#4daf
 
 
 
+## Graphical abstract
+
+```{r abstract_data}
+medians_DS096 <- read_csv("output/annotated_data/annotated_medians_tidy_DS096.csv")
+```
+
+```{r abstract_labels}
+proteins_DS096 <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pPLCy2 (Y759)", "cCaspase 3 + cPARP", "No stain")
+profiles_long_DS096 <- c("PBS step (0 mM)", "H2O2 step (10 mM)", "20 min gradient (10 mM)", "60 min gradient (10 mM)", "60 min quadratic gradient (10 mM)")
+profiles_short_DS096 <- c("step to 0 mM", "step to 10 mM", "20 min to 10 mM", "60 min to 10 mM", "60 min to 10 mM (quad)")
+
+textsize_abstract <- theme(text = element_text(size = 5, family = "sans", colour = "black"), 
+                           plot.title = element_text(size = 5, family = "sans", colour = "black"))
+```
+
+```{r abstract_BCR, fig.retina=1}
+png_BCR_network <- image_read("output/figures/non_R_figs/BCR_network_simple_H2O2.png") %>%
+  image_ggplot() +
+  labs(title = "BCR signaling network") +
+  textsize_abstract
+# png_BCR_network
+```
+
+```{r abstract_input, fig.retina=1}
+# Select data
+data_abstract_input <- medians_DS096 %>%
+  select(stim_description, time_min, conc_at_time_mM) %>%
+  distinct() %>%
+  add_row(stim_description = "H2O2 step (10 mM)", time_min = 0, conc_at_time_mM = 10)
+
+# Figure
+abstract_input <- ggplot(data_abstract_input) +
+  geom_vline(xintercept = 20, size = 0.25, linetype = "dashed") +
+  geom_vline(xintercept = 60, size = 0.25, linetype = "dotdash") +
+  geom_line(aes(x = time_min, y = conc_at_time_mM, group = stim_description, color = stim_description), linewidth = 0.7) +
+  geom_text(aes(75, 10), label = expression("H"[2]*"O"[2]*" step"), color = "#4daf4a", size = 1.3, show.legend = F, hjust = 1, vjust = -0.5) +
+  geom_text(aes(75, 0), label = "PBS step", color = "#377eb8", size = 1.3, show.legend = F, hjust = 1, vjust = -0.8) +
+  geom_text(aes(20, 10), label = "20 min", color = "#ff7f00", size = 1.3, show.legend = F, hjust = 1.4, vjust = 1.6) +
+  geom_text(aes(60, 10), label = "60 min linear", color = "#984ea3", size = 1.3, show.legend = F, hjust = 1.5, vjust = 1.6) +
+  geom_text(aes(60, 10), label = "60 min\nexponential", color = "#cab2d6", size = 1.3, show.legend = F, hjust = -0.08, vjust = 1.2) +
+  scale_x_continuous(
+    limits = c(0, 75),
+    breaks = c(0, 20, 60),
+  ) +
+  scale_y_continuous(
+    limits = c(-0.2, 11.5), 
+    breaks = c(0, 10)
+  ) + 
+  scale_color_manual(values = colors_profiles) +
+  labs(x = "Time (min)", y = expression("H"[2]*"O"[2]*" dose (mM)"), title = "Input: Dynamic stimulus patterns") + 
+  theme_bw() +
+  textsize_abstract +
+  theme(panel.grid = element_blank(), legend.position = "none", plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm"), axis.ticks = element_line(linewidth = 0.2)) # margins: t, r, b, l
+# abstract_input
+
+gc() # free up memory
+
+# Save figure as png
+ggsave(
+  abstract_input,
+  filename = "output/figures/graphical_abstract_input.png",
+  width = 1.75,
+  height = 1,
+  units = "in",
+  dpi = 600
+  )
+```
+
+```{r abstract_output, fig.retina=1}
+# Select data
+data_abstract_output <- medians_DS096 %>%
+  subset(protein == "pPLCy2 (Y759)" & staining == "yes" & stim_profile == "gradient")
+
+# Figure
+abstract_output <- ggplot(data_abstract_output,
+                          aes(x = conc_at_time_mM,
+                              y = percent_on, 
+                              group = stim_description,
+                              color = stim_description)) +
+  geom_line(linewidth = 0.7) +
+  geom_point(size = 0.8) +
+  geom_hline(yintercept = 50, size = 0.25, linetype = "dashed") +
+  scale_color_manual(values = colors_profiles) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(x = expression("H"[2]*"O"[2]*" dose (mM)"), y = "% cells ON", title = "Output: Rate-dependent signaling response") +
+  theme_bw() +
+  textsize_abstract + 
+  theme(legend.position = "none", panel.grid = element_blank(), plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm"), axis.ticks = element_line(linewidth = 0.2)) # margins: t, r, b, l
+# abstract_output
+
+gc() # free up memory
+
+# Save figure as png
+ggsave(
+  abstract_output,
+  filename = "output/figures/graphical_abstract_output.png",
+  width = 1.75,
+  height = 1,
+  units = "in",
+  dpi = 600
+  )
+```
+
+```{r abstract_combi, fig.retina=1}
+gc() # free up memory
+
+abstract_data <- plot_grid(abstract_input, abstract_output, ncol = 1, rel_heights = c(1, 1))
+graphical_abstract <- plot_grid(png_BCR_network, abstract_data, ncol = 2, rel_widths = c(1, 1.25)) +
+  theme(plot.background = element_rect(fill = "white"))
+graphical_abstract
+
+# Save figure as png
+ggsave(
+  graphical_abstract,
+  filename = "output/figures/graphical_abstract.png",
+  width = 3.2,
+  height = 2,
+  units = "in",
+  dpi = 600
+  )
+```
+***Graphical abstract** *
+
+
+
 ## Main fig 1
 
 Static H2O2 exposure results in heterogeneous dose-dependent phosphorylation of BCR network proteins.
@@ -739,26 +864,6 @@ png_model_heatmap
 
 ### Combined
 
-```{r fig3_poster, fig.retina=1}
-fig3_panelC_big <- fig3_panelC + textsize
-fig3_panelD_big <- fig3_panelD_post + textsize
-fig3_panelE_big <- fig3_panelE + labs(x = expression("Total exposure (log"[10]*")"), y = "% cells ON") + textsize
-fig3_C <- plot_grid(fig3_panelC_big, NULL, ncol = 2, rel_widths = c(3, 1))
-fig3_E <- plot_grid(fig3_panelE_big, NULL, ncol = 2, rel_widths = c(3, 1))
-fig3_panelCDE_big <- plot_grid(fig3_C, fig3_panelD_big, fig3_E, labels = panel_labels[c(1, 2, 3)], ncol = 1, rel_heights = c(1, 1, 1))
-fig3_panelCDE_big
-
-# Save figure as jpeg
-ggsave(
-  fig3_panelCDE_big,
-  filename = "output/figures/fig3_panelCDE.jpeg",
-  width = 7.5,
-  height = 7,
-  units = "in",
-  dpi = 300
-  )
-```
-
 ```{r fig3_main, fig.width=6, fig.height=4, fig.retina=1}
 gc() # free up memory
 
@@ -786,14 +891,36 @@ ggsave(
   units = "in",
   dpi = 300
   )
+```
+***Figure 3: Dynamic H2O2-induced BCR signaling reveals that both concentration and rate of increase determine half-maximal signaling response.** *
 
+```{r fig3_poster, fig.retina=1}
+fig3_panelC_big <- fig3_panelC + textsize
+fig3_panelD_big <- fig3_panelD_post + textsize
+fig3_panelE_big <- fig3_panelE + labs(x = expression("Total exposure (log"[10]*")"), y = "% cells ON") + textsize
+fig3_C <- plot_grid(fig3_panelC_big, NULL, ncol = 2, rel_widths = c(3, 1))
+fig3_E <- plot_grid(fig3_panelE_big, NULL, ncol = 2, rel_widths = c(3, 1))
+fig3_panelCDE_big <- plot_grid(fig3_C, fig3_panelD_big, fig3_E, labels = panel_labels[c(1, 2, 3)], ncol = 1, rel_heights = c(1, 1, 1))
+fig3_panelCDE_big
+
+# Save figure as jpeg
+ggsave(
+  fig3_panelCDE_big,
+  filename = "output/figures/fig3_panelCDE.jpeg",
+  width = 7.5,
+  height = 7,
+  units = "in",
+  dpi = 300
+  )
+```
+
+```{r fig3_clear}
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "fig3"))
 # rm(list = ls(pattern = "_fig3"))
 rm(list = ls(pattern = "png_"))
 gc()
 ```
-***Figure 3: Dynamic H2O2-induced BCR signaling reveals that both concentration and rate of increase determine half-maximal signaling response.** *
 
 
 

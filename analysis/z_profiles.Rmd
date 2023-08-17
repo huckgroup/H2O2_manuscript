@@ -1,0 +1,928 @@
+---
+title: "Gradient input profile generation"
+author: "mwitmond"
+date: "2023-08-17"
+output:
+  workflowr::wflow_html:
+    toc: TRUE
+    toc_float: 
+      collapsed: FALSE
+    toc_depth: 3
+    code_folding: hide
+editor_options:
+  chunk_output_type: console
+---
+
+
+## Set-up
+
+```{r setup, message=F, warning=F}
+knitr::opts_chunk$set(
+  message = F, warning = F, echo = T, eval = T
+)
+
+# Load required packages
+source("code/packages_FACS.R", local = knitr::knit_global())
+source("code/generate_stimulation_gradients.R", local = knitr::knit_global())
+```
+
+```{r fig_settings}
+row_order = c("A", "B", "C", "D", "E", "F", "G", "H")
+col_order = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
+panel_labels <- c("a", "b", "c","d", "e", "f", "g", "h", "i", "j", "k", "l", "m")
+
+textsize <- theme(axis.text = element_text(colour = "black", size = 11), #, face = "bold"
+                  axis.title = element_text(colour = "black", size = 12), 
+                  legend.title = element_text(colour = "black", size = 12),
+                  # legend.title = element_blank(), 
+                  legend.text = element_text(colour = "black", size = 11), 
+                  strip.text.x = element_text(colour = "black", size = 12)
+)
+
+textsize_small <- theme(text = element_text(size = 8, family = "sans", colour = "black"), 
+                        strip.text.x = element_text(size = 7)
+)
+
+colors_dark9 <- c("#4daf4a", "#984ea3", "#377eb8", "#ff7f00", "#ffff33", "#e41a1c", "#f781bf", "#a65628", "#999999")
+colors_light12 <- c("#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#ffed6f")
+colors_paired10 <- c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#fb9a99", "#e31a1c")
+colors_blue9 <- c("#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b")
+colors_red_blue8 <- c("#d73027", "#f46d43", "#fdae61", "#fee090", "#e0f3f8", "#abd9e9", "#74add1", "#4575b4")
+colors_green_blue9 <- c("#f7fcf0","#e0f3db","#ccebc5","#a8ddb5","#7bccc4","#4eb3d3","#2b8cbe","#0868ac","#084081")
+colors_grey9 <- c("#ffffff","#f0f0f0","#d9d9d9","#bdbdbd","#969696","#737373","#525252","#252525","#000000")
+```
+
+
+
+## DS085: LinGradient_Conc
+
+Experimental parameters:
+
+- Initial volume: 7.75 mL (8.0 mL before start, 0.25 mL sample t = 0 min)
+
+- Gradient durations: 20 min, 60 min
+
+- Stock stimulus concentration: 980 mM
+
+- Final stimulus concentration: 5 mM
+
+```{r parameters_DS085}
+# Parameters
+initial_volume <- 7.75*1e-3 # L
+stimulus_concentration <- 980 # mM ## 1.3 # mg/mL
+gradient_duration <- c(20, 60) # min
+final_stimulus_concentration <- 5 # mM ## 10*1e-3 # g/mL
+sample_during_gradient <- 7
+sample_volume <- 0.00025 # L
+```
+
+
+### 20 min
+
+```{r gradient_20min_DS085}
+# Create sampling dataset and gradient profile
+df_smpl <- create_df_sampling_uniform(N = sample_during_gradient,
+                                      d_sample = sample_volume,
+                                      dt = gradient_duration[1]*60/(sample_during_gradient+1),
+                                      rate = 5000000,
+                                      units = c("s", "L", "mkL/h"))
+
+concentration <- function(t) {final_stimulus_concentration * t / gradient_duration[1]} 
+linear_gradient <- gradient(concentration,
+                            gradient_duration[1],
+                            t_unit = "min", #s, ms, min, h
+                            initial_volume, 
+                            V_unit = "L", #L, mL, mkL, μL
+                            df_smpl, 
+                            stimulus_concentration)
+
+# Preview gradient profile
+fig_conc <- plot_gradient(linear_gradient, 
+                          parameter = "concentration",
+                          V_unit = "L", #s, ms, min, h) +
+                          t_unit = "min") + 
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Concentration (mM)", title = "Time vs concentration") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_volume <- plot_gradient(linear_gradient, 
+                            parameter = "volume",
+                            V_unit = "mL",
+                            t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Volume (mL)", title = "Time vs volume") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_flow_rate <- plot_gradient(linear_gradient, 
+                               parameter = "rate",
+                               V_unit = "mL",
+                               t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Flow rate", title = "Time vs flow rate") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_sampling_index <- plot_gradient(linear_gradient, 
+                                    parameter = "sampling_index",
+                                    V_unit = "L",
+                                    t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Sampling index", title = "Time vs sampling index") +
+  theme(legend.position = "none") +
+  textsize
+
+# fig_sampling_rate <- plot_gradient(linear_gradient, 
+#                     parameter = "sampling_rate",
+#                     V_unit = "mL",
+#                     t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "Sampling rate", title = "Time vs sampling rate") +
+#   theme(legend.position = "none") +
+#   textsize
+
+# fig_dV <- plot_gradient(linear_gradient, 
+#                     parameter = "dV",
+#                     V_unit = "mL",
+#                     t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dV", title = "Time vs dV") +
+#   theme(legend.position = "none") +
+#   textsize
+
+# fig_dS <- plot_gradient(linear_gradient, 
+#                     parameter = "dS",
+#                     V_unit = "mL",
+#                     t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dS", title = "Time vs dS") +
+#   theme(legend.position = "none") +
+#   textsize
+
+fig_20 <- plot_grid(fig_conc, fig_volume, fig_flow_rate, fig_sampling_index, labels = panel_labels, label_size = 15, ncol = 2, rel_widths =  c(1,1))
+title_20 <- ggdraw() + draw_label("20 min linear gradient", fontface = "bold")
+fig_20 <- plot_grid(title_20, fig_20, ncol = 1, rel_heights = c(0.1, 1))
+fig_20
+
+# Export gradient for Cetoni Nemesys pumps
+path_to_nfs_files <- file.path("output/input_profiles/DS085_LinGradient_Conc", 
+                               paste(c("npf_DS085_linear_", 
+                                       final_stimulus_concentration, "mM_", 
+                                       gradient_duration[1], "min"), 
+                                     collapse = ""))
+export_nemesys_profile_gradient(path_to_nfs_files, linear_gradient, n_sampling_pumps = 1)
+```
+
+
+### 60 min
+
+```{r gradient_60min_DS085}
+# Create sampling dataset and gradient profile
+df_smpl <- create_df_sampling_uniform(N = sample_during_gradient,
+                                      d_sample = sample_volume,
+                                      dt = gradient_duration[2]*60/(sample_during_gradient+1),
+                                      rate = 5000000,
+                                      units = c("s", "L", "mkL/h"))
+
+concentration <- function(t) {final_stimulus_concentration * t / gradient_duration[2]} 
+linear_gradient <- gradient(concentration,
+                            gradient_duration[2],
+                            t_unit = "min", #s, ms, min, h
+                            initial_volume, 
+                            V_unit = "L", #L, mL, mkL, μL
+                            df_smpl, 
+                            stimulus_concentration)
+
+# Preview gradient profile
+fig_conc <- plot_gradient(linear_gradient, 
+                          parameter = "concentration",
+                          V_unit = "L", #s, ms, min, h) +
+                          t_unit = "min") + 
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Concentration (mM)", title = "Time vs concentration") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_volume <- plot_gradient(linear_gradient, 
+                            parameter = "volume",
+                            V_unit = "mL",
+                            t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Volume (mL)", title = "Time vs volume") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_flow_rate <- plot_gradient(linear_gradient, 
+                               parameter = "rate",
+                               V_unit = "mL",
+                               t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Flow rate", title = "Time vs flow rate") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_sampling_index <- plot_gradient(linear_gradient, 
+                                    parameter = "sampling_index",
+                                    V_unit = "L",
+                                    t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Sampling index", title = "Time vs sampling index") +
+  theme(legend.position = "none") +
+  textsize
+
+# fig_sampling_rate <- plot_gradient(linear_gradient, 
+#                     parameter = "sampling_rate",
+#                     V_unit = "mL",
+#                     t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "Sampling rate", title = "Time vs sampling rate") +
+#   theme(legend.position = "none") +
+#   textsize
+
+# fig_dV <- plot_gradient(linear_gradient, 
+#                     parameter = "dV",
+#                     V_unit = "mL",
+#                     t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dV", title = "Time vs dV") +
+#   theme(legend.position = "none") +
+#   textsize
+
+# fig_dS <- plot_gradient(linear_gradient, 
+#                     parameter = "dS",
+#                     V_unit = "mL",
+#                     t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dS", title = "Time vs dS") +
+#   theme(legend.position = "none") +
+#   textsize
+
+fig_60 <- plot_grid(fig_conc, fig_volume, fig_flow_rate, fig_sampling_index, labels = panel_labels, label_size = 15, ncol = 2, rel_widths =  c(1,1))
+title_60 <- ggdraw() + draw_label("60 min linear gradient", fontface = "bold")
+fig_60 <- plot_grid(title_60, fig_60, ncol = 1, rel_heights = c(0.1, 1))
+fig_60
+
+# Export gradient for Cetoni Nemesys pumps
+path_to_nfs_files <- file.path("output/input_profiles/DS085_LinGradient_Conc", 
+                               paste(c("npf_DS085_linear_", 
+                                       final_stimulus_concentration, "mM_", 
+                                       gradient_duration[2], "min"), 
+                                     collapse = ""))
+export_nemesys_profile_gradient(path_to_nfs_files, linear_gradient, n_sampling_pumps = 1)
+```
+
+
+
+## DS096: LinQuadGradient_HighConc
+
+Experimental parameters:
+
+- Initial volume: 7.25 mL (7.5 mL before start, 0.25 mL sample t = 0 min)
+
+- Gradient durations: 20 min, 60 min
+
+- Stock stimulus concentration: 1390 mM
+
+- Final stimulus concentration: 10 mM
+
+```{r parameters_DS096}
+# Parameters
+initial_volume <- 7.25*1e-3 # L
+stimulus_concentration <- 139 # mM 
+gradient_duration <- c(20, 60, 60) # min
+final_stimulus_concentration <- 10 # mM
+sample_during_gradient <- 7
+sample_volume <- 0.00025 # L
+```
+
+
+### 20 min linear
+
+```{r gradient_20min_DS096}
+# Create sampling dataset and gradient profile
+df_smpl20 <- read.csv2(file = "data/DS096_LinQuadGradient_HighConc/input_profiles_samples/linear_20_min.csv")
+
+concentration <- function(t) {final_stimulus_concentration * t / gradient_duration[1]} 
+linear_gradient <- gradient(concentration,
+                            gradient_duration[1],
+                            t_unit = "min", #s, ms, min, h
+                            initial_volume, 
+                            V_unit = "L", #L, mL, mkL, μL
+                            df_smpl20, 
+                            stimulus_concentration)
+
+# Preview gradient profile
+fig_conc <- plot_gradient(linear_gradient, 
+                          parameter = "concentration",
+                          V_unit = "L", #s, ms, min, h) +
+                          t_unit = "min") + 
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Concentration (mM)", title = "Time vs concentration") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_volume <- plot_gradient(linear_gradient, 
+                            parameter = "volume",
+                            V_unit = "mL",
+                            t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Volume (mL)", title = "Time vs volume") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_flow_rate <- plot_gradient(linear_gradient, 
+                               parameter = "rate",
+                               V_unit = "mL",
+                               t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Flow rate", title = "Time vs flow rate") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_sampling_index <- plot_gradient(linear_gradient, 
+                                    parameter = "sampling_index",
+                                    V_unit = "L",
+                                    t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Sampling index", title = "Time vs sampling index") +
+  theme(legend.position = "none") +
+  textsize
+
+# fig_sampling_rate <- plot_gradient(linear_gradient, 
+#                                    parameter = "sampling_rate",
+#                                    V_unit = "mL",
+#                                    t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "Sampling rate", title = "Time vs sampling rate") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dV <- plot_gradient(linear_gradient, 
+#                         parameter = "dV",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dV", title = "Time vs dV") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dS <- plot_gradient(linear_gradient, 
+#                         parameter = "dS",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dS", title = "Time vs dS") +
+#   theme(legend.position = "none") +
+#   textsize
+
+fig_20 <- plot_grid(fig_conc, fig_volume, fig_flow_rate, fig_sampling_index, labels = panel_labels, label_size = 15, ncol = 2, rel_widths =  c(1,1))
+title_20 <- ggdraw() + draw_label("20 min linear gradient", fontface = "bold")
+fig_20 <- plot_grid(title_20, fig_20, ncol = 1, rel_heights = c(0.1, 1))
+fig_20
+
+# Export gradient for Cetoni Nemesys pumps
+path_to_nfs_files <- file.path("output/input_profiles/DS096_LinQuadGradient_HighConc", 
+                               paste(c("npf_DS096_linear_", 
+                                       final_stimulus_concentration, "mM_", 
+                                       gradient_duration[1], "min"),
+                                     collapse = ""))
+export_nemesys_profile_gradient(path_to_nfs_files, linear_gradient, n_sampling_pumps = 1)
+```
+
+
+### 60 min linear
+
+```{r gradient_60min_DS096}
+# Create sampling dataset and gradient profile
+df_smpl60lin <- read.csv2(file = "data/DS096_LinQuadGradient_HighConc/input_profiles_samples/linear_60_min.csv")
+
+concentration <- function(t) {final_stimulus_concentration * t / gradient_duration[2]} 
+linear_gradient <- gradient(concentration,
+                            gradient_duration[2],
+                            t_unit = "min", #s, ms, min, h
+                            initial_volume, 
+                            V_unit = "L", #L, mL, mkL, μL
+                            df_smpl60lin, 
+                            stimulus_concentration)
+
+# Preview gradient profile
+fig_conc <- plot_gradient(linear_gradient, 
+                          parameter = "concentration",
+                          V_unit = "L", #s, ms, min, h) +
+                          t_unit = "min") + 
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Concentration (mM)", title = "Time vs concentration") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_volume <- plot_gradient(linear_gradient, 
+                            parameter = "volume",
+                            V_unit = "mL",
+                            t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Volume (mL)", title = "Time vs volume") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_flow_rate <- plot_gradient(linear_gradient, 
+                               parameter = "rate",
+                               V_unit = "mL",
+                               t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Flow rate", title = "Time vs flow rate") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_sampling_index <- plot_gradient(linear_gradient, 
+                                    parameter = "sampling_index",
+                                    V_unit = "L",
+                                    t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Sampling index", title = "Time vs sampling index") +
+  theme(legend.position = "none") +
+  textsize
+
+# fig_sampling_rate <- plot_gradient(linear_gradient, 
+#                                    parameter = "sampling_rate",
+#                                    V_unit = "mL",
+#                                    t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "Sampling rate", title = "Time vs sampling rate") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dV <- plot_gradient(linear_gradient, 
+#                         parameter = "dV",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dV", title = "Time vs dV") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dS <- plot_gradient(linear_gradient, 
+#                         parameter = "dS",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dS", title = "Time vs dS") +
+#   theme(legend.position = "none") +
+#   textsize
+
+fig_60 <- plot_grid(fig_conc, fig_volume, fig_flow_rate,   fig_sampling_index, labels = panel_labels, label_size = 15, ncol = 2, rel_widths =  c(1,1))
+title_60 <- ggdraw() + draw_label("60 min linear gradient", fontface = "bold")
+fig_60 <- plot_grid(title_60, fig_60, ncol = 1, rel_heights = c(0.1, 1))
+fig_60
+
+# Export gradient for Cetoni Nemesys pumps
+path_to_nfs_files <- file.path("output/input_profiles/DS096_LinQuadGradient_HighConc",
+                               paste(c("npf_DS096_linear_",
+                                       final_stimulus_concentration, "mM_",
+                                       gradient_duration[2], "min"),
+                                     collapse = ""))
+export_nemesys_profile_gradient(path_to_nfs_files, linear_gradient, n_sampling_pumps = 1)
+```
+
+
+### 60 min quadratic
+
+```{r gradient_60minquad_DS096}
+# Create sampling dataset and gradient profile
+df_smpl60quad <- read.csv2(file = "data/DS096_LinQuadGradient_HighConc/input_profiles_samples/quadratic_60_min.csv")
+
+concentration_quad <- function(t) {4.62963e-5 * t^3} 
+quadratic_gradient <- gradient(concentration_quad,
+                               gradient_duration[3],
+                               t_unit = "min", #s, ms, min, h
+                               initial_volume, 
+                               V_unit = "L", #L, mL, mkL, μL
+                               df_smpl60quad, 
+                               stimulus_concentration)
+
+# Preview gradient profile
+fig_conc <- plot_gradient(quadratic_gradient, 
+                          parameter = "concentration",
+                          V_unit = "L", #s, ms, min, h) +
+                          t_unit = "min") + 
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Concentration (mM)", title = "Time vs concentration") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_volume <- plot_gradient(quadratic_gradient, 
+                            parameter = "volume",
+                            V_unit = "mL",
+                            t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Volume (mL)", title = "Time vs volume") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_flow_rate <- plot_gradient(quadratic_gradient, 
+                               parameter = "rate",
+                               V_unit = "mL",
+                               t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Flow rate", title = "Time vs flow rate") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_sampling_index <- plot_gradient(quadratic_gradient, 
+                                    parameter = "sampling_index",
+                                    V_unit = "L",
+                                    t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Sampling index", title = "Time vs sampling index") +
+  theme(legend.position = "none") +
+  textsize
+
+# fig_sampling_rate <- plot_gradient(quadratic_gradient, 
+#                                    parameter = "sampling_rate",
+#                                    V_unit = "mL",
+#                                    t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "Sampling rate", title = "Time vs sampling rate") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dV <- plot_gradient(quadratic_gradient, 
+#                         parameter = "dV",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dV", title = "Time vs dV") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dS <- plot_gradient(quadratic_gradient, 
+#                         parameter = "dS",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dS", title = "Time vs dS") +
+#   theme(legend.position = "none") +
+#   textsize
+
+fig_60q <- plot_grid(fig_conc, fig_volume, fig_flow_rate,   fig_sampling_index, labels = panel_labels, label_size = 15, ncol = 2, rel_widths =  c(1,1))
+title_60q <- ggdraw() + draw_label("60 min quadratic gradient", fontface = "bold")
+fig_60q <- plot_grid(title_60q, fig_60q, ncol = 1, rel_heights = c(0.1, 1))
+fig_60q
+
+# Export gradient for Cetoni Nemesys pumps
+path_to_nfs_files <- file.path("output/input_profiles/DS096_LinQuadGradient_HighConc",
+                               paste(c("npf_DS096_quadratic_",
+                                       final_stimulus_concentration, "mM_",
+                                       gradient_duration[3], "min"),
+                                     collapse = ""))
+export_nemesys_profile_gradient(path_to_nfs_files, linear_gradient, n_sampling_pumps = 1)
+```
+
+
+
+## DS097: LinGradient_LowConc
+
+Experimental parameters:
+
+- Initial volume: 7.25 mL (7.5 mL before start, 0.25 mL sample t = 0 min)
+
+- Gradient durations: 20 min, 60 min
+
+- Stock stimulus concentration: 1390 mM
+
+- Final stimulus concentration: 2.5 or 5 mM
+
+```{r parameters}
+# Parameters
+initial_volume <- 7.25*1e-3 # L
+stimulus_concentration <- 1390 # mM 
+gradient_duration <- c(20, 60) # min
+final_stimulus_concentration <- c(2.5, 5) # mM
+sample_during_gradient <- 7
+sample_volume <- 0.00025 # L
+```
+
+
+### 20 min linear 5 mM
+
+```{r gradient_20min}
+# Create sampling dataset and gradient profile
+df_smpl20 <- read.csv2(file = "data/DS097_LinGradient_LowConc/input_profiles_samples/linear_20_min.csv")
+
+concentration <- function(t) {final_stimulus_concentration[2] * t / gradient_duration[1]} 
+linear_gradient <- gradient(concentration,
+                            gradient_duration[1],
+                            t_unit = "min", #s, ms, min, h
+                            initial_volume, 
+                            V_unit = "L", #L, mL, mkL, μL
+                            df_smpl20,  
+                            stimulus_concentration)
+
+# Preview gradient profile
+fig_conc <- plot_gradient(linear_gradient, 
+                          parameter = "concentration",
+                          V_unit = "L", #s, ms, min, h) +
+                          t_unit = "min") + 
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Concentration (mM)", title = "Time vs concentration") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_volume <- plot_gradient(linear_gradient, 
+                            parameter = "volume",
+                            V_unit = "mL",
+                            t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Volume (mL)", title = "Time vs volume") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_flow_rate <- plot_gradient(linear_gradient, 
+                               parameter = "rate",
+                               V_unit = "mL",
+                               t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Flow rate", title = "Time vs flow rate") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_sampling_index <- plot_gradient(linear_gradient, 
+                                    parameter = "sampling_index",
+                                    V_unit = "L",
+                                    t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Sampling index", title = "Time vs sampling index") +
+  theme(legend.position = "none") +
+  textsize
+
+# fig_sampling_rate <- plot_gradient(linear_gradient, 
+#                                    parameter = "sampling_rate",
+#                                    V_unit = "mL",
+#                                    t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "Sampling rate", title = "Time vs sampling rate") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dV <- plot_gradient(linear_gradient, 
+#                         parameter = "dV",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dV", title = "Time vs dV") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dS <- plot_gradient(linear_gradient, 
+#                         parameter = "dS",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dS", title = "Time vs dS") +
+#   theme(legend.position = "none") +
+#   textsize
+
+fig_20 <- plot_grid(fig_conc, fig_volume, fig_flow_rate,   fig_sampling_index, labels = panel_labels, label_size = 15, ncol = 2, rel_widths =  c(1,1))
+title_20 <- ggdraw() + draw_label("20 min linear gradient", fontface = "bold")
+fig_20 <- plot_grid(title_20, fig_20, ncol = 1, rel_heights = c(0.1, 1))
+fig_20
+
+# # Export gradient for Cetoni Nemesys pumps
+# path_to_nfs_files <- file.path("output", "npf_DS.DynSign097_20_min_5mM")
+# export_nemesys_profile_gradient(path_to_nfs_files, linear_gradient, n_sampling_pumps = 1)
+
+# Export gradient for Cetoni Nemesys pumps
+path_to_nfs_files <- file.path("output/input_profiles/DS097_LinGradient_LowConc", 
+                               paste(c("npf_DS097_linear_", 
+                                       final_stimulus_concentration[2], "mM_", 
+                                       gradient_duration[1], "min"),
+                                     collapse = ""))
+export_nemesys_profile_gradient(path_to_nfs_files, linear_gradient, n_sampling_pumps = 1)
+```
+
+### 60 min linear 2.5 mM
+
+```{r gradient_60min2.5mM}
+# Create sampling dataset and gradient profile
+df_smpl60 <- read.csv2(file = "data/DS097_LinGradient_LowConc/input_profiles_samples/linear_60_min.csv")
+
+concentration <- function(t) {final_stimulus_concentration[1] * t / gradient_duration[2]} 
+linear_gradient <- gradient(concentration,
+                            gradient_duration[2],
+                            t_unit = "min", #s, ms, min, h
+                            initial_volume, 
+                            V_unit = "L", #L, mL, mkL, μL
+                            df_smpl60, 
+                            stimulus_concentration)
+
+# Preview gradient profile
+fig_conc <- plot_gradient(linear_gradient, 
+                          parameter = "concentration",
+                          V_unit = "L", #s, ms, min, h) +
+                          t_unit = "min") + 
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Concentration (mM)", title = "Time vs concentration") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_volume <- plot_gradient(linear_gradient, 
+                            parameter = "volume",
+                            V_unit = "mL",
+                            t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Volume (mL)", title = "Time vs volume") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_flow_rate <- plot_gradient(linear_gradient, 
+                               parameter = "rate",
+                               V_unit = "mL",
+                               t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Flow rate", title = "Time vs flow rate") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_sampling_index <- plot_gradient(linear_gradient, 
+                                    parameter = "sampling_index",
+                                    V_unit = "L",
+                                    t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Sampling index", title = "Time vs sampling index") +
+  theme(legend.position = "none") +
+  textsize
+
+# fig_sampling_rate <- plot_gradient(linear_gradient, 
+#                                    parameter = "sampling_rate",
+#                                    V_unit = "mL",
+#                                    t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "Sampling rate", title = "Time vs sampling rate") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dV <- plot_gradient(linear_gradient, 
+#                         parameter = "dV",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dV", title = "Time vs dV") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dS <- plot_gradient(linear_gradient, 
+#                         parameter = "dS",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dS", title = "Time vs dS") +
+#   theme(legend.position = "none") +
+#   textsize
+
+fig_60 <- plot_grid(fig_conc, fig_volume, fig_flow_rate,   fig_sampling_index, labels = panel_labels, label_size = 15, ncol = 2, rel_widths =  c(1,1))
+title_60 <- ggdraw() + draw_label("60 min linear gradient", fontface = "bold")
+fig_60 <- plot_grid(title_60, fig_60, ncol = 1, rel_heights = c(0.1, 1))
+fig_60
+
+# Export gradient for Cetoni Nemesys pumps
+path_to_nfs_files <- file.path("output/input_profiles/DS097_LinGradient_LowConc", 
+                               paste(c("npf_DS097_linear_", 
+                                       final_stimulus_concentration[1], "mM_", 
+                                       gradient_duration[2], "min"),
+                                     collapse = ""))
+export_nemesys_profile_gradient(path_to_nfs_files, linear_gradient, n_sampling_pumps = 1)
+```
+
+
+### 60 min linear 5 mM
+
+```{r gradient_60min5mM}
+# Create sampling dataset and gradient profile
+df_smpl60 <- read.csv2(file = "data/DS097_LinGradient_LowConc/input_profiles_samples/linear_60_min.csv")
+
+concentration <- function(t) {final_stimulus_concentration[2] * t / gradient_duration[2]} 
+linear_gradient <- gradient(concentration,
+                            gradient_duration[2],
+                            t_unit = "min", #s, ms, min, h
+                            initial_volume, 
+                            V_unit = "L", #L, mL, mkL, μL
+                            df_smpl60, 
+                            stimulus_concentration)
+
+# Preview gradient profile
+fig_conc <- plot_gradient(linear_gradient, 
+                          parameter = "concentration",
+                          V_unit = "L", #s, ms, min, h) +
+                          t_unit = "min") + 
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Concentration (mM)", title = "Time vs concentration") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_volume <- plot_gradient(linear_gradient, 
+                            parameter = "volume",
+                            V_unit = "mL",
+                            t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Volume (mL)", title = "Time vs volume") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_flow_rate <- plot_gradient(linear_gradient, 
+                               parameter = "rate",
+                               V_unit = "mL",
+                               t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  labs(x = "Time (min)", y = "Flow rate", title = "Time vs flow rate") +
+  theme(legend.position = "none") +
+  textsize
+
+fig_sampling_index <- plot_gradient(linear_gradient, 
+                                    parameter = "sampling_index",
+                                    V_unit = "L",
+                                    t_unit = "min") + #s, ms, min, h) +
+  theme_bw() +
+  ylim(c(0, NA)) +
+  labs(x = "Time (min)", y = "Sampling index", title = "Time vs sampling index") +
+  theme(legend.position = "none") +
+  textsize
+
+# fig_sampling_rate <- plot_gradient(linear_gradient, 
+#                                    parameter = "sampling_rate",
+#                                    V_unit = "mL",
+#                                    t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "Sampling rate", title = "Time vs sampling rate") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dV <- plot_gradient(linear_gradient, 
+#                         parameter = "dV",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dV", title = "Time vs dV") +
+#   theme(legend.position = "none") +
+#   textsize
+# 
+# fig_dS <- plot_gradient(linear_gradient, 
+#                         parameter = "dS",
+#                         V_unit = "mL",
+#                         t_unit = "min") + #s, ms, min, h) +
+#   theme_bw() +
+#   ylim(c(0, NA)) +
+#   labs(x = "Time (min)", y = "dS", title = "Time vs dS") +
+#   theme(legend.position = "none") +
+#   textsize
+
+fig_60 <- plot_grid(fig_conc, fig_volume, fig_flow_rate,   fig_sampling_index, labels = panel_labels, label_size = 15, ncol = 2, rel_widths =  c(1,1))
+title_60 <- ggdraw() + draw_label("60 min linear gradient", fontface = "bold")
+fig_60 <- plot_grid(title_60, fig_60, ncol = 1, rel_heights = c(0.1, 1))
+fig_60
+
+# Export gradient for Cetoni Nemesys pumps
+path_to_nfs_files <- file.path("output/input_profiles/DS097_LinGradient_LowConc", 
+                               paste(c("npf_DS097_linear_", 
+                                       final_stimulus_concentration[2], "mM_", 
+                                       gradient_duration[2], "min"),
+                                     collapse = ""))
+export_nemesys_profile_gradient(path_to_nfs_files, linear_gradient, n_sampling_pumps = 1)
+```

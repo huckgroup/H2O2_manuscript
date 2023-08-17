@@ -9,8 +9,10 @@ navbar:
     href: a_gating.html
   - text: Annotation
     href: b_annotation.html
-  - text: Manuscript figs
+  - text: Paper figs
     href: e_paper_figs.html
+  - text: Profiles
+    href: z_profiles.html
   - text: Gradients
     href: c_gradients.html
   - text: Step
