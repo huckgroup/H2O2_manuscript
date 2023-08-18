@@ -111,8 +111,6 @@ abstract_input <- ggplot(data_abstract_input) +
   theme(panel.grid = element_blank(), legend.position = "none", plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm"), axis.ticks = element_line(linewidth = 0.2)) # margins: t, r, b, l
 # abstract_input
 
-gc() # free up memory
-
 # Save figure as png
 ggsave(
   abstract_input,
@@ -146,8 +144,6 @@ abstract_output <- ggplot(data_abstract_output,
   theme(legend.position = "none", panel.grid = element_blank(), plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm"), axis.ticks = element_line(linewidth = 0.2)) # margins: t, r, b, l
 # abstract_output
 
-gc() # free up memory
-
 # Save figure as png
 ggsave(
   abstract_output,
@@ -160,8 +156,6 @@ ggsave(
 ```
 
 ```{r abstract_combi, fig.width=3.2, fig.height=2, fig.retina=1}
-gc() # free up memory
-
 abstract_data <- plot_grid(abstract_input, abstract_output, ncol = 1, rel_heights = c(1, 1))
 graphical_abstract <- plot_grid(png_BCR_network, abstract_data, ncol = 2, rel_widths = c(1, 1.25)) +
   theme(plot.background = element_rect(fill = "white"))
@@ -176,6 +170,8 @@ ggsave(
   units = "in",
   dpi = 600
   )
+
+gc() # free up memory
 ```
 ***Graphical abstract** *
 
@@ -210,7 +206,7 @@ proteins_fig1C <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pPLCy2 (Y759)")
 ```
 
 
-### Panel A
+#### Panel A
 
 BCR network Biorender
 
@@ -229,11 +225,11 @@ fig1_panelA <- ggplot() +
 
 png_BCR_network <- image_read("output/figures/non_R_figs/BCR_network_simple_H2O2.png") %>%
   image_ggplot()
-png_BCR_network
+# png_BCR_network
 ```
 
 
-### Panel B
+#### Panel B
 
 Ridge plots of PLCy2 at low (1 mM), medium (5 mM) and high (25 mM) concentrations at 0, 5, 10 and 25 min
 
@@ -266,7 +262,7 @@ fig1_panelB <- ggplot(data_DS095_fig1B, aes(x = fluorescence)) +
   theme(legend.position = "none", panel.grid.minor = element_blank()) +
   textsize_small
 
-fig1_panelB
+# fig1_panelB
 
 # For conference poster
 fig1_panelB_big <- fig1_panelB + textsize
@@ -282,7 +278,7 @@ ggsave(
 ```
 
 
-### Panel C
+#### Panel C
 
 Line plots of time vs % ON for CD79a, SYK and PLCy2
 
@@ -334,15 +330,13 @@ fig1_panelC <- ggplot(avg_DS095_fig1C,
   theme(panel.grid.minor = element_blank(), strip.text.x = element_text(size = 6), text = element_text(size = 7), legend.key.height = unit(0.35, "cm"), legend.box.margin = margin(l = 0, r = 0, unit = "cm")) +
   guides(color = guide_legend(override.aes = list(linewidth = 1.5)))
 
-fig1_panelC
+# fig1_panelC
 ```
 
 
-### Combined
+#### Combined
 
 ```{r fig1_main, fig.width=6, fig.height=3, fig.retina=1}
-gc() # free up memory
-
 # Combine all panels of the figure
 fig1_BC <- plot_grid(fig1_panelB, fig1_panelC, labels = panel_labels[c(2, 3)], ncol = 1, rel_heights = c(1, 1.25), label_size = 10)
 fig1 <- plot_grid(png_BCR_network, fig1_BC, labels = c(panel_labels[1], ""), ncol = 2, rel_widths = c(1, 1.75), label_size = 10)
@@ -399,7 +393,7 @@ proteins_fig2A <- c("pCD79a (Y182)", "pSYK (Y525/Y526)", "pPLCy2 (Y759)")
 ```
 
 
-### Panel A
+#### Panel A
 
 Line plot of H2O2 concentration vs % ON for CD79a, SYK and PLCy2 at 10 min
 
@@ -448,7 +442,7 @@ png_legend <- readPNG("output/figures/non_R_figs/DR_curves_table_20230713_MW.png
 
 fig2_panelA_full <- fig2_panelA +
   inset_element(png_legend, left = 0.01, bottom = 0.73, right = 0.35, top = 0.99)
-fig2_panelA_full
+# fig2_panelA_full
 
 fig2_panelA_big <- fig2_panelA +
   textsize +
@@ -466,7 +460,7 @@ ggsave(
 ```
 
 
-### Panel B
+#### Panel B
 
 Dose-response visualisation from model
 
@@ -485,11 +479,11 @@ fig2_panelB <- ggplot() +
 
 png_DR_vis <- image_read("output/figures/non_R_figs/DRcurves_x50var_bimodregion_EK.png") %>%
   image_ggplot()
-png_DR_vis
+# png_DR_vis
 ```
 
 
-### Panel C
+#### Panel C
 
 Model
 
@@ -508,11 +502,11 @@ fig2_panelC <- ggplot() +
 
 png_model <- image_read("output/figures/non_R_figs/H2O2_model_network_20230726.png") %>%
   image_ggplot()
-png_model
+# png_model
 ```
 
 
-### Panel D
+#### Panel D
 
 Simulated DR curves
 
@@ -531,19 +525,15 @@ fig2_panelD <- ggplot() +
 
 png_model_percent <- image_read("output/figures/non_R_figs/DRcurve_model_percon_MW_v1.png") %>%
   image_ggplot()
-png_model_percent
+# png_model_percent
 ```
 ***Figure S4: Simulated dose-response curves.** *
 
 
-### Combined
+#### Combined
 
 ```{r fig2_main, fig.width=6, fig.height=4.5, fig.retina=1}
-gc() # free up memory
-
 # Combine all panels of the figure
-# fig2 <- plot_grid(fig2_panelA_full, png_DR_vis, png_model, labels = panel_labels[1:3], ncol = 3, rel_widths = c(1.2, 1, 1), label_size = 10)
-
 fig2_AB <- plot_grid(fig2_panelA_full, png_DR_vis, labels = panel_labels[1:2], ncol = 2, rel_widths = c(1.2, 1), label_size = 10)
 fig2_CD <- plot_grid(png_model, png_model_percent, labels = panel_labels[3:4], ncol = 2, rel_widths = c(1, 1.2), label_size = 10)
 fig2 <- plot_grid(fig2_AB, fig2_CD, ncol = 1, rel_heights = c(1.2, 1))
@@ -605,7 +595,7 @@ profiles_short_DS096 <- c("step to 0 mM", "step to 10 mM", "20 min to 10 mM", "6
 ```
 
 
-### Panel A
+#### Panel A
 
 Experimental gradient set-up
 
@@ -624,11 +614,11 @@ fig3_panelA <- ggplot() +
 
 png_set_up <- image_read("output/figures/non_R_figs/gradient_setup_MW_20230726.png") %>%
   image_ggplot()
-png_set_up
+# png_set_up
 ```
 
 
-### Panel B
+#### Panel B
 
 H2O2 input profiles for step, 20 min linear gradient, 60 min linear gradient and 60 min exponential gradient stimulation
 
@@ -664,7 +654,7 @@ fig3_panelB <- ggplot(medians_DS096_fig3B) +
   textsize_small +
   theme(panel.grid = element_blank(), legend.position = "none")
   
-fig3_panelB
+# fig3_panelB
 ```
 
 ```{r fig3_panelB_post, fig.retina=1}
@@ -695,7 +685,7 @@ fig3_panelB_post <- ggplot(medians_DS096_fig3B) +
         axis.title = element_text(colour = "black", size = 18),
         )
 
-fig3_panelB_post
+# fig3_panelB_post
 
 # Save figure as jpeg
 ggsave(
@@ -709,7 +699,7 @@ ggsave(
 ```
 
 
-### Panel C
+#### Panel C
 
 Line plot of time vs % ON for PLCy2
 
@@ -743,11 +733,11 @@ fig3_panelC <- ggplot() +
   theme_bw() +
   theme(legend.position = "none", panel.grid.minor = element_blank(), panel.grid.major.x = element_blank()) +
   textsize_small
-fig3_panelC
+# fig3_panelC
 ```
 
 
-### Panel D
+#### Panel D
 
 Line plot of concentration vs % ON for PLCy2
 
@@ -769,7 +759,7 @@ fig3_panelD <- ggplot(subset(medians_DS096_fig3CDE, stim_profile == "gradient"),
   theme_bw() +
   theme(legend.position = "none", panel.grid.minor = element_blank()) +
   textsize_small
-fig3_panelD
+# fig3_panelD
 
 # Concentration for poster
 colors_profiles_post <- c("PBS step (0 mM)" = "white", "H2O2 step (10 mM)" = "white", "20 min gradient (10 mM)" = "#ff7f00", "60 min gradient (10 mM)" = "#984ea3", "60 min quadratic gradient (10 mM)" = "#cab2d6")
@@ -804,7 +794,7 @@ fig3_panelD_post <- ggplot() +
 ```
 
 
-### Panel E
+#### Panel E
 
 Line plot of exposure vs % ON for PLCy2
 
@@ -832,11 +822,11 @@ fig3_panelE <- ggplot(subset(medians_DS096_fig3CDE, stim_profile == "gradient"),
   theme_bw() +
   theme(legend.position = "none", panel.grid.minor = element_blank()) +
   textsize_small
-fig3_panelE
+# fig3_panelE
 ```
 
 
-### panel F
+#### panel F
 
 Model: Simulated signaling response strength upon different input patterns for CD79a, SYK and PLCy2
 
@@ -852,21 +842,18 @@ fig3_panelF <- ggplot() +
         axis.ticks = element_blank(), 
         panel.grid = element_blank()) +
   textsize_small
-
 # fig3_panelF
 
 # Model figure
 png_model_heatmap <- image_read("output/figures/non_R_figs/Model_gradients_heatmap_MW.png") %>%
   image_ggplot()
-png_model_heatmap
+# png_model_heatmap
 ```
 
 
-### Combined
+#### Combined
 
 ```{r fig3_main, fig.width=6, fig.height=4, fig.retina=1}
-gc() # free up memory
-
 # Combine all panels of the figure
 fig3_AB <- plot_grid(png_set_up, fig3_panelB, labels = panel_labels[c(1, 2)], ncol = 1, rel_heights = c(1.5, 1), label_size = 10)
 fig3_CDE <- plot_grid(fig3_panelC, fig3_panelD, fig3_panelE, labels = panel_labels[c(3, 4, 5)], ncol = 1, rel_heights = c(1, 1, 1), label_size = 10)
@@ -901,7 +888,7 @@ fig3_panelE_big <- fig3_panelE + labs(x = expression("Total exposure (log"[10]*"
 fig3_C <- plot_grid(fig3_panelC_big, NULL, ncol = 2, rel_widths = c(3, 1))
 fig3_E <- plot_grid(fig3_panelE_big, NULL, ncol = 2, rel_widths = c(3, 1))
 fig3_panelCDE_big <- plot_grid(fig3_C, fig3_panelD_big, fig3_E, labels = panel_labels[c(1, 2, 3)], ncol = 1, rel_heights = c(1, 1, 1))
-fig3_panelCDE_big
+# fig3_panelCDE_big
 
 # Save figure as jpeg
 ggsave(
@@ -976,7 +963,7 @@ proteins_fig4Ctest <- c("cCaspase 3 + cPARP", "pCD79a (Y182)", "pSYK (Y525/Y526)
 ```
 
 
-### Panel A
+#### Panel A
 
 Model: Simulated gradient rate vs EC50%
 
@@ -995,11 +982,11 @@ fig4_panelA <- ggplot() +
 
 png_rate_EC50 <- image_read("output/figures/non_R_figs/Model_EC50_ratedependence_MW_v4.png") %>%
   image_ggplot()
-png_rate_EC50
+# png_rate_EC50
 ```
 
 
-### Panel B
+#### Panel B
 
 H2O2 input profiles for step, 20 min linear gradient, 60 min linear gradient and 60 min quadratic gradient stimulation
 
@@ -1023,7 +1010,6 @@ data_text_fig4B <- medians_combi %>%
          expID = factor(expID, levels = c("DS097", "DS085", "DS096"))) %>%
   arrange(expID, gradient_duration, conc_final_nr) %>%
   mutate(label = c(1, 3, 2, 4, 5, 6, 7))
-
 
 # Figure
 fig4_panelB <- ggplot(medians_combi_fig4B) +
@@ -1060,14 +1046,14 @@ fig4_panelB <- ggplot(medians_combi_fig4B) +
   textsize_small +
   theme(panel.grid.minor = element_blank(), panel.grid.major.x = element_blank(), legend.position = "none", legend.justification = "right", strip.text.x = element_text(size = 5.5))
 
-fig4_panelB
+# fig4_panelB
 
 fig4_panelB_vert <- fig4_panelB + 
   facet_wrap(vars(factor(expID, levels = c("DS097", "DS085", "DS096"), labels = c("Low + Medium (2.5 + 5 mM)", "Medium (5 mM)", "High (10 mM)"))), ncol = 1)
 ```
 
 
-### Panel C
+#### Panel C
 
 Line plot of gradient rate vs conc of EC50% for CD79a, SYK, and PLCy2
 
@@ -1165,7 +1151,7 @@ fig4_panelC_sens <- ggplot(data_fig4_sens) +
   theme_bw() +
   textsize_small +
   theme(legend.position = "none", panel.grid.minor = element_blank(), panel.grid.major.x = element_blank())
-fig4_panelC_sens
+# fig4_panelC_sens
 ```
 
 ```{r fig4_panelC_alt, fig.retina=1}
@@ -1183,15 +1169,15 @@ fig4_panelC_table <- ggplot() +
 
 png_rate_table <- image_read("output/figures/non_R_figs/rate_sensitivity_table_20230726_v1.png") %>%
   image_ggplot()
-png_rate_table
+# png_rate_table
 
 png_sens_table <- image_read("output/figures/non_R_figs/rate_sensitivity_table_20230726_v2.png") %>%
   image_ggplot()
-png_sens_table
+# png_sens_table
 ```
 
 
-### Panel D
+#### Panel D
 
 ```{r fig4_panelD, fig.retina=1}
 # Figure of gradient rate vs conc at EC50%
@@ -1210,16 +1196,13 @@ fig4_panelD <- ggplot(subset(rate_EC50_fig4CD, percent_on == 50),
   theme_bw() +
   theme(legend.position = "none") +
   textsize_small
-
-fig4_panelD
+# fig4_panelD
 ```
 
 
-### Combined
+#### Combined
 
 ```{r fig4_main, fig.width=6, fig.height=2, fig.retina=1}
-gc() # free up memory
-
 # Fig option 1
 fig4_BC <- plot_grid(fig4_panelB, NULL, labels = panel_labels[c(2, 3)], ncol = 1, rel_heights = c(2, 1), label_size = 10)
 fig4_v1 <- plot_grid(png_rate_EC50, fig4_BC, labels = panel_labels[1], ncol = 2, rel_widths = c(1, 1.75), label_size = 10)
@@ -1243,57 +1226,32 @@ ggsave(
   dpi = 300
   )
 
-# Fig option 2
-fig4_AC <- plot_grid(png_rate_EC50, png_sens_table, labels = panel_labels[c(1, 3)], ncol = 1, rel_heights = c(2, 1), label_size = 10)
-fig4_v2 <- plot_grid(fig4_AC, fig4_panelB_vert, labels = c("", panel_labels[2]), ncol = 2, rel_widths = c(1.2, 1), label_size = 10)
-
-fig4_v2
-
-ggsave(
-  fig4_v2,
-  filename = "output/figures/fig4_main_v2.jpeg",
-  width = 5.5,
-  height = 4,
-  units = "in",
-  dpi = 300
-  )
-
-# Fig option 3
-fig4_AC <- plot_grid(png_rate_EC50, fig4_panelC_sens, labels = panel_labels[c(1, 3)], ncol = 1, rel_heights = c(2, 1), label_size = 10)
-fig4_v3 <- plot_grid(fig4_AC, fig4_panelB_vert, labels = c("", panel_labels[2]), ncol = 2, rel_widths = c(1.2, 1), label_size = 10)
-
-fig4_v3
-
-ggsave(
-  fig4_v3,
-  filename = "output/figures/fig4_main_v3.jpeg",
-  width = 6.5,
-  height = 5,
-  units = "in",
-  dpi = 300
-  )
-
-# # Combine all panels of the figure
-# fig4_AB <- plot_grid(png_rate_EC50, fig4_panelB, labels = panel_labels[c(1, 2)], ncol = 2, rel_widths = c(1, 1.5))
-# fig4_CDE <- plot_grid(fig4_panelC, fig4_panelD, fig4_panelE, labels = panel_labels[c(3, 4, 5)], ncol = 3, rel_widths = c(1, 1, 1))
-# fig4 <- plot_grid(fig4_AB, fig4_CDE, ncol = 1, rel_heights = c(1, 1))
+# # Fig option 2
+# fig4_AC <- plot_grid(png_rate_EC50, png_sens_table, labels = panel_labels[c(1, 3)], ncol = 1, rel_heights = c(2, 1), label_size = 10)
+# fig4_v2 <- plot_grid(fig4_AC, fig4_panelB_vert, labels = c("", panel_labels[2]), ncol = 2, rel_widths = c(1.2, 1), label_size = 10)
 # 
-# fig4
-
-# # Save figure as pdf and jpeg
+# fig4_v2
+# 
 # ggsave(
-#   fig4,
-#   filename = "output/figures/fig4_main.pdf",
-#   width = 8,
-#   height = 4.5,
+#   fig4_v2,
+#   filename = "output/figures/fig4_main_v2.jpeg",
+#   width = 5.5,
+#   height = 4,
 #   units = "in",
 #   dpi = 300
 #   )
+# 
+# # Fig option 3
+# fig4_AC <- plot_grid(png_rate_EC50, fig4_panelC_sens, labels = panel_labels[c(1, 3)], ncol = 1, rel_heights = c(2, 1), label_size = 10)
+# fig4_v3 <- plot_grid(fig4_AC, fig4_panelB_vert, labels = c("", panel_labels[2]), ncol = 2, rel_widths = c(1.2, 1), label_size = 10)
+# 
+# fig4_v3
+# 
 # ggsave(
-#   fig4,
-#   filename = "output/figures/fig4_main.jpeg",
-#   width = 8,
-#   height = 4.5,
+#   fig4_v3,
+#   filename = "output/figures/fig4_main_v3.jpeg",
+#   width = 6.5,
+#   height = 5,
 #   units = "in",
 #   dpi = 300
 #   )
@@ -1407,8 +1365,6 @@ suppfig1_panelC <- ggplot(data_suppfig1C, aes(x = fluorescence)) +
   theme(legend.position = "none", text = element_text(size = 7))
 # suppfig1_panelC
 
-gc() # free up memory
-
 # Combine all panels of the figure
 suppfig1 <- plot_grid(suppfig1_panelA, suppfig1_panelB, suppfig1_panelC, labels = panel_labels[1:3], ncol = 1, rel_heights = c(1, 1, 1), label_size = 10)
 
@@ -1435,7 +1391,6 @@ ggsave(
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "suppfig1_"))
 rm(list = ls(pattern = "_suppfig1"))
-gc()
 ```
 ***Figure S1: Ridge plots of static step stimulations.** *
 
@@ -1470,7 +1425,6 @@ ggsave(
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "suppfig2_"))
 rm(list = ls(pattern = "_suppfig2"))
-gc()
 ```
 ***Figure S2: Estimation of cell-to-cell variability.** *
 
@@ -1505,7 +1459,6 @@ ggsave(
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "suppfig3_"))
 rm(list = ls(pattern = "_suppfig3"))
-gc()
 ```
 ***Figure S3: Cell-to-cell variability in the model.** *
 
@@ -1525,7 +1478,7 @@ suppfig4_place <- ggplot() +
 
 png_model_MFI <- image_read("output/figures/non_R_figs/DRcurve_model_MW_v1.png") %>%
   image_ggplot()
-# png_model_MFI
+png_model_MFI
 
 png_model_percent <- image_read("output/figures/non_R_figs/DRcurve_model_percon_MW_v1.png") %>%
   image_ggplot()
@@ -1639,8 +1592,6 @@ suppfig5_panelC <- ggplot(data_suppfig5C, aes(x = fluorescence)) +
   textsize_small
 # suppfig5_panelC
 
-gc() # free up memory
-
 # Combine all panels of the figure
 suppfig5 <- plot_grid(suppfig5_panelA, suppfig5_panelB, suppfig5_panelC, labels = panel_labels[1:3], ncol = 1, rel_heights = c(1, 1, 1), label_size = 10)
 
@@ -1667,7 +1618,6 @@ ggsave(
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "suppfig5_"))
 rm(list = ls(pattern = "_suppfig5"))
-gc()
 ```
 ***Figure S5: Ridge plots of gradient experiment.** *
 
@@ -1824,8 +1774,6 @@ suppfig6_F <- ggplot() +
   textsize_small
 # suppfig6_F
 
-gc() # free up memory
-
 # Combine all panels of the figure
 suppfig6_ABC <- plot_grid(suppfig6_A, suppfig6_B, suppfig6_C, labels = panel_labels[c(1, 2, 3)], ncol = 1, rel_heights = c(1, 1, 1.5), label_size = 10)
 suppfig6_DEF <- plot_grid(suppfig6_D, suppfig6_E, suppfig6_F, NULL, labels = panel_labels[c(4, 5, 6)], ncol = 1, rel_heights = c(1, 1, 1, 0.47), label_size = 10)
@@ -1854,7 +1802,6 @@ ggsave(
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "suppfig6_"))
 rm(list = ls(pattern = "_suppfig6"))
-gc()
 ```
 ***Figure S6: Line plots of time/conc/exposure vs % ON for gradient experiment.** *
 
@@ -1996,8 +1943,6 @@ suppfig8_panelD <- ggplot(subset(combi_conc_EC50, expID == "DS085" & protein != 
   theme(legend.position = "bottom", legend.justification = "left", panel.grid.minor = element_blank(), legend.margin = margin(b = 0, t = 0, unit = "cm"))
 # suppfig8_panelD
 
-gc() # free up memory
-
 # Combine all panels of the figure
 suppfig8 <- plot_grid(suppfig8_panelA, suppfig8_panelB, suppfig8_panelC, suppfig8_panelD, labels = panel_labels[1:4], ncol = 1, rel_heights = c(1, 1, 1, 1.2), label_size = 10)
 
@@ -2024,7 +1969,6 @@ ggsave(
 # Remove unnecessary files to clear up memory
 rm(list = ls(pattern = "suppfig8_"))
 rm(list = ls(pattern = "_suppfig8"))
-gc()
 ```
 ***Figure S8: Gradient data used for rate vs EC50 plot (DS085)** *
 
@@ -2127,8 +2071,6 @@ suppfig9_panelD <- ggplot(subset(combi_conc_EC50, expID == "DS097" & protein != 
   theme(legend.position = "bottom", legend.justification = "left", panel.grid.minor = element_blank(), legend.margin = margin(b = 0, t = 0, unit = "cm"))
 # suppfig9_panelD
 
-gc() # free up memory
-
 # Combine all panels of the figure
 suppfig9 <- plot_grid(suppfig9_panelA, suppfig9_panelB, suppfig9_panelC, suppfig9_panelD, labels = panel_labels[1:4], ncol = 1, rel_heights = c(1, 1, 1, 1.2), label_size = 10)
 
@@ -2181,8 +2123,6 @@ suppfig10_panelC <- image_read("output/figures/gating_figs/fig_singlets_DS095.pn
 suppfig10_panelD <- image_read("output/figures/gating_figs/fig_live_DS095.png") %>%
   image_ggplot()
 # suppfig11_panelD
-
-gc() # free up memory
 
 # Combine all panels of the figure
 suppfig10 <- plot_grid(suppfig10_panelB, suppfig10_panelC, suppfig10_panelD, labels = panel_labels[1:3], ncol = 3, rel_widths = c(1, 1, 1), label_size = 10)

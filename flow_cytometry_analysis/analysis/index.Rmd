@@ -1,5 +1,5 @@
 ---
-title: "Manuscript dynamic H2O2 and B-cell signaling"
+title: "Manuscript on dynamic H2O2 and B-cell signaling"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -11,7 +11,7 @@ editor_options:
 
 ## Description
 
-This is the data analysis folder for the flow cytometry data of the manuscript titled: Dynamic hydrogen peroxide levels reveal a rate-dependent sensitivity in B-cell lymphoma signaling.
+This is the data analysis folder for the flow cytometry data of the manuscript titled: *Dynamic hydrogen peroxide levels reveal a rate-dependent sensitivity in B-cell lymphoma signaling*.
 
 
 
