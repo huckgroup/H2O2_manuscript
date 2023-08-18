@@ -1,0 +1,23 @@
+name: "manuscript_H2O2_dynamic_signaling"
+output_dir: ../docs
+navbar:
+  title: "Manuscript dynamic H2O2"
+  left:
+  - text: Home
+    href: index.html
+  - text: Profiles
+    href: z_profiles.html
+  - text: Gating
+    href: a_gating.html
+  - text: Annotation
+    href: b_annotation.html
+  - text: Paper figs
+    href: e_paper_figs.html
+  - text: License
+    href: license.html
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: readable
+    highlight: textmate

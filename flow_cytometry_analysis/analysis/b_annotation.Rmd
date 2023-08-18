@@ -1,0 +1,700 @@
+---
+title: "Annotation of gated data"
+author: "mwitmond"
+date: "2023-03-08"
+output:
+  workflowr::wflow_html:
+    toc: TRUE
+    toc_float: 
+      collapsed: FALSE
+    toc_depth: 3
+    code_folding: hide
+editor_options:
+  chunk_output_type: console
+---
+
+
+## Set-up
+
+```{r setup, message=F, warning=F}
+knitr::opts_chunk$set(
+  message = F, warning = F, echo = T, eval = T
+)
+
+# Load required packages
+source("code/packages_FACS.R", local = knitr::knit_global())
+```
+
+
+## DS085: LinGradient_Conc
+
+### Load data
+
+Load the gated dataset and create a dataset with live single cells
+```{r data_DS085}
+gs_DS085 <- load_gs(paste0("output/", "gated_data_DS085"))
+
+gated_pops_DS085 <- gs_get_pop_paths(gs_DS085, path = "auto")
+cs_DS085 <- gs_pop_get_data(gs_DS085, tail(gated_pops_DS085, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS085 <- fortify(cs_DS085)
+df_DS085[df_DS085 <= 0] <- NA
+
+# Select only columns that are needed
+df_DS085 <- df_DS085[ , c("name", "expID", "plateID", "rowID", "colID", "wellID", "FSC.A", "SSC.A", "BV421.A", "PE.A", "Alexa.647.A", "Alexa.488.A")]
+
+gc()
+```
+
+```{r metadata_DS085}
+# Add metadata per well from custom .csv file
+metadata_DS085 <- read_csv("data/DS085_LinGradient_Conc/metadata_plate_DS085.csv")
+
+# Change columns into character if necessary
+metadata_DS085$colID <- as.character(metadata_DS085$colID)
+
+df_DS085 <- left_join(df_DS085, metadata_DS085)
+
+# Remove samples with <5000 cells (except if the sample is t = 0 min)
+counts_DS085 <- df_DS085 %>% count(plateID, wellID, name = "sample_cell_count")
+df_DS085 <- left_join(df_DS085, counts_DS085)
+# df_DS085 <- df_DS085[df_DS085$sample_cell_count > 5000, ]
+remove_wells_DS085 <- df_DS085 %>%
+  filter(sample_cell_count < 5000) %>%
+  select(plateID, wellID, time_min) %>% 
+  distinct() %>%
+  filter(time_min > 0) %>%
+  select(plateID, wellID) %>%
+  mutate(wellID_rem = wellID)
+df_DS085 <- df_DS085 %>%
+  left_join(remove_wells_DS085) %>%
+  replace_na(list(wellID_rem = "x")) %>%
+  filter(wellID_rem == "x") %>%
+  select(-c(wellID_rem))
+
+gc()
+
+# kable(df_DS085 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Transform data
+
+Pivot the full dataset into a tidy dataset
+```{r tidy_DS085}
+# Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS085 <- c("expID", "plateID", "wellID", "sample", "stimulus", "conc_final", "stim_profile", "gradient_duration", "stim_description", "stim_descrip_short", "time_min", "time_point", "after_end", "conc_at_time_mM", "cumulative_exposure", "staining", "panel", "sample_cell_count") # include all metadata columns
+         
+df_PE_DS085 <- df_DS085 %>% 
+  select(all_of(cols_meta_DS085), protein_PE, PE.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "PE") %>%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS085 <- df_DS085 %>% 
+  select(all_of(cols_meta_DS085), protein_AF647, Alexa.647.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "AF647") %>%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS085 <- df_DS085 %>% 
+  select(all_of(cols_meta_DS085), protein_AF488, Alexa.488.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "AF488") %>%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS085 <- df_DS085 %>% 
+  select(all_of(cols_meta_DS085), protein_BV421, BV421.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "BV421") %>%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS085 <- list(df_PE_DS085, df_AF647_DS085, df_AF488_DS085, df_BV421_DS085) %>% reduce(full_join)
+
+gc()
+
+# kable(df_tidy_DS085 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+```{r percent_on_DS085}
+# Remove pBTK values >1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
+df_tidy_DS085 <- df_tidy_DS085 %>%
+  filter(!(protein == "pBTK (Y223)" & stim_profile == "gradient" & time_point == "0 min" & fluorescence > 1.4e4))
+
+data_info_DS085 <- df_tidy_DS085 %>%
+  filter(time_point == "0 min") %>% 
+  group_by(plateID, stim_description, protein) %>%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS085 <- left_join(df_tidy_DS085, data_info_DS085)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS085 <- df_tidy_DS085 %>%
+  group_by(plateID, wellID, protein) %>%
+  count(name = "count_total")
+
+data_on_DS085 <- df_tidy_DS085 %>%
+  filter((fluorescence - zero_quant97.5) > 0) %>%
+  group_by(plateID, wellID, protein) %>%
+  count(name = "count_on")
+
+data_counts_DS085 <- left_join(data_total_DS085, data_on_DS085) %>%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS085 <- left_join(df_tidy_DS085, data_counts_DS085)
+
+gc()
+
+kable(df_tidy_DS085 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Median data
+
+Calculate median fluorescent values for each sample/replicate
+```{r medians_sample_DS085}
+# Calculate median values for each sample
+medians_DS085 <- df_tidy_DS085 %>% 
+  group_by(plateID, wellID, protein, fluor) %>% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+
+medians_tidy_DS085 <- left_join(medians_DS085, distinct(select(df_tidy_DS085, cols_meta_DS085))) %>%
+  left_join(data_counts_DS085)
+
+gc()
+
+# kable(medians_tidy_DS085 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Save data
+
+Save annotated datasets as .csv file
+```{r save_DS085}
+write.csv(df_tidy_DS085, file = "output/annotated_data/annotated_data_tidy_DS085.csv", row.names = F)
+
+write.csv(medians_tidy_DS085, file = "output/annotated_data/annotated_medians_tidy_DS085.csv", row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = "_DS085"))
+gc()
+```
+
+
+
+## DS095: DetailedStep_Conc
+
+### Load data
+
+Load the gated dataset and create a dataset with live single cells
+```{r data_DS095}
+gs_DS095 <- load_gs(paste0("output/", "gated_data_DS095"))
+
+gated_pops_DS095 <- gs_get_pop_paths(gs_DS095, path = "auto")
+cs_DS095 <- gs_pop_get_data(gs_DS095, tail(gated_pops_DS095, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS095 <- fortify(cs_DS095)
+df_DS095[df_DS095 <= 0] <- NA
+
+# Select only columns that are needed
+df_DS095 <- df_DS095[ , c("name", "expID", "plateID", "rowID", "colID", "wellID", "FSC.A", "SSC.A", "BV421.A", "PE.A", "Alexa.647.A", "Alexa.488.A")]
+
+gc()
+```
+
+```{r metadata_DS095}
+# Add metadata per well from custom .csv file
+metadata_DS095 <- read_csv("data/DS095_DetailedStep_Conc/metadata_plate_DS095.csv")
+
+# Change columns into character if necessary
+metadata_DS095$colID <- as.character(metadata_DS095$colID)
+
+df_DS095 <- left_join(df_DS095, metadata_DS095)
+
+# Remove samples with <5000 cells (except if the sample is t = 0 min)
+counts_DS095 <- df_DS095 %>% count(plateID, wellID, name = "sample_cell_count")
+df_DS095 <- left_join(df_DS095, counts_DS095)
+# df_DS095 <- df_DS095[df_DS095$sample_cell_count > 5000, ]
+remove_wells_DS095 <- df_DS095 %>%
+  filter(sample_cell_count < 5000) %>%
+  select(plateID, wellID, time_min) %>% 
+  distinct() %>%
+  filter(time_min > 0) %>%
+  select(plateID, wellID) %>%
+  mutate(wellID_rem = wellID)
+df_DS095 <- df_DS095 %>%
+  left_join(remove_wells_DS095) %>%
+  replace_na(list(wellID_rem = "x")) %>%
+  filter(wellID_rem == "x") %>%
+  select(-c(wellID_rem))
+
+gc()
+
+# kable(df_DS095 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Transform data
+
+Pivot the full dataset into a tidy dataset
+```{r tidy_DS095}
+# Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS095 <- c("expID", "plateID", "wellID", "sample", "stimulus", "H2O2_conc_mM", "time_min", "time_point", "cumulative_exposure", "replicate", "stim_description", "staining", "panel", "sample_cell_count") # include all metadata columns
+
+df_PE_DS095 <- df_DS095 %>% 
+  select(all_of(cols_meta_DS095), protein_PE, PE.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "PE") %>%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS095 <- df_DS095 %>% 
+  select(all_of(cols_meta_DS095), protein_AF647, Alexa.647.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "AF647") %>%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS095 <- df_DS095 %>% 
+  select(all_of(cols_meta_DS095), protein_AF488, Alexa.488.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "AF488") %>%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS095 <- df_DS095 %>% 
+  select(all_of(cols_meta_DS095), protein_BV421, BV421.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "BV421") %>%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS095 <- list(df_PE_DS095, df_AF647_DS095, df_AF488_DS095, df_BV421_DS095) %>% reduce(full_join)
+
+gc()
+
+# kable(df_tidy_DS095 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+```{r percent_on_DS095}
+# Get the value for each conc where in sample t = 0 2.5% of cells are higher
+data_info_DS095 <- df_tidy_DS095 %>%
+  filter(time_point == "0 min") %>%
+  group_by(plateID, H2O2_conc_mM, protein) %>%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS095 <- left_join(df_tidy_DS095, data_info_DS095)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS095 <- df_tidy_DS095 %>%
+  group_by(plateID, wellID, protein) %>%
+  count(name = "count_total")
+
+data_on_DS095 <- df_tidy_DS095 %>%
+  filter((fluorescence - zero_quant97.5) > 0) %>%
+  group_by(plateID, wellID, protein) %>%
+  count(name = "count_on")
+
+data_counts_DS095 <- left_join(data_total_DS095, data_on_DS095) %>%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS095 <- left_join(df_tidy_DS095, data_counts_DS095)
+
+gc()
+
+kable(df_tidy_DS095 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Median data
+
+Calculate median fluorescent values for each sample/replicate
+```{r medians_sample_DS095}
+# Calculate median values for each sample
+medians_DS095 <- df_tidy_DS095 %>% 
+  group_by(plateID, wellID, protein, fluor) %>% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+
+medians_tidy_DS095 <- left_join(medians_DS095, distinct(select(df_tidy_DS095, cols_meta_DS095))) %>%
+  left_join(data_counts_DS095)
+
+gc()
+
+# kable(medians_tidy_DS095 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+```{r medians_rep_DS095}
+# Make a dataframe with means and standard deviation of replicates
+medians_avg_DS095 <- medians_tidy_DS095 %>%
+  dplyr::group_by(H2O2_conc_mM, time_point, protein) %>%
+  summarise(
+    fluorescence_sd = sd(fluorescence_median, na.rm = T),
+    fluorescence = mean(fluorescence_median, na.rm = T), 
+    percent_sd = sd(percent_on, na.rm = T),
+    percent_on = mean(percent_on, na.rm = T)
+    )
+
+medians_avg_DS095 <- left_join(medians_avg_DS095, select(medians_tidy_DS095, c(expID, sample, stimulus, H2O2_conc_mM, time_min, time_point, cumulative_exposure, staining, panel, fluor, protein)), multiple = "all") %>%
+  select(-c("plateID", "wellID")) %>%
+  # select(stimulus, stim_profile, gradient_duration, stim_description, time_min, time_point, conc_at_time, cum_exposure, staining, panel,fluor, protein, fluorescence, fluorescence_sd, fluorescence_zero, FC, FC_sd, log2FC, log2FC_sd) %>% #, fluorescence_norm, fluorescence_norm_sd, fluorescence_norm_zero, FC_norm, FC_norm_sd, log2FC_norm, log2FC_norm_sd
+  distinct() %>% 
+  mutate(stim_description = paste(H2O2_conc_mM, "mM -", time_point))
+
+gc()
+
+# kable(medians_avg_DS095 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Save data
+
+Save annotated datasets as .csv file
+```{r save_DS095}
+write.csv(df_tidy_DS095, file = "output/annotated_data/annotated_data_tidy_DS095.csv", row.names = F)
+
+write.csv(medians_tidy_DS095, file = "output/annotated_data/annotated_medians_tidy_DS095.csv", row.names = F)
+
+write.csv(medians_avg_DS095, file = "output/annotated_data/annotated_medians_avg_rep_DS095.csv", row.names = F)
+
+# Remove files to clear up memory
+rm(list = ls(pattern = "_DS095"))
+gc()
+```
+
+
+
+## DS096: LinQuadGradient_HighConc
+
+### Load data
+
+Load the gated dataset and create a dataset with live single cells
+```{r data_DS096}
+gs_DS096 <- load_gs(paste0("output/", "gated_data_DS096"))
+
+gated_pops_DS096 <- gs_get_pop_paths(gs_DS096, path = "auto")
+cs_DS096 <- gs_pop_get_data(gs_DS096, tail(gated_pops_DS096, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS096 <- fortify(cs_DS096)
+df_DS096[df_DS096 <= 0] <- NA
+
+# Select only columns that are needed
+df_DS096 <- df_DS096[ , c("name", "expID", "plateID", "rowID", "colID", "wellID", "FSC.A", "SSC.A", "BV421.A", "PE.A", "Alexa.647.A", "Alexa.488.A")]
+
+gc()
+```
+
+```{r metadata_DS096}
+# Add metadata per well from custom .csv file
+metadata_DS096 <- read_csv("data/DS096_LinQuadGradient_HighConc/metadata_plate_DS096.csv")
+
+# Change columns into character if necessary
+metadata_DS096$colID <- as.character(metadata_DS096$colID)
+
+df_DS096 <- left_join(df_DS096, metadata_DS096)
+
+# Remove samples with <5000 cells (except if the sample is t = 0 min)
+counts_DS096 <- df_DS096 %>% count(plateID, wellID, name = "sample_cell_count")
+df_DS096 <- left_join(df_DS096, counts_DS096)
+# df_DS096 <- df_DS096[df_DS096$sample_cell_count > 5000, ]
+remove_wells_DS096 <- df_DS096 %>%
+  filter(sample_cell_count < 5000) %>%
+  select(plateID, wellID, time_min) %>% 
+  distinct() %>%
+  filter(time_min > 0) %>%
+  select(plateID, wellID) %>%
+  mutate(wellID_rem = wellID)
+df_DS096 <- df_DS096 %>%
+  left_join(remove_wells_DS096) %>%
+  replace_na(list(wellID_rem = "x")) %>%
+  filter(wellID_rem == "x") %>%
+  select(-c(wellID_rem))
+
+gc()
+
+# kable(df_DS096 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Transform data
+
+Pivot the full dataset into a tidy dataset
+```{r tidy_DS096}
+# Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS096 <- c("expID", "plateID", "wellID", "sample", "stimulus", "conc_final", "stim_profile", "gradient_duration", "stim_description", "stim_descrip_short", "time_min", "time_point", "after_end", "conc_at_time_mM", "cumulative_exposure", "staining", "panel", "sample_cell_count") # include all metadata columns
+
+df_PE_DS096 <- df_DS096 %>% 
+  select(cols_meta_DS096, protein_PE, PE.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "PE") %>%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS096 <- df_DS096 %>% 
+  select(cols_meta_DS096, protein_AF647, Alexa.647.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "AF647") %>%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS096 <- df_DS096 %>% 
+  select(cols_meta_DS096, protein_AF488, Alexa.488.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "AF488") %>%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS096 <- df_DS096 %>% 
+  select(cols_meta_DS096, protein_BV421, BV421.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "BV421") %>%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS096 <- list(df_PE_DS096, df_AF647_DS096, df_AF488_DS096, df_BV421_DS096) %>% reduce(full_join)
+
+gc()
+
+# kable(df_tidy_DS096 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+```{r percent_on_DS096}
+data_info_DS096 <- df_tidy_DS096 %>%
+  filter(time_point == "0 min") %>% 
+  group_by(plateID, stim_description, protein) %>%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS096 <- left_join(df_tidy_DS096, data_info_DS096)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS096 <- df_tidy_DS096 %>%
+  group_by(wellID, protein) %>%
+  count(name = "count_total")
+
+data_on_DS096 <- df_tidy_DS096 %>%
+  filter((fluorescence - zero_quant97.5) > 0) %>%
+  group_by(wellID, protein) %>%
+  count(name = "count_on")
+
+data_counts_DS096 <- left_join(data_total_DS096, data_on_DS096) %>%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS096 <- left_join(df_tidy_DS096, data_counts_DS096)
+
+gc()
+
+kable(df_tidy_DS096 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Median data
+
+Calculate median fluorescent values for each sample/replicate
+```{r medians_sample_DS096}
+# Calculate median values for each sample
+medians_DS096 <- df_tidy_DS096 %>% 
+  group_by(plateID, wellID, protein, fluor) %>% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+medians_tidy_DS096 <- left_join(medians_DS096, distinct(select(df_tidy_DS096, cols_meta_DS096))) %>%
+  left_join(data_counts_DS096)
+
+gc()
+
+# kable(medians_tidy_DS096 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Save data
+
+Save annotated datasets as .csv file
+```{r save_DS096}
+write.csv(df_tidy_DS096, file = "output/annotated_data/annotated_data_tidy_DS096.csv", row.names = F)
+
+write.csv(medians_tidy_DS096, file = "output/annotated_data/annotated_medians_tidy_DS096.csv", row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = "_DS096"))
+gc()
+```
+
+
+
+## DS097: LinGradient_LowConc
+
+### Load data
+
+Load the gated dataset and create a dataset with live single cells
+```{r data_DS097}
+gs_DS097 <- load_gs(paste0("output/", "gated_data_DS097"))
+
+gated_pops_DS097 <- gs_get_pop_paths(gs_DS097, path = "auto")
+cs_DS097 <- gs_pop_get_data(gs_DS097, tail(gated_pops_DS097, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS097 <- fortify(cs_DS097)
+df_DS097[df_DS097 <= 0] <- NA
+
+# Select only columns that are needed
+df_DS097 <- df_DS097[ , c("name", "expID", "plateID", "rowID", "colID", "wellID", "FSC.A", "SSC.A", "BV421.A", "PE.A", "Alexa.647.A", "Alexa.488.A")]
+
+gc()
+```
+
+```{r metadata_DS097}
+# Add metadata per well from custom .csv file
+metadata_DS097 <- read_csv("data/DS097_LinGradient_LowConc/metadata_plate_DS097.csv")
+
+# Change columns into character if necessary
+metadata_DS097$colID <- as.character(metadata_DS097$colID)
+
+df_DS097 <- left_join(df_DS097, metadata_DS097)
+
+# Remove samples with <5000 cells (except if the sample is t = 0 min)
+counts_DS097 <- df_DS097 %>% count(plateID, wellID, name = "sample_cell_count")
+df_DS097 <- left_join(df_DS097, counts_DS097)
+# df_DS097 <- df_DS097[df_DS097$sample_cell_count > 5000, ]
+remove_wells_DS097 <- df_DS097 %>%
+  filter(sample_cell_count < 5000) %>%
+  select(plateID, wellID, time_min) %>% 
+  distinct() %>%
+  filter(time_min > 0) %>%
+  select(plateID, wellID) %>%
+  mutate(wellID_rem = wellID)
+df_DS097 <- df_DS097 %>%
+  left_join(remove_wells_DS097) %>%
+  replace_na(list(wellID_rem = "x")) %>%
+  filter(wellID_rem == "x") %>%
+  select(-c(wellID_rem))
+
+gc()
+
+# kable(df_DS097 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Transform data
+
+Pivot the full dataset into a tidy dataset
+```{r tidy_DS097}
+# Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS097 <- c("expID", "plateID", "wellID", "sample", "stimulus", "conc_final", "stim_profile", "gradient_duration", "stim_description", "stim_descrip_short", "time_min", "time_point", "after_end", "conc_at_time_mM", "cumulative_exposure", "staining", "panel", "sample_cell_count") # include all metadata columns
+
+df_PE_DS097 <- df_DS097 %>% 
+  select(cols_meta_DS097, protein_PE, PE.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "PE") %>%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS097 <- df_DS097 %>% 
+  select(cols_meta_DS097, protein_AF647, Alexa.647.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "AF647") %>%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS097 <- df_DS097 %>% 
+  select(cols_meta_DS097, protein_AF488, Alexa.488.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "AF488") %>%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS097 <- df_DS097 %>% 
+  select(cols_meta_DS097, protein_BV421, BV421.A, FSC.A, SSC.A) %>% 
+  mutate(fluor = "BV421") %>%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS097 <- list(df_PE_DS097, df_AF647_DS097, df_AF488_DS097, df_BV421_DS097) %>% reduce(full_join)
+
+gc()
+
+# kable(df_tidy_DS097 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+```{r percent_on_DS097}
+data_info_DS097 <- df_tidy_DS097 %>%
+  filter(time_point == "0 min") %>% 
+  group_by(plateID, stim_description, protein) %>%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS097 <- left_join(df_tidy_DS097, data_info_DS097)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS097 <- df_tidy_DS097 %>%
+  group_by(wellID, protein) %>%
+  count(name = "count_total")
+
+data_on_DS097 <- df_tidy_DS097 %>%
+  filter((fluorescence - zero_quant97.5) > 0) %>%
+  group_by(wellID, protein) %>%
+  count(name = "count_on")
+
+data_counts_DS097 <- left_join(data_total_DS097, data_on_DS097) %>%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS097 <- left_join(df_tidy_DS097, data_counts_DS097)
+
+gc()
+
+kable(df_tidy_DS097 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Median data
+
+Calculate median fluorescent values for each sample/replicate
+```{r medians_sample_DS097}
+# Calculate median values for each sample
+medians_DS097 <- df_tidy_DS097 %>% 
+  group_by(plateID, wellID, protein, fluor) %>% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+medians_tidy_DS097 <- left_join(medians_DS097, distinct(select(df_tidy_DS097, cols_meta_DS097))) %>%
+  left_join(data_counts_DS097)
+
+gc()
+
+# kable(medians_tidy_DS097 %>% head(5)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+### Save data
+
+Save annotated datasets as .csv file
+```{r save_DS097}
+write.csv(df_tidy_DS097, file = "output/annotated_data/annotated_data_tidy_DS097.csv", row.names = F)
+
+write.csv(medians_tidy_DS097, file = "output/annotated_data/annotated_medians_tidy_DS097.csv", row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = "_DS097"))
+gc()
+```
