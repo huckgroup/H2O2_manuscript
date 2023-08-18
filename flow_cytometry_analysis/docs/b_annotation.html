@@ -1,0 +1,3667 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="mwitmond" />
+
+<meta name="date" content="2023-03-08" />
+
+<title>Annotation of gated data</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Manuscript dynamic H2O2</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="z_profiles.html">Profiles</a>
+</li>
+<li>
+  <a href="a_gating.html">Gating</a>
+</li>
+<li>
+  <a href="b_annotation.html">Annotation</a>
+</li>
+<li>
+  <a href="e_paper_figs.html">Paper figs</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Annotation of gated data</h1>
+<h4 class="author">mwitmond</h4>
+<h4 class="date">2023-03-08</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2023-08-18
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>flow_cytometry_analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230308code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230308)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230308code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230308)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongdb16d15">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> db16d15
+</a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongdb16d15"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version db16d15.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+    Ignored:    flow_cytometry_analysis/.Rhistory
+    Ignored:    flow_cytometry_analysis/.Rproj.user/
+
+Untracked files:
+    Untracked:  BCR_model_simulation/
+    Untracked:  flow_cytometry_analysis/.Rprofile
+    Untracked:  flow_cytometry_analysis/.gitattributes
+    Untracked:  flow_cytometry_analysis/.gitignore
+    Untracked:  flow_cytometry_analysis/README.md
+    Untracked:  flow_cytometry_analysis/_workflowr.yml
+    Untracked:  flow_cytometry_analysis/code/
+    Untracked:  flow_cytometry_analysis/data/
+    Untracked:  flow_cytometry_analysis/manuscript_H2O2_dynamic_signaling.Rproj
+    Untracked:  flow_cytometry_analysis/output/
+    Untracked:  threshold_variability_analysis/
+
+Unstaged changes:
+    Deleted:    .Rprofile
+    Deleted:    .gitattributes
+    Modified:   .gitignore
+    Deleted:    README.md
+    Deleted:    _workflowr.yml
+    Deleted:    analysis/_site.yml
+    Deleted:    analysis/a_gating.Rmd
+    Deleted:    analysis/about.Rmd
+    Deleted:    analysis/b_annotation.Rmd
+    Deleted:    analysis/c_gradients.Rmd
+    Deleted:    analysis/d_step.Rmd
+    Deleted:    analysis/e_paper_figs.Rmd
+    Deleted:    analysis/f_other.Rmd
+    Deleted:    analysis/index.Rmd
+    Deleted:    analysis/license.Rmd
+    Deleted:    analysis/z_profiles.Rmd
+    Deleted:    code/README.md
+    Deleted:    data/README.md
+    Deleted:    docs/.nojekyll
+    Deleted:    docs/a_gating.html
+    Deleted:    docs/b_annotation.html
+    Deleted:    docs/c_gradients.html
+    Deleted:    docs/d_step.html
+    Deleted:    docs/e_paper_figs.html
+    Deleted:    docs/f_other.html
+    Deleted:    docs/figure/a_gating.Rmd/debris_Bas013-1.png
+    Deleted:    docs/figure/a_gating.Rmd/debris_DS085-1.png
+    Deleted:    docs/figure/a_gating.Rmd/debris_DS096-1.png
+    Deleted:    docs/figure/a_gating.Rmd/debris_DS097-1.png
+    Deleted:    docs/figure/a_gating.Rmd/debris_DS098-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_cells_Bas013-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_cells_DS085-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_cells_DS085-2.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_cells_DS095-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_cells_DS095-2.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_cells_DS095-3.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_cells_DS096-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_cells_DS097-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_cells_DS098-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_debris_Bas013-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_debris_DS085-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_debris_DS085-2.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_debris_DS095-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_debris_DS095-2.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_debris_DS095-3.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_debris_DS096-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_debris_DS097-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_debris_DS098-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_Bas013-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_DS085-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_DS085-2.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_DS095-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_DS095-2.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_DS095-3.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_DS096-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_DS097-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_DS098-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_percent_Bas013-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_percent_DS085-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_percent_DS095-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_percent_DS096-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_percent_DS097-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_live_percent_DS098-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_singlets_Bas013-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_singlets_DS085-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_singlets_DS085-2.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_singlets_DS095-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_singlets_DS095-2.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_singlets_DS095-3.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_singlets_DS096-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_singlets_DS097-1.png
+    Deleted:    docs/figure/a_gating.Rmd/fig_singlets_DS098-1.png
+    Deleted:    docs/figure/a_gating.Rmd/gating_Bas013-1.png
+    Deleted:    docs/figure/a_gating.Rmd/gating_DS085-1.png
+    Deleted:    docs/figure/a_gating.Rmd/gating_DS095-1.png
+    Deleted:    docs/figure/a_gating.Rmd/gating_DS096-1.png
+    Deleted:    docs/figure/a_gating.Rmd/gating_DS097-1.png
+    Deleted:    docs/figure/a_gating.Rmd/gating_DS098-1.png
+    Deleted:    docs/figure/a_gating.Rmd/live_Bas013-1.png
+    Deleted:    docs/figure/a_gating.Rmd/live_DS085-1.png
+    Deleted:    docs/figure/a_gating.Rmd/live_DS096-1.png
+    Deleted:    docs/figure/a_gating.Rmd/live_DS097-1.png
+    Deleted:    docs/figure/a_gating.Rmd/live_DS098-1.png
+    Deleted:    docs/figure/a_gating.Rmd/singlets_Bas013-1.png
+    Deleted:    docs/figure/a_gating.Rmd/singlets_DS085-1.png
+    Deleted:    docs/figure/a_gating.Rmd/singlets_DS096-1.png
+    Deleted:    docs/figure/a_gating.Rmd/singlets_DS097-1.png
+    Deleted:    docs/figure/a_gating.Rmd/singlets_DS098-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/abstract_combi-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig1_main-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig1_panelA-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig1_panelB-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig1_panelC-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig2_main-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig2_panelA-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig2_panelB-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig2_panelC-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig2_panelD-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig3_main-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig3_panelA-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig3_panelB-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig3_panelB_post-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig3_panelC-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig3_panelD-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig3_panelE-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig3_poster-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig4_main-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig4_main-2.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig4_main-3.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig4_panelA-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig4_panelB-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig4_panelC-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig4_panelC_alt-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig4_panelC_alt-2.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/fig4_panelD-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/supp_fig10_gating-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/supp_fig1_ridge_step-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/supp_fig2_variability-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/supp_fig3_model_variability-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/supp_fig5_ridge_gradient-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/supp_fig6_line_gradient-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/supp_fig7_model_gradient-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/suppfig8_gradient_DS085-1.png
+    Deleted:    docs/figure/e_paper_figs.Rmd/suppfig9_gradient_DS097-1.png
+    Deleted:    docs/figure/z_profiles.Rmd/gradient_20min-1.png
+    Deleted:    docs/figure/z_profiles.Rmd/gradient_20min_DS085-1.png
+    Deleted:    docs/figure/z_profiles.Rmd/gradient_20min_DS096-1.png
+    Deleted:    docs/figure/z_profiles.Rmd/gradient_60min2.5mM-1.png
+    Deleted:    docs/figure/z_profiles.Rmd/gradient_60min5mM-1.png
+    Deleted:    docs/figure/z_profiles.Rmd/gradient_60min_DS085-1.png
+    Deleted:    docs/figure/z_profiles.Rmd/gradient_60min_DS096-1.png
+    Deleted:    docs/figure/z_profiles.Rmd/gradient_60minquad_DS096-1.png
+    Deleted:    docs/index.html
+    Deleted:    docs/license.html
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap-theme.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap-theme.css.map
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap-theme.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap.css.map
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/bootstrap.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/cerulean.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/cosmo.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/darkly.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/flatly.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Lato.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/LatoBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/LatoItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/NewsCycle.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/NewsCycleBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSans.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansBoldItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansLight.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/OpenSansLightItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Raleway.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RalewayBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Roboto.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RobotoBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RobotoLight.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/RobotoMedium.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansPro.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansProBold.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansProItalic.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/SourceSansProLight.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/fonts/Ubuntu.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/journal.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/lumen.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/paper.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/readable.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/sandstone.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/simplex.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/spacelab.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/united.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/css/yeti.min.css
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.eot
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.svg
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.ttf
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff
+    Deleted:    docs/site_libs/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2
+    Deleted:    docs/site_libs/bootstrap-3.3.5/js/bootstrap.js
+    Deleted:    docs/site_libs/bootstrap-3.3.5/js/bootstrap.min.js
+    Deleted:    docs/site_libs/bootstrap-3.3.5/js/npm.js
+    Deleted:    docs/site_libs/bootstrap-3.3.5/shim/html5shiv.min.js
+    Deleted:    docs/site_libs/bootstrap-3.3.5/shim/respond.min.js
+    Deleted:    docs/site_libs/header-attrs-2.20/header-attrs.js
+    Deleted:    docs/site_libs/highlightjs-9.12.0/default.css
+    Deleted:    docs/site_libs/highlightjs-9.12.0/highlight.js
+    Deleted:    docs/site_libs/highlightjs-9.12.0/textmate.css
+    Deleted:    docs/site_libs/jquery-3.6.0/jquery-3.6.0.js
+    Deleted:    docs/site_libs/jquery-3.6.0/jquery-3.6.0.min.js
+    Deleted:    docs/site_libs/jquery-3.6.0/jquery-3.6.0.min.map
+    Deleted:    docs/site_libs/jqueryui-1.11.4/README
+    Deleted:    docs/site_libs/jqueryui-1.11.4/images/ui-icons_444444_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.11.4/images/ui-icons_555555_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.11.4/images/ui-icons_777620_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.11.4/images/ui-icons_777777_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.11.4/images/ui-icons_cc0000_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.11.4/images/ui-icons_ffffff_256x240.png
+    Deleted:    docs/site_libs/jqueryui-1.11.4/index.html
+    Deleted:    docs/site_libs/jqueryui-1.11.4/jquery-ui.css
+    Deleted:    docs/site_libs/jqueryui-1.11.4/jquery-ui.js
+    Deleted:    docs/site_libs/jqueryui-1.11.4/jquery-ui.min.css
+    Deleted:    docs/site_libs/jqueryui-1.11.4/jquery-ui.min.js
+    Deleted:    docs/site_libs/jqueryui-1.11.4/jquery-ui.structure.css
+    Deleted:    docs/site_libs/jqueryui-1.11.4/jquery-ui.structure.min.css
+    Deleted:    docs/site_libs/jqueryui-1.11.4/jquery-ui.theme.css
+    Deleted:    docs/site_libs/jqueryui-1.11.4/jquery-ui.theme.min.css
+    Deleted:    docs/site_libs/kePrint-0.0.1/kePrint.js
+    Deleted:    docs/site_libs/lightable-0.0.1/lightable.css
+    Deleted:    docs/site_libs/navigation-1.1/codefolding-lua.css
+    Deleted:    docs/site_libs/navigation-1.1/codefolding.js
+    Deleted:    docs/site_libs/navigation-1.1/sourceembed.js
+    Deleted:    docs/site_libs/navigation-1.1/tabsets.js
+    Deleted:    docs/site_libs/tocify-1.9.1/jquery.tocify.css
+    Deleted:    docs/site_libs/tocify-1.9.1/jquery.tocify.js
+    Deleted:    docs/z_profiles.html
+    Deleted:    manuscript_H2O2_dynamic_signaling.Rproj
+    Deleted:    output/README.md
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>flow_cytometry_analysis/analysis/b_annotation.Rmd</code>) and
+HTML (<code>flow_cytometry_analysis/docs/b_annotation.html</code>)
+files. If you’ve configured a remote Git repository (see
+<code>?wflow_git_remote</code>), click on the hyperlinks in the table
+below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+db16d15
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+<td>
+Cleaned up the analysis
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="set-up" class="section level2">
+<h2>Set-up</h2>
+<pre class="r"><code>knitr::opts_chunk$set(
+  message = F, warning = F, echo = T, eval = T
+)
+
+# Load required packages
+source(&quot;code/packages_FACS.R&quot;, local = knitr::knit_global())</code></pre>
+</div>
+<div id="ds085-lingradient_conc" class="section level2">
+<h2>DS085: LinGradient_Conc</h2>
+<div id="load-data" class="section level3">
+<h3>Load data</h3>
+<p>Load the gated dataset and create a dataset with live single
+cells</p>
+<pre class="r"><code>gs_DS085 &lt;- load_gs(paste0(&quot;output/&quot;, &quot;gated_data_DS085&quot;))
+
+gated_pops_DS085 &lt;- gs_get_pop_paths(gs_DS085, path = &quot;auto&quot;)
+cs_DS085 &lt;- gs_pop_get_data(gs_DS085, tail(gated_pops_DS085, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS085 &lt;- fortify(cs_DS085)
+df_DS085[df_DS085 &lt;= 0] &lt;- NA
+
+# Select only columns that are needed
+df_DS085 &lt;- df_DS085[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells  3414922 182.4    6885741  367.8   3982808  212.8
+Vcells 47107630 359.5  160174313 1222.1 159646253 1218.1</code></pre>
+<pre class="r"><code># Add metadata per well from custom .csv file
+metadata_DS085 &lt;- read_csv(&quot;data/DS085_LinGradient_Conc/metadata_plate_DS085.csv&quot;)
+
+# Change columns into character if necessary
+metadata_DS085$colID &lt;- as.character(metadata_DS085$colID)
+
+df_DS085 &lt;- left_join(df_DS085, metadata_DS085)
+
+# Remove samples with &lt;5000 cells (except if the sample is t = 0 min)
+counts_DS085 &lt;- df_DS085 %&gt;% count(plateID, wellID, name = &quot;sample_cell_count&quot;)
+df_DS085 &lt;- left_join(df_DS085, counts_DS085)
+# df_DS085 &lt;- df_DS085[df_DS085$sample_cell_count &gt; 5000, ]
+remove_wells_DS085 &lt;- df_DS085 %&gt;%
+  filter(sample_cell_count &lt; 5000) %&gt;%
+  select(plateID, wellID, time_min) %&gt;% 
+  distinct() %&gt;%
+  filter(time_min &gt; 0) %&gt;%
+  select(plateID, wellID) %&gt;%
+  mutate(wellID_rem = wellID)
+df_DS085 &lt;- df_DS085 %&gt;%
+  left_join(remove_wells_DS085) %&gt;%
+  replace_na(list(wellID_rem = &quot;x&quot;)) %&gt;%
+  filter(wellID_rem == &quot;x&quot;) %&gt;%
+  select(-c(wellID_rem))
+
+gc()</code></pre>
+<pre><code>            used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells   3528472 188.5    6885741  367.8   4558288  243.5
+Vcells 111327686 849.4  322953308 2464.0 334689248 2553.5</code></pre>
+<pre class="r"><code># kable(df_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="transform-data" class="section level3">
+<h3>Transform data</h3>
+<p>Pivot the full dataset into a tidy dataset</p>
+<pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS085 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;conc_final&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;stim_descrip_short&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;after_end&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+         
+df_PE_DS085 &lt;- df_DS085 %&gt;% 
+  select(all_of(cols_meta_DS085), protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;PE&quot;) %&gt;%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS085 &lt;- df_DS085 %&gt;% 
+  select(all_of(cols_meta_DS085), protein_AF647, Alexa.647.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF647&quot;) %&gt;%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS085 &lt;- df_DS085 %&gt;% 
+  select(all_of(cols_meta_DS085), protein_AF488, Alexa.488.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF488&quot;) %&gt;%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS085 &lt;- df_DS085 %&gt;% 
+  select(all_of(cols_meta_DS085), protein_BV421, BV421.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;BV421&quot;) %&gt;%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS085 &lt;- list(df_PE_DS085, df_AF647_DS085, df_AF488_DS085, df_BV421_DS085) %&gt;% reduce(full_join)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3531470  188.7    6885741  367.8    4558288  243.5
+Vcells 436628985 3331.3 1181984900 9017.9 1076846514 8215.7</code></pre>
+<pre class="r"><code># kable(df_tidy_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<pre class="r"><code># Remove pBTK values &gt;1.4e4 of the gradient sample at t = 0 min due to cell spillover between adjacent wells
+df_tidy_DS085 &lt;- df_tidy_DS085 %&gt;%
+  filter(!(protein == &quot;pBTK (Y223)&quot; &amp; stim_profile == &quot;gradient&quot; &amp; time_point == &quot;0 min&quot; &amp; fluorescence &gt; 1.4e4))
+
+data_info_DS085 &lt;- df_tidy_DS085 %&gt;%
+  filter(time_point == &quot;0 min&quot;) %&gt;% 
+  group_by(plateID, stim_description, protein) %&gt;%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS085 &lt;- left_join(df_tidy_DS085, data_info_DS085)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS085 &lt;- df_tidy_DS085 %&gt;%
+  group_by(plateID, wellID, protein) %&gt;%
+  count(name = &quot;count_total&quot;)
+
+data_on_DS085 &lt;- df_tidy_DS085 %&gt;%
+  filter((fluorescence - zero_quant97.5) &gt; 0) %&gt;%
+  group_by(plateID, wellID, protein) %&gt;%
+  count(name = &quot;count_on&quot;)
+
+data_counts_DS085 &lt;- left_join(data_total_DS085, data_on_DS085) %&gt;%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS085 &lt;- left_join(df_tidy_DS085, data_counts_DS085)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3536313  188.9    6885741  367.8    4558288  243.5
+Vcells 491839366 3752.5 1181984900 9017.9 1178855460 8994.0</code></pre>
+<pre class="r"><code>kable(df_tidy_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:left;">
+conc_final
+</th>
+<th style="text-align:left;">
+stim_profile
+</th>
+<th style="text-align:right;">
+gradient_duration
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+stim_descrip_short
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:left;">
+after_end
+</th>
+<th style="text-align:right;">
+conc_at_time_mM
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+684.0028
+</td>
+<td style="text-align:right;">
+91974.84
+</td>
+<td style="text-align:right;">
+38366.86
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+361.3911
+</td>
+<td style="text-align:right;">
+64157.01
+</td>
+<td style="text-align:right;">
+20968.94
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+566.8395
+</td>
+<td style="text-align:right;">
+74937.94
+</td>
+<td style="text-align:right;">
+26742.94
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+535.4859
+</td>
+<td style="text-align:right;">
+60827.07
+</td>
+<td style="text-align:right;">
+25723.13
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS085
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A02
+</td>
+<td style="text-align:left;">
+1A
+</td>
+<td style="text-align:left;">
+PBS
+</td>
+<td style="text-align:left;">
+0 mM
+</td>
+<td style="text-align:left;">
+step
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+PBS step (0 mM)
+</td>
+<td style="text-align:left;">
+step to 0 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+551.9878
+</td>
+<td style="text-align:right;">
+84303.09
+</td>
+<td style="text-align:right;">
+39976.62
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1487.954
+</td>
+<td style="text-align:right;">
+22906
+</td>
+<td style="text-align:right;">
+573
+</td>
+<td style="text-align:right;">
+2.501528
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="median-data" class="section level3">
+<h3>Median data</h3>
+<p>Calculate median fluorescent values for each sample/replicate</p>
+<pre class="r"><code># Calculate median values for each sample
+medians_DS085 &lt;- df_tidy_DS085 %&gt;% 
+  group_by(plateID, wellID, protein, fluor) %&gt;% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+
+medians_tidy_DS085 &lt;- left_join(medians_DS085, distinct(select(df_tidy_DS085, cols_meta_DS085))) %&gt;%
+  left_join(data_counts_DS085)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3559115  190.1    6885741  367.8    4558288  243.5
+Vcells 491911325 3753.0 1181984900 9017.9 1178855460 8994.0</code></pre>
+<pre class="r"><code># kable(medians_tidy_DS085 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="save-data" class="section level3">
+<h3>Save data</h3>
+<p>Save annotated datasets as .csv file</p>
+<pre class="r"><code>write.csv(df_tidy_DS085, file = &quot;output/annotated_data/annotated_data_tidy_DS085.csv&quot;, row.names = F)
+
+write.csv(medians_tidy_DS085, file = &quot;output/annotated_data/annotated_medians_tidy_DS085.csv&quot;, row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;_DS085&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells 3557299 190.0    6885741  367.8    4558288  243.5
+Vcells 5845001  44.6  945587920 7214.3 1178855460 8994.0</code></pre>
+</div>
+</div>
+<div id="ds095-detailedstep_conc" class="section level2">
+<h2>DS095: DetailedStep_Conc</h2>
+<div id="load-data-1" class="section level3">
+<h3>Load data</h3>
+<p>Load the gated dataset and create a dataset with live single
+cells</p>
+<pre class="r"><code>gs_DS095 &lt;- load_gs(paste0(&quot;output/&quot;, &quot;gated_data_DS095&quot;))
+
+gated_pops_DS095 &lt;- gs_get_pop_paths(gs_DS095, path = &quot;auto&quot;)
+cs_DS095 &lt;- gs_pop_get_data(gs_DS095, tail(gated_pops_DS095, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS095 &lt;- fortify(cs_DS095)
+df_DS095[df_DS095 &lt;= 0] &lt;- NA
+
+# Select only columns that are needed
+df_DS095 &lt;- df_DS095[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>            used  (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3559948 190.2    6885741  367.8    6885741  367.8
+Vcells 100310845 765.4  756470336 5771.5 1178855460 8994.0</code></pre>
+<pre class="r"><code># Add metadata per well from custom .csv file
+metadata_DS095 &lt;- read_csv(&quot;data/DS095_DetailedStep_Conc/metadata_plate_DS095.csv&quot;)
+
+# Change columns into character if necessary
+metadata_DS095$colID &lt;- as.character(metadata_DS095$colID)
+
+df_DS095 &lt;- left_join(df_DS095, metadata_DS095)
+
+# Remove samples with &lt;5000 cells (except if the sample is t = 0 min)
+counts_DS095 &lt;- df_DS095 %&gt;% count(plateID, wellID, name = &quot;sample_cell_count&quot;)
+df_DS095 &lt;- left_join(df_DS095, counts_DS095)
+# df_DS095 &lt;- df_DS095[df_DS095$sample_cell_count &gt; 5000, ]
+remove_wells_DS095 &lt;- df_DS095 %&gt;%
+  filter(sample_cell_count &lt; 5000) %&gt;%
+  select(plateID, wellID, time_min) %&gt;% 
+  distinct() %&gt;%
+  filter(time_min &gt; 0) %&gt;%
+  select(plateID, wellID) %&gt;%
+  mutate(wellID_rem = wellID)
+df_DS095 &lt;- df_DS095 %&gt;%
+  left_join(remove_wells_DS095) %&gt;%
+  replace_na(list(wellID_rem = &quot;x&quot;)) %&gt;%
+  filter(wellID_rem == &quot;x&quot;) %&gt;%
+  select(-c(wellID_rem))
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used   (Mb)
+Ncells   3558199  190.1    6885741  367.8    6885741  367.8
+Vcells 212543348 1621.6  605176269 4617.2 1178855460 8994.0</code></pre>
+<pre class="r"><code># kable(df_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="transform-data-1" class="section level3">
+<h3>Transform data</h3>
+<p>Pivot the full dataset into a tidy dataset</p>
+<pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS095 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;H2O2_conc_mM&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;cumulative_exposure&quot;, &quot;replicate&quot;, &quot;stim_description&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+
+df_PE_DS095 &lt;- df_DS095 %&gt;% 
+  select(all_of(cols_meta_DS095), protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;PE&quot;) %&gt;%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS095 &lt;- df_DS095 %&gt;% 
+  select(all_of(cols_meta_DS095), protein_AF647, Alexa.647.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF647&quot;) %&gt;%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS095 &lt;- df_DS095 %&gt;% 
+  select(all_of(cols_meta_DS095), protein_AF488, Alexa.488.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF488&quot;) %&gt;%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS095 &lt;- df_DS095 %&gt;% 
+  select(all_of(cols_meta_DS095), protein_BV421, BV421.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;BV421&quot;) %&gt;%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS095 &lt;- list(df_PE_DS095, df_AF647_DS095, df_AF488_DS095, df_BV421_DS095) %&gt;% reduce(full_join)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells   3558321  190.1    6885741   367.8    6885741   367.8
+Vcells 820924338 6263.2 2234880840 17050.8 2014296076 15367.9</code></pre>
+<pre class="r"><code># kable(df_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<pre class="r"><code># Get the value for each conc where in sample t = 0 2.5% of cells are higher
+data_info_DS095 &lt;- df_tidy_DS095 %&gt;%
+  filter(time_point == &quot;0 min&quot;) %&gt;%
+  group_by(plateID, H2O2_conc_mM, protein) %&gt;%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS095 &lt;- left_join(df_tidy_DS095, data_info_DS095)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS095 &lt;- df_tidy_DS095 %&gt;%
+  group_by(plateID, wellID, protein) %&gt;%
+  count(name = &quot;count_total&quot;)
+
+data_on_DS095 &lt;- df_tidy_DS095 %&gt;%
+  filter((fluorescence - zero_quant97.5) &gt; 0) %&gt;%
+  group_by(plateID, wellID, protein) %&gt;%
+  count(name = &quot;count_on&quot;)
+
+data_counts_DS095 &lt;- left_join(data_total_DS095, data_on_DS095) %&gt;%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS095 &lt;- left_join(df_tidy_DS095, data_counts_DS095)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells   3560394  190.2    6885741   367.8    6885741   367.8
+Vcells 945737428 7215.5 2234880840 17050.8 2234020497 17044.3</code></pre>
+<pre class="r"><code>kable(df_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:right;">
+H2O2_conc_mM
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+replicate
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+472.7249
+</td>
+<td style="text-align:right;">
+91701.33
+</td>
+<td style="text-align:right;">
+52519.65
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+188.7645
+</td>
+<td style="text-align:right;">
+73908.25
+</td>
+<td style="text-align:right;">
+25794.02
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+318.1332
+</td>
+<td style="text-align:right;">
+88227.36
+</td>
+<td style="text-align:right;">
+42436.21
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+410.8882
+</td>
+<td style="text-align:right;">
+92051.44
+</td>
+<td style="text-align:right;">
+39803.27
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS095
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+rep1
+</td>
+<td style="text-align:left;">
+0 mM - 0 min - rep1
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+611.8573
+</td>
+<td style="text-align:right;">
+72490.55
+</td>
+<td style="text-align:right;">
+31535.06
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+846.4297
+</td>
+<td style="text-align:right;">
+42629
+</td>
+<td style="text-align:right;">
+1066
+</td>
+<td style="text-align:right;">
+2.500645
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="median-data-1" class="section level3">
+<h3>Median data</h3>
+<p>Calculate median fluorescent values for each sample/replicate</p>
+<pre class="r"><code># Calculate median values for each sample
+medians_DS095 &lt;- df_tidy_DS095 %&gt;% 
+  group_by(plateID, wellID, protein, fluor) %&gt;% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+
+medians_tidy_DS095 &lt;- left_join(medians_DS095, distinct(select(df_tidy_DS095, cols_meta_DS095))) %&gt;%
+  left_join(data_counts_DS095)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells   3561698  190.3    6885741   367.8    6885741   367.8
+Vcells 945765574 7215.7 2234880840 17050.8 2234020497 17044.3</code></pre>
+<pre class="r"><code># kable(medians_tidy_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<pre class="r"><code># Make a dataframe with means and standard deviation of replicates
+medians_avg_DS095 &lt;- medians_tidy_DS095 %&gt;%
+  dplyr::group_by(H2O2_conc_mM, time_point, protein) %&gt;%
+  summarise(
+    fluorescence_sd = sd(fluorescence_median, na.rm = T),
+    fluorescence = mean(fluorescence_median, na.rm = T), 
+    percent_sd = sd(percent_on, na.rm = T),
+    percent_on = mean(percent_on, na.rm = T)
+    )
+
+medians_avg_DS095 &lt;- left_join(medians_avg_DS095, select(medians_tidy_DS095, c(expID, sample, stimulus, H2O2_conc_mM, time_min, time_point, cumulative_exposure, staining, panel, fluor, protein)), multiple = &quot;all&quot;) %&gt;%
+  select(-c(&quot;plateID&quot;, &quot;wellID&quot;)) %&gt;%
+  # select(stimulus, stim_profile, gradient_duration, stim_description, time_min, time_point, conc_at_time, cum_exposure, staining, panel,fluor, protein, fluorescence, fluorescence_sd, fluorescence_zero, FC, FC_sd, log2FC, log2FC_sd) %&gt;% #, fluorescence_norm, fluorescence_norm_sd, fluorescence_norm_zero, FC_norm, FC_norm_sd, log2FC_norm, log2FC_norm_sd
+  distinct() %&gt;% 
+  mutate(stim_description = paste(H2O2_conc_mM, &quot;mM -&quot;, time_point))
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells   3563358  190.4    6885741   367.8    6885741   367.8
+Vcells 945770164 7215.7 2234880840 17050.8 2234020497 17044.3</code></pre>
+<pre class="r"><code># kable(medians_avg_DS095 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="save-data-1" class="section level3">
+<h3>Save data</h3>
+<p>Save annotated datasets as .csv file</p>
+<pre class="r"><code>write.csv(df_tidy_DS095, file = &quot;output/annotated_data/annotated_data_tidy_DS095.csv&quot;, row.names = F)
+
+write.csv(medians_tidy_DS095, file = &quot;output/annotated_data/annotated_medians_tidy_DS095.csv&quot;, row.names = F)
+
+write.csv(medians_avg_DS095, file = &quot;output/annotated_data/annotated_medians_avg_rep_DS095.csv&quot;, row.names = F)
+
+# Remove files to clear up memory
+rm(list = ls(pattern = &quot;_DS095&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells 3559038 190.1    6885741   367.8    6885741   367.8
+Vcells 5850884  44.7 1787904672 13640.7 2234020497 17044.3</code></pre>
+</div>
+</div>
+<div id="ds096-linquadgradient_highconc" class="section level2">
+<h2>DS096: LinQuadGradient_HighConc</h2>
+<div id="load-data-2" class="section level3">
+<h3>Load data</h3>
+<p>Load the gated dataset and create a dataset with live single
+cells</p>
+<pre class="r"><code>gs_DS096 &lt;- load_gs(paste0(&quot;output/&quot;, &quot;gated_data_DS096&quot;))
+
+gated_pops_DS096 &lt;- gs_get_pop_paths(gs_DS096, path = &quot;auto&quot;)
+cs_DS096 &lt;- gs_pop_get_data(gs_DS096, tail(gated_pops_DS096, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS096 &lt;- fortify(cs_DS096)
+df_DS096[df_DS096 &lt;= 0] &lt;- NA
+
+# Select only columns that are needed
+df_DS096 &lt;- df_DS096[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger    (Mb)   max used    (Mb)
+Ncells  3560444 190.2    6885741   367.8    6885741   367.8
+Vcells 24498554 187.0 1430323738 10912.6 2234020497 17044.3</code></pre>
+<pre class="r"><code># Add metadata per well from custom .csv file
+metadata_DS096 &lt;- read_csv(&quot;data/DS096_LinQuadGradient_HighConc/metadata_plate_DS096.csv&quot;)
+
+# Change columns into character if necessary
+metadata_DS096$colID &lt;- as.character(metadata_DS096$colID)
+
+df_DS096 &lt;- left_join(df_DS096, metadata_DS096)
+
+# Remove samples with &lt;5000 cells (except if the sample is t = 0 min)
+counts_DS096 &lt;- df_DS096 %&gt;% count(plateID, wellID, name = &quot;sample_cell_count&quot;)
+df_DS096 &lt;- left_join(df_DS096, counts_DS096)
+# df_DS096 &lt;- df_DS096[df_DS096$sample_cell_count &gt; 5000, ]
+remove_wells_DS096 &lt;- df_DS096 %&gt;%
+  filter(sample_cell_count &lt; 5000) %&gt;%
+  select(plateID, wellID, time_min) %&gt;% 
+  distinct() %&gt;%
+  filter(time_min &gt; 0) %&gt;%
+  select(plateID, wellID) %&gt;%
+  mutate(wellID_rem = wellID)
+df_DS096 &lt;- df_DS096 %&gt;%
+  left_join(remove_wells_DS096) %&gt;%
+  replace_na(list(wellID_rem = &quot;x&quot;)) %&gt;%
+  filter(wellID_rem == &quot;x&quot;) %&gt;%
+  select(-c(wellID_rem))
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells  3559613 190.2    6885741  367.8    6885741   367.8
+Vcells 52122773 397.7 1144258991 8730.1 2234020497 17044.3</code></pre>
+<pre class="r"><code># kable(df_DS096 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="transform-data-2" class="section level3">
+<h3>Transform data</h3>
+<p>Pivot the full dataset into a tidy dataset</p>
+<pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS096 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;conc_final&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;stim_descrip_short&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;after_end&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+
+df_PE_DS096 &lt;- df_DS096 %&gt;% 
+  select(cols_meta_DS096, protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;PE&quot;) %&gt;%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS096 &lt;- df_DS096 %&gt;% 
+  select(cols_meta_DS096, protein_AF647, Alexa.647.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF647&quot;) %&gt;%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS096 &lt;- df_DS096 %&gt;% 
+  select(cols_meta_DS096, protein_AF488, Alexa.488.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF488&quot;) %&gt;%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS096 &lt;- df_DS096 %&gt;% 
+  select(cols_meta_DS096, protein_BV421, BV421.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;BV421&quot;) %&gt;%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS096 &lt;- list(df_PE_DS096, df_AF647_DS096, df_AF488_DS096, df_BV421_DS096) %&gt;% reduce(full_join)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3560789  190.2    6885741  367.8    6885741   367.8
+Vcells 194732605 1485.7  915407193 6984.1 2234020497 17044.3</code></pre>
+<pre class="r"><code># kable(df_tidy_DS096 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<pre class="r"><code>data_info_DS096 &lt;- df_tidy_DS096 %&gt;%
+  filter(time_point == &quot;0 min&quot;) %&gt;% 
+  group_by(plateID, stim_description, protein) %&gt;%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS096 &lt;- left_join(df_tidy_DS096, data_info_DS096)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS096 &lt;- df_tidy_DS096 %&gt;%
+  group_by(wellID, protein) %&gt;%
+  count(name = &quot;count_total&quot;)
+
+data_on_DS096 &lt;- df_tidy_DS096 %&gt;%
+  filter((fluorescence - zero_quant97.5) &gt; 0) %&gt;%
+  group_by(wellID, protein) %&gt;%
+  count(name = &quot;count_on&quot;)
+
+data_counts_DS096 &lt;- left_join(data_total_DS096, data_on_DS096) %&gt;%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS096 &lt;- left_join(df_tidy_DS096, data_counts_DS096)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3561497  190.3    6885741  367.8    6885741   367.8
+Vcells 219009356 1671.0  732325755 5587.3 2234020497 17044.3</code></pre>
+<pre class="r"><code>kable(df_tidy_DS096 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:right;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:left;">
+conc_final
+</th>
+<th style="text-align:left;">
+stim_profile
+</th>
+<th style="text-align:right;">
+gradient_duration
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+stim_descrip_short
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:left;">
+after_end
+</th>
+<th style="text-align:right;">
+conc_at_time_mM
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+919.4431
+</td>
+<td style="text-align:right;">
+103952.48
+</td>
+<td style="text-align:right;">
+52536.32
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+554.9496
+</td>
+<td style="text-align:right;">
+79505.84
+</td>
+<td style="text-align:right;">
+26172.11
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+494.2007
+</td>
+<td style="text-align:right;">
+69465.74
+</td>
+<td style="text-align:right;">
+31530.33
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+616.5194
+</td>
+<td style="text-align:right;">
+113960.14
+</td>
+<td style="text-align:right;">
+45876.11
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS096
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+10 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+60 min quadratic gradient (10 mM)
+</td>
+<td style="text-align:left;">
+60 min to 10 mM (quad)
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+357.9261
+</td>
+<td style="text-align:right;">
+78951.20
+</td>
+<td style="text-align:right;">
+31797.95
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+1589.857
+</td>
+<td style="text-align:right;">
+38896
+</td>
+<td style="text-align:right;">
+973
+</td>
+<td style="text-align:right;">
+2.501543
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="median-data-2" class="section level3">
+<h3>Median data</h3>
+<p>Calculate median fluorescent values for each sample/replicate</p>
+<pre class="r"><code># Calculate median values for each sample
+medians_DS096 &lt;- df_tidy_DS096 %&gt;% 
+  group_by(plateID, wellID, protein, fluor) %&gt;% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+medians_tidy_DS096 &lt;- left_join(medians_DS096, distinct(select(df_tidy_DS096, cols_meta_DS096))) %&gt;%
+  left_join(data_counts_DS096)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3561742  190.3    6885741  367.8    6885741   367.8
+Vcells 219019912 1671.0  732325755 5587.3 2234020497 17044.3</code></pre>
+<pre class="r"><code># kable(medians_tidy_DS096 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="save-data-2" class="section level3">
+<h3>Save data</h3>
+<p>Save annotated datasets as .csv file</p>
+<pre class="r"><code>write.csv(df_tidy_DS096, file = &quot;output/annotated_data/annotated_data_tidy_DS096.csv&quot;, row.names = F)
+
+write.csv(medians_tidy_DS096, file = &quot;output/annotated_data/annotated_medians_tidy_DS096.csv&quot;, row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;_DS096&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells 3560265 190.2    6885741  367.8    6885741   367.8
+Vcells 5855110  44.7  585860604 4469.8 2234020497 17044.3</code></pre>
+</div>
+</div>
+<div id="ds097-lingradient_lowconc" class="section level2">
+<h2>DS097: LinGradient_LowConc</h2>
+<div id="load-data-3" class="section level3">
+<h3>Load data</h3>
+<p>Load the gated dataset and create a dataset with live single
+cells</p>
+<pre class="r"><code>gs_DS097 &lt;- load_gs(paste0(&quot;output/&quot;, &quot;gated_data_DS097&quot;))
+
+gated_pops_DS097 &lt;- gs_get_pop_paths(gs_DS097, path = &quot;auto&quot;)
+cs_DS097 &lt;- gs_pop_get_data(gs_DS097, tail(gated_pops_DS097, 1))
+
+# Remove all zero values from df in order to perform log transformations
+df_DS097 &lt;- fortify(cs_DS097)
+df_DS097[df_DS097 &lt;= 0] &lt;- NA
+
+# Select only columns that are needed
+df_DS097 &lt;- df_DS097[ , c(&quot;name&quot;, &quot;expID&quot;, &quot;plateID&quot;, &quot;rowID&quot;, &quot;colID&quot;, &quot;wellID&quot;, &quot;FSC.A&quot;, &quot;SSC.A&quot;, &quot;BV421.A&quot;, &quot;PE.A&quot;, &quot;Alexa.647.A&quot;, &quot;Alexa.488.A&quot;)]
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells  3561947 190.3    6885741  367.8    6885741   367.8
+Vcells 28489013 217.4  468688484 3575.9 2234020497 17044.3</code></pre>
+<pre class="r"><code># Add metadata per well from custom .csv file
+metadata_DS097 &lt;- read_csv(&quot;data/DS097_LinGradient_LowConc/metadata_plate_DS097.csv&quot;)
+
+# Change columns into character if necessary
+metadata_DS097$colID &lt;- as.character(metadata_DS097$colID)
+
+df_DS097 &lt;- left_join(df_DS097, metadata_DS097)
+
+# Remove samples with &lt;5000 cells (except if the sample is t = 0 min)
+counts_DS097 &lt;- df_DS097 %&gt;% count(plateID, wellID, name = &quot;sample_cell_count&quot;)
+df_DS097 &lt;- left_join(df_DS097, counts_DS097)
+# df_DS097 &lt;- df_DS097[df_DS097$sample_cell_count &gt; 5000, ]
+remove_wells_DS097 &lt;- df_DS097 %&gt;%
+  filter(sample_cell_count &lt; 5000) %&gt;%
+  select(plateID, wellID, time_min) %&gt;% 
+  distinct() %&gt;%
+  filter(time_min &gt; 0) %&gt;%
+  select(plateID, wellID) %&gt;%
+  mutate(wellID_rem = wellID)
+df_DS097 &lt;- df_DS097 %&gt;%
+  left_join(remove_wells_DS097) %&gt;%
+  replace_na(list(wellID_rem = &quot;x&quot;)) %&gt;%
+  filter(wellID_rem == &quot;x&quot;) %&gt;%
+  select(-c(wellID_rem))
+
+gc()</code></pre>
+<pre><code>           used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells  3560890 190.2    6885741  367.8    6885741   367.8
+Vcells 62046517 473.4  374950788 2860.7 2234020497 17044.3</code></pre>
+<pre class="r"><code># kable(df_DS097 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="transform-data-3" class="section level3">
+<h3>Transform data</h3>
+<p>Pivot the full dataset into a tidy dataset</p>
+<pre class="r"><code># Combine all data into one tidy dataframe (all data in one column instead of one column for each fluor)
+cols_meta_DS097 &lt;- c(&quot;expID&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;sample&quot;, &quot;stimulus&quot;, &quot;conc_final&quot;, &quot;stim_profile&quot;, &quot;gradient_duration&quot;, &quot;stim_description&quot;, &quot;stim_descrip_short&quot;, &quot;time_min&quot;, &quot;time_point&quot;, &quot;after_end&quot;, &quot;conc_at_time_mM&quot;, &quot;cumulative_exposure&quot;, &quot;staining&quot;, &quot;panel&quot;, &quot;sample_cell_count&quot;) # include all metadata columns
+
+df_PE_DS097 &lt;- df_DS097 %&gt;% 
+  select(cols_meta_DS097, protein_PE, PE.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;PE&quot;) %&gt;%
+  rename(
+    protein = protein_PE, 
+    fluorescence = PE.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF647_DS097 &lt;- df_DS097 %&gt;% 
+  select(cols_meta_DS097, protein_AF647, Alexa.647.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF647&quot;) %&gt;%
+  rename(
+    protein = protein_AF647, 
+    fluorescence = Alexa.647.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_AF488_DS097 &lt;- df_DS097 %&gt;% 
+  select(cols_meta_DS097, protein_AF488, Alexa.488.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;AF488&quot;) %&gt;%
+  rename(
+    protein = protein_AF488, 
+    fluorescence = Alexa.488.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+df_BV421_DS097 &lt;- df_DS097 %&gt;% 
+  select(cols_meta_DS097, protein_BV421, BV421.A, FSC.A, SSC.A) %&gt;% 
+  mutate(fluor = &quot;BV421&quot;) %&gt;%
+  rename(
+    protein = protein_BV421, 
+    fluorescence = BV421.A, 
+    FSC = FSC.A, 
+    SSC = SSC.A)
+
+df_tidy_DS097 &lt;- list(df_PE_DS097, df_AF647_DS097, df_AF488_DS097, df_BV421_DS097) %&gt;% reduce(full_join)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3560944  190.2    6885741  367.8    6885741   367.8
+Vcells 235224505 1794.7  657983391 5020.1 2234020497 17044.3</code></pre>
+<pre class="r"><code># kable(df_tidy_DS097 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<pre class="r"><code>data_info_DS097 &lt;- df_tidy_DS097 %&gt;%
+  filter(time_point == &quot;0 min&quot;) %&gt;% 
+  group_by(plateID, stim_description, protein) %&gt;%
+  summarise(zero_quant97.5 = quantile(fluorescence, c(0.975), na.rm = T))
+
+df_tidy_DS097 &lt;- left_join(df_tidy_DS097, data_info_DS097)
+
+# Create dataframe with percentage ON for each condition
+data_total_DS097 &lt;- df_tidy_DS097 %&gt;%
+  group_by(wellID, protein) %&gt;%
+  count(name = &quot;count_total&quot;)
+
+data_on_DS097 &lt;- df_tidy_DS097 %&gt;%
+  filter((fluorescence - zero_quant97.5) &gt; 0) %&gt;%
+  group_by(wellID, protein) %&gt;%
+  count(name = &quot;count_on&quot;)
+
+data_counts_DS097 &lt;- left_join(data_total_DS097, data_on_DS097) %&gt;%
+  mutate(percent_on = (count_on / count_total) * 100)
+
+df_tidy_DS097 &lt;- left_join(df_tidy_DS097, data_counts_DS097)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3561622  190.3    6885741  367.8    6885741   367.8
+Vcells 264704913 2019.6  657983391 5020.1 2234020497 17044.3</code></pre>
+<pre class="r"><code>kable(df_tidy_DS097 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+expID
+</th>
+<th style="text-align:left;">
+plateID
+</th>
+<th style="text-align:left;">
+wellID
+</th>
+<th style="text-align:left;">
+sample
+</th>
+<th style="text-align:left;">
+stimulus
+</th>
+<th style="text-align:left;">
+conc_final
+</th>
+<th style="text-align:left;">
+stim_profile
+</th>
+<th style="text-align:right;">
+gradient_duration
+</th>
+<th style="text-align:left;">
+stim_description
+</th>
+<th style="text-align:left;">
+stim_descrip_short
+</th>
+<th style="text-align:right;">
+time_min
+</th>
+<th style="text-align:left;">
+time_point
+</th>
+<th style="text-align:left;">
+after_end
+</th>
+<th style="text-align:right;">
+conc_at_time_mM
+</th>
+<th style="text-align:right;">
+cumulative_exposure
+</th>
+<th style="text-align:left;">
+staining
+</th>
+<th style="text-align:left;">
+panel
+</th>
+<th style="text-align:right;">
+sample_cell_count
+</th>
+<th style="text-align:left;">
+protein
+</th>
+<th style="text-align:right;">
+fluorescence
+</th>
+<th style="text-align:right;">
+FSC
+</th>
+<th style="text-align:right;">
+SSC
+</th>
+<th style="text-align:left;">
+fluor
+</th>
+<th style="text-align:right;">
+zero_quant97.5
+</th>
+<th style="text-align:right;">
+count_total
+</th>
+<th style="text-align:right;">
+count_on
+</th>
+<th style="text-align:right;">
+percent_on
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+499.3735
+</td>
+<td style="text-align:right;">
+107944.19
+</td>
+<td style="text-align:right;">
+66260.41
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+468.7827
+</td>
+<td style="text-align:right;">
+94587.57
+</td>
+<td style="text-align:right;">
+58362.21
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+282.7578
+</td>
+<td style="text-align:right;">
+62121.43
+</td>
+<td style="text-align:right;">
+28264.21
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+1013.6290
+</td>
+<td style="text-align:right;">
+127189.91
+</td>
+<td style="text-align:right;">
+151443.28
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DS097
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A01
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+H2O2
+</td>
+<td style="text-align:left;">
+5 mM
+</td>
+<td style="text-align:left;">
+gradient
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20 min gradient (5 mM)
+</td>
+<td style="text-align:left;">
+20 min to 5 mM
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0 min
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:left;">
+pSYK (Y525/Y526)
+</td>
+<td style="text-align:right;">
+608.5081
+</td>
+<td style="text-align:right;">
+99536.66
+</td>
+<td style="text-align:right;">
+76406.62
+</td>
+<td style="text-align:left;">
+PE
+</td>
+<td style="text-align:right;">
+997.9202
+</td>
+<td style="text-align:right;">
+38020
+</td>
+<td style="text-align:right;">
+950
+</td>
+<td style="text-align:right;">
+2.498685
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="median-data-3" class="section level3">
+<h3>Median data</h3>
+<p>Calculate median fluorescent values for each sample/replicate</p>
+<pre class="r"><code># Calculate median values for each sample
+medians_DS097 &lt;- df_tidy_DS097 %&gt;% 
+  group_by(plateID, wellID, protein, fluor) %&gt;% 
+  summarise_at(vars(fluorescence), list(fluorescence_median = median), na.rm = TRUE)
+medians_tidy_DS097 &lt;- left_join(medians_DS097, distinct(select(df_tidy_DS097, cols_meta_DS097))) %&gt;%
+  left_join(data_counts_DS097)
+
+gc()</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells   3561980  190.3    6885741  367.8    6885741   367.8
+Vcells 264716680 2019.7  657983391 5020.1 2234020497 17044.3</code></pre>
+<pre class="r"><code># kable(medians_tidy_DS097 %&gt;% head(5)) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+</div>
+<div id="save-data-3" class="section level3">
+<h3>Save data</h3>
+<p>Save annotated datasets as .csv file</p>
+<pre class="r"><code>write.csv(df_tidy_DS097, file = &quot;output/annotated_data/annotated_data_tidy_DS097.csv&quot;, row.names = F)
+
+write.csv(medians_tidy_DS097, file = &quot;output/annotated_data/annotated_medians_tidy_DS097.csv&quot;, row.names = F)
+
+# Remove unnecessary files to clear up memory
+rm(list = ls(pattern = &quot;_DS097&quot;))
+gc()</code></pre>
+<pre><code>          used  (Mb) gc trigger   (Mb)   max used    (Mb)
+Ncells 3560409 190.2    6885741  367.8    6885741   367.8
+Vcells 5857032  44.7  526386713 4016.1 2234020497 17044.3</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.2 (2022-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.utf8  LC_CTYPE=English_Netherlands.utf8   
+[3] LC_MONETARY=English_Netherlands.utf8 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.utf8    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] png_0.1-8            patchwork_1.1.2      geomtextpath_0.1.1  
+ [4] ggh4x_0.2.4          magick_2.7.4         greekLetters_0.0.7  
+ [7] kableExtra_1.3.4     ggrepel_0.9.3        scales_1.2.1        
+[10] ggpubr_0.6.0         cowplot_1.1.1        ggthemes_4.2.4      
+[13] RColorBrewer_1.1-3   viridis_0.6.2        viridisLite_0.4.1   
+[16] ggridges_0.5.4       platetools_0.1.5     forecast_8.21       
+[19] readxl_1.4.2         zoo_1.8-11           lubridate_1.9.2     
+[22] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.0         
+[25] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
+[28] tibble_3.1.8         tidyverse_2.0.0      ggcyto_1.26.4       
+[31] flowWorkspace_4.10.1 ncdfFlow_2.44.0      BH_1.81.0-1         
+[34] ggplot2_3.4.2        flowCore_2.10.0      workflowr_1.7.0     
+
+loaded via a namespace (and not attached):
+  [1] backports_1.4.1     systemfonts_1.0.4   plyr_1.8.8         
+  [4] digest_0.6.31       htmltools_0.5.4     fansi_1.0.4        
+  [7] magrittr_2.0.3      tzdb_0.3.0          matrixStats_0.63.0 
+ [10] vroom_1.6.1         xts_0.13.1          svglite_2.1.1      
+ [13] timechange_0.2.0    cytolib_2.10.1      tseries_0.10-54    
+ [16] colorspace_2.1-0    rvest_1.0.3         textshaping_0.3.6  
+ [19] xfun_0.37           crayon_1.5.2        callr_3.7.3        
+ [22] jsonlite_1.8.4      hexbin_1.28.2       graph_1.76.0       
+ [25] glue_1.6.2          gtable_0.3.1        zlibbioc_1.44.0    
+ [28] webshot_0.5.4       car_3.1-1           Rgraphviz_2.42.0   
+ [31] BiocGenerics_0.44.0 quantmod_0.4.22     abind_1.4-5        
+ [34] DBI_1.1.3           rstatix_0.7.2       Rcpp_1.0.10        
+ [37] bit_4.0.5           stats4_4.2.2        httr_1.4.4         
+ [40] ellipsis_0.3.2      pkgconfig_2.0.3     XML_3.99-0.13      
+ [43] nnet_7.3-18         sass_0.4.5          utf8_1.2.3         
+ [46] tidyselect_1.2.0    rlang_1.1.1         later_1.3.0        
+ [49] munsell_0.5.0       cellranger_1.1.0    tools_4.2.2        
+ [52] cachem_1.0.6        cli_3.6.0           generics_0.1.3     
+ [55] broom_1.0.3         evaluate_0.20       fastmap_1.1.0      
+ [58] yaml_2.3.7          processx_3.8.0      knitr_1.42         
+ [61] bit64_4.0.5         fs_1.6.1            nlme_3.1-160       
+ [64] whisker_0.4.1       xml2_1.3.3          compiler_4.2.2     
+ [67] rstudioapi_0.14     curl_5.0.0          ggsignif_0.6.4     
+ [70] bslib_0.4.2         stringi_1.7.12      highr_0.10         
+ [73] ps_1.7.2            lattice_0.20-45     urca_1.3-3         
+ [76] vctrs_0.5.2         pillar_1.8.1        lifecycle_1.0.3    
+ [79] lmtest_0.9-40       jquerylib_0.1.4     data.table_1.14.8  
+ [82] httpuv_1.6.9        R6_2.5.1            promises_1.2.0.1   
+ [85] gridExtra_2.3       RProtoBufLib_2.10.0 assertthat_0.2.1   
+ [88] rprojroot_2.0.3     withr_2.5.0         fracdiff_1.5-2     
+ [91] S4Vectors_0.36.1    parallel_4.2.2      hms_1.1.2          
+ [94] quadprog_1.5-8      grid_4.2.2          timeDate_4022.108  
+ [97] rmarkdown_2.20      carData_3.0-5       git2r_0.31.0       
+[100] TTR_0.24.3          getPass_0.2-2       Biobase_2.58.0     </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
