@@ -9,14 +9,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="mwitmond" />
 
+<meta name="date" content="2023-05-08" />
 
-<title>Manuscript on dynamic H2O2 and B-cell signaling</title>
+<title>f_other</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,7 +31,11 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
@@ -226,7 +232,79 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
 
 
 
@@ -236,6 +314,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -248,15 +336,12 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Manuscript dynamic H2O2</a>
+      <a class="navbar-brand" href="index.html">manuscript_H2O2_dynamic_signaling</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">Home</a>
-</li>
-<li>
-  <a href="z_profiles.html">Profiles</a>
 </li>
 <li>
   <a href="a_gating.html">Gating</a>
@@ -266,6 +351,18 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="e_paper_figs.html">Paper figs</a>
+</li>
+<li>
+  <a href="z_profiles.html">Profiles</a>
+</li>
+<li>
+  <a href="c_gradients.html">Gradients</a>
+</li>
+<li>
+  <a href="d_step.html">Step</a>
+</li>
+<li>
+  <a href="f_other.html">Other</a>
 </li>
 <li>
   <a href="license.html">License</a>
@@ -280,10 +377,19 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Manuscript on dynamic H2O2 and B-cell
-signaling</h1>
+
+<h1 class="title toc-ignore">f_other</h1>
+<h4 class="author">mwitmond</h4>
+<h4 class="date">2023-05-08</h4>
 
 </div>
 
@@ -312,17 +418,18 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-01-24
+<strong>Last updated:</strong> 2023-08-17
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>flow_cytometry_analysis/</code>
-<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+<strong>Knit directory:</strong>
+<code>manuscript_H2O2_dynamic_signaling/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
 title="This is the local directory in which the code in this file was executed.">
 </span>
 </p>
@@ -359,15 +466,97 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhuckgroupH2O2manuscripttreeac362b051364089df99a228f3ad67d12dea7acf9targetblankac362b0a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/huckgroup/H2O2_manuscript/tree/ac362b051364089df99a228f3ad67d12dea7acf9" target="_blank">ac362b0</a>
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230308code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230308)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230308code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230308)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong8b13af5">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> 8b13af5
 </a>
 </p>
 </div>
-<div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhuckgroupH2O2manuscripttreeac362b051364089df99a228f3ad67d12dea7acf9targetblankac362b0a"
+<div id="strongRepositoryversionstrong8b13af5"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -376,8 +565,7 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version
-<a href="https://github.com/huckgroup/H2O2_manuscript/tree/ac362b051364089df99a228f3ad67d12dea7acf9" target="_blank">ac362b0</a>.
+The results in this page were generated with repository version 8b13af5.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -392,98 +580,38 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    flow_cytometry_analysis/.Rhistory
-    Ignored:    flow_cytometry_analysis/.Rproj.user/
-    Ignored:    flow_cytometry_analysis/output/annotated_data/
-    Ignored:    flow_cytometry_analysis/output/gated_counts.csv
-    Ignored:    flow_cytometry_analysis/output/gated_counts_Bas013.csv
-    Ignored:    flow_cytometry_analysis/output/gated_counts_DS085.csv
-    Ignored:    flow_cytometry_analysis/output/gated_counts_DS095.csv
-    Ignored:    flow_cytometry_analysis/output/gated_counts_DS096.csv
-    Ignored:    flow_cytometry_analysis/output/gated_counts_DS097.csv
-    Ignored:    flow_cytometry_analysis/output/gated_counts_DS098.csv
-    Ignored:    flow_cytometry_analysis/output/gated_data_Bas013/
-    Ignored:    flow_cytometry_analysis/output/gated_data_DS085/
-    Ignored:    flow_cytometry_analysis/output/gated_data_DS095/
-    Ignored:    flow_cytometry_analysis/output/gated_data_DS096/
-    Ignored:    flow_cytometry_analysis/output/gated_data_DS097/
-    Ignored:    flow_cytometry_analysis/output/gated_data_DS098/
 
 Untracked files:
-    Untracked:  flow_cytometry_analysis/output/figures/fig1_main.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/fig1_main.png
-    Untracked:  flow_cytometry_analysis/output/figures/fig2_alt_panelA.jpeg
-    Untracked:  flow_cytometry_analysis/output/figures/fig2_main.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/fig2_main.png
-    Untracked:  flow_cytometry_analysis/output/figures/fig3_main.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/fig3_main.png
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main.pdf
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main.png
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main_table.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main_table.png
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main_table.svg
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main_v1.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main_v1.png
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_options/
-    Untracked:  flow_cytometry_analysis/output/figures/non_R_figs/DRcurve_model_percon_MW_v2.png
-    Untracked:  flow_cytometry_analysis/output/figures/non_R_figs/DRcurve_model_percon_MW_v4.png
-    Untracked:  flow_cytometry_analysis/output/figures/non_R_figs/Model_gradients_percon_MW_v4.png
-    Untracked:  flow_cytometry_analysis/output/figures/previous/
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig10_gating.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig10_gating.png
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig1_ridge_step.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig1_ridge_step.png
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig2_data_variability_placeholder.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig3_model_variability_placeholder.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig4_model_DR_placeholder.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig5_ridge_gradient.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig5_ridge_gradient.png
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig6_line_gradient.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig6_line_gradient.png
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig7_model_gradients_placeholder.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig8_alt_gradients.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig8_alt_gradients.pdf
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig8_alt_gradients.png
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig8_gradient_DS085.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig8_gradient_DS085.png
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig9_gradient_DS097.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig9_gradient_DS097.png
-    Untracked:  flow_cytometry_analysis/output/figures/suppfigs_v2/
-    Untracked:  flow_cytometry_analysis/output/figures/suppfigs_v3/
+    Untracked:  code/generate_stimulation_gradients.R
+    Untracked:  code/packages_FACS.R
+    Untracked:  data/Bas013_LinGradient_CumExp/
+    Untracked:  data/DS085_LinGradient_Conc/
+    Untracked:  data/DS095_DetailedStep_Conc/
+    Untracked:  data/DS096_LinQuadGradient_HighConc/
+    Untracked:  data/DS097_LinGradient_LowConc/
+    Untracked:  data/DS098_StepInhibitor_Conc/
+    Untracked:  output/annotated_data/
+    Untracked:  output/figures/
+    Untracked:  output/gated_counts.csv
+    Untracked:  output/gated_counts_Bas013.csv
+    Untracked:  output/gated_counts_DS085.csv
+    Untracked:  output/gated_counts_DS095.csv
+    Untracked:  output/gated_counts_DS096.csv
+    Untracked:  output/gated_counts_DS097.csv
+    Untracked:  output/gated_counts_DS098.csv
+    Untracked:  output/gated_data_Bas013/
+    Untracked:  output/gated_data_DS085/
+    Untracked:  output/gated_data_DS095/
+    Untracked:  output/gated_data_DS096/
+    Untracked:  output/gated_data_DS097/
+    Untracked:  output/gated_data_DS098/
+    Untracked:  output/input_profiles/
+    Untracked:  output/rate_data/
 
 Unstaged changes:
-    Modified:   flow_cytometry_analysis/.gitignore
-    Deleted:    flow_cytometry_analysis/output/figures/fig1_main.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/fig1_main.pdf
-    Deleted:    flow_cytometry_analysis/output/figures/fig2_main.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/fig2_main.pdf
-    Deleted:    flow_cytometry_analysis/output/figures/fig2_panelA_v2.jpeg
-    Deleted:    flow_cytometry_analysis/output/figures/fig3_main.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/fig3_main.pdf
-    Modified:   flow_cytometry_analysis/output/figures/fig3_panelCDE.jpeg
-    Deleted:    flow_cytometry_analysis/output/figures/fig4_main_v1.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/fig4_main_v1.pdf
-    Deleted:    flow_cytometry_analysis/output/figures/fig4_main_v2.jpeg
-    Deleted:    flow_cytometry_analysis/output/figures/fig4_main_v3.jpeg
-    Deleted:    flow_cytometry_analysis/output/figures/graphical_abstract_scaled.png
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig10_gating.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/suppfig10_gating.pdf
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig1_ridge_step.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/suppfig1_ridge_step.pdf
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig2_data_variability_placeholder.jpeg
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig3_model_variability_placeholder.jpeg
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig4_model_DR_placeholder.jpeg
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig5_ridge_gradient.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/suppfig5_ridge_gradient.pdf
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig6_line_gradient.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/suppfig6_line_gradient.pdf
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig7_model_gradients_placeholder.jpeg
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig8_gradient_DS085.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/suppfig8_gradient_DS085.pdf
-    Deleted:    flow_cytometry_analysis/output/figures/suppfig9_gradient_DS097.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/suppfig9_gradient_DS097.pdf
+    Deleted:    analysis/about.Rmd
 
 </code></pre>
 <p>
@@ -501,12 +629,11 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown
-(<code>flow_cytometry_analysis/analysis/index.Rmd</code>) and HTML
-(<code>flow_cytometry_analysis/docs/index.html</code>) files. If you’ve
-configured a remote Git repository (see <code>?wflow_git_remote</code>),
-click on the hyperlinks in the table below to view the files as they
-were in that past version.
+made to the R Markdown (<code>analysis/f_other.Rmd</code>) and HTML
+(<code>docs/f_other.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -535,33 +662,16 @@ Message
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/huckgroup/H2O2_manuscript/45a591c231eb3850595b564e0fab7d3a1c079273/flow_cytometry_analysis/docs/index.html" target="_blank">45a591c</a>
+ba42b1d
 </td>
 <td>
 mwitmond
 </td>
 <td>
-2023-08-18
+2023-08-04
 </td>
 <td>
 Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/huckgroup/H2O2_manuscript/blob/35dd2c6b5df9791493f16c9b65c9c11fc15fef7b/flow_cytometry_analysis/analysis/index.Rmd" target="_blank">35dd2c6</a>
-</td>
-<td>
-mwitmond
-</td>
-<td>
-2023-08-18
-</td>
-<td>
-Cleaned up the paper fig analysis
 </td>
 </tr>
 <tr>
@@ -569,13 +679,47 @@ Cleaned up the paper fig analysis
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/huckgroup/H2O2_manuscript/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/index.html" target="_blank">fc207bc</a>
+7feb8d5
 </td>
 <td>
 mwitmond
 </td>
 <td>
-2023-08-18
+2023-07-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+cdb5f6c
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+9695f8d
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-05-08
 </td>
 <td>
 Build site.
@@ -586,16 +730,16 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/huckgroup/H2O2_manuscript/blob/db16d1555f0f507130c308a4b29d8d8afddae3d0/flow_cytometry_analysis/analysis/index.Rmd" target="_blank">db16d15</a>
+6521f7c
 </td>
 <td>
 mwitmond
 </td>
 <td>
-2023-08-18
+2023-05-08
 </td>
 <td>
-Cleaned up the analysis
+Publish updated datasets, gating, annotation
 </td>
 </tr>
 </tbody>
@@ -605,53 +749,44 @@ Cleaned up the analysis
 </div>
 </div>
 </div>
-<div id="description" class="section level2">
-<h2>Description</h2>
-<p>This is the data analysis folder for the flow cytometry data of the
-manuscript titled: <em>Dynamic hydrogen peroxide levels reveal a
-rate-dependent sensitivity in B-cell lymphoma signaling</em>.</p>
+<div id="set-up" class="section level2">
+<h2>Set-up</h2>
+<pre class="r"><code>knitr::opts_chunk$set(
+  message = F, warning = F, echo = T, eval = F
+)
+
+# Load required packages
+source(&quot;code/packages_FACS.R&quot;, local = knitr::knit_global())</code></pre>
+<pre class="r"><code>row_order = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;)
+col_order = c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;11&quot;, &quot;12&quot;)
+panel_labels &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;,&quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;, &quot;J&quot;, &quot;K&quot;, &quot;L&quot;, &quot;M&quot;)
+
+textsize &lt;- theme(axis.text.x = element_text(colour = &quot;grey&quot;, size = 12, face = &quot;bold&quot;),
+                  axis.text.y = element_text(colour = &quot;grey&quot;, size = 12, face = &quot;bold&quot;),
+                  axis.title = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;), 
+                  # legend.title = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;), 
+                  legend.title = element_blank(), 
+                  legend.text = element_text(colour = &quot;grey&quot;, size = 12, face = &quot;bold&quot;), 
+                  strip.text.x = element_text(colour = &quot;black&quot;, size = 12, face = &quot;bold&quot;)
+)
+
+textsize_small &lt;- theme(text = element_text(size = 7, family = &quot;sans&quot;, colour = &quot;black&quot;),
+                        plot.title = element_text(size = 8)
+)
+
+colors_dark9 &lt;- c(&quot;#4daf4a&quot;, &quot;#984ea3&quot;, &quot;#ffff33&quot;, &quot;#ff7f00&quot;, &quot;#e41a1c&quot;, &quot;#f781bf&quot;, &quot;#a65628&quot;, &quot;#999999&quot;, &quot;#377eb8&quot;)
+colors_light12 &lt;- c(&quot;#8dd3c7&quot;,&quot;#ffffb3&quot;,&quot;#bebada&quot;,&quot;#fb8072&quot;,&quot;#80b1d3&quot;,&quot;#fdb462&quot;,&quot;#b3de69&quot;,&quot;#fccde5&quot;,&quot;#d9d9d9&quot;,&quot;#bc80bd&quot;,&quot;#ccebc5&quot;,&quot;#ffed6f&quot;)
+colors_paired10 &lt;- c(&quot;#a6cee3&quot;, &quot;#1f78b4&quot;, &quot;#b2df8a&quot;, &quot;#33a02c&quot;, &quot;#fdbf6f&quot;, &quot;#ff7f00&quot;, &quot;#cab2d6&quot;, &quot;#6a3d9a&quot;, &quot;#fb9a99&quot;, &quot;#e31a1c&quot;)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
 </div>
-<div id="abstract" class="section level2">
-<h2>Abstract</h2>
-<p>Although in vivo extracellular microenvironments are dynamic, most in
-vitro studies are conducted under static conditions. Here, we exposed
-diffuse large B-cell lymphoma (DLBCL) cells to gradient increases in the
-concentration of hydrogen peroxide (H2O2), thereby capturing some of the
-dynamics of the tumour microenvironment. Subsequently, we measured the
-phosphorylation response of B-cell receptor (BCR) signalling proteins
-CD79a, SYK and PLCγ2 at a high temporal resolution via single-cell
-phospho-specific flow cytometry. We demonstrated that the cells respond
-bimodally to static extracellular H2O2, where the percentage of cells
-that respond is mainly determined by the concentration. Computational
-analysis revealed that the bimodality results from a combination of a
-steep dose-response relationship and cell-to-cell variability in the
-response threshold. Dynamic gradient inputs of varying durations
-indicated that the H2O2 concentration is not the only determinant of the
-signalling response, as cells exposed to more shallow gradients respond
-at lower H2O2 levels. A minimal model of the proximal BCR network
-qualitatively reproduced the experimental findings and uncovered a
-rate-dependent sensitivity to H2O2, where a lower rate of increase
-correlates to a higher sensitivity. These findings will bring us closer
-to understanding how cells process information from their complex and
-dynamic in vivo environments.</p>
-</div>
-<div id="in-this-repository" class="section level2">
-<h2>In this repository</h2>
-<p><a href="z_profiles.html">Gradient profiles</a> contains the
-generation of experimental pump profiles for gradient inputs.</p>
-<p><a href="a_gating.html">Gating</a> contains the gating strategy for
-all analyses.</p>
-<p><a href="b_annotation.html">Annotation</a> contains the annotation of
-the gated data with experimental metadata.</p>
-<p><a href="e_paper_figs.html">Paper figs</a> contains the main and
-supplementary figures for the paper.</p>
-</div>
-<div id="experiments" class="section level2">
-<h2>Experiments</h2>
-<p>DS085: LinGradient_Conc</p>
-<p>DS095: DetailedStep_Conc</p>
-<p>DS096: LinQuadGradient_HighConc</p>
-<p>DS097: LinGradient_LowConc</p>
 </div>
 
 
@@ -670,6 +805,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -701,7 +838,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
