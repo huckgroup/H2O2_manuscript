@@ -15,7 +15,7 @@
 
 <title>Gating strategy</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -358,6 +358,9 @@ div.tocify {
   <a href="e_paper_figs.html">Paper figs</a>
 </li>
 <li>
+  <a href="f_chapter_figs.html">Chapter figs</a>
+</li>
+<li>
   <a href="license.html">License</a>
 </li>
       </ul>
@@ -411,7 +414,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-01-24
+<strong>Last updated:</strong> 2024-07-31
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -429,7 +432,7 @@ title="This is the local directory in which the code in this file was executed."
 This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
 analysis was created with <a
   href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
 that were applied when the results were created. The <em>Past
 versions</em> tab lists the development history.
 </p>
@@ -542,15 +545,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhuckgroupH2O2manuscripttreeac362b051364089df99a228f3ad67d12dea7acf9targetblankac362b0a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhuckgroupH2O2manuscripttreedb191cb5abda729bd883fa1b1d2a50dd45eddb7ftargetblankdb191cba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/huckgroup/H2O2_manuscript/tree/ac362b051364089df99a228f3ad67d12dea7acf9" target="_blank">ac362b0</a>
+<a href="https://github.com/huckgroup/H2O2_manuscript/tree/db191cb5abda729bd883fa1b1d2a50dd45eddb7f" target="_blank">db191cb</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhuckgroupH2O2manuscripttreeac362b051364089df99a228f3ad67d12dea7acf9targetblankac362b0a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhuckgroupH2O2manuscripttreedb191cb5abda729bd883fa1b1d2a50dd45eddb7ftargetblankdb191cba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -560,7 +563,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/huckgroup/H2O2_manuscript/tree/ac362b051364089df99a228f3ad67d12dea7acf9" target="_blank">ac362b0</a>.
+<a href="https://github.com/huckgroup/H2O2_manuscript/tree/db191cb5abda729bd883fa1b1d2a50dd45eddb7f" target="_blank">db191cb</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -594,6 +597,7 @@ Ignored files:
     Ignored:    flow_cytometry_analysis/output/gated_data_DS098/
 
 Untracked files:
+    Untracked:  flow_cytometry_analysis/output/figures/chapter_figs/
     Untracked:  flow_cytometry_analysis/output/figures/fig1_main.jpg
     Untracked:  flow_cytometry_analysis/output/figures/fig1_main.png
     Untracked:  flow_cytometry_analysis/output/figures/fig2_alt_panelA.jpeg
@@ -607,12 +611,12 @@ Untracked files:
     Untracked:  flow_cytometry_analysis/output/figures/fig4_main_table.jpg
     Untracked:  flow_cytometry_analysis/output/figures/fig4_main_table.png
     Untracked:  flow_cytometry_analysis/output/figures/fig4_main_table.svg
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main_v1.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/fig4_main_v1.png
     Untracked:  flow_cytometry_analysis/output/figures/fig4_options/
     Untracked:  flow_cytometry_analysis/output/figures/non_R_figs/DRcurve_model_percon_MW_v2.png
     Untracked:  flow_cytometry_analysis/output/figures/non_R_figs/DRcurve_model_percon_MW_v4.png
     Untracked:  flow_cytometry_analysis/output/figures/non_R_figs/Model_gradients_percon_MW_v4.png
+    Untracked:  flow_cytometry_analysis/output/figures/non_R_figs/rate_sensitivity_table.png
+    Untracked:  flow_cytometry_analysis/output/figures/non_R_figs/rate_sensitivity_table_v2.PNG
     Untracked:  flow_cytometry_analysis/output/figures/previous/
     Untracked:  flow_cytometry_analysis/output/figures/suppfig10_gating.jpg
     Untracked:  flow_cytometry_analysis/output/figures/suppfig10_gating.png
@@ -629,10 +633,6 @@ Untracked files:
     Untracked:  flow_cytometry_analysis/output/figures/suppfig8_alt_gradients.jpg
     Untracked:  flow_cytometry_analysis/output/figures/suppfig8_alt_gradients.pdf
     Untracked:  flow_cytometry_analysis/output/figures/suppfig8_alt_gradients.png
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig8_gradient_DS085.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig8_gradient_DS085.png
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig9_gradient_DS097.jpg
-    Untracked:  flow_cytometry_analysis/output/figures/suppfig9_gradient_DS097.png
     Untracked:  flow_cytometry_analysis/output/figures/suppfigs_v2/
     Untracked:  flow_cytometry_analysis/output/figures/suppfigs_v3/
 
@@ -640,6 +640,7 @@ Unstaged changes:
     Modified:   flow_cytometry_analysis/.gitignore
     Deleted:    flow_cytometry_analysis/output/figures/fig1_main.jpeg
     Modified:   flow_cytometry_analysis/output/figures/fig1_main.pdf
+    Modified:   flow_cytometry_analysis/output/figures/fig1_panelB.jpeg
     Deleted:    flow_cytometry_analysis/output/figures/fig2_main.jpeg
     Modified:   flow_cytometry_analysis/output/figures/fig2_main.pdf
     Deleted:    flow_cytometry_analysis/output/figures/fig2_panelA_v2.jpeg
@@ -647,10 +648,13 @@ Unstaged changes:
     Modified:   flow_cytometry_analysis/output/figures/fig3_main.pdf
     Modified:   flow_cytometry_analysis/output/figures/fig3_panelCDE.jpeg
     Deleted:    flow_cytometry_analysis/output/figures/fig4_main_v1.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/fig4_main_v1.pdf
+    Deleted:    flow_cytometry_analysis/output/figures/fig4_main_v1.pdf
+    Deleted:    flow_cytometry_analysis/output/figures/fig4_main_v1_table.svg
+    Deleted:    flow_cytometry_analysis/output/figures/fig4_main_v1_table_v1.jpg
     Deleted:    flow_cytometry_analysis/output/figures/fig4_main_v2.jpeg
     Deleted:    flow_cytometry_analysis/output/figures/fig4_main_v3.jpeg
     Deleted:    flow_cytometry_analysis/output/figures/graphical_abstract_scaled.png
+    Modified:   flow_cytometry_analysis/output/figures/non_R_figs/DR_curves_table.docx
     Deleted:    flow_cytometry_analysis/output/figures/suppfig10_gating.jpeg
     Modified:   flow_cytometry_analysis/output/figures/suppfig10_gating.pdf
     Deleted:    flow_cytometry_analysis/output/figures/suppfig1_ridge_step.jpeg
@@ -664,9 +668,9 @@ Unstaged changes:
     Modified:   flow_cytometry_analysis/output/figures/suppfig6_line_gradient.pdf
     Deleted:    flow_cytometry_analysis/output/figures/suppfig7_model_gradients_placeholder.jpeg
     Deleted:    flow_cytometry_analysis/output/figures/suppfig8_gradient_DS085.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/suppfig8_gradient_DS085.pdf
+    Deleted:    flow_cytometry_analysis/output/figures/suppfig8_gradient_DS085.pdf
     Deleted:    flow_cytometry_analysis/output/figures/suppfig9_gradient_DS097.jpeg
-    Modified:   flow_cytometry_analysis/output/figures/suppfig9_gradient_DS097.pdf
+    Deleted:    flow_cytometry_analysis/output/figures/suppfig9_gradient_DS097.pdf
 
 </code></pre>
 <p>
@@ -713,6 +717,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/huckgroup/H2O2_manuscript/ea2efc3e4dffd4f855c5545841641f156193a626/flow_cytometry_analysis/docs/a_gating.html" target="_blank">ea2efc3</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2024-01-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1130,8 +1151,45 @@ ggcyto(gs_DS085[[1]], aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/debris_DS085-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size vs cell complexity and debris
+<p><img src="figure/a_gating.Rmd/debris_DS085-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-debris_DS085-1">
+Past versions of debris_DS085-1.png
+</button>
+</p>
+<div id="fig-debris_DS085-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/debris_DS085-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Cell size vs cell complexity and debris
 gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS085, g_debris_DS085)</code></pre>
@@ -1150,6 +1208,43 @@ ggcyto(subset(gs_DS085, plateID == &quot;A&quot;), aes(x = FSC.A, y = SSC.A), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_debris_DS085-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_debris_DS085-1">
+Past versions of fig_debris_DS085-1.png
+</button>
+</p>
+<div id="fig-fig_debris_DS085-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_debris_DS085-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate B
 ggcyto(subset(gs_DS085, plateID == &quot;B&quot;), aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   geom_hex(bins = 100) +
@@ -1162,6 +1257,43 @@ ggcyto(subset(gs_DS085, plateID == &quot;B&quot;), aes(x = FSC.A, y = SSC.A), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_debris_DS085-2.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_debris_DS085-2">
+Past versions of fig_debris_DS085-2.png
+</button>
+</p>
+<div id="fig-fig_debris_DS085-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_debris_DS085-2.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="singlets" class="section level3">
 <h3>Singlets</h3>
@@ -1177,8 +1309,45 @@ ggcyto(gs_DS085[[1]], aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/singlets_DS085-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size height vs cell size width and
+<p><img src="figure/a_gating.Rmd/singlets_DS085-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-singlets_DS085-1">
+Past versions of singlets_DS085-1.png
+</button>
+</p>
+<div id="fig-singlets_DS085-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/singlets_DS085-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Cell size height vs cell size width and
 singlet cell gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS085, g_singlets_DS085, parent = &quot;Debris&quot;)</code></pre>
@@ -1197,6 +1366,43 @@ ggcyto(subset(gs_DS085, plateID == &quot;A&quot;), aes(x = FSC.H, y = FSC.W), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_singlets_DS085-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_singlets_DS085-1">
+Past versions of fig_singlets_DS085-1.png
+</button>
+</p>
+<div id="fig-fig_singlets_DS085-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_singlets_DS085-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate B
 ggcyto(subset(gs_DS085, plateID == &quot;B&quot;), aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   geom_hex(bins = 100) +
@@ -1209,6 +1415,43 @@ ggcyto(subset(gs_DS085, plateID == &quot;B&quot;), aes(x = FSC.H, y = FSC.W), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_singlets_DS085-2.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_singlets_DS085-2">
+Past versions of fig_singlets_DS085-2.png
+</button>
+</p>
+<div id="fig-fig_singlets_DS085-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_singlets_DS085-2.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="live-cells-fixed" class="section level3">
 <h3>Live cells (fixed)</h3>
@@ -1226,9 +1469,46 @@ ggcyto(gs_DS085[[1]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/live_DS085-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size vs live/death stain and live cell
-gate. One exemplary sample.</em></p>
+<p><img src="figure/a_gating.Rmd/live_DS085-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-live_DS085-1">
+Past versions of live_DS085-1.png
+</button>
+</p>
+<div id="fig-live_DS085-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/live_DS085-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Cell size vs live/death stain and live
+cell gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS085, g_live_DS085, parent = &quot;Singlets&quot;)</code></pre>
 <pre><code>[1] 4</code></pre>
@@ -1247,6 +1527,43 @@ ggcyto(subset(gs_DS085, plateID == &quot;A&quot;), aes(x = FSC.A, y = BV421.A), 
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_live_DS085-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_DS085-1">
+Past versions of fig_live_DS085-1.png
+</button>
+</p>
+<div id="fig-fig_live_DS085-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_DS085-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate B
 ggcyto(subset(gs_DS085, plateID == &quot;B&quot;), aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
   geom_hex(bins = 100) +
@@ -1260,6 +1577,43 @@ ggcyto(subset(gs_DS085, plateID == &quot;B&quot;), aes(x = FSC.A, y = BV421.A), 
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_live_DS085-2.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_DS085-2">
+Past versions of fig_live_DS085-2.png
+</button>
+</p>
+<div id="fig-fig_live_DS085-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_DS085-2.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="summary" class="section level3">
 <h3>Summary</h3>
@@ -1273,12 +1627,49 @@ save_gs(gs_DS085, path = paste0(&quot;output/&quot;, &quot;gated_data_DS085&quot
 
 gc()</code></pre>
 <pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells  3694907 197.4    6887149  367.9   6887149  367.9
-Vcells 76254262 581.8  176612316 1347.5 176610937 1347.5</code></pre>
+Ncells  3815610 203.8    7072357  377.8   7072357  377.8
+Vcells 76706911 585.3  164421819 1254.5 164421819 1254.5</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_DS085, bool = TRUE)</code></pre>
-<p><img src="figure/a_gating.Rmd/gating_DS085-1.png" width="672" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Gating strategy.</em></p>
+<p><img src="figure/a_gating.Rmd/gating_DS085-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-gating_DS085-1">
+Past versions of gating_DS085-1.png
+</button>
+</p>
+<div id="fig-gating_DS085-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/gating_DS085-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Gating strategy.</em></p>
 </div>
 <div id="population-statistics" class="section level3">
 <h3>Population statistics</h3>
@@ -1303,6 +1694,43 @@ raw_map(data = counts_final_A_DS085$Count, well = counts_final_A_DS085$wellID, p
   theme_bw() +
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_cells_DS085-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_cells_DS085-1">
+Past versions of fig_cells_DS085-1.png
+</button>
+</p>
+<div id="fig-fig_cells_DS085-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_cells_DS085-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate B
 counts_final_B_DS085 &lt;- subset(counts_DS085, Population == &quot;/Debris/Singlets/Live&quot; &amp; plateID == &quot;B&quot;)
 raw_map(data = counts_final_B_DS085$Count, well = counts_final_B_DS085$wellID, plate = 96, size = 10) +
@@ -1310,8 +1738,45 @@ raw_map(data = counts_final_B_DS085$Count, well = counts_final_B_DS085$wellID, p
   labs(title = &quot;Single cell counts (plate B)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/fig_cells_DS085-2.png" width="576" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Number of live single cells after gating
+<p><img src="figure/a_gating.Rmd/fig_cells_DS085-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_cells_DS085-2">
+Past versions of fig_cells_DS085-2.png
+</button>
+</p>
+<div id="fig-fig_cells_DS085-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_cells_DS085-2.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Number of live single cells after gating
 (counts per sample/well).</em></p>
 <pre class="r"><code>percent_live_DS085 &lt;- subset(counts_DS085, Population == &quot;/Debris/Singlets/Live&quot;)[, c(&quot;name&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;PercentRoot&quot;)]
 
@@ -1333,8 +1798,45 @@ percent_live_DS085 &lt;- left_join(percent_live_DS085, metadata_DS085)</code></p
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
   guides(color = guide_legend(nrow = 2, bycol = TRUE)) +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/fig_live_percent_DS085-1.png" width="576" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Percentage of live single cells from
+<p><img src="figure/a_gating.Rmd/fig_live_percent_DS085-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_percent_DS085-1">
+Past versions of fig_live_percent_DS085-1.png
+</button>
+</p>
+<div id="fig-fig_live_percent_DS085-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_percent_DS085-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Percentage of live single cells from
 root.</em></p>
 </div>
 </div>
@@ -1854,6 +2356,43 @@ ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.A, y = SSC.A), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_debris_DS095-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_debris_DS095-1">
+Past versions of fig_debris_DS095-1.png
+</button>
+</p>
+<div id="fig-fig_debris_DS095-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_debris_DS095-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate B
 ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   geom_hex(bins = 100) +
@@ -1866,6 +2405,43 @@ ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.A, y = SSC.A), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_debris_DS095-2.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_debris_DS095-2">
+Past versions of fig_debris_DS095-2.png
+</button>
+</p>
+<div id="fig-fig_debris_DS095-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_debris_DS095-2.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate C
 ggcyto(subset(gs_DS095, plateID == &quot;C&quot;), aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   geom_hex(bins = 100) +
@@ -1878,6 +2454,43 @@ ggcyto(subset(gs_DS095, plateID == &quot;C&quot;), aes(x = FSC.A, y = SSC.A), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_debris_DS095-3.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_debris_DS095-3">
+Past versions of fig_debris_DS095-3.png
+</button>
+</p>
+<div id="fig-fig_debris_DS095-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_debris_DS095-3.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="singlets-1" class="section level3">
 <h3>Singlets</h3>
@@ -1924,6 +2537,43 @@ ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.H, y = FSC.W), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_singlets_DS095-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_singlets_DS095-1">
+Past versions of fig_singlets_DS095-1.png
+</button>
+</p>
+<div id="fig-fig_singlets_DS095-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_singlets_DS095-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate B
 ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   geom_hex(bins = 100) +
@@ -1936,6 +2586,43 @@ ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.H, y = FSC.W), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_singlets_DS095-2.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_singlets_DS095-2">
+Past versions of fig_singlets_DS095-2.png
+</button>
+</p>
+<div id="fig-fig_singlets_DS095-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_singlets_DS095-2.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate C
 ggcyto(subset(gs_DS095, plateID == &quot;C&quot;), aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   geom_hex(bins = 100) +
@@ -1948,6 +2635,43 @@ ggcyto(subset(gs_DS095, plateID == &quot;C&quot;), aes(x = FSC.H, y = FSC.W), su
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_singlets_DS095-3.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_singlets_DS095-3">
+Past versions of fig_singlets_DS095-3.png
+</button>
+</p>
+<div id="fig-fig_singlets_DS095-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_singlets_DS095-3.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="live-cells-fixed-1" class="section level3">
 <h3>Live cells (fixed)</h3>
@@ -1997,6 +2721,43 @@ ggcyto(subset(gs_DS095, plateID == &quot;A&quot;), aes(x = FSC.A, y = BV421.A), 
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_live_DS095-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_DS095-1">
+Past versions of fig_live_DS095-1.png
+</button>
+</p>
+<div id="fig-fig_live_DS095-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_DS095-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate B
 ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
   geom_hex(bins = 100) +
@@ -2010,6 +2771,43 @@ ggcyto(subset(gs_DS095, plateID == &quot;B&quot;), aes(x = FSC.A, y = BV421.A), 
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_live_DS095-2.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_DS095-2">
+Past versions of fig_live_DS095-2.png
+</button>
+</p>
+<div id="fig-fig_live_DS095-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_DS095-2.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate C
 ggcyto(subset(gs_DS095, plateID == &quot;C&quot;), aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
   geom_hex(bins = 100) +
@@ -2023,6 +2821,43 @@ ggcyto(subset(gs_DS095, plateID == &quot;C&quot;), aes(x = FSC.A, y = BV421.A), 
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_live_DS095-3.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_DS095-3">
+Past versions of fig_live_DS095-3.png
+</button>
+</p>
+<div id="fig-fig_live_DS095-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_DS095-3.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="summary-1" class="section level3">
 <h3>Summary</h3>
@@ -2036,12 +2871,49 @@ save_gs(gs_DS095, path = paste0(&quot;output/&quot;, &quot;gated_data_DS095&quot
 
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3890935  207.8    6887149  367.9   6887149  367.9
-Vcells 185758476 1417.3  367458582 2803.5 367458582 2803.5</code></pre>
+Ncells   4007086  214.1    7072357  377.8   7072357  377.8
+Vcells 186206443 1420.7  342450855 2612.7 342450855 2612.7</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_DS095, bool = TRUE)</code></pre>
-<p><img src="figure/a_gating.Rmd/gating_DS095-1.png" width="672" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Gating strategy.</em></p>
+<p><img src="figure/a_gating.Rmd/gating_DS095-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-gating_DS095-1">
+Past versions of gating_DS095-1.png
+</button>
+</p>
+<div id="fig-gating_DS095-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/gating_DS095-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Gating strategy.</em></p>
 </div>
 <div id="population-statistics-1" class="section level3">
 <h3>Population statistics</h3>
@@ -2066,6 +2938,43 @@ raw_map(data = counts_final_A_DS095$Count, well = counts_final_A_DS095$wellID, p
   theme_bw() +
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_cells_DS095-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_cells_DS095-1">
+Past versions of fig_cells_DS095-1.png
+</button>
+</p>
+<div id="fig-fig_cells_DS095-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_cells_DS095-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate B
 counts_final_B_DS095 &lt;- subset(counts_DS095, Population == &quot;/Debris/Singlets/Live&quot; &amp; plateID == &quot;B&quot;)
 raw_map(data = counts_final_B_DS095$Count, well = counts_final_B_DS095$wellID, plate = 96, size = 10) +
@@ -2074,6 +2983,43 @@ raw_map(data = counts_final_B_DS095$Count, well = counts_final_B_DS095$wellID, p
   theme_bw() +
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_cells_DS095-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_cells_DS095-2">
+Past versions of fig_cells_DS095-2.png
+</button>
+</p>
+<div id="fig-fig_cells_DS095-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_cells_DS095-2.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plate C
 counts_final_B_DS095 &lt;- subset(counts_DS095, Population == &quot;/Debris/Singlets/Live&quot; &amp; plateID == &quot;C&quot;)
 raw_map(data = counts_final_B_DS095$Count, well = counts_final_B_DS095$wellID, plate = 96, size = 10) +
@@ -2081,8 +3027,45 @@ raw_map(data = counts_final_B_DS095$Count, well = counts_final_B_DS095$wellID, p
   labs(title = &quot;Single cell counts (plate C)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/fig_cells_DS095-3.png" width="576" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Number of live single cells after gating
+<p><img src="figure/a_gating.Rmd/fig_cells_DS095-3.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_cells_DS095-3">
+Past versions of fig_cells_DS095-3.png
+</button>
+</p>
+<div id="fig-fig_cells_DS095-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_cells_DS095-3.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Number of live single cells after gating
 (counts per sample/well).</em></p>
 <pre class="r"><code>percent_live_DS095 &lt;- subset(counts_DS095, Population == &quot;/Debris/Singlets/Live&quot;)[, c(&quot;name&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;PercentRoot&quot;)]
 
@@ -2104,8 +3087,45 @@ percent_live_DS095 &lt;- left_join(percent_live_DS095, metadata_DS095)</code></p
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
   # guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/fig_live_percent_DS095-1.png" width="576" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Percentage of live single cells from
+<p><img src="figure/a_gating.Rmd/fig_live_percent_DS095-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_percent_DS095-1">
+Past versions of fig_live_percent_DS095-1.png
+</button>
+</p>
+<div id="fig-fig_live_percent_DS095-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_percent_DS095-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Percentage of live single cells from
 root.</em></p>
 </div>
 </div>
@@ -2287,8 +3307,45 @@ ggcyto(gs_DS096[[1]], aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/debris_DS096-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size vs cell complexity and debris
+<p><img src="figure/a_gating.Rmd/debris_DS096-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-debris_DS096-1">
+Past versions of debris_DS096-1.png
+</button>
+</p>
+<div id="fig-debris_DS096-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/debris_DS096-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Cell size vs cell complexity and debris
 gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS096, g_debris_DS096)</code></pre>
@@ -2306,6 +3363,43 @@ ggcyto(gs_DS096, aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_debris_DS096-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_debris_DS096-1">
+Past versions of fig_debris_DS096-1.png
+</button>
+</p>
+<div id="fig-fig_debris_DS096-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_debris_DS096-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="singlets-2" class="section level3">
 <h3>Singlets</h3>
@@ -2321,8 +3415,45 @@ ggcyto(gs_DS096[[1]], aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/singlets_DS096-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size height vs cell size width and
+<p><img src="figure/a_gating.Rmd/singlets_DS096-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-singlets_DS096-1">
+Past versions of singlets_DS096-1.png
+</button>
+</p>
+<div id="fig-singlets_DS096-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/singlets_DS096-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Cell size height vs cell size width and
 singlet cell gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS096, g_singlets_DS096, parent = &quot;Debris&quot;)</code></pre>
@@ -2340,6 +3471,43 @@ ggcyto(gs_DS096, aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_singlets_DS096-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_singlets_DS096-1">
+Past versions of fig_singlets_DS096-1.png
+</button>
+</p>
+<div id="fig-fig_singlets_DS096-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_singlets_DS096-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="live-cells-fixed-2" class="section level3">
 <h3>Live cells (fixed)</h3>
@@ -2357,9 +3525,46 @@ ggcyto(gs_DS096[[2]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/live_DS096-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size vs live/death stain and live cell
-gate. One exemplary sample.</em></p>
+<p><img src="figure/a_gating.Rmd/live_DS096-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-live_DS096-1">
+Past versions of live_DS096-1.png
+</button>
+</p>
+<div id="fig-live_DS096-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/live_DS096-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Cell size vs live/death stain and live
+cell gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS096, g_live_DS096, parent = &quot;Singlets&quot;)</code></pre>
 <pre><code>[1] 4</code></pre>
@@ -2377,6 +3582,43 @@ ggcyto(gs_DS096, aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_live_DS096-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_DS096-1">
+Past versions of fig_live_DS096-1.png
+</button>
+</p>
+<div id="fig-fig_live_DS096-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_DS096-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="summary-2" class="section level3">
 <h3>Summary</h3>
@@ -2390,12 +3632,49 @@ save_gs(gs_DS096, path = paste0(&quot;output/&quot;, &quot;gated_data_DS096&quot
 
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3903443  208.5    6887149  367.9   6887149  367.9
-Vcells 195674874 1492.9  367458582 2803.5 367458582 2803.5</code></pre>
+Ncells   4019311  214.7    7072357  377.8   7072357  377.8
+Vcells 196127727 1496.4  342450855 2612.7 342450855 2612.7</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_DS096, bool = TRUE)</code></pre>
-<p><img src="figure/a_gating.Rmd/gating_DS096-1.png" width="672" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Gating strategy.</em></p>
+<p><img src="figure/a_gating.Rmd/gating_DS096-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-gating_DS096-1">
+Past versions of gating_DS096-1.png
+</button>
+</p>
+<div id="fig-gating_DS096-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/gating_DS096-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Gating strategy.</em></p>
 </div>
 <div id="population-statistics-2" class="section level3">
 <h3>Population statistics</h3>
@@ -2418,8 +3697,45 @@ raw_map(data = counts_final_DS096$Count, well = counts_final_DS096$wellID, plate
   labs(title = &quot;Single cell counts&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/fig_cells_DS096-1.png" width="576" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Number of live single cells after gating
+<p><img src="figure/a_gating.Rmd/fig_cells_DS096-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_cells_DS096-1">
+Past versions of fig_cells_DS096-1.png
+</button>
+</p>
+<div id="fig-fig_cells_DS096-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_cells_DS096-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Number of live single cells after gating
 (counts per sample/well).</em></p>
 <pre class="r"><code>percent_live_DS096 &lt;- subset(counts_DS096, Population == &quot;/Debris/Singlets/Live&quot;)[, c(&quot;name&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;PercentRoot&quot;)]
 
@@ -2440,8 +3756,45 @@ percent_live_DS096 &lt;- left_join(percent_live_DS096, metadata_DS096)</code></p
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
   guides(color = guide_legend(nrow = 3, byrow = TRUE)) +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/fig_live_percent_DS096-1.png" width="384" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Percentage of live single cells from
+<p><img src="figure/a_gating.Rmd/fig_live_percent_DS096-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_percent_DS096-1">
+Past versions of fig_live_percent_DS096-1.png
+</button>
+</p>
+<div id="fig-fig_live_percent_DS096-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_percent_DS096-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Percentage of live single cells from
 root.</em></p>
 </div>
 </div>
@@ -2623,8 +3976,45 @@ ggcyto(gs_DS097[[1]], aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Cell complexity (SSC-A)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/debris_DS097-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size vs cell complexity and debris
+<p><img src="figure/a_gating.Rmd/debris_DS097-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-debris_DS097-1">
+Past versions of debris_DS097-1.png
+</button>
+</p>
+<div id="fig-debris_DS097-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/debris_DS097-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Cell size vs cell complexity and debris
 gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS097, g_debris_DS097)</code></pre>
@@ -2642,6 +4032,43 @@ ggcyto(gs_DS097, aes(x = FSC.A, y = SSC.A), subset = &quot;root&quot;) +
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_debris_DS097-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_debris_DS097-1">
+Past versions of fig_debris_DS097-1.png
+</button>
+</p>
+<div id="fig-fig_debris_DS097-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_debris_DS097-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="singlets-3" class="section level3">
 <h3>Singlets</h3>
@@ -2657,8 +4084,45 @@ ggcyto(gs_DS097[[1]], aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   labs(x = &quot;Cell size height (FSC-H)&quot;, y = &quot;Cell size width (FSC-W)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/singlets_DS097-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size height vs cell size width and
+<p><img src="figure/a_gating.Rmd/singlets_DS097-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-singlets_DS097-1">
+Past versions of singlets_DS097-1.png
+</button>
+</p>
+<div id="fig-singlets_DS097-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/singlets_DS097-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Cell size height vs cell size width and
 singlet cell gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS097, g_singlets_DS097, parent = &quot;Debris&quot;)</code></pre>
@@ -2676,6 +4140,43 @@ ggcyto(gs_DS097, aes(x = FSC.H, y = FSC.W), subset = &quot;Debris&quot;) +
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_singlets_DS097-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_singlets_DS097-1">
+Past versions of fig_singlets_DS097-1.png
+</button>
+</p>
+<div id="fig-fig_singlets_DS097-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_singlets_DS097-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="live-cells-fixed-3" class="section level3">
 <h3>Live cells (fixed)</h3>
@@ -2693,9 +4194,46 @@ ggcyto(gs_DS097[[1]], aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;
   labs(x = &quot;Cell size (FSC-A)&quot;, y = &quot;Live/death stain (BV421-A)&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/live_DS097-1.png" width="480" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Cell size vs live/death stain and live cell
-gate. One exemplary sample.</em></p>
+<p><img src="figure/a_gating.Rmd/live_DS097-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-live_DS097-1">
+Past versions of live_DS097-1.png
+</button>
+</p>
+<div id="fig-live_DS097-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/live_DS097-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Cell size vs live/death stain and live
+cell gate. One exemplary sample.</em></p>
 <pre class="r"><code># Apply the gate to all data
 gs_pop_add(gs_DS097, g_live_DS097, parent = &quot;Singlets&quot;)</code></pre>
 <pre><code>[1] 4</code></pre>
@@ -2713,6 +4251,43 @@ ggcyto(gs_DS097, aes(x = FSC.A, y = BV421.A), subset = &quot;Singlets&quot;) +
   theme(legend.position = &quot;none&quot;) + 
   textsize</code></pre>
 <p><img src="figure/a_gating.Rmd/fig_live_DS097-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_DS097-1">
+Past versions of fig_live_DS097-1.png
+</button>
+</p>
+<div id="fig-fig_live_DS097-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_DS097-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="summary-3" class="section level3">
 <h3>Summary</h3>
@@ -2726,12 +4301,49 @@ save_gs(gs_DS097, path = paste0(&quot;output/&quot;, &quot;gated_data_DS097&quot
 
 gc()</code></pre>
 <pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3918814  209.3    6887149  367.9   6887149  367.9
-Vcells 225716600 1722.1  369876450 2822.0 369876450 2822.0</code></pre>
+Ncells   4034542  215.5    7073758  377.8   7073758  377.8
+Vcells 226193731 1725.8  411637945 3140.6 411637945 3140.6</code></pre>
 <pre class="r"><code># Gating strategy
 plot(gs_DS097, bool = TRUE)</code></pre>
-<p><img src="figure/a_gating.Rmd/gating_DS097-1.png" width="672" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Gating strategy.</em></p>
+<p><img src="figure/a_gating.Rmd/gating_DS097-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-gating_DS097-1">
+Past versions of gating_DS097-1.png
+</button>
+</p>
+<div id="fig-gating_DS097-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/gating_DS097-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Gating strategy.</em></p>
 </div>
 <div id="population-statistics-3" class="section level3">
 <h3>Population statistics</h3>
@@ -2754,8 +4366,45 @@ raw_map(data = counts_final_DS097$Count, well = counts_final_DS097$wellID, plate
   labs(title = &quot;Single cell counts&quot;) +
   theme_bw() +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/fig_cells_DS097-1.png" width="576" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Number of live single cells after gating
+<p><img src="figure/a_gating.Rmd/fig_cells_DS097-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_cells_DS097-1">
+Past versions of fig_cells_DS097-1.png
+</button>
+</p>
+<div id="fig-fig_cells_DS097-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_cells_DS097-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Number of live single cells after gating
 (counts per sample/well).</em></p>
 <pre class="r"><code>percent_live_DS097 &lt;- subset(counts_DS097, Population == &quot;/Debris/Singlets/Live&quot;)[, c(&quot;name&quot;, &quot;plateID&quot;, &quot;wellID&quot;, &quot;PercentRoot&quot;)]
 
@@ -2776,8 +4425,45 @@ percent_live_DS097 &lt;- left_join(percent_live_DS097, metadata_DS097)</code></p
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
   guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
   textsize</code></pre>
-<p><img src="figure/a_gating.Rmd/fig_live_percent_DS097-1.png" width="384" style="display: block; margin: auto;" />
-<em><strong>Figure:</strong> Percentage of live single cells from
+<p><img src="figure/a_gating.Rmd/fig_live_percent_DS097-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fig_live_percent_DS097-1">
+Past versions of fig_live_percent_DS097-1.png
+</button>
+</p>
+<div id="fig-fig_live_percent_DS097-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/huckgroup/H2O2_manuscript/blob/fc207bc83dd7fa26cd040f5ddea682b123c70a6f/flow_cytometry_analysis/docs/figure/a_gating.Rmd/fig_live_percent_DS097-1.png" target="_blank">fc207bc</a>
+</td>
+<td>
+mwitmond
+</td>
+<td>
+2023-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em><strong>Figure:</strong> Percentage of live single cells from
 root.</em></p>
 <br>
 <p>
@@ -2788,70 +4474,73 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.2.2 (2022-10-31 ucrt)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
+<pre><code>R version 4.4.1 (2024-06-14 ucrt)
+Platform: x86_64-w64-mingw32/x64
 Running under: Windows 10 x64 (build 19045)
 
 Matrix products: default
+
 
 locale:
 [1] LC_COLLATE=English_Netherlands.utf8  LC_CTYPE=English_Netherlands.utf8   
 [3] LC_MONETARY=English_Netherlands.utf8 LC_NUMERIC=C                        
 [5] LC_TIME=English_Netherlands.utf8    
 
+time zone: Europe/Amsterdam
+tzcode source: internal
+
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] png_0.1-8            patchwork_1.1.2      geomtextpath_0.1.1  
- [4] ggh4x_0.2.4          magick_2.7.4         greekLetters_0.0.7  
- [7] kableExtra_1.3.4     ggrepel_0.9.3        scales_1.2.1        
-[10] ggpubr_0.6.0         cowplot_1.1.1        ggthemes_4.2.4      
-[13] RColorBrewer_1.1-3   viridis_0.6.2        viridisLite_0.4.1   
-[16] ggridges_0.5.4       platetools_0.1.5     forecast_8.21       
-[19] readxl_1.4.2         zoo_1.8-11           lubridate_1.9.2     
-[22] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.0         
-[25] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
-[28] tibble_3.1.8         tidyverse_2.0.0      ggcyto_1.26.4       
-[31] flowWorkspace_4.10.1 ncdfFlow_2.44.0      BH_1.81.0-1         
-[34] ggplot2_3.4.2        flowCore_2.10.0      workflowr_1.7.0     
+ [1] png_0.1-8            patchwork_1.2.0      geomtextpath_0.1.4  
+ [4] ggh4x_0.2.8          magick_2.8.3         greekLetters_1.0.2  
+ [7] kableExtra_1.4.0     ggrepel_0.9.5        scales_1.3.0        
+[10] ggpubr_0.6.0         cowplot_1.1.3        ggthemes_5.1.0      
+[13] RColorBrewer_1.1-3   viridis_0.6.5        viridisLite_0.4.2   
+[16] ggridges_0.5.6       platetools_0.1.7     forecast_8.23.0     
+[19] readxl_1.4.3         zoo_1.8-12           lubridate_1.9.3     
+[22] forcats_1.0.0        stringr_1.5.1        dplyr_1.1.4         
+[25] purrr_1.0.2          readr_2.1.5          tidyr_1.3.1         
+[28] tibble_3.2.1         tidyverse_2.0.0      ggcyto_1.32.0       
+[31] flowWorkspace_4.16.0 ncdfFlow_2.50.0      BH_1.84.0-0         
+[34] ggplot2_3.5.1        flowCore_2.16.0      workflowr_1.7.1     
 
 loaded via a namespace (and not attached):
-  [1] backports_1.4.1     systemfonts_1.0.4   plyr_1.8.8         
-  [4] digest_0.6.31       htmltools_0.5.4     fansi_1.0.4        
-  [7] magrittr_2.0.3      tzdb_0.3.0          matrixStats_0.63.0 
- [10] vroom_1.6.1         xts_0.13.1          svglite_2.1.1      
- [13] timechange_0.2.0    cytolib_2.10.1      tseries_0.10-54    
- [16] colorspace_2.1-0    rvest_1.0.3         textshaping_0.3.6  
- [19] xfun_0.37           crayon_1.5.2        callr_3.7.3        
- [22] jsonlite_1.8.4      hexbin_1.28.2       graph_1.76.0       
- [25] glue_1.6.2          gtable_0.3.1        zlibbioc_1.44.0    
- [28] webshot_0.5.4       car_3.1-1           Rgraphviz_2.42.0   
- [31] BiocGenerics_0.44.0 quantmod_0.4.22     abind_1.4-5        
- [34] DBI_1.1.3           rstatix_0.7.2       Rcpp_1.0.10        
- [37] bit_4.0.5           stats4_4.2.2        httr_1.4.4         
- [40] ellipsis_0.3.2      pkgconfig_2.0.3     XML_3.99-0.13      
- [43] farver_2.1.1        nnet_7.3-18         sass_0.4.5         
- [46] utf8_1.2.3          tidyselect_1.2.0    labeling_0.4.2     
- [49] rlang_1.1.1         later_1.3.0         munsell_0.5.0      
- [52] cellranger_1.1.0    tools_4.2.2         cachem_1.0.6       
- [55] cli_3.6.0           generics_0.1.3      broom_1.0.3        
- [58] evaluate_0.20       fastmap_1.1.0       ragg_1.2.5         
- [61] yaml_2.3.7          bit64_4.0.5         processx_3.8.0     
- [64] knitr_1.42          fs_1.6.1            nlme_3.1-160       
- [67] whisker_0.4.1       xml2_1.3.3          compiler_4.2.2     
- [70] rstudioapi_0.14     curl_5.0.0          ggsignif_0.6.4     
- [73] bslib_0.4.2         stringi_1.7.12      highr_0.10         
- [76] ps_1.7.2            lattice_0.20-45     urca_1.3-3         
- [79] vctrs_0.5.2         pillar_1.8.1        lifecycle_1.0.3    
- [82] lmtest_0.9-40       jquerylib_0.1.4     data.table_1.14.8  
- [85] httpuv_1.6.9        R6_2.5.1            promises_1.2.0.1   
- [88] gridExtra_2.3       RProtoBufLib_2.10.0 assertthat_0.2.1   
- [91] rprojroot_2.0.3     withr_2.5.0         fracdiff_1.5-2     
- [94] S4Vectors_0.36.1    parallel_4.2.2      hms_1.1.2          
- [97] quadprog_1.5-8      grid_4.2.2          timeDate_4022.108  
-[100] rmarkdown_2.20      carData_3.0-5       git2r_0.31.0       
-[103] TTR_0.24.3          getPass_0.2-2       Biobase_2.58.0     </code></pre>
+  [1] rstudioapi_0.16.0   jsonlite_1.8.8      magrittr_2.0.3     
+  [4] farver_2.1.2        rmarkdown_2.27      ragg_1.3.2         
+  [7] fs_1.6.4            zlibbioc_1.50.0     vctrs_0.6.5        
+ [10] rstatix_0.7.2       htmltools_0.5.8.1   curl_5.2.1         
+ [13] broom_1.0.6         cellranger_1.1.0    TTR_0.24.4         
+ [16] sass_0.4.9          bslib_0.7.0         plyr_1.8.9         
+ [19] cachem_1.1.0        whisker_0.4.1       lifecycle_1.0.4    
+ [22] pkgconfig_2.0.3     R6_2.5.1            fastmap_1.2.0      
+ [25] digest_0.6.36       colorspace_2.1-0    S4Vectors_0.42.0   
+ [28] ps_1.7.6            rprojroot_2.0.4     textshaping_0.4.0  
+ [31] labeling_0.4.3      cytolib_2.16.0      fansi_1.0.6        
+ [34] timechange_0.3.0    httr_1.4.7          abind_1.4-5        
+ [37] compiler_4.4.1      bit64_4.0.5         withr_3.0.0        
+ [40] backports_1.5.0     tseries_0.10-56     carData_3.0-5      
+ [43] highr_0.11          hexbin_1.28.3       ggsignif_0.6.4     
+ [46] tools_4.4.1         lmtest_0.9-40       quantmod_0.4.26    
+ [49] httpuv_1.6.15       nnet_7.3-19         glue_1.7.0         
+ [52] quadprog_1.5-8      callr_3.7.6         nlme_3.1-164       
+ [55] promises_1.3.0      grid_4.4.1          getPass_0.2-4      
+ [58] generics_0.1.3      gtable_0.3.5        tzdb_0.4.0         
+ [61] data.table_1.15.4   hms_1.1.3           xml2_1.3.6         
+ [64] car_3.1-2           utf8_1.2.4          BiocGenerics_0.50.0
+ [67] pillar_1.9.0        vroom_1.6.5         later_1.3.2        
+ [70] lattice_0.22-6      bit_4.0.5           RProtoBufLib_2.16.0
+ [73] tidyselect_1.2.1    knitr_1.47          git2r_0.33.0       
+ [76] gridExtra_2.3       urca_1.3-4          svglite_2.1.3      
+ [79] stats4_4.4.1        xfun_0.45           Biobase_2.64.0     
+ [82] timeDate_4032.109   matrixStats_1.3.0   stringi_1.8.4      
+ [85] yaml_2.3.8          evaluate_0.24.0     Rgraphviz_2.48.0   
+ [88] graph_1.82.0        cli_3.6.3           systemfonts_1.1.0  
+ [91] munsell_0.5.1       processx_3.8.4      jquerylib_0.1.4    
+ [94] Rcpp_1.0.12         XML_3.99-0.17       parallel_4.4.1     
+ [97] fracdiff_1.5-3      assertthat_0.2.1    xts_0.14.0         
+[100] crayon_1.5.3        rlang_1.1.4        </code></pre>
 </div>
 </div>
 </div>
