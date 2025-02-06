@@ -13,6 +13,8 @@ navbar:
     href: b_annotation.html
   - text: Paper figs
     href: e_paper_figs.html
+  - text: Chapter figs
+    href: f_chapter_figs.html
   - text: License
     href: license.html
 output:

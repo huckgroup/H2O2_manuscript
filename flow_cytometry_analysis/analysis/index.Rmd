@@ -31,6 +31,8 @@ Although in vivo extracellular microenvironments are dynamic, most in vitro stud
 
 [Paper figs](e_paper_figs.html) contains the main and supplementary figures for the paper.
 
+[Chapter figs](f_chapter_figs.html) contains the main and supplementary figures for the thesis chapter.
+
 
 
 ## Experiments
